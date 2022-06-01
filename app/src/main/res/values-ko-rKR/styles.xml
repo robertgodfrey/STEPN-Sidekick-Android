@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FONTS -->
+    <style name="BoldItalicTitles">
+        <item name="android:fontFamily">@font/noto_black_optimized</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="RegItalic">
+        <item name="android:fontFamily">@font/noto_sans</item>
+    </style>
+    <style name="BoldItalicSubtitles">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ButtonBoldItalic">
+        <item name="android:fontFamily">@font/hanna_optimized</item>
+    </style>
+    <style name="RegText">
+        <item name="android:fontFamily">@font/noto_sans</item>
+    </style>
+    <style name="AlertText">
+        <item name="android:fontFamily">@font/noto_sans</item>
+    </style>
+
+</resources>

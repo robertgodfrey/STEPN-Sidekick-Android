@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="stepn.sidekick.stepnsidekick.SpeedTracker">
+
+    <ImageView
+        android:id="@+id/backgroundTop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginBottom="-16dp"
+        android:tint="@color/less_black_foreground"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeSpeedTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/roundy_green_background" />
+
+    <ImageView
+        android:id="@+id/energyBolt"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="24dp"
+        android:adjustViewBounds="true"
+        android:tint="@color/energy_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/energyAmountTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/energyAmountTextView"
+        app:srcCompat="@mipmap/energy_bolt" />
+
+    <TextView
+        android:id="@+id/energyAmountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="2.0"
+        android:textColor="@color/energy_blue"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/energyBolt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/gpsBox"
+        android:layout_width="70dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:tint="@color/almost_black_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/input_box_speeds" />
+
+    <TextView
+        android:id="@+id/gpsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="GPS"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/gpsBox"
+        app:layout_constraintStart_toStartOf="@+id/gpsBox"
+        app:layout_constraintTop_toTopOf="@+id/gpsBox" />
+
+    <ImageView
+        android:id="@+id/gpsLeftBarImageView"
+        android:layout_width="4dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="2dp"
+        android:tint="@color/gandalf"
+        app:layout_constraintBottom_toBottomOf="@+id/gpsTextView"
+        app:layout_constraintStart_toEndOf="@+id/gpsTextView"
+        app:srcCompat="@drawable/gps_signal_bar" />
+
+    <ImageView
+        android:id="@+id/gpsCenterBarImageView"
+        android:layout_width="4dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:tint="@color/gandalf"
+        app:layout_constraintBottom_toBottomOf="@+id/gpsTextView"
+        app:layout_constraintStart_toEndOf="@+id/gpsLeftBarImageView"
+        app:srcCompat="@drawable/gps_signal_bar" />
+
+    <ImageView
+        android:id="@+id/gpsRightBarImageView"
+        android:layout_width="4dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:tint="@color/gandalf"
+        app:layout_constraintBottom_toBottomOf="@+id/gpsTextView"
+        app:layout_constraintStart_toEndOf="@+id/gpsCenterBarImageView"
+        app:srcCompat="@drawable/gps_signal_bar" />
+
+    <TextView
+        android:id="@+id/shoeTypeOnGpsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Walker"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/footprintRightGpsImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/footprintLeftGpsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:adjustViewBounds="true"
+        android:tint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTypeOnGpsTextView"
+        app:layout_constraintEnd_toStartOf="@+id/footprintCenterGpsImageView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeOnGpsTextView"
+        app:srcCompat="@mipmap/footprint" />
+
+    <ImageView
+        android:id="@+id/footprintCenterGpsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:adjustViewBounds="true"
+        android:tint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTypeOnGpsTextView"
+        app:layout_constraintEnd_toStartOf="@+id/footprintRightGpsImageView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/footprintLeftGpsImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeOnGpsTextView"
+        app:srcCompat="@mipmap/footprint" />
+
+    <ImageView
+        android:id="@+id/footprintRightGpsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginEnd="4dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:tint="@color/white"
+        app:layout_constraintStart_toEndOf="@id/footprintCenterGpsImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTypeOnGpsTextView"
+        app:layout_constraintEnd_toStartOf="@+id/shoeTypeOnGpsTextView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeOnGpsTextView"
+        app:srcCompat="@mipmap/footprint" />
+
+    <TextView
+        android:id="@+id/shoeSpeedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="1.0 - 6.0 km/h"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shoeTypeOnGpsTextView" />
+
+    <ImageView
+        android:id="@+id/initialCountdownBackgroundImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="64dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundTop"
+        app:srcCompat="@mipmap/stopwatch" />
+
+    <TextView
+        android:id="@+id/initialCountdownTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_black"
+        android:text="10"
+        android:textAlignment="center"
+        android:textColor="@color/energy_blue"
+        android:textSize="120sp"
+        app:layout_constraintBottom_toBottomOf="@+id/initialCountdownBackgroundImageView"
+        app:layout_constraintEnd_toEndOf="@+id/initialCountdownBackgroundImageView"
+        app:layout_constraintStart_toStartOf="@+id/initialCountdownBackgroundImageView"
+        app:layout_constraintTop_toTopOf="@+id/initialCountdownBackgroundImageView"
+        app:layout_constraintVertical_bias="0.62" />
+
+    <TextView
+        android:id="@+id/currentSpeedLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:visibility="invisible"
+        android:includeFontPadding="false"
+        style="@style/RegItalic"
+        android:text="@string/current_speed"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundTop" />
+
+    <TextView
+        android:id="@+id/currentSpeedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:visibility="invisible"
+        android:fontFamily="@font/roboto_black_italic"
+        android:text="0.0"
+        android:textColor="@color/white"
+        android:textSize="96sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentSpeedLabelTextView" />
+
+    <TextView
+        android:id="@+id/kmphLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:visibility="invisible"
+        android:fontFamily="@font/roboto_black_italic"
+        android:text="km/h"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentSpeedTextView" />
+
+    <TextView
+        android:id="@+id/timeRemainingLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:visibility="invisible"
+        android:includeFontPadding="false"
+        style="@style/RegItalic"
+        android:text="@string/time_remaining"
+        android:textColor="@color/energy_blue"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kmphLabelTextView" />
+
+    <TextView
+        android:id="@+id/timeRemainingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="00:00"
+        android:textColor="@color/energy_blue"
+        android:textSize="80sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeRemainingLabelTextView" />
+
+    <ImageButton
+        android:id="@+id/stopImageButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:padding="15dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeRemainingTextView"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@mipmap/stop_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

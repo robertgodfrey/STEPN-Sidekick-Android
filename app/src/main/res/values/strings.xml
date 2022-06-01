@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">STEPN Sidekick</string>
+    <string name="enabled">ENABLED</string>
+    <string name="disabled">DISABLED</string>
+    <string name="minimum_speed">Minimum Speed</string>
+    <string name="maximum_speed">Maximum Speed</string>
+    <string name="settings">Settings</string>
+    <string name="countdown_timer">Countdown Timer</string>
+    <string name="energy_to_spend">Energy to Spend</string>
+    <string name="voice_updates">Voice Updates</string>
+    <string name="speed">Speed</string>
+    <string name="time">Time</string>
+    <string name="one_min_thirty_sec">1 min / 30 sec</string>
+    <string name="start">START</string>
+    <string name="current_speed">Current Speed:</string>
+    <string name="time_remaining">Time Remaining:</string>
+    <string name="zero_mins">(0 mins)</string>
+    <string name="min">" min 30 sec)"</string>
+    <string name="min_plural">" mins 30 sec)"</string>
+    <string name="hour">" hr"</string>
+    <string name="hours_plural">" hrs"</string>
+    <string name="gps_off">GPS must be turned on for this application to function. Turn on now?</string>
+    <string name="gps_permissions">This app requires precise location permissions</string>
+    <string name="custom">"Custom "</string>
+    <string name="minimum_speed_too_low">Minimum speed must be at least 1 km/h</string>
+    <string name="maximum_speed_too_low">Max speed must be at least 1 km/h greater than min speed</string>
+    <string name="energy_too_low">Energy must be at least 0.2</string>
+    <string name="plz_turn_on_gps">Please turn on GPS before starting</string>
+    <string name="plz_allow_precise_location">Please allow the app to access your precise location</string>
+    <string name="okay">OKAY</string>
+    <string name="about">ABOUT</string>
+    <string name="how_to">INSTRUCTIONS</string>
+    <string name="notes">Notes</string>
+    <string name="notes_details1">It is best to use this app on the same device that is running STEPN so that both apps are using the same location data.</string>
+    <string name="notes_details2">STEPN adds a 30-second buffer to every activity. This app\'s timer accounts for this extra time, but it may not exactly match STEPN\'s timer.</string>
+    <string name="contact">Please contact me if you find any errors or have any suggestions to improve the app:</string>
+    <string name="contact_email">sidekickfeedback@gmail.com</string>
+    <string name="dis_app_free">This app is free and ad free. </string>
+    <string name="support_project">If you find the app useful, please consider supporting.</string>
+    <string name="solana_chain">FmhDh7fNLWrC5CScwcpQhquWFDv7cpQ876iwm6iZLkU1</string>
+    <string name="bnb_chain">0x69b331406a3500d6974bce7cf0896650673e798c</string>
+    <string name="click_a_logo_to_copy_address">Click logo to copy address</string>
+    <string name="question_mark">\?</string>
+    <string name="sol_address_copied">SOL address copied to clipboard</string>
+    <string name="bnb_address_copied">BNB address copied to clipboard</string>
+    <string name="instructions_1">Use the arrows to select a shoe. You can use the default shoes or you can select \"Custom\" to input custom speeds.
+        The app will play an warning sound if your current speed is outside of the speed range that you choose.</string>
+    <string name="instructions_2">Enter the amount of energy you wish to spend. The amount of time required to spend the energy will be displayed below.</string>
+    <string name="instructions_3">Select whether or not the ten-second countdown timer is enabled. If enabled, this timer
+        gives your GPS time to sync and gives you time to switch to the STEPN app to start your activity. If disabled, the app will start the activity timer immediately.</string>
+    <string name="instructions_4">Select whether or not voice alerts are enabled. The \"Speed\" and \"Time\" alerts will sound every five minutes, updating you with the amount of
+        time remaining and your current speed. The \"1 min / 30 sec\" alert gives a warning when you have one minute remaining and another warning at thirty
+        seconds. </string>
+    <string name="instructions_5">Press the start button to start your activity. Happy earning!</string>
+    <string name="welcome_message">Please view these brief instructions before getting started.</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP ></string>
+    <string name="thirty_sec">" 30 sec)"</string>
+    <string name="go">GO</string>
+    <string name="welcome">WELCOME!</string>
+    <string name="not_a_multiple_of_2">Energy must be a multiple of 0.2</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="gps_permission_instructions">This app requires location permissions to run properly. Please select \"Precise\" in order to receive accurate speed alerts.</string>
+    <string name="app_goal">The goal of this app is to make walking and running while using STEPN more enjoyable.         Audible alerts allow you to focus on your activity rather than constantly checking your phone.</string>
+    <string name="email_copied">Email copied to clipboard</string>
+</resources>

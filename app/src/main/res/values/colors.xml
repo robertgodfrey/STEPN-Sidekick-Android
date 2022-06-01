@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#F61F1F</color>
+    <color name="green">#4CAF50</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="yellow_accent">#f9b844</color>
+    <color name="light_green">#d9fff2</color>
+    <color name="button_green">#65ffcb</color>
+    <color name="button_disabled">#f5f5f5</color>
+    <color name="lighter_black">#231F20</color>
+    <color name="almost_black">#231f20</color>
+    <color name="almost_black_background">#28292e</color>
+    <color name="less_black_foreground">#3c3c3c</color>
+    <color name="gandalf">#88797D</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="energy_blue">#a5e5ff</color>
+    <color name="energy_blue_lighter">#D0F0FD</color>
+    <color name="energy_blue_border">#5cbee5</color>
+    <color name="energy_blue_darker">#2084AC</color>
+</resources>

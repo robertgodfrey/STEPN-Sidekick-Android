@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="GpsTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/less_black_foreground</item>
+        <item name="colorAccent">@color/almost_black</item>
+        <item name="android:navigationBarColor">@color/almost_black_background</item>
+        <item name="android:windowBackground">@color/almost_black_background</item>
+    </style>
+
+</resources>

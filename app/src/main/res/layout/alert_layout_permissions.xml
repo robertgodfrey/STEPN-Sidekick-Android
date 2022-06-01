@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/alert_box"
+    android:padding="20dp"
+    android:layout_gravity="center"
+    android:layout_margin="50dp"
+    android:layout_height="wrap_content"
+    android:layout_width="330dp">
+
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/AlertText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:includeFontPadding="false"
+        android:padding="4dp"
+        android:text="@string/gps_permission_instructions"
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_gravity="end"
+        android:layout_height="35dp">
+
+        <ImageButton
+            android:id="@+id/okayButton"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:background="#00FFFFFF"
+            android:padding="2dp" />
+
+        <TextView
+            style="@style/AlertText"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/okay"
+            android:textColor="@color/energy_blue_border"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</LinearLayout>
