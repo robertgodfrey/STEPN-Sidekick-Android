@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.STEPNSidekick" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.STEPNSidekick" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/almost_black</item>
         <item name="colorPrimaryVariant">@color/light_green</item>
