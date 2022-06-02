@@ -142,6 +142,17 @@ public class GpsWatchService extends Service {
             mainCountDownTimer.start();
         }
 
+        initLocationCallback();
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        startLocationUpdates();
+
+        return START_NOT_STICKY;
+    }
+
+    // initializes locationCallBack
+    private void initLocationCallback() {
         locationCallBack = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -172,14 +183,7 @@ public class GpsWatchService extends Service {
                 }
             }
         };
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        startLocationUpdates();
-
-        return START_NOT_STICKY;
     }
-
     // initializes the main countdown timer for the activity
     private void initMainCountDownTimer() {
         mainCountDownTimer = new CountDownTimer(millisRemaining, 1000) {
@@ -230,7 +234,7 @@ public class GpsWatchService extends Service {
 
                 // three second countdown
                 if ((millisUntilFinished / 1000) == 3) {
-                    threeSecondCountdown();
+                    threeSecondCountdown(true);
                 }
             }
 
@@ -254,7 +258,7 @@ public class GpsWatchService extends Service {
                 broadcastInfo();
 
                 if (l / 1000 == 2) {
-                    threeSecondCountdown();
+                    threeSecondCountdown(false);
                 }
             }
 
@@ -268,7 +272,7 @@ public class GpsWatchService extends Service {
         };
     }
 
-    private void threeSecondCountdown() {
+    private void threeSecondCountdown(boolean playStartSound) {
         new Thread (new Runnable() {
             @Override
             public void run() {
@@ -289,7 +293,9 @@ public class GpsWatchService extends Service {
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-                alertSoundPool.play(startSound, 1, 1, 0, 0, 1);
+                if (playStartSound) {
+                    alertSoundPool.play(startSound, 1, 1, 0, 0, 1);
+                }
             }
         }).start();
     }
