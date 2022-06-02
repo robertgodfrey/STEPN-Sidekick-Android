@@ -33,19 +33,19 @@ public class SpeedTracker extends AppCompatActivity {
     private long millis;
     private String shoeType;
     private int numFeet;
-    private boolean tenSecondTimer, tenSecondTimerDone, changedUI;
-    private boolean voiceAlertsSpeed, voiceAlertsTime, voiceAlertsMinuteThirty;
+    private boolean tenSecondTimer, tenSecondTimerDone, changedUI, voiceAlertsSpeed,
+            voiceAlertsTime, voiceAlertsMinuteThirty;
 
     CountDownTimer initialCountDownTimer;
 
     ImageView stopWatchImageView;
-    TextView initialCountDownTextView;
-
-    TextView energyAmountTextView, currentSpeedTextView, timeRemainingTextView, shoeTypeTextView,
-            shoeSpeedTextView, currentSpeedLabelTextView, kmphLabelTextView, timeRemainingLabelTextView;
+    TextView initialCountDownTextView, energyAmountTextView, currentSpeedTextView,
+            timeRemainingTextView, shoeTypeTextView, shoeSpeedTextView, currentSpeedLabelTextView,
+            kmphLabelTextView, timeRemainingLabelTextView;
     ImageButton stopImageButton;
     ImageView leftGps, centerGps, rightGps, footLeft, footCenter, footRight;
 
+    // receives broadcast from service to update UI
     private final BroadcastReceiver secondsAndSpeedReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             updateUI(intent);
@@ -79,8 +79,9 @@ public class SpeedTracker extends AppCompatActivity {
         buildUI();
         startService();
 
-    } // end onCreate
+    }
 
+    // updates UI after ten-second countdown timer is complete
     private void changeUI() {
         changedUI = true;
 
@@ -93,6 +94,7 @@ public class SpeedTracker extends AppCompatActivity {
         timeRemainingTextView.setVisibility(View.VISIBLE);
     }
 
+    // ensures that the service is stopped on exit
     @Override
     protected void onDestroy() {
         if (initialCountDownTimer != null) {
@@ -109,6 +111,7 @@ public class SpeedTracker extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    // when the user has the app open, the UI will get updated every time the service broadcasts
     private void updateUI(Intent intent) {
         double currentSpeed = 0.0;
         float gpsAccuracy = 0.0f;
@@ -182,6 +185,7 @@ public class SpeedTracker extends AppCompatActivity {
         timeRemainingTextView.setText(time);
     }
 
+    // sends initial data to service
     public void startService() {
         Intent serviceIntent = new Intent(this, GpsWatchService.class);
 
