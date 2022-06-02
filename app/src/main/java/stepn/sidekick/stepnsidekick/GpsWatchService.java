@@ -102,24 +102,19 @@ public class GpsWatchService extends Service {
         tenSecondTimerDone =! tenSecondTimer;
         justPlayed = false;
 
-        AudioAttributes alertAttributes = new AudioAttributes.Builder()
+        AudioAttributes attributes = new AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .setUsage(AudioAttributes.USAGE_MEDIA)
                 .build();
 
         alertSoundPool = new SoundPool.Builder()
                 .setMaxStreams(3)
-                .setAudioAttributes(alertAttributes)
-                .build();
-
-        AudioAttributes voiceAttributes = new AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setAudioAttributes(attributes)
                 .build();
 
         voiceSoundPool = new SoundPool.Builder()
                 .setMaxStreams(15)
-                .setAudioAttributes(voiceAttributes)
+                .setAudioAttributes(attributes)
                 .build();
 
         softAlert = alertSoundPool.load(this, R.raw.soft_alert_sound, 1);
