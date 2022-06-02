@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="@+id/helpButtonShadow"
         app:layout_constraintTop_toTopOf="@+id/helpButtonShadow" />
 
-    <android.widget.Button
+    <ImageButton
         android:id="@+id/helpButton"
         android:layout_width="34dp"
         android:layout_height="34dp"

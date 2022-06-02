@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSIONS_FINE_LOCATION = 99;
     private final String PREFERENCES_ID = "stepn_sidekick_prefs";
 
-    Button helpButton, leftButton, rightButton, disabledStartButtonHelper;
+    Button leftButton, rightButton, disabledStartButtonHelper;
     ImageButton startButton, countDownTimerButton, voiceAlertSpeedButton, voiceAlertTimeButton,
-            voiceAlertCountdownButton;
+            voiceAlertCountdownButton, helpButton;
     ImageView countDownTimerButtonShadow, voiceAlertSpeedButtonShadow, voiceAlertTimeButtonShadow,
             voiceAlertCountdownButtonShadow, startButtonShadow, helpButtonShadow, shoeTypeImage,
             footOne, footTwo, footThree, energyBox, energyBoxShadow, maxSpeedBox, minSpeedBox,
@@ -63,15 +63,12 @@ public class MainActivity extends AppCompatActivity {
             countDownTimerTextViewShadow, voiceAlertSpeedTextViewShadow,
             voiceAlertTimeTextViewShadow, voiceAlertCountdownTextViewShadow, shoeTypeTextView,
             energyInMins;
-
     EditText minSpeedEditText, maxSpeedEditText, energyEditText;
-    private double energy;
-
-    private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsSpeed, voiceAlertsTime,
-            gpsPermissions, firstTime;
 
     private int shoeTypeIterator;
-    private float customMinSpeed, customMaxSpeed;
+    private double energy;
+    private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsSpeed, voiceAlertsTime,
+            gpsPermissions, firstTime;
 
     LocationManager manager;
 
@@ -91,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         energy = (double) getSharedPrefs.getInt("energy", 0) / 10;
         firstTime = getSharedPrefs.getBoolean("firstTime", true);
         shoeTypeIterator = getSharedPrefs.getInt("shoeTypeIterator", 0);
-        customMinSpeed = getSharedPrefs.getFloat("customMinSpeed", 0);
-        customMaxSpeed = getSharedPrefs.getFloat("customMaxSpeed", 0);
+        float customMinSpeed = getSharedPrefs.getFloat("customMinSpeed", 0);
+        float customMaxSpeed = getSharedPrefs.getFloat("customMaxSpeed", 0);
 
         shoes = new ArrayList<>();
 
@@ -111,6 +108,261 @@ public class MainActivity extends AppCompatActivity {
             updateUI();
             checkForLocationPermissions();
         }
+    }
+
+    // inits UI
+    @SuppressLint("ClickableViewAccessibility")
+    private void buildUI() {
+
+        startButton = findViewById(R.id.startImageButton);
+        startButtonShadow = findViewById(R.id.startButtonShadow);
+        disabledStartButtonHelper = findViewById(R.id.disabledStartButtonHelper);
+
+        helpButton = findViewById(R.id.helpButton);
+        helpButtonShadow = findViewById(R.id.helpButtonShadow);
+        helpButtonTextView = findViewById(R.id.helpTextView);
+
+        leftButton = findViewById(R.id.leftArrowButton);
+        rightButton = findViewById(R.id.rightArrowButton);
+        shoeTypeImage = findViewById(R.id.shoeTypeImageView);
+        shoeTypeTextView = findViewById(R.id.shoeTypeTextView);
+
+        countDownTimerButton = findViewById(R.id.countdownTimerButton);
+        voiceAlertSpeedButton = findViewById(R.id.voiceAlertSpeedButton);
+        voiceAlertTimeButton = findViewById(R.id.voiceTimeButton);
+        voiceAlertCountdownButton = findViewById(R.id.voiceOneMinThirtySecButton);
+
+        countDownTimerButtonShadow = findViewById(R.id.countdownTimerButtonShadow);
+        voiceAlertSpeedButtonShadow = findViewById(R.id.voiceAlertSpeedButtonShadow);
+        voiceAlertTimeButtonShadow = findViewById(R.id.voiceTimeButtonShadow);
+        voiceAlertCountdownButtonShadow = findViewById(R.id.voiceOneMinThirtySecButtonShadow);
+
+        countDownTimerTextView = findViewById(R.id.countdownTimerTextView);
+        voiceAlertSpeedTextView = findViewById(R.id.voiceAlertSpeedTextView);
+        voiceAlertTimeTextView = findViewById(R.id.voiceAlertTimeTextView);
+        voiceAlertCountdownTextView = findViewById(R.id.voiceOneMinThirtySecTextView);
+        startTextView = findViewById(R.id.startTextView);
+
+        countDownTimerTextViewShadow = findViewById(R.id.countdownTimerShadowTextView);
+        voiceAlertSpeedTextViewShadow = findViewById(R.id.voiceAlertSpeedShadowTextView);
+        voiceAlertTimeTextViewShadow = findViewById(R.id.voiceAlertTimeShadowTextView);
+        voiceAlertCountdownTextViewShadow = findViewById(R.id.voiceOneMinThirtySecShadowTextView);
+
+        footOne = findViewById(R.id.footprint1ImageView);
+        footTwo = findViewById(R.id.footprint2ImageView);
+        footThree = findViewById(R.id.footprint3ImageView);
+
+        energyBox = findViewById(R.id.energyBox);
+        energyBoxShadow = findViewById(R.id.energyBoxShadow);
+        maxSpeedBox = findViewById(R.id.maxSpeedBox);
+        minSpeedBox = findViewById(R.id.minSpeedBox);
+        maxSpeedBoxShadow = findViewById(R.id.maxSpeedBoxShadow);
+        minSpeedBoxShadow = findViewById(R.id.minSpeedBoxShadow);
+
+        minSpeedEditText = findViewById(R.id.minSpeedEditText);
+        maxSpeedEditText = findViewById(R.id.maxSpeedEditText);
+        energyEditText = findViewById(R.id.energyToSpendEditText);
+        energyInMins = findViewById(R.id.energyInMinsTextView);
+
+        startButton.setEnabled(false);
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showHelpAboutButtons();
+            }
+        });
+
+        helpButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                staticButtonTouchAnim(motionEvent, helpButton, helpButtonShadow, helpButtonTextView,
+                        R.drawable.roundy_button, R.drawable.roundy_button_shadow);
+                return false;
+            }
+        });
+
+        countDownTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tenSecondTimer = !tenSecondTimer;
+                buttonClickSwitch(countDownTimerButton, countDownTimerTextView, tenSecondTimer);
+            }
+        });
+
+        countDownTimerButton.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                dynamicButtonTouchAnim(motionEvent, countDownTimerButton, countDownTimerButtonShadow,
+                        countDownTimerTextView, countDownTimerTextViewShadow, tenSecondTimer);
+                return false;
+            }
+        });
+
+        voiceAlertSpeedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                voiceAlertsSpeed = !voiceAlertsSpeed;
+                buttonClickSwitch(voiceAlertSpeedButton, voiceAlertSpeedTextView, voiceAlertsSpeed);
+            }
+        });
+
+        voiceAlertSpeedButton.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                dynamicButtonTouchAnim(motionEvent, voiceAlertSpeedButton, voiceAlertSpeedButtonShadow,
+                        voiceAlertSpeedTextView, voiceAlertSpeedTextViewShadow, voiceAlertsSpeed);
+                return false;
+            }
+        });
+
+        voiceAlertTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                voiceAlertsTime = !voiceAlertsTime;
+                buttonClickSwitch(voiceAlertTimeButton, voiceAlertTimeTextView, voiceAlertsTime);
+            }
+        });
+
+        voiceAlertTimeButton.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                dynamicButtonTouchAnim(motionEvent, voiceAlertTimeButton, voiceAlertTimeButtonShadow,
+                        voiceAlertTimeTextView, voiceAlertTimeTextViewShadow, voiceAlertsTime);
+                return false;
+            }
+        });
+
+        voiceAlertCountdownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                voiceCountdownAlerts = !voiceCountdownAlerts;
+                buttonClickSwitch(voiceAlertCountdownButton, voiceAlertCountdownTextView, voiceCountdownAlerts);
+            }
+        });
+
+        voiceAlertCountdownButton.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                dynamicButtonTouchAnim(motionEvent, voiceAlertCountdownButton, voiceAlertCountdownButtonShadow,
+                        voiceAlertCountdownTextView, voiceAlertCountdownTextViewShadow, voiceCountdownAlerts);
+                return false;
+            }
+        });
+
+        disabledStartButtonHelper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shakeDaBox(energyBox, energyBoxShadow, energyEditText);
+                Toast.makeText(MainActivity.this, getString(R.string.energy_too_low), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startButtonClick();
+            }
+        });
+
+        startButton.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                staticButtonTouchAnim(motionEvent, startButton, startButtonShadow, startTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
+                return false;
+            }
+        });
+
+        energyEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    energyBox.setImageResource(R.drawable.energy_box_active);
+                } else {
+                    energyBox.setImageResource(R.drawable.energy_input_box);
+
+                }
+            }
+        });
+
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (shoeTypeIterator == 0) {
+                    shoeTypeIterator = 4;
+                } else {
+                    shoeTypeIterator--;
+                }
+                updatePage(shoeTypeIterator);
+            }
+        });
+
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (shoeTypeIterator == 4) {
+                    shoeTypeIterator = 0;
+                } else {
+                    shoeTypeIterator++;
+                }
+                updatePage(shoeTypeIterator);
+            }
+        });
+
+        minSpeedEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!minSpeedEditText.getText().toString().isEmpty() && !minSpeedEditText.getText().toString().equals(".")) {
+                    shoes.get(shoeTypeIterator).setMinSpeed(Float.parseFloat(minSpeedEditText.getText().toString() + "f"));
+                }
+            }
+        });
+
+        maxSpeedEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!maxSpeedEditText.getText().toString().equals("") && !maxSpeedEditText.getText().toString().equals(".")) {
+                    shoes.get(shoeTypeIterator).setMaxSpeed(Float.parseFloat(maxSpeedEditText.getText().toString() + "f"));
+                }
+            }
+        });
+
+        energyEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                updateEnergy();
+            }
+        });
     }
 
     // dialog message if the device's GPS is turned off
@@ -304,18 +556,7 @@ public class MainActivity extends AppCompatActivity {
         aboutButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        aboutButton.setVisibility(View.INVISIBLE);
-                        aboutTextView.setVisibility(View.INVISIBLE);
-                        aboutButtonShadow.setImageResource(R.drawable.roundy_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        aboutButton.setVisibility(View.VISIBLE);
-                        aboutTextView.setVisibility(View.VISIBLE);
-                        aboutButtonShadow.setImageResource(R.drawable.roundy_button_shadow);
-                        break;
-                }
+                staticButtonTouchAnim(motionEvent, aboutButton, aboutButtonShadow, aboutTextView, R.drawable.roundy_button, R.drawable.roundy_button_shadow);
                 return false;
             }
         });
@@ -331,451 +572,86 @@ public class MainActivity extends AppCompatActivity {
         howToButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        howToButton.setVisibility(View.INVISIBLE);
-                        howToTextView.setVisibility(View.INVISIBLE);
-                        howToButtonShadow.setImageResource(R.drawable.roundy_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        howToButton.setVisibility(View.VISIBLE);
-                        howToTextView.setVisibility(View.VISIBLE);
-                        howToButtonShadow.setImageResource(R.drawable.roundy_button_shadow);
-                        break;
-                }
+                staticButtonTouchAnim(motionEvent, howToButton, howToButtonShadow, howToTextView, R.drawable.roundy_button, R.drawable.roundy_button_shadow);
                 return false;
             }
         });
         aboutHelpDialog.show();
     }
 
-    // inits UI
-    @SuppressLint("ClickableViewAccessibility")
-    private void buildUI() {
+    /**
+     * Animation for button presses with static text.
+     *
+     * @param motionEvent the MotionEvent
+     * @param button the button being 'pressed'
+     * @param buttonShadow the button's shadow
+     * @param buttonText the button's textView
+     * @param buttonBackground the button's image resource
+     * @param buttonShadowBackground the button's background image resource
+     */
+    private void staticButtonTouchAnim(MotionEvent motionEvent, ImageView button, ImageView buttonShadow, TextView buttonText,
+                                       int buttonBackground, int buttonShadowBackground) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                button.setVisibility(View.INVISIBLE);
+                buttonText.setVisibility(View.INVISIBLE);
+                buttonShadow.setImageResource(buttonBackground);
+                break;
+            case MotionEvent.ACTION_UP:
+                button.setVisibility(View.VISIBLE);
+                buttonText.setVisibility(View.VISIBLE);
+                buttonShadow.setImageResource(buttonShadowBackground);
+                break;
+        }
+    }
 
-        startButton = findViewById(R.id.startImageButton);
-        startButtonShadow = findViewById(R.id.startButtonShadow);
-        disabledStartButtonHelper = findViewById(R.id.disabledStartButtonHelper);
-
-        helpButton = findViewById(R.id.helpButton);
-        helpButtonShadow = findViewById(R.id.helpButtonShadow);
-        helpButtonTextView = findViewById(R.id.helpTextView);
-
-        leftButton = findViewById(R.id.leftArrowButton);
-        rightButton = findViewById(R.id.rightArrowButton);
-        shoeTypeImage = findViewById(R.id.shoeTypeImageView);
-        shoeTypeTextView = findViewById(R.id.shoeTypeTextView);
-
-        countDownTimerButton = findViewById(R.id.countdownTimerButton);
-        voiceAlertSpeedButton = findViewById(R.id.voiceAlertSpeedButton);
-        voiceAlertTimeButton = findViewById(R.id.voiceTimeButton);
-        voiceAlertCountdownButton = findViewById(R.id.voiceOneMinThirtySecButton);
-
-        countDownTimerButtonShadow = findViewById(R.id.countdownTimerButtonShadow);
-        voiceAlertSpeedButtonShadow = findViewById(R.id.voiceAlertSpeedButtonShadow);
-        voiceAlertTimeButtonShadow = findViewById(R.id.voiceTimeButtonShadow);
-        voiceAlertCountdownButtonShadow = findViewById(R.id.voiceOneMinThirtySecButtonShadow);
-
-        countDownTimerTextView = findViewById(R.id.countdownTimerTextView);
-        voiceAlertSpeedTextView = findViewById(R.id.voiceAlertSpeedTextView);
-        voiceAlertTimeTextView = findViewById(R.id.voiceAlertTimeTextView);
-        voiceAlertCountdownTextView = findViewById(R.id.voiceOneMinThirtySecTextView);
-        startTextView = findViewById(R.id.startTextView);
-
-        countDownTimerTextViewShadow = findViewById(R.id.countdownTimerShadowTextView);
-        voiceAlertSpeedTextViewShadow = findViewById(R.id.voiceAlertSpeedShadowTextView);
-        voiceAlertTimeTextViewShadow = findViewById(R.id.voiceAlertTimeShadowTextView);
-        voiceAlertCountdownTextViewShadow = findViewById(R.id.voiceOneMinThirtySecShadowTextView);
-
-        footOne = findViewById(R.id.footprint1ImageView);
-        footTwo = findViewById(R.id.footprint2ImageView);
-        footThree = findViewById(R.id.footprint3ImageView);
-
-        energyBox = findViewById(R.id.energyBox);
-        energyBoxShadow = findViewById(R.id.energyBoxShadow);
-        maxSpeedBox = findViewById(R.id.maxSpeedBox);
-        minSpeedBox = findViewById(R.id.minSpeedBox);
-        maxSpeedBoxShadow = findViewById(R.id.maxSpeedBoxShadow);
-        minSpeedBoxShadow = findViewById(R.id.minSpeedBoxShadow);
-
-        minSpeedEditText = findViewById(R.id.minSpeedEditText);
-        maxSpeedEditText = findViewById(R.id.maxSpeedEditText);
-        energyEditText = findViewById(R.id.energyToSpendEditText);
-        energyInMins = findViewById(R.id.energyInMinsTextView);
-
-        startButton.setEnabled(false);
-
-        helpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showHelpAboutButtons();
-            }
-        });
-
-        helpButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        helpButton.setVisibility(View.INVISIBLE);
-                        helpButtonTextView.setVisibility(View.INVISIBLE);
-                        helpButtonShadow.setImageResource(R.drawable.roundy_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        helpButton.setVisibility(View.VISIBLE);
-                        helpButtonTextView.setVisibility(View.VISIBLE);
-                        helpButtonShadow.setImageResource(R.drawable.roundy_button_shadow);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        countDownTimerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tenSecondTimer = !tenSecondTimer;
-                if (tenSecondTimer) {
-                    countDownTimerTextView.setText(R.string.enabled);
-                    countDownTimerButton.setImageResource(R.drawable.main_buttons);
+    /**
+     * Animation for button presses with dynamic text and backgrounds.
+     *
+     * @param motionEvent the MotionEvent
+     * @param button button being pressed
+     * @param buttonShadow button's shadow
+     * @param buttonText button's text
+     * @param buttonShadowText button shadow's text
+     * @param enabled whether or not the button is enabled
+     */
+    private void dynamicButtonTouchAnim(MotionEvent motionEvent, ImageView button, ImageView buttonShadow, TextView buttonText,
+                                        TextView buttonShadowText, boolean enabled) {
+        switch(motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                button.setVisibility(View.INVISIBLE);
+                if (enabled) {
+                    buttonShadow.setImageResource(R.drawable.main_buttons);
+                    buttonShadowText.setText(R.string.enabled);
                 } else {
-                    countDownTimerTextView.setText(R.string.disabled);
-                    countDownTimerButton.setImageResource(R.drawable.main_buttons_disabled);
+                    buttonShadow.setImageResource(R.drawable.main_buttons_disabled);
+                    buttonShadowText.setText(R.string.disabled);
                 }
-            }
-        });
+                buttonText.setVisibility(View.INVISIBLE);
+                break;
+            case MotionEvent.ACTION_UP:
+                button.setVisibility(View.VISIBLE);
+                buttonShadow.setImageResource(R.drawable.main_button_shadow);
+                buttonText.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
 
-        countDownTimerButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        countDownTimerButton.setVisibility(View.INVISIBLE);
-                        if (tenSecondTimer) {
-                            countDownTimerButtonShadow.setImageResource(R.drawable.main_buttons);
-                            countDownTimerTextViewShadow.setText(R.string.enabled);
-                        } else {
-                            countDownTimerButtonShadow.setImageResource(R.drawable.main_buttons_disabled);
-                            countDownTimerTextViewShadow.setText(R.string.disabled);
-                        }
-                        countDownTimerTextView.setVisibility(View.INVISIBLE);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        countDownTimerButton.setVisibility(View.VISIBLE);
-                        countDownTimerButtonShadow.setImageResource(R.drawable.main_button_shadow);
-                        countDownTimerTextView.setVisibility(View.VISIBLE);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        voiceAlertSpeedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                voiceAlertsSpeed = !voiceAlertsSpeed;
-                if (voiceAlertsSpeed) {
-                    voiceAlertSpeedTextView.setText(R.string.enabled);
-                    voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons);
-                } else {
-                    voiceAlertSpeedTextView.setText(R.string.disabled);
-                    voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons_disabled);
-                }
-            }
-        });
-
-        voiceAlertSpeedButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        voiceAlertSpeedButton.setVisibility(View.INVISIBLE);
-                        if (voiceAlertsSpeed) {
-                            voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_buttons);
-                            voiceAlertSpeedTextViewShadow.setText(R.string.enabled);
-                        } else {
-                            voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_buttons_disabled);
-                            voiceAlertSpeedTextViewShadow.setText(R.string.disabled);
-                        }
-                        voiceAlertSpeedTextView.setVisibility(View.INVISIBLE);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        voiceAlertSpeedButton.setVisibility(View.VISIBLE);
-                        voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_button_shadow);
-                        voiceAlertSpeedTextView.setVisibility(View.VISIBLE);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        voiceAlertTimeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                voiceAlertsTime = !voiceAlertsTime;
-                if (voiceAlertsTime) {
-                    voiceAlertTimeTextView.setText(R.string.enabled);
-                    voiceAlertTimeButton.setImageResource(R.drawable.main_buttons);
-                } else {
-                    voiceAlertTimeTextView.setText(R.string.disabled);
-                    voiceAlertTimeButton.setImageResource(R.drawable.main_buttons_disabled);
-                }
-            }
-        });
-
-        voiceAlertTimeButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        voiceAlertTimeButton.setVisibility(View.INVISIBLE);
-                        if (voiceAlertsTime) {
-                            voiceAlertTimeButtonShadow.setImageResource(R.drawable.main_buttons);
-                            voiceAlertTimeTextViewShadow.setText(R.string.enabled);
-                        } else {
-                            voiceAlertTimeButtonShadow.setImageResource(R.drawable.main_buttons_disabled);
-                            voiceAlertTimeTextViewShadow.setText(R.string.disabled);
-                        }
-                        voiceAlertTimeTextView.setVisibility(View.INVISIBLE);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        voiceAlertTimeButton.setVisibility(View.VISIBLE);
-                        voiceAlertTimeButtonShadow.setImageResource(R.drawable.main_button_shadow);
-                        voiceAlertTimeTextView.setVisibility(View.VISIBLE);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        voiceAlertCountdownButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                voiceCountdownAlerts = !voiceCountdownAlerts;
-                if (voiceCountdownAlerts) {
-                    voiceAlertCountdownTextView.setText(R.string.enabled);
-                    voiceAlertCountdownButton.setImageResource(R.drawable.main_buttons);
-                } else {
-                    voiceAlertCountdownTextView.setText(R.string.disabled);
-                    voiceAlertCountdownButton.setImageResource(R.drawable.main_buttons_disabled);
-                }
-            }
-        });
-
-        voiceAlertCountdownButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        voiceAlertCountdownButton.setVisibility(View.INVISIBLE);
-                        if (voiceCountdownAlerts) {
-                            voiceAlertCountdownButtonShadow.setImageResource(R.drawable.main_buttons);
-                            voiceAlertCountdownTextViewShadow.setText(R.string.enabled);
-                        } else {
-                            voiceAlertCountdownButtonShadow.setImageResource(R.drawable.main_buttons_disabled);
-                            voiceAlertCountdownTextViewShadow.setText(R.string.disabled);
-                        }
-                        voiceAlertCountdownTextView.setVisibility(View.INVISIBLE);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        voiceAlertCountdownButton.setVisibility(View.VISIBLE);
-                        voiceAlertCountdownButtonShadow.setImageResource(R.drawable.main_button_shadow);
-                        voiceAlertCountdownTextView.setVisibility(View.VISIBLE);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        disabledStartButtonHelper.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shakeDaBox(energyBox, energyBoxShadow, energyEditText);
-
-                Toast.makeText(MainActivity.this, getString(R.string.energy_too_low), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String minString, maxString, energyString;
-                double min, max;
-
-                manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-                // check for gps enabled
-                if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    buildAlertMessageNoGps();
-                    return;
-                } else {
-                    checkForLocationPermissions();
-                }
-
-                minString = minSpeedEditText.getText().toString();
-                maxString = maxSpeedEditText.getText().toString();
-                energyString = energyEditText.getText().toString();
-
-                min = Double.parseDouble((minString.equals(".") || minString.isEmpty()) ? "0" : minString);
-                max = Double.parseDouble((maxString.equals(".") || maxString.isEmpty()) ? "0" : maxString);
-                energy = Double.parseDouble((energyString.equals(".") || energyString.isEmpty()) ? "0" : energyString);
-
-                if (!gpsPermissions ||
-                        min < 1.0 ||
-                        max < min + 1.0 ||
-                        energy < 0.2 ||
-                        energy * 10 % 2 != 0) {
-                    String toastMessage = "";
-                    if (!gpsPermissions) {
-                        toastMessage = getString(R.string.plz_allow_precise_location);
-                    } else if (min < 1.0) {
-                        toastMessage = getString(R.string.minimum_speed_too_low);
-                        shakeDaBox(minSpeedBox, minSpeedBoxShadow, minSpeedEditText);
-                    } else if (max < min + 1.0) {
-                        toastMessage = getString(R.string.maximum_speed_too_low);
-                        shakeDaBox(maxSpeedBox, maxSpeedBoxShadow, maxSpeedEditText);
-                    } else if (energy < 0.2) {
-                        toastMessage = getString(R.string.energy_too_low);
-                        shakeDaBox(energyBox, energyBoxShadow, energyEditText);
-                    } else if (energy * 10 % 2 != 0) {
-                        toastMessage = getString(R.string.not_a_multiple_of_2);
-                        shakeDaBox(energyBox, energyBoxShadow, energyEditText);
-                    }
-
-                    Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Intent startGPSActivity = new Intent(getApplicationContext(), SpeedTracker.class);
-
-                    startGPSActivity.putExtra("min", min);
-                    startGPSActivity.putExtra("max", max);
-                    startGPSActivity.putExtra("energy", energy);
-                    startGPSActivity.putExtra("shoeType", shoes.get(shoeTypeIterator).getTitle());
-                    startGPSActivity.putExtra("numFeet", shoes.get(shoeTypeIterator).getNumFeet());
-                    startGPSActivity.putExtra("voiceCountdownAlerts", voiceCountdownAlerts);
-                    startGPSActivity.putExtra("tenSecondTimer", tenSecondTimer);
-                    startGPSActivity.putExtra("voiceAlertsSpeed", voiceAlertsSpeed);
-                    startGPSActivity.putExtra("voiceAlertsTime", voiceAlertsTime);
-
-                    startActivity(startGPSActivity);
-                }
-            }
-        });
-
-        startButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        startButton.setVisibility(View.INVISIBLE);
-                        startButtonShadow.setImageResource(R.drawable.start_button);
-                        startTextView.setVisibility(View.INVISIBLE);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        startButton.setVisibility(View.VISIBLE);
-                        startButtonShadow.setImageResource(R.drawable.start_button_shadow);
-                        startTextView.setVisibility(View.VISIBLE);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        energyEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    energyBox.setImageResource(R.drawable.energy_box_active);
-                } else {
-                    energyBox.setImageResource(R.drawable.energy_input_box);
-
-                }
-            }
-        });
-
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (shoeTypeIterator == 0) {
-                    shoeTypeIterator = 4;
-                } else {
-                    shoeTypeIterator--;
-                }
-                updatePage(shoeTypeIterator);
-            }
-        });
-
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (shoeTypeIterator == 4) {
-                    shoeTypeIterator = 0;
-                } else {
-                    shoeTypeIterator++;
-                }
-                updatePage(shoeTypeIterator);
-            }
-        });
-
-        minSpeedEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (!minSpeedEditText.getText().toString().isEmpty() && !minSpeedEditText.getText().toString().equals(".")) {
-                    shoes.get(shoeTypeIterator).setMinSpeed(Float.parseFloat(minSpeedEditText.getText().toString() + "f"));
-                }
-            }
-        });
-
-        maxSpeedEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (!maxSpeedEditText.getText().toString().equals("") && !maxSpeedEditText.getText().toString().equals(".")) {
-                    shoes.get(shoeTypeIterator).setMaxSpeed(Float.parseFloat(maxSpeedEditText.getText().toString() + "f"));
-                }
-            }
-        });
-
-        energyEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                updateEnergy();
-            }
-        });
+    /**
+     * Changes button text and background for buttons with option to enable/disable.
+     *
+     * @param button which button to change
+     * @param buttonText button's text to change
+     * @param enabled whether or not the button is enabled
+     */
+    private void buttonClickSwitch(ImageView button, TextView buttonText, boolean enabled) {
+        if (enabled) {
+            buttonText.setText(R.string.enabled);
+            button.setImageResource(R.drawable.main_buttons);
+        } else {
+            buttonText.setText(R.string.disabled);
+            button.setImageResource(R.drawable.main_buttons_disabled);
+        }
     }
 
     // updates page when user changes shoe selection
@@ -808,7 +684,71 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // changes the UI if the user has saved prefs
+    // checks input and starts SpeedTracker
+    private void startButtonClick() {
+        String minString, maxString, energyString;
+        double min, max;
+
+        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // check for gps enabled
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+            return;
+        } else {
+            checkForLocationPermissions();
+        }
+
+        minString = minSpeedEditText.getText().toString();
+        maxString = maxSpeedEditText.getText().toString();
+        energyString = energyEditText.getText().toString();
+
+        min = Double.parseDouble((minString.equals(".") || minString.isEmpty()) ? "0" : minString);
+        max = Double.parseDouble((maxString.equals(".") || maxString.isEmpty()) ? "0" : maxString);
+        energy = Double.parseDouble((energyString.equals(".") || energyString.isEmpty()) ? "0" : energyString);
+
+        if (!gpsPermissions ||
+                min < 1.0 ||
+                max < min + 1.0 ||
+                energy < 0.2 ||
+                energy * 10 % 2 != 0) {
+            String toastMessage = "";
+            if (!gpsPermissions) {
+                toastMessage = getString(R.string.plz_allow_precise_location);
+            } else if (min < 1.0) {
+                toastMessage = getString(R.string.minimum_speed_too_low);
+                shakeDaBox(minSpeedBox, minSpeedBoxShadow, minSpeedEditText);
+            } else if (max < min + 1.0) {
+                toastMessage = getString(R.string.maximum_speed_too_low);
+                shakeDaBox(maxSpeedBox, maxSpeedBoxShadow, maxSpeedEditText);
+            } else if (energy < 0.2) {
+                toastMessage = getString(R.string.energy_too_low);
+                shakeDaBox(energyBox, energyBoxShadow, energyEditText);
+            } else if (energy * 10 % 2 != 0) {
+                toastMessage = getString(R.string.not_a_multiple_of_2);
+                shakeDaBox(energyBox, energyBoxShadow, energyEditText);
+            }
+
+            Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
+
+        } else {
+            Intent startGPSActivity = new Intent(getApplicationContext(), SpeedTracker.class);
+
+            startGPSActivity.putExtra("min", min);
+            startGPSActivity.putExtra("max", max);
+            startGPSActivity.putExtra("energy", energy);
+            startGPSActivity.putExtra("shoeType", shoes.get(shoeTypeIterator).getTitle());
+            startGPSActivity.putExtra("numFeet", shoes.get(shoeTypeIterator).getNumFeet());
+            startGPSActivity.putExtra("voiceCountdownAlerts", voiceCountdownAlerts);
+            startGPSActivity.putExtra("tenSecondTimer", tenSecondTimer);
+            startGPSActivity.putExtra("voiceAlertsSpeed", voiceAlertsSpeed);
+            startGPSActivity.putExtra("voiceAlertsTime", voiceAlertsTime);
+
+            startActivity(startGPSActivity);
+        }
+    }
+
+    // changes the UI if the user has saved prefs (default: all enabled, energy 0, walker shoe type)
     private void updateUI() {
         if (!tenSecondTimer) {
             countDownTimerButton.setImageResource(R.drawable.main_buttons_disabled);
@@ -867,7 +807,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // shakes input box & text view if user has entered invalid input
+    /**
+     * Shakes input box, shadow. Focuses on EditText.
+     *
+     * @param boxOne the box to shake
+     * @param boxTwo box's shadow
+     * @param textToFocus the text to focus on
+     */
     private void shakeDaBox(ImageView boxOne, ImageView boxTwo, EditText textToFocus) {
         textToFocus.requestFocus();
         ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
@@ -889,7 +835,12 @@ public class MainActivity extends AppCompatActivity {
         scalerShadow.start();
     }
 
-    // grows box to highlight field (tutorial)
+    /**
+     * Grows box to highlight field (for the how-to)
+     *
+     * @param boxOne the box
+     * @param boxTwo the box's shadow
+     */
     private void growDaBox(ImageView boxOne, ImageView boxTwo) {
         ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
                 boxOne,
@@ -906,7 +857,12 @@ public class MainActivity extends AppCompatActivity {
         scalerShadow.start();
     }
 
-    // shrinks box to highlight field (tutorial)
+    /**
+     * Shrinks box of highlighted field (tutorial)
+     *
+     * @param boxOne the box
+     * @param boxTwo the box's shadow
+     */
     private void shrinkDaBox(ImageView boxOne, ImageView boxTwo) {
         ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
                 boxOne,
@@ -951,6 +907,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // initial welcome dialog
+    @SuppressLint("ClickableViewAccessibility")
     private void welcome() {
         Dialog welcome = new Dialog(MainActivity.this);
 
@@ -987,24 +944,15 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        nextButton.setVisibility(View.INVISIBLE);
-                        nextButtonTextView.setVisibility(View.INVISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        nextButton.setVisibility(View.VISIBLE);
-                        nextButtonTextView.setVisibility(View.VISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button_shadow);
-                        break;
-                }
+                staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
                 return false;
             }
         });
     }
 
-    // how to dialogs
+    // how-to dialog #1 of 5
+    @SuppressLint("ClickableViewAccessibility")
     private void howTo() {
         Dialog instructionsOne = new Dialog(MainActivity.this);
 
@@ -1077,27 +1025,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         nextButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        nextButton.setVisibility(View.INVISIBLE);
-                        nextButtonTextView.setVisibility(View.INVISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        nextButton.setVisibility(View.VISIBLE);
-                        nextButtonTextView.setVisibility(View.VISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button_shadow);
-                        break;
-                }
+                staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
                 return false;
             }
         });
 
     }
 
+    // how-to dialog #2 of 5
+    @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsTwo() {
         Dialog instructionsTwo = new Dialog(MainActivity.this);
 
@@ -1137,26 +1076,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         nextButton.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        nextButton.setVisibility(View.INVISIBLE);
-                        nextButtonTextView.setVisibility(View.INVISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        nextButton.setVisibility(View.VISIBLE);
-                        nextButtonTextView.setVisibility(View.VISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button_shadow);
-                        break;
-                }
+                staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
                 return false;
             }
         });
     }
-
+    // how-to dialog #3 of 5
+    @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsThree() {
         Dialog instructionsThree = new Dialog(MainActivity.this);
 
@@ -1198,24 +1127,15 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        nextButton.setVisibility(View.INVISIBLE);
-                        nextButtonTextView.setVisibility(View.INVISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        nextButton.setVisibility(View.VISIBLE);
-                        nextButtonTextView.setVisibility(View.VISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button_shadow);
-                        break;
-                }
+                staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
                 return false;
             }
         });
 
     }
-
+    // how-to dialog #4 of 5
+    @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsFour() {
         Dialog instructionsFour = new Dialog(MainActivity.this);
 
@@ -1264,24 +1184,16 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        nextButton.setVisibility(View.INVISIBLE);
-                        nextButtonTextView.setVisibility(View.INVISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        nextButton.setVisibility(View.VISIBLE);
-                        nextButtonTextView.setVisibility(View.VISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button_shadow);
-                        break;
-                }
+                staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
                 return false;
             }
         });
 
     }
 
+    // how-to dialog #5 of 5
+    @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsFive() {
         Dialog instructionsFive = new Dialog(MainActivity.this);
 
@@ -1309,18 +1221,8 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        nextButton.setVisibility(View.INVISIBLE);
-                        nextButtonTextView.setVisibility(View.INVISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        nextButton.setVisibility(View.VISIBLE);
-                        nextButtonTextView.setVisibility(View.VISIBLE);
-                        nextButtonShadow.setImageResource(R.drawable.start_button_shadow);
-                        break;
-                }
+                staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
                 return false;
             }
         });
