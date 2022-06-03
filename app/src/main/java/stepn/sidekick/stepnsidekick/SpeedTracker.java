@@ -32,11 +32,12 @@ import java.util.concurrent.TimeUnit;
 
 public class SpeedTracker extends AppCompatActivity {
 
-    // to ensure the UI returns to menu if app is opened after service has stopped
-    //     1 - running
-    //     0 - paused
-    //    -1 - stopped
+    /* ensures UI updates after user modifies timer from service
+     *     1 - running
+     *     0 - paused
+     *    -1 - stopped      */
     public static int serviceStatus;
+    private int localStatus;
 
     private double speedLowerLimit, speedUpperLimit, energy;
     private long millis;
@@ -68,6 +69,7 @@ public class SpeedTracker extends AppCompatActivity {
         setContentView(R.layout.activity_speed_tracker);
 
         serviceStatus = 1;
+        localStatus = 1;
 
         changedUI = false;
 
@@ -113,18 +115,11 @@ public class SpeedTracker extends AppCompatActivity {
         pauseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                minusFiveImageButton.setVisibility(View.GONE);
-                minusTextView.setVisibility(View.INVISIBLE);
-                plusFiveImageButton.setVisibility(View.GONE);
-                plusTextView.setVisibility(View.INVISIBLE);
-                pauseImageButton.setVisibility(View.GONE);
-
-                currentSpeedTextView.setText("-");
+                changeUiPausedState();
 
                 sendNewTime(Finals.PAUSE);
 
-                startImageButton.setVisibility(View.VISIBLE);
-                stopImageButton.setVisibility(View.VISIBLE);
+
             }
         });
     }
@@ -150,6 +145,18 @@ public class SpeedTracker extends AppCompatActivity {
     private void updateUI(Intent intent) {
         double currentSpeed = 0.0;
         float gpsAccuracy = 0.0f;
+
+        if (serviceStatus != localStatus) {
+            if (serviceStatus == 1) {
+                changeUiRunningState();
+                localStatus = 1;
+            } else if (serviceStatus == 0) {
+                changeUiPausedState();
+                localStatus = 0;
+            } else {
+                onBackPressed();
+            }
+        }
 
         if (intent.getExtras() != null) {
             millis = intent.getLongExtra(Finals.COUNTDOWN_TIME, 0);
@@ -245,14 +252,9 @@ public class SpeedTracker extends AppCompatActivity {
         super.onResume();
         registerReceiver(secondsAndSpeedReceiver, new IntentFilter(Finals.COUNTDOWN_BR));
         if (serviceStatus == 0 ) {
-            minusFiveImageButton.setVisibility(View.GONE);
-            minusTextView.setVisibility(View.INVISIBLE);
-            plusFiveImageButton.setVisibility(View.GONE);
-            plusTextView.setVisibility(View.INVISIBLE);
-            pauseImageButton.setVisibility(View.GONE);
-            currentSpeedTextView.setText("-");
-            startImageButton.setVisibility(View.VISIBLE);
-            stopImageButton.setVisibility(View.VISIBLE);
+            changeUiPausedState();
+            pingServiceForTime();
+            localStatus = 0;
         } else if (serviceStatus == -1) {
             onBackPressed();
         }
@@ -348,16 +350,8 @@ public class SpeedTracker extends AppCompatActivity {
         startImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startImageButton.setVisibility(View.GONE);
-                stopImageButton.setVisibility(View.GONE);
-
+                changeUiRunningState();
                 sendNewTime(Finals.START);
-
-                minusFiveImageButton.setVisibility(View.VISIBLE);
-                minusTextView.setVisibility(View.VISIBLE);
-                plusFiveImageButton.setVisibility(View.VISIBLE);
-                plusTextView.setVisibility(View.VISIBLE);
-                pauseImageButton.setVisibility(View.VISIBLE);
             }
         });
 
@@ -429,6 +423,35 @@ public class SpeedTracker extends AppCompatActivity {
         Intent sendTime = new Intent(Finals.MODIFY_TIME_BR);
         sendTime.putExtra(Finals.TIME_MODIFIER, option);
         sendBroadcast(sendTime);
+    }
+
+    // get an updated time from the service if the timer is paused
+    // (service only broadcasts time while timer is running)
+    private void pingServiceForTime() {
+        Intent getTime = new Intent(Finals.GET_TIME_BR);
+        sendBroadcast(getTime);
+    }
+
+    // update UI when user presses pause button (start and stop buttons appear)
+    private void changeUiPausedState() {
+        minusFiveImageButton.setVisibility(View.GONE);
+        minusTextView.setVisibility(View.INVISIBLE);
+        plusFiveImageButton.setVisibility(View.GONE);
+        plusTextView.setVisibility(View.INVISIBLE);
+        pauseImageButton.setVisibility(View.GONE);
+        startImageButton.setVisibility(View.VISIBLE);
+        stopImageButton.setVisibility(View.VISIBLE);
+    }
+
+    // update UI when user presses play button (start and stop buttons disappear)
+    private void changeUiRunningState() {
+        startImageButton.setVisibility(View.GONE);
+        stopImageButton.setVisibility(View.GONE);
+        minusFiveImageButton.setVisibility(View.VISIBLE);
+        minusTextView.setVisibility(View.VISIBLE);
+        plusFiveImageButton.setVisibility(View.VISIBLE);
+        plusTextView.setVisibility(View.VISIBLE);
+        pauseImageButton.setVisibility(View.VISIBLE);
     }
 
     // generic button push animation, makes button smaller on touch

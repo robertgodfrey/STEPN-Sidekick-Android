@@ -71,6 +71,13 @@ public class GpsWatchService extends Service {
         }
     };
 
+    private final BroadcastReceiver respondToPing = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            broadcastInfo();
+        }
+    };
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -158,6 +165,7 @@ public class GpsWatchService extends Service {
         startLocationUpdates();
 
         registerReceiver(updatedTimeReceiver, new IntentFilter(Finals.MODIFY_TIME_BR));
+        registerReceiver(respondToPing, new IntentFilter(Finals.GET_TIME_BR));
 
         return START_NOT_STICKY;
     }
@@ -792,7 +800,7 @@ public class GpsWatchService extends Service {
             // play
             initMainCountDownTimer();
             mainCountDownTimer.start();
-
+            startLocationUpdates();
             SpeedTracker.serviceStatus = 1;
 
             Intent notificationPauseButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
@@ -807,8 +815,9 @@ public class GpsWatchService extends Service {
         } else if (timeMod == 0){
             // pause
             mainCountDownTimer.cancel();
-
+            stopLocationUpdates();
             SpeedTracker.serviceStatus = 0;
+            broadcastInfo();
 
             Intent notificationStartButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
             notificationStartButtonIntent.putExtra(Finals.TIME_MODIFIER, 1);
@@ -828,6 +837,8 @@ public class GpsWatchService extends Service {
 
         } else {
             // stop
+            broadcastInfo();
+            SpeedTracker.serviceStatus = -1;
             stopSelf();
         }
     }

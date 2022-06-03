@@ -4,6 +4,7 @@ package stepn.sidekick.stepnsidekick;
 public final class Finals {
     public static final String COUNTDOWN_BR = "stepnsidekick.countdown_br";
     public static final String MODIFY_TIME_BR = "stepnsidekick.modify_timer_br";
+    public static final String GET_TIME_BR = "stepnsidekick.get_time_br";
     public static final String MIN_SPEED = "min";
     public static final String MAX_SPEED = "max";
     public static final String ENERGY = "energy";
