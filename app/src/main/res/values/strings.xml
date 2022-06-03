@@ -66,4 +66,6 @@
     <string name="email_copied">Email copied to clipboard</string>
     <string name="starting_in">"Starting in: "</string>
     <string name="paused">Paused</string>
+    <string name="pause">PAUSE</string>
+    <string name="stop">STOP</string>
 </resources>

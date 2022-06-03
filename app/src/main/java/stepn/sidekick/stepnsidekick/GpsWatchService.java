@@ -1,6 +1,7 @@
 package stepn.sidekick.stepnsidekick;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -66,7 +67,7 @@ public class GpsWatchService extends Service {
         public void onReceive(Context context, Intent intent) {
             Log.d("GpsWatchService", "broadcast received");
             if (intent.getExtras() != null) {
-                int timeMod = intent.getIntExtra(Finals.TIME_MODIFIER, 0);
+                int timeMod = intent.getIntExtra(Finals.TIME_MODIFIER, Finals.STOP);
                 Log.d("GpsWatchService", "timeMod: " + timeMod);
                 updateTimer(timeMod);
             }
@@ -84,7 +85,7 @@ public class GpsWatchService extends Service {
 
         Intent notificationPauseButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
         notificationPauseButtonIntent.putExtra(Finals.TIME_MODIFIER, 0);
-        PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, 0,
+        PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, Finals.PAUSE,
                 notificationPauseButtonIntent, PendingIntent.FLAG_IMMUTABLE);
 
         notificationBuilder = new NotificationCompat.Builder(this, App.CHANNEL_ID)
@@ -92,7 +93,7 @@ public class GpsWatchService extends Service {
                 .setContentText("Running")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setSilent(true)
-                .addAction(R.drawable.shadow, "PAUSE", pendingPauseIntent)
+                .addAction(0, getString(R.string.pause), pendingPauseIntent)
                 .setContentIntent(pendingOpenActivityIntent);
         notification = notificationBuilder.build();
 
@@ -778,6 +779,7 @@ public class GpsWatchService extends Service {
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
     }
 
+    @SuppressLint("RestrictedApi")
     private void updateTimer(int timeMod) {
         if (timeMod == -5) {
             // sub five
@@ -798,12 +800,44 @@ public class GpsWatchService extends Service {
             initMainCountDownTimer();
             mainCountDownTimer.start();
             startLocationUpdates();
-        } else {
+
+            SpeedTracker.serviceStatus = 1;
+
+            Intent notificationPauseButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
+            notificationPauseButtonIntent.putExtra(Finals.TIME_MODIFIER, 0);
+            PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, Finals.PAUSE,
+                    notificationPauseButtonIntent, PendingIntent.FLAG_IMMUTABLE);
+
+            notificationBuilder.mActions.clear();
+            notificationBuilder.addAction(0, getString(R.string.pause), pendingPauseIntent);
+            notificationManager.notify(1, notificationBuilder.build());
+
+        } else if (timeMod == 0){
             // pause
             mainCountDownTimer.cancel();
             stopLocationUpdates();
+
+            SpeedTracker.serviceStatus = 0;
+
+            Intent notificationStartButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
+            notificationStartButtonIntent.putExtra(Finals.TIME_MODIFIER, 1);
+            PendingIntent pendingStartIntent = PendingIntent.getBroadcast(this, Finals.START,
+                    notificationStartButtonIntent, PendingIntent.FLAG_IMMUTABLE);
+
+            Intent notificationStopButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
+            notificationStopButtonIntent.putExtra(Finals.TIME_MODIFIER, -1);
+            PendingIntent pendingStopIntent = PendingIntent.getBroadcast(this, Finals.STOP,
+                    notificationStopButtonIntent, PendingIntent.FLAG_IMMUTABLE);
+
             notificationBuilder.setContentText(getString(R.string.paused));
+            notificationBuilder.mActions.clear();
+            notificationBuilder.addAction(0, getString(R.string.stop), pendingStopIntent);
+            notificationBuilder.addAction(0, getString(R.string.start), pendingStartIntent);
             notificationManager.notify(1, notificationBuilder.build());
+
+        } else {
+            // stop
+            stopSelf();
         }
     }
 
@@ -828,7 +862,7 @@ public class GpsWatchService extends Service {
             voiceSoundPool = null;
         }
 
-        SpeedTracker.serviceRunning = false;
+        SpeedTracker.serviceStatus = -1;
         unregisterReceiver(updatedTimeReceiver);
 
         stopSelf();

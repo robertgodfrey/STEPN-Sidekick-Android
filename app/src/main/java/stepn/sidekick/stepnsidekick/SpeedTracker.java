@@ -33,7 +33,10 @@ import java.util.concurrent.TimeUnit;
 public class SpeedTracker extends AppCompatActivity {
 
     // to ensure the UI returns to menu if app is opened after service has stopped
-    public static boolean serviceRunning;
+    //     1 - running
+    //     0 - paused
+    //    -1 - stopped
+    public static int serviceStatus;
 
     private double speedLowerLimit, speedUpperLimit, energy;
     private long millis;
@@ -64,7 +67,7 @@ public class SpeedTracker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speed_tracker);
 
-        serviceRunning = true;
+        serviceStatus = 1;
 
         changedUI = false;
 
@@ -118,7 +121,7 @@ public class SpeedTracker extends AppCompatActivity {
 
                 currentSpeedTextView.setText("-");
 
-                sendNewTime(0);
+                sendNewTime(Finals.PAUSE);
 
                 startImageButton.setVisibility(View.VISIBLE);
                 stopImageButton.setVisibility(View.VISIBLE);
@@ -241,8 +244,16 @@ public class SpeedTracker extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         registerReceiver(secondsAndSpeedReceiver, new IntentFilter(Finals.COUNTDOWN_BR));
-
-        if (!serviceRunning) {
+        if (serviceStatus == 0 ) {
+            minusFiveImageButton.setVisibility(View.GONE);
+            minusTextView.setVisibility(View.INVISIBLE);
+            plusFiveImageButton.setVisibility(View.GONE);
+            plusTextView.setVisibility(View.INVISIBLE);
+            pauseImageButton.setVisibility(View.GONE);
+            currentSpeedTextView.setText("-");
+            startImageButton.setVisibility(View.VISIBLE);
+            stopImageButton.setVisibility(View.VISIBLE);
+        } else if (serviceStatus == -1) {
             onBackPressed();
         }
     }
@@ -340,7 +351,7 @@ public class SpeedTracker extends AppCompatActivity {
                 startImageButton.setVisibility(View.GONE);
                 stopImageButton.setVisibility(View.GONE);
 
-                sendNewTime(1);
+                sendNewTime(Finals.START);
 
                 minusFiveImageButton.setVisibility(View.VISIBLE);
                 minusTextView.setVisibility(View.VISIBLE);
@@ -365,7 +376,7 @@ public class SpeedTracker extends AppCompatActivity {
         minusFiveImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendNewTime(-5);
+                sendNewTime(Finals.SUB_FIVE);
             }
         });
 
@@ -387,7 +398,7 @@ public class SpeedTracker extends AppCompatActivity {
         plusFiveImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendNewTime(5);
+                sendNewTime(Finals.ADD_FIVE);
             }
         });
 
@@ -412,10 +423,7 @@ public class SpeedTracker extends AppCompatActivity {
      * Broadcast to change the timer in GpsWatchService.
      *
      * @param option defines whether to pause/play, subtract, or add five seconds to the timer
-     *               0: pause
-     *               1: play
-     *               -5: subtract five seconds
-     *               5: add five seconds
+     *               (uses Finals.class for options)
      */
     private void sendNewTime(int option) {
         Intent sendTime = new Intent(Finals.MODIFY_TIME_BR);
