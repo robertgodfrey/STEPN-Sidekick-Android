@@ -64,4 +64,6 @@
     <string name="gps_permission_instructions">This app requires location permissions to run properly. Please select \"Precise\" in order to receive accurate speed alerts.</string>
     <string name="app_goal">The goal of this app is to make walking and running while using STEPN more enjoyable.         Audible alerts allow you to focus on your activity rather than constantly checking your phone.</string>
     <string name="email_copied">Email copied to clipboard</string>
+    <string name="starting_in">"Starting in: "</string>
+    <string name="paused">Paused…</string>
 </resources>

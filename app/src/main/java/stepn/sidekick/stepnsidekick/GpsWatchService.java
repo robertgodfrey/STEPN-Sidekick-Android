@@ -5,13 +5,17 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -26,9 +30,8 @@ import com.google.android.gms.location.LocationServices;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Foreground service to track GPS speed. Takes user's location every second and plays alerts if
- * the speed is outside the specified range. Sends info back to the SpeedTracker class if the
- * user has the app open.
+ * Foreground service to track speed using GPS. Takes user's location every second and plays alarm
+ * sound if the speed is outside the specified range. Broadcasts info back to the SpeedTracker class.
  *
  * @author Bob Godfrey
  * @version 1.0.6
@@ -36,8 +39,7 @@ import java.util.concurrent.TimeUnit;
 
 public class GpsWatchService extends Service {
 
-    public static final String COUNTDOWN_BR = "stepnsidekick.countdown_br";
-    public static boolean serviceRunning;
+    // TODO add 'pause' and 'stop' button to notification
 
     // Google's API for location services
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -62,10 +64,15 @@ public class GpsWatchService extends Service {
 
     long millisRemaining;
 
+    private final BroadcastReceiver updatedTimeReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            updateTimer(intent);
+        }
+    };
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        serviceRunning = true;
         killThread = false;
 
         Intent notificationIntent = new Intent(this, SpeedTracker.class);
@@ -89,13 +96,13 @@ public class GpsWatchService extends Service {
         locationRequest.setFastestInterval(1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        speedLowerLimit = intent.getDoubleExtra("min", 0);
-        speedUpperLimit = intent.getDoubleExtra("max", 0);
-        voiceAlertsMinuteThirty = intent.getBooleanExtra("voiceCountdownAlerts", true);
-        voiceAlertsSpeed = intent.getBooleanExtra("voiceAlertsSpeed", true);
-        voiceAlertsTime = intent.getBooleanExtra("voiceAlertsTime", true);
-        energy = (intent.getDoubleExtra("energy", 0));
-        tenSecondTimer = intent.getBooleanExtra("tenSecTimer", false);
+        speedLowerLimit = intent.getDoubleExtra(Finals.MIN_SPEED, 0);
+        speedUpperLimit = intent.getDoubleExtra(Finals.MAX_SPEED, 0);
+        energy = (intent.getDoubleExtra(Finals.ENERGY, 0));
+        tenSecondTimer = intent.getBooleanExtra(Finals.TEN_SECOND_TIMER, false);
+        voiceAlertsMinuteThirty = intent.getBooleanExtra(Finals.VOICE_ALERTS_CD, true);
+        voiceAlertsSpeed = intent.getBooleanExtra(Finals.VOICE_ALERTS_SPEED, true);
+        voiceAlertsTime = intent.getBooleanExtra(Finals.VOICE_ALERTS_TIME, true);
 
         millisRemaining = (long) (energy * 5 * 60 * 1000) + 31000;
 
@@ -143,6 +150,8 @@ public class GpsWatchService extends Service {
 
         startLocationUpdates();
 
+        registerReceiver(updatedTimeReceiver, new IntentFilter(Finals.MODIFY_TIME_BR));
+
         return START_NOT_STICKY;
     }
 
@@ -184,6 +193,8 @@ public class GpsWatchService extends Service {
         mainCountDownTimer = new CountDownTimer(millisRemaining, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+
+                Log.d("MAIN COUNTDOWN TIMER", "TICK: " + (millisRemaining / 1000));
 
                 millisRemaining = millisUntilFinished;
 
@@ -730,20 +741,20 @@ public class GpsWatchService extends Service {
             if (TimeUnit.MILLISECONDS.toHours(millisRemaining) > 0) {
                 time += TimeUnit.MILLISECONDS.toHours(millisRemaining) + ":";
             }
-            notificationBuilder.setContentText("Time Remaining: " + time +
+            notificationBuilder.setContentText(getString(R.string.time_remaining) + " " + time +
                     String.format("%02d:%02d", (TimeUnit.MILLISECONDS.toMinutes(millisRemaining) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisRemaining))),
                             (TimeUnit.MILLISECONDS.toSeconds(millisRemaining) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisRemaining)))) +
-                    "\nCurrent Speed: " + String.format("%.1f", currentSpeed) + " km/h");
+                    "\n" + getString(R.string.current_speed) + " " + String.format("%.1f", currentSpeed) + " km/h");
         } else {
-            notificationBuilder.setContentText("Starting in: " + TimeUnit.MILLISECONDS.toSeconds(millisRemaining));
+            notificationBuilder.setContentText(getString(R.string.starting_in) + TimeUnit.MILLISECONDS.toSeconds(millisRemaining));
         }
         notificationManager.notify(1, notificationBuilder.build());
-        Intent sendInfo = new Intent(COUNTDOWN_BR);
-        sendInfo.putExtra("countdown", millisRemaining);
-        sendInfo.putExtra("speed", currentSpeed);
-        sendInfo.putExtra("gpsAccuracy", gpsAccuracy);
-        sendInfo.putExtra("energy", energy);
-        sendInfo.putExtra("tenSecondTimerDone", tenSecondTimerDone);
+        Intent sendInfo = new Intent(Finals.COUNTDOWN_BR);
+        sendInfo.putExtra(Finals.COUNTDOWN_TIME, millisRemaining);
+        sendInfo.putExtra(Finals.CURRENT_SPEED, currentSpeed);
+        sendInfo.putExtra(Finals.GPS_ACCURACY, gpsAccuracy);
+        sendInfo.putExtra(Finals.ENERGY, energy);
+        sendInfo.putExtra(Finals.TEN_SECOND_DONE, tenSecondTimerDone);
         sendBroadcast(sendInfo);
     }
 
@@ -756,6 +767,39 @@ public class GpsWatchService extends Service {
             return;
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
+    }
+
+    private void updateTimer(Intent intent) {
+        if (intent.getExtras() != null) {
+            int timeMod =  intent.getIntExtra(Finals.TIME_MODIFIER, 0);
+            if (timeMod == -5) {
+                // sub five
+                Log.d("GpsWatchService", "sub 5");
+                mainCountDownTimer.cancel();
+                millisRemaining -= 5000;
+                initMainCountDownTimer();
+                mainCountDownTimer.start();
+            } else if (timeMod == 5) {
+                // add 5
+                Log.d("GpsWatchService", "add 5");
+                mainCountDownTimer.cancel();
+                millisRemaining += 5000;
+                initMainCountDownTimer();
+                mainCountDownTimer.start();
+            } else if (timeMod == 1){
+                // play
+                initMainCountDownTimer();
+                mainCountDownTimer.start();
+                startLocationUpdates();
+            } else {
+                // pause
+                mainCountDownTimer.cancel();
+                stopLocationUpdates();
+                notificationBuilder.setContentText(getString(R.string.paused));
+                notificationManager.notify(1, notificationBuilder.build());
+            }
+        }
+
     }
 
     @Override
@@ -779,7 +823,9 @@ public class GpsWatchService extends Service {
             voiceSoundPool = null;
         }
 
-        serviceRunning = false;
+        SpeedTracker.serviceRunning = false;
+        unregisterReceiver(updatedTimeReceiver);
+
         stopSelf();
         super.onDestroy();
     }

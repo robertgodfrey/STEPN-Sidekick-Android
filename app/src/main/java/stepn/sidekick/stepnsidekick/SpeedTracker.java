@@ -5,12 +5,15 @@ import androidx.core.content.ContextCompat;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +32,9 @@ import java.util.concurrent.TimeUnit;
 
 public class SpeedTracker extends AppCompatActivity {
 
+    // to ensure the UI returns to menu if app is opened after service has stopped
+    public static boolean serviceRunning;
+
     private double speedLowerLimit, speedUpperLimit, energy;
     private long millis;
     private String shoeType;
@@ -41,8 +47,9 @@ public class SpeedTracker extends AppCompatActivity {
     ImageView stopWatchImageView;
     TextView initialCountDownTextView, energyAmountTextView, currentSpeedTextView,
             timeRemainingTextView, shoeTypeTextView, shoeSpeedTextView, currentSpeedLabelTextView,
-            kmphLabelTextView, timeRemainingLabelTextView;
-    ImageButton stopImageButton;
+            kmphLabelTextView, timeRemainingLabelTextView, minusTextView, plusTextView;
+    ImageButton pauseImageButton, minusFiveImageButton, plusFiveImageButton, startImageButton,
+            stopImageButton;
     ImageView leftGps, centerGps, rightGps, footLeft, footCenter, footRight;
 
     // receives broadcast from service to update UI
@@ -57,21 +64,21 @@ public class SpeedTracker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speed_tracker);
 
-        GpsWatchService.serviceRunning = true;
+        serviceRunning = true;
 
         changedUI = false;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            speedLowerLimit = extras.getDouble("min");
-            speedUpperLimit = extras.getDouble("max");
-            energy = extras.getDouble("energy");
-            shoeType = extras.getString("shoeType");
-            numFeet = extras.getInt("numFeet");
-            tenSecondTimer = extras.getBoolean("tenSecondTimer");
-            voiceAlertsMinuteThirty = extras.getBoolean("voiceCountdownAlerts");
-            voiceAlertsSpeed = extras.getBoolean("voiceAlertsSpeed");
-            voiceAlertsTime = extras.getBoolean("voiceAlertsTime");
+            speedLowerLimit = extras.getDouble(Finals.MIN_SPEED);
+            speedUpperLimit = extras.getDouble(Finals.MAX_SPEED);
+            energy = extras.getDouble(Finals.ENERGY);
+            shoeType = extras.getString(Finals.SHOE_TYPE);
+            numFeet = extras.getInt(Finals.NUM_FEET);
+            tenSecondTimer = extras.getBoolean(Finals.TEN_SECOND_TIMER);
+            voiceAlertsMinuteThirty = extras.getBoolean(Finals.VOICE_ALERTS_CD);
+            voiceAlertsSpeed = extras.getBoolean(Finals.VOICE_ALERTS_SPEED);
+            voiceAlertsTime = extras.getBoolean(Finals.VOICE_ALERTS_TIME);
         }
 
         tenSecondTimerDone = !tenSecondTimer;
@@ -92,6 +99,31 @@ public class SpeedTracker extends AppCompatActivity {
         kmphLabelTextView.setVisibility(View.VISIBLE);
         timeRemainingLabelTextView.setVisibility(View.VISIBLE);
         timeRemainingTextView.setVisibility(View.VISIBLE);
+
+        minusTextView.setVisibility(View.VISIBLE);
+        minusFiveImageButton.setVisibility(View.VISIBLE);
+        plusTextView.setVisibility(View.VISIBLE);
+        plusFiveImageButton.setVisibility(View.VISIBLE);
+
+        pauseImageButton.setImageResource(R.mipmap.pause_button);
+
+        pauseImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                minusFiveImageButton.setVisibility(View.GONE);
+                minusTextView.setVisibility(View.INVISIBLE);
+                plusFiveImageButton.setVisibility(View.GONE);
+                plusTextView.setVisibility(View.INVISIBLE);
+                pauseImageButton.setVisibility(View.GONE);
+
+                currentSpeedTextView.setText("-");
+
+                sendNewTime(0);
+
+                startImageButton.setVisibility(View.VISIBLE);
+                stopImageButton.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     // ensures that the service is stopped on exit
@@ -117,11 +149,11 @@ public class SpeedTracker extends AppCompatActivity {
         float gpsAccuracy = 0.0f;
 
         if (intent.getExtras() != null) {
-            millis = intent.getLongExtra("countdown", 0);
-            currentSpeed = intent.getDoubleExtra("speed", 0);
-            gpsAccuracy = intent.getFloatExtra("gpsAccuracy", 0);
-            energy = intent.getDoubleExtra("energy", 0);
-            tenSecondTimerDone = intent.getBooleanExtra("tenSecondTimerDone", true);
+            millis = intent.getLongExtra(Finals.COUNTDOWN_TIME, 0);
+            currentSpeed = intent.getDoubleExtra(Finals.CURRENT_SPEED, 0);
+            gpsAccuracy = intent.getFloatExtra(Finals.GPS_ACCURACY, 0);
+            energy = intent.getDoubleExtra(Finals.ENERGY, 0);
+            tenSecondTimerDone = intent.getBooleanExtra(Finals.TEN_SECOND_DONE, true);
         }
 
         // initial ten second countdown timer
@@ -176,7 +208,7 @@ public class SpeedTracker extends AppCompatActivity {
         time += String.format("%02d:%02d", (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))),
                 (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))));
         if (intent.getExtras() != null && tenSecondTimerDone) {
-            if (intent.getLongExtra("countdown", 0) == -1) {
+            if (intent.getLongExtra(Finals.COUNTDOWN_TIME, 0) == -1) {
                 time = "00:00";
                 onBackPressed();
             }
@@ -189,13 +221,13 @@ public class SpeedTracker extends AppCompatActivity {
     public void startService() {
         Intent serviceIntent = new Intent(this, GpsWatchService.class);
 
-        serviceIntent.putExtra("energy", energy);
-        serviceIntent.putExtra("min", speedLowerLimit);
-        serviceIntent.putExtra("max", speedUpperLimit);
-        serviceIntent.putExtra("voiceCountdownAlerts", voiceAlertsMinuteThirty);
-        serviceIntent.putExtra("voiceAlertsSpeed", voiceAlertsSpeed);
-        serviceIntent.putExtra("voiceAlertsTime", voiceAlertsTime);
-        serviceIntent.putExtra("tenSecTimer", tenSecondTimer);
+        serviceIntent.putExtra(Finals.MIN_SPEED, speedLowerLimit);
+        serviceIntent.putExtra(Finals.MAX_SPEED, speedUpperLimit);
+        serviceIntent.putExtra(Finals.ENERGY, energy);
+        serviceIntent.putExtra(Finals.TEN_SECOND_TIMER, tenSecondTimer);
+        serviceIntent.putExtra(Finals.VOICE_ALERTS_CD, voiceAlertsMinuteThirty);
+        serviceIntent.putExtra(Finals.VOICE_ALERTS_SPEED, voiceAlertsSpeed);
+        serviceIntent.putExtra(Finals.VOICE_ALERTS_TIME, voiceAlertsTime);
 
         startService(serviceIntent);
     }
@@ -208,9 +240,9 @@ public class SpeedTracker extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(secondsAndSpeedReceiver, new IntentFilter(GpsWatchService.COUNTDOWN_BR));
+        registerReceiver(secondsAndSpeedReceiver, new IntentFilter(Finals.COUNTDOWN_BR));
 
-        if (!GpsWatchService.serviceRunning) {
+        if (!serviceRunning) {
             onBackPressed();
         }
     }
@@ -231,6 +263,7 @@ public class SpeedTracker extends AppCompatActivity {
         super.onStop();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void buildUI() {
         energyAmountTextView = findViewById(R.id.energyAmountTextView);
 
@@ -254,7 +287,14 @@ public class SpeedTracker extends AppCompatActivity {
         timeRemainingLabelTextView = findViewById(R.id.timeRemainingLabelTextView);
         timeRemainingTextView = findViewById(R.id.timeRemainingTextView);
 
+        pauseImageButton = findViewById(R.id.pauseImageButton);
         stopImageButton = findViewById(R.id.stopImageButton);
+        startImageButton = findViewById(R.id.playImageButton);
+
+        minusFiveImageButton = findViewById(R.id.minusFiveSecondsButton);
+        plusFiveImageButton = findViewById(R.id.plusFiveSecondsButton);
+        minusTextView = findViewById(R.id.minusTextView);
+        plusTextView = findViewById(R.id.plusTextView);
 
         String shoeSpeed = speedLowerLimit + " - " + speedUpperLimit + " km/h";
         shoeSpeedTextView.setText(shoeSpeed);
@@ -285,13 +325,127 @@ public class SpeedTracker extends AppCompatActivity {
                 footRight.setImageResource(R.mipmap.bolt);
         }
 
-        stopImageButton.setOnClickListener(new View.OnClickListener() {
+        pauseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SpeedTracker.this, "STOPN", Toast.LENGTH_SHORT).show();
                 onBackPressed();
             }
         });
 
+        buttonPushAnim(pauseImageButton);
+
+        startImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startImageButton.setVisibility(View.GONE);
+                stopImageButton.setVisibility(View.GONE);
+
+                sendNewTime(1);
+
+                minusFiveImageButton.setVisibility(View.VISIBLE);
+                minusTextView.setVisibility(View.VISIBLE);
+                plusFiveImageButton.setVisibility(View.VISIBLE);
+                plusTextView.setVisibility(View.VISIBLE);
+                pauseImageButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        buttonPushAnim(startImageButton);
+
+        stopImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(SpeedTracker.this, "STOPN", Toast.LENGTH_LONG).show();
+                onBackPressed();
+            }
+        });
+
+        buttonPushAnim(stopImageButton);
+
+        minusFiveImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendNewTime(-5);
+            }
+        });
+
+        minusFiveImageButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        minusFiveImageButton.setAlpha(0.5f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        minusFiveImageButton.setAlpha(0.0f);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        plusFiveImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendNewTime(5);
+            }
+        });
+
+        plusFiveImageButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        plusFiveImageButton.setAlpha(0.5f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        plusFiveImageButton.setAlpha(0.0f);
+                        break;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    /**
+     * Broadcast to change the timer in GpsWatchService.
+     *
+     * @param option defines whether to pause/play, subtract, or add five seconds to the timer
+     *               0: pause
+     *               1: play
+     *               -5: subtract five seconds
+     *               5: add five seconds
+     */
+    private void sendNewTime(int option) {
+        Intent sendTime = new Intent(Finals.MODIFY_TIME_BR);
+        sendTime.putExtra(Finals.TIME_MODIFIER, option);
+        sendBroadcast(sendTime);
+    }
+
+    // generic button push animation, makes button smaller on touch
+    @SuppressLint("ClickableViewAccessibility")
+    private void buttonPushAnim(ImageButton button) {
+        ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                button,
+                PropertyValuesHolder.ofFloat("scaleX", 0.95f),
+                PropertyValuesHolder.ofFloat("scaleY", 0.95f));
+        scaler.setDuration(1);
+        scaler.setRepeatMode(ValueAnimator.REVERSE);
+
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        scaler.start();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        scaler.reverse();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 }

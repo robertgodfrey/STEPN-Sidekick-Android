@@ -49,7 +49,18 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSIONS_FINE_LOCATION = 99;
+
+    // keys for shared prefs
     private final String PREFERENCES_ID = "stepn_sidekick_prefs";
+    private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";
+    private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeed";
+    private final String VOICE_ALERTS_TIME_PREF = "voiceAlertsTime";
+    private final String VOICE_ALERTS_CD_PREF = "voiceCountdownAlerts";
+    private final String ENERGY_PREF = "energy";
+    private final String FIRST_TIME_PREF = "firstTime";
+    private final String SHOE_TYPE_ITERATOR_PREF = "shoeTypeIterator";
+    private final String CUSTOM_MIN_SPEED_PREF = "customMinSpeed";
+    private final String CUSTOM_MAX_SPEED_PREF = "customMaxSpeed";
 
     Button leftButton, rightButton, disabledStartButtonHelper;
     ImageButton startButton, countDownTimerButton, voiceAlertSpeedButton, voiceAlertTimeButton,
@@ -81,15 +92,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-        tenSecondTimer = getSharedPrefs.getBoolean("tenSecondTimer", true);
-        voiceAlertsSpeed = getSharedPrefs.getBoolean("voiceAlertsSpeed", true);
-        voiceAlertsTime = getSharedPrefs.getBoolean("voiceAlertsTime", true);
-        voiceCountdownAlerts = getSharedPrefs.getBoolean("voiceCountdownAlerts", true);
-        energy = (double) getSharedPrefs.getInt("energy", 0) / 10;
-        firstTime = getSharedPrefs.getBoolean("firstTime", true);
-        shoeTypeIterator = getSharedPrefs.getInt("shoeTypeIterator", 0);
-        float customMinSpeed = getSharedPrefs.getFloat("customMinSpeed", 0);
-        float customMaxSpeed = getSharedPrefs.getFloat("customMaxSpeed", 0);
+        tenSecondTimer = getSharedPrefs.getBoolean(TEN_SECOND_TIMER_PREF, true);
+        voiceAlertsSpeed = getSharedPrefs.getBoolean(VOICE_ALERTS_SPEED_PREF, true);
+        voiceAlertsTime = getSharedPrefs.getBoolean(VOICE_ALERTS_TIME_PREF, true);
+        voiceCountdownAlerts = getSharedPrefs.getBoolean(VOICE_ALERTS_CD_PREF, true);
+        energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
+        firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
+        shoeTypeIterator = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
+        float customMinSpeed = getSharedPrefs.getFloat(CUSTOM_MIN_SPEED_PREF, 0);
+        float customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
 
         shoes = new ArrayList<>();
 
@@ -734,15 +745,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Intent startGPSActivity = new Intent(getApplicationContext(), SpeedTracker.class);
 
-            startGPSActivity.putExtra("min", min);
-            startGPSActivity.putExtra("max", max);
-            startGPSActivity.putExtra("energy", energy);
-            startGPSActivity.putExtra("shoeType", shoes.get(shoeTypeIterator).getTitle());
-            startGPSActivity.putExtra("numFeet", shoes.get(shoeTypeIterator).getNumFeet());
-            startGPSActivity.putExtra("voiceCountdownAlerts", voiceCountdownAlerts);
-            startGPSActivity.putExtra("tenSecondTimer", tenSecondTimer);
-            startGPSActivity.putExtra("voiceAlertsSpeed", voiceAlertsSpeed);
-            startGPSActivity.putExtra("voiceAlertsTime", voiceAlertsTime);
+            startGPSActivity.putExtra(Finals.MIN_SPEED, min);
+            startGPSActivity.putExtra(Finals.MAX_SPEED, max);
+            startGPSActivity.putExtra(Finals.ENERGY, energy);
+            startGPSActivity.putExtra(Finals.SHOE_TYPE, shoes.get(shoeTypeIterator).getTitle());
+            startGPSActivity.putExtra(Finals.NUM_FEET, shoes.get(shoeTypeIterator).getNumFeet());
+            startGPSActivity.putExtra(Finals.TEN_SECOND_TIMER, tenSecondTimer);
+            startGPSActivity.putExtra(Finals.VOICE_ALERTS_CD, voiceCountdownAlerts);
+            startGPSActivity.putExtra(Finals.VOICE_ALERTS_SPEED, voiceAlertsSpeed);
+            startGPSActivity.putExtra(Finals.VOICE_ALERTS_TIME, voiceAlertsTime);
 
             startActivity(startGPSActivity);
         }
@@ -1234,15 +1245,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putBoolean("tenSecondTimer", tenSecondTimer);
-        editor.putBoolean("voiceAlertsSpeed", voiceAlertsSpeed);
-        editor.putBoolean("voiceAlertsTime", voiceAlertsTime);
-        editor.putBoolean("voiceCountdownAlerts", voiceCountdownAlerts);
-        editor.putInt("energy", (int) (energy * 10));
-        editor.putBoolean("firstTime", firstTime);
-        editor.putInt("shoeTypeIterator", shoeTypeIterator);
-        editor.putFloat("customMinSpeed", shoes.get(4).getMinSpeed());
-        editor.putFloat("customMaxSpeed", shoes.get(4).getMaxSpeed());
+        editor.putBoolean(TEN_SECOND_TIMER_PREF, tenSecondTimer);
+        editor.putBoolean(VOICE_ALERTS_SPEED_PREF, voiceAlertsSpeed);
+        editor.putBoolean(VOICE_ALERTS_TIME_PREF, voiceAlertsTime);
+        editor.putBoolean(VOICE_ALERTS_CD_PREF, voiceCountdownAlerts);
+        editor.putInt(ENERGY_PREF, (int) (energy * 10));
+        editor.putBoolean(FIRST_TIME_PREF, firstTime);
+        editor.putInt(SHOE_TYPE_ITERATOR_PREF, shoeTypeIterator);
+        editor.putFloat(CUSTOM_MIN_SPEED_PREF, shoes.get(4).getMinSpeed());
+        editor.putFloat(CUSTOM_MAX_SPEED_PREF, shoes.get(4).getMaxSpeed());
         editor.apply();
 
         super.onStop();
