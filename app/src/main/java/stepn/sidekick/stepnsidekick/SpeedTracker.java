@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * the GpsWatchService class.
  *
  * @author Bob Godfrey
- * @version 1.0.6
+ * @version 1.1.0 - added pause button +/- 5 second buttons, notification buttons
  */
 
 public class SpeedTracker extends AppCompatActivity {

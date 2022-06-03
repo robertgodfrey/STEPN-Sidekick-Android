@@ -16,7 +16,6 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -35,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * sound if the speed is outside the specified range. Broadcasts info back to the SpeedTracker class.
  *
  * @author Bob Godfrey
- * @version 1.0.6
+ * @version 1.1.0 - added pause button +/- 5 second buttons, notification buttons
  */
 
 public class GpsWatchService extends Service {
@@ -65,10 +64,8 @@ public class GpsWatchService extends Service {
 
     private final BroadcastReceiver updatedTimeReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
-            Log.d("GpsWatchService", "broadcast received");
             if (intent.getExtras() != null) {
                 int timeMod = intent.getIntExtra(Finals.TIME_MODIFIER, Finals.STOP);
-                Log.d("GpsWatchService", "timeMod: " + timeMod);
                 updateTimer(timeMod);
             }
         }
@@ -203,8 +200,6 @@ public class GpsWatchService extends Service {
         mainCountDownTimer = new CountDownTimer(millisRemaining, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
-                Log.d("MAIN COUNTDOWN TIMER", "TICK: " + (millisRemaining / 1000));
 
                 millisRemaining = millisUntilFinished;
 
@@ -783,14 +778,12 @@ public class GpsWatchService extends Service {
     private void updateTimer(int timeMod) {
         if (timeMod == -5) {
             // sub five
-            Log.d("GpsWatchService", "sub 5");
             mainCountDownTimer.cancel();
             millisRemaining -= 5000;
             initMainCountDownTimer();
             mainCountDownTimer.start();
         } else if (timeMod == 5) {
             // add 5
-            Log.d("GpsWatchService", "add 5");
             mainCountDownTimer.cancel();
             millisRemaining += 5000;
             initMainCountDownTimer();
@@ -799,7 +792,6 @@ public class GpsWatchService extends Service {
             // play
             initMainCountDownTimer();
             mainCountDownTimer.start();
-            startLocationUpdates();
 
             SpeedTracker.serviceStatus = 1;
 
@@ -815,7 +807,6 @@ public class GpsWatchService extends Service {
         } else if (timeMod == 0){
             // pause
             mainCountDownTimer.cancel();
-            stopLocationUpdates();
 
             SpeedTracker.serviceStatus = 0;
 

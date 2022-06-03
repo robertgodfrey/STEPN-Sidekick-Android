@@ -43,7 +43,7 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer.
  *
  * @author Bob Godfrey
- * @version 1.0.6
+ * @version 1.1.0 - added pause button +/- 5 second buttons, notification buttons
  */
 
 public class MainActivity extends AppCompatActivity {

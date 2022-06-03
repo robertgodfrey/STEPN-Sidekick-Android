@@ -55,4 +55,8 @@
     <string name="welcome_message">"이 앱을 사용하기 전 간단한 안내사항을 읽어주십시오. "</string>
     <string name="skip">건너뛰기 ></string>
     <string name="email_copied">이메일 주소가 클립보드에 복사되었습니다</string>
+    <string name="stop">정지</string>
+    <string name="pause">일시정지</string>
+    <string name="paused">대기중</string>
+    <string name="starting_in">"카운트다운: "</string>
 </resources>

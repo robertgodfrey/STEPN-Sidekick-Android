@@ -3,14 +3,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "stepn.sidekick.stepnsidekick"
         minSdkVersion 26
-        targetSdkVersion 31
-        versionCode 11 // added 5 seconds and pause button
+        targetSdkVersion 32
+        versionCode 11 // added additional time controls
         versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
