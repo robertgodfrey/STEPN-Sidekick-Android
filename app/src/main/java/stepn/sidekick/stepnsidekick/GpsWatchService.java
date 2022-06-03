@@ -39,8 +39,6 @@ import java.util.concurrent.TimeUnit;
 
 public class GpsWatchService extends Service {
 
-    // TODO add 'pause' and 'stop' button to notification
-
     // Google's API for location services
     FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -66,7 +64,12 @@ public class GpsWatchService extends Service {
 
     private final BroadcastReceiver updatedTimeReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
-            updateTimer(intent);
+            Log.d("GpsWatchService", "broadcast received");
+            if (intent.getExtras() != null) {
+                int timeMod = intent.getIntExtra(Finals.TIME_MODIFIER, 0);
+                Log.d("GpsWatchService", "timeMod: " + timeMod);
+                updateTimer(timeMod);
+            }
         }
     };
 
@@ -75,16 +78,22 @@ public class GpsWatchService extends Service {
 
         killThread = false;
 
-        Intent notificationIntent = new Intent(this, SpeedTracker.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-               0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
+        Intent notificationMainButtonIntent = new Intent(this, SpeedTracker.class);
+        PendingIntent pendingOpenActivityIntent = PendingIntent.getActivity(this,
+               0, notificationMainButtonIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        Intent notificationPauseButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
+        notificationPauseButtonIntent.putExtra(Finals.TIME_MODIFIER, 0);
+        PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, 0,
+                notificationPauseButtonIntent, PendingIntent.FLAG_IMMUTABLE);
 
         notificationBuilder = new NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setContentTitle("STEPN Sidekick")
                 .setContentText("Running")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setSilent(true)
-                .setContentIntent(pendingIntent);
+                .addAction(R.drawable.shadow, "PAUSE", pendingPauseIntent)
+                .setContentIntent(pendingOpenActivityIntent);
         notification = notificationBuilder.build();
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -769,37 +778,33 @@ public class GpsWatchService extends Service {
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
     }
 
-    private void updateTimer(Intent intent) {
-        if (intent.getExtras() != null) {
-            int timeMod =  intent.getIntExtra(Finals.TIME_MODIFIER, 0);
-            if (timeMod == -5) {
-                // sub five
-                Log.d("GpsWatchService", "sub 5");
-                mainCountDownTimer.cancel();
-                millisRemaining -= 5000;
-                initMainCountDownTimer();
-                mainCountDownTimer.start();
-            } else if (timeMod == 5) {
-                // add 5
-                Log.d("GpsWatchService", "add 5");
-                mainCountDownTimer.cancel();
-                millisRemaining += 5000;
-                initMainCountDownTimer();
-                mainCountDownTimer.start();
-            } else if (timeMod == 1){
-                // play
-                initMainCountDownTimer();
-                mainCountDownTimer.start();
-                startLocationUpdates();
-            } else {
-                // pause
-                mainCountDownTimer.cancel();
-                stopLocationUpdates();
-                notificationBuilder.setContentText(getString(R.string.paused));
-                notificationManager.notify(1, notificationBuilder.build());
-            }
+    private void updateTimer(int timeMod) {
+        if (timeMod == -5) {
+            // sub five
+            Log.d("GpsWatchService", "sub 5");
+            mainCountDownTimer.cancel();
+            millisRemaining -= 5000;
+            initMainCountDownTimer();
+            mainCountDownTimer.start();
+        } else if (timeMod == 5) {
+            // add 5
+            Log.d("GpsWatchService", "add 5");
+            mainCountDownTimer.cancel();
+            millisRemaining += 5000;
+            initMainCountDownTimer();
+            mainCountDownTimer.start();
+        } else if (timeMod == 1){
+            // play
+            initMainCountDownTimer();
+            mainCountDownTimer.start();
+            startLocationUpdates();
+        } else {
+            // pause
+            mainCountDownTimer.cancel();
+            stopLocationUpdates();
+            notificationBuilder.setContentText(getString(R.string.paused));
+            notificationManager.notify(1, notificationBuilder.build());
         }
-
     }
 
     @Override
