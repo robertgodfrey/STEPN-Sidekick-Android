@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="500dp">
+
+    <ImageView
+        android:id="@+id/alertBoxBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="-16dp"
+        app:layout_constraintBottom_toBottomOf="@id/nextButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/alert_box" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:includeFontPadding="false"
+        android:text="UPDATE"
+        android:textColor="@color/gandalf"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toTopOf="@+id/alertBoxBackground" />
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/AlertText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:includeFontPadding="false"
+        android:text="This update includes more options for controlling the timer:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/bulletsTextView"
+        style="@style/AlertText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="•"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+    <TextView
+        android:id="@+id/updateListTextView"
+        style="@style/AlertText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:includeFontPadding="false"
+        android:text="The stop button has been changed to a pause button, so you will not need to restart the timer if you pause your workout"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@+id/bulletsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/bullets2TextView"
+        style="@style/AlertText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="•"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/updateListTextView" />
+
+
+    <TextView
+        android:id="@+id/updateList2TextView"
+        style="@style/AlertText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:includeFontPadding="false"
+        android:text="+/-5 seconds buttons have been added to modify workout time if needed"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@+id/bulletsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/updateListTextView" />
+
+    <TextView
+        android:id="@+id/bullets3TextView"
+        style="@style/AlertText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="•"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/updateList2TextView" />
+
+
+    <TextView
+        android:id="@+id/updateList3TextView"
+        style="@style/AlertText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:includeFontPadding="false"
+        android:text="Notification buttons have been added so you can control the timer from outside the app"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@+id/bulletsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/updateList2TextView" />
+
+    <TextView
+        android:id="@+id/reviewPlz"
+        style="@style/AlertText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:includeFontPadding="false"
+        android:text="If you have been enjoying the app, please consider leaving a review on the Play Store!"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/updateList3TextView" />
+
+    <ImageView
+        android:id="@+id/nextButtonShadow"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="@+id/nextButton"
+        app:layout_constraintStart_toStartOf="@+id/nextButton"
+        app:layout_constraintTop_toTopOf="@+id/nextButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <TextView
+        android:id="@+id/nextButtonShadowTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        style="@style/ButtonBoldItalic"
+        android:text="@string/next"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/nextButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/nextButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/nextButtonShadow" />
+
+    <ImageButton
+        android:id="@+id/nextButton"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:src="@drawable/start_button"
+        app:layout_constraintEnd_toEndOf="@+id/updateListTextView"
+        app:layout_constraintTop_toBottomOf="@+id/reviewPlz" />
+
+    <TextView
+        android:id="@+id/nextButtonTextView"
+        style="@style/ButtonBoldItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="@string/okay"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="@+id/nextButton"
+        app:layout_constraintStart_toStartOf="@+id/nextButton"
+        app:layout_constraintTop_toTopOf="@+id/nextButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
