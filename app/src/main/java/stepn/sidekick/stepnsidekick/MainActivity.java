@@ -49,6 +49,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSIONS_FINE_LOCATION = 99;
+    private final float CURRENT_APP_VERSION = 1.1f;
 
     // keys for shared prefs
     private final String PREFERENCES_ID = "stepn_sidekick_prefs";
@@ -57,10 +58,11 @@ public class MainActivity extends AppCompatActivity {
     private final String VOICE_ALERTS_TIME_PREF = "voiceAlertsTime";
     private final String VOICE_ALERTS_CD_PREF = "voiceCountdownAlerts";
     private final String ENERGY_PREF = "energy";
-    private final String FIRST_TIME_PREF = "firstTime";
     private final String SHOE_TYPE_ITERATOR_PREF = "shoeTypeIterator";
     private final String CUSTOM_MIN_SPEED_PREF = "customMinSpeed";
     private final String CUSTOM_MAX_SPEED_PREF = "customMaxSpeed";
+    private final String FIRST_TIME_PREF = "firstTime";
+    private final String APP_VERSION_PREF = "appVersion";
 
     Button leftButton, rightButton, disabledStartButtonHelper;
     ImageButton startButton, countDownTimerButton, voiceAlertSpeedButton, voiceAlertTimeButton,
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     private double energy;
     private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsSpeed, voiceAlertsTime,
             gpsPermissions, firstTime;
+    private float savedAppVersion; // only use major version changes, eg 1.1, 1.2, not 1.1.2
 
     LocationManager manager;
 
@@ -97,10 +100,11 @@ public class MainActivity extends AppCompatActivity {
         voiceAlertsTime = getSharedPrefs.getBoolean(VOICE_ALERTS_TIME_PREF, true);
         voiceCountdownAlerts = getSharedPrefs.getBoolean(VOICE_ALERTS_CD_PREF, true);
         energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
-        firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
         shoeTypeIterator = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
         float customMinSpeed = getSharedPrefs.getFloat(CUSTOM_MIN_SPEED_PREF, 0);
         float customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
+        firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
+        savedAppVersion = getSharedPrefs.getFloat(APP_VERSION_PREF, 1.0f);
 
         shoes = new ArrayList<>();
 
@@ -115,10 +119,15 @@ public class MainActivity extends AppCompatActivity {
         if (firstTime) {
             welcome();
             firstTime = false;
+        } else if (savedAppVersion < CURRENT_APP_VERSION) {
+            appUpdateDialog();
+            updateUI();
         } else {
             updateUI();
             checkForLocationPermissions();
         }
+
+        savedAppVersion = CURRENT_APP_VERSION;
     }
 
     // inits UI
@@ -1239,6 +1248,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private void appUpdateDialog() {
+        Dialog updateDialog = new Dialog(MainActivity.this);
+
+        updateDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        updateDialog.setCancelable(true);
+        updateDialog.setContentView(R.layout.update_dialog);
+        updateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        updateDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        ImageButton nextButton = updateDialog.findViewById(R.id.nextButton);
+        ImageView nextButtonShadow = updateDialog.findViewById(R.id.nextButtonShadow);
+        TextView nextButtonTextView = updateDialog.findViewById(R.id.nextButtonTextView);
+
+        updateDialog.show();
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateDialog.dismiss();
+            }
+        });
+
+        nextButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
+                return false;
+            }
+        });
+    }
+
     // to save prefs
     @Override
     protected void onStop() {
@@ -1250,10 +1293,11 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean(VOICE_ALERTS_TIME_PREF, voiceAlertsTime);
         editor.putBoolean(VOICE_ALERTS_CD_PREF, voiceCountdownAlerts);
         editor.putInt(ENERGY_PREF, (int) (energy * 10));
-        editor.putBoolean(FIRST_TIME_PREF, firstTime);
         editor.putInt(SHOE_TYPE_ITERATOR_PREF, shoeTypeIterator);
         editor.putFloat(CUSTOM_MIN_SPEED_PREF, shoes.get(4).getMinSpeed());
         editor.putFloat(CUSTOM_MAX_SPEED_PREF, shoes.get(4).getMaxSpeed());
+        editor.putBoolean(FIRST_TIME_PREF, firstTime);
+        editor.putFloat(APP_VERSION_PREF, savedAppVersion);
         editor.apply();
 
         super.onStop();
