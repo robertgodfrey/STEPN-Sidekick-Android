@@ -74,4 +74,5 @@
     <string name="update_details_two">+/-5 seconds buttons have been added to modify workout time if needed</string>
     <string name="update_details_three">Notification buttons have been added so you can control the timer from outside the app</string>
     <string name="review_plz">If you have been enjoying the app, please consider leaving a review on the Play Store!</string>
+    <string name="average_speed">Average Speed (last five minutes):</string>
 </resources>

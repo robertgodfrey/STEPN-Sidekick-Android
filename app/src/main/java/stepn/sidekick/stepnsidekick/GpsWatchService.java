@@ -16,6 +16,8 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -28,6 +30,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -247,7 +250,7 @@ public class GpsWatchService extends Service {
                     firstFive = false;
                 }
 
-                Log.d("MAIN TIMER onTick", "speedSum: " + speedSum + "\ncurrentAvg speed: " + currentAvgSpeed + "\navgSpeeds[]: " + avgSpeeds);
+                Log.d("MAIN TIMER onTick", "speedSum: " + speedSum + "\ncurrentAvg speed: " + currentAvgSpeed + "\navgSpeeds[]: " + Arrays.toString(avgSpeeds));
 
                 // voice alerts for speed and time, every 5 mins
                 if ((voiceAlertsSpeed || voiceAlertsTime) &&
@@ -781,14 +784,18 @@ public class GpsWatchService extends Service {
     private void broadcastInfo() {
         if (tenSecondTimerDone) {
             String time = "";
+            String timeAndSpeed;
 
             if (TimeUnit.MILLISECONDS.toHours(millisRemaining) > 0) {
                 time += TimeUnit.MILLISECONDS.toHours(millisRemaining) + ":";
             }
-            notificationBuilder.setContentText(getString(R.string.time_remaining) + " " + time +
-                    String.format("%02d:%02d", (TimeUnit.MILLISECONDS.toMinutes(millisRemaining) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisRemaining))),
-                            (TimeUnit.MILLISECONDS.toSeconds(millisRemaining) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisRemaining)))) +
-                    "\n" + getString(R.string.current_speed) + " " + String.format("%.1f", currentSpeed) + " km/h");
+            timeAndSpeed = getString(R.string.time_remaining) + " " + time + String.format("%02d:%02d",
+                    (TimeUnit.MILLISECONDS.toMinutes(millisRemaining) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisRemaining))),
+                    (TimeUnit.MILLISECONDS.toSeconds(millisRemaining) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisRemaining)))) +
+                    "\n" + getString(R.string.current_speed) + " " + String.format("%.1f", currentSpeed) + " km/h";
+            notificationBuilder.setContentText(timeAndSpeed)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(timeAndSpeed + "\n" +
+                            getString(R.string.average_speed) + " " + String.format("%.1f", currentAvgSpeed) + " km/h"));
         } else {
             notificationBuilder.setContentText(getString(R.string.starting_in) + TimeUnit.MILLISECONDS.toSeconds(millisRemaining));
         }
@@ -897,6 +904,7 @@ public class GpsWatchService extends Service {
 
         SpeedTracker.serviceStatus = -1;
         unregisterReceiver(updatedTimeReceiver);
+        unregisterReceiver(respondToPing);
 
         stopSelf();
         super.onDestroy();
