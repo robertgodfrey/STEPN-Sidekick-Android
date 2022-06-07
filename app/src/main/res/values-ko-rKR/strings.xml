@@ -60,4 +60,11 @@
     <string name="paused">대기중</string>
     <string name="starting_in">"카운트다운: "</string>
     <string name="update">업데이트</string>
+    <string name="update_info_top">이 업데이트는 추가된 기능으로 평균속도를 제공합니다.</string>
+    <string name="update_details_two">속도 음성안내는 현재속도와 평균속도를 안내하도록 업데이트 되었습니다</string>
+    <string name="update_details_one">5분 평균속도는 현재 시점을 포함한 최근 5분간의 평균속도를 제공하며, 매초 업데이트됩니다</string>
+    <string name="update_details_three">5분 평균속도는 앱 메인스크린과 앱 알림에 모두 표시됩니다</string>
+    <string name="review_plz">이 앱이 도움이 된다면, 친구들에게 추천해주세요!</string>
+    <string name="five_min_average">5분 평균속도:</string>
+
 </resources>
