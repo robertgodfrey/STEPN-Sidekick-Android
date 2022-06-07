@@ -16,6 +16,7 @@ public final class Finals {
     public static final String VOICE_ALERTS_TIME = "voiceTime";
     public static final String COUNTDOWN_TIME = "cdTime";
     public static final String CURRENT_SPEED = "speed";
+    public static final String AVERAGE_SPEED = "avgSpeed";
     public static final String GPS_ACCURACY = "gpsAcc";
     public static final String TEN_SECOND_DONE = "tenSecDone";
     public static final String TIME_MODIFIER = "timeMod";

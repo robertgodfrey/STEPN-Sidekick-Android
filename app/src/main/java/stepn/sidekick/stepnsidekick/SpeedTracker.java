@@ -51,7 +51,8 @@ public class SpeedTracker extends AppCompatActivity {
     ImageView stopWatchImageView;
     TextView initialCountDownTextView, energyAmountTextView, currentSpeedTextView,
             timeRemainingTextView, shoeTypeTextView, shoeSpeedTextView, currentSpeedLabelTextView,
-            kmphLabelTextView, timeRemainingLabelTextView, minusTextView, plusTextView;
+            kmphLabelTextView, timeRemainingLabelTextView, minusTextView, plusTextView,
+            avgSpeedLabelTextView, avgSpeedTextView, kmphAvgLabelTextView;
     ImageButton pauseImageButton, minusFiveImageButton, plusFiveImageButton, startImageButton,
             stopImageButton;
     ImageView leftGps, centerGps, rightGps, footLeft, footCenter, footRight;
@@ -102,6 +103,9 @@ public class SpeedTracker extends AppCompatActivity {
         currentSpeedLabelTextView.setVisibility(View.VISIBLE);
         currentSpeedTextView.setVisibility(View.VISIBLE);
         kmphLabelTextView.setVisibility(View.VISIBLE);
+        avgSpeedLabelTextView.setVisibility(View.VISIBLE);
+        avgSpeedTextView.setVisibility(View.VISIBLE);
+        kmphAvgLabelTextView.setVisibility(View.VISIBLE);
         timeRemainingLabelTextView.setVisibility(View.VISIBLE);
         timeRemainingTextView.setVisibility(View.VISIBLE);
 
@@ -143,8 +147,9 @@ public class SpeedTracker extends AppCompatActivity {
 
     // when the user has the app open, the UI will get updated every time the service broadcasts
     private void updateUI(Intent intent) {
-        double currentSpeed = 0.0;
-        float gpsAccuracy = 0.0f;
+        double currentSpeed = 0;
+        float gpsAccuracy = 0;
+        float avgSpeed = 0;
 
         if (serviceStatus != localStatus) {
             if (serviceStatus == 1) {
@@ -161,6 +166,7 @@ public class SpeedTracker extends AppCompatActivity {
         if (intent.getExtras() != null) {
             millis = intent.getLongExtra(Finals.COUNTDOWN_TIME, 0);
             currentSpeed = intent.getDoubleExtra(Finals.CURRENT_SPEED, 0);
+            avgSpeed = intent.getFloatExtra(Finals.AVERAGE_SPEED, 0);
             gpsAccuracy = intent.getFloatExtra(Finals.GPS_ACCURACY, 0);
             energy = intent.getDoubleExtra(Finals.ENERGY, 0);
             tenSecondTimerDone = intent.getBooleanExtra(Finals.TEN_SECOND_DONE, true);
@@ -207,6 +213,7 @@ public class SpeedTracker extends AppCompatActivity {
         }
 
         currentSpeedTextView.setText(String.format("%.1f", currentSpeed));
+        avgSpeedTextView.setText(String.format("%.1f", avgSpeed));
 
         energyAmountTextView.setText(String.format("%.1f", energy));
 
@@ -296,6 +303,10 @@ public class SpeedTracker extends AppCompatActivity {
         currentSpeedLabelTextView = findViewById(R.id.currentSpeedLabelTextView);
         currentSpeedTextView = findViewById(R.id.currentSpeedTextView);
         kmphLabelTextView = findViewById(R.id.kmphLabelTextView);
+
+        avgSpeedLabelTextView = findViewById(R.id.avgSpeedLabelTextView);
+        avgSpeedTextView = findViewById(R.id.avgSpeedTextView);
+        kmphAvgLabelTextView = findViewById(R.id.avgKmphLabelTextView);
 
         timeRemainingLabelTextView = findViewById(R.id.timeRemainingLabelTextView);
         timeRemainingTextView = findViewById(R.id.timeRemainingTextView);

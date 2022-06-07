@@ -795,7 +795,7 @@ public class GpsWatchService extends Service {
                     "\n" + getString(R.string.current_speed) + " " + String.format("%.1f", currentSpeed) + " km/h";
             notificationBuilder.setContentText(timeAndSpeed)
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(timeAndSpeed + "\n" +
-                            getString(R.string.average_speed) + " " + String.format("%.1f", currentAvgSpeed) + " km/h"));
+                            getString(R.string.five_min_average) + " " + String.format("%.1f", currentAvgSpeed) + " km/h"));
         } else {
             notificationBuilder.setContentText(getString(R.string.starting_in) + TimeUnit.MILLISECONDS.toSeconds(millisRemaining));
         }
@@ -803,6 +803,7 @@ public class GpsWatchService extends Service {
         Intent sendInfo = new Intent(Finals.COUNTDOWN_BR);
         sendInfo.putExtra(Finals.COUNTDOWN_TIME, millisRemaining);
         sendInfo.putExtra(Finals.CURRENT_SPEED, currentSpeed);
+        sendInfo.putExtra(Finals.AVERAGE_SPEED, currentAvgSpeed);
         sendInfo.putExtra(Finals.GPS_ACCURACY, gpsAccuracy);
         sendInfo.putExtra(Finals.ENERGY, energy);
         sendInfo.putExtra(Finals.TEN_SECOND_DONE, tenSecondTimerDone);
