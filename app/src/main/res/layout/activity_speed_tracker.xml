@@ -12,12 +12,12 @@
         android:layout_height="0dp"
         android:layout_marginTop="-30dp"
         android:layout_marginBottom="-16dp"
-        app:tint="@color/less_black_foreground"
         app:layout_constraintBottom_toBottomOf="@+id/shoeSpeedTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/roundy_green_background" />
+        app:srcCompat="@drawable/roundy_green_background"
+        app:tint="@color/less_black_foreground" />
 
     <ImageView
         android:id="@+id/energyBolt"
@@ -204,17 +204,17 @@
 
     <TextView
         android:id="@+id/currentSpeedLabelTextView"
+        style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:visibility="invisible"
+        android:layout_marginTop="32dp"
         android:includeFontPadding="false"
-        style="@style/RegItalic"
         android:text="@string/current_speed"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/currentSpeedTextView"
+        app:layout_constraintStart_toStartOf="@+id/currentSpeedTextView"
         app:layout_constraintTop_toBottomOf="@+id/backgroundTop" />
 
     <TextView
@@ -222,14 +222,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-8dp"
-        android:visibility="invisible"
         android:fontFamily="@font/roboto_black_italic"
         android:text="0.0"
         android:textColor="@color/white"
-        android:textSize="96sp"
+        android:visibility="invisible"
+        android:textSize="80sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/avgSpeedTextView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentSpeedLabelTextView" />
 
     <TextView
@@ -237,13 +237,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-8dp"
+        android:fontFamily="@font/roboto_black_italic"
+        android:text="km/h"
         android:visibility="invisible"
+        android:textColor="@color/white"
+        android:textSize="44sp"
+        app:layout_constraintEnd_toEndOf="@+id/currentSpeedTextView"
+        app:layout_constraintStart_toStartOf="@+id/currentSpeedTextView"
+        app:layout_constraintTop_toBottomOf="@+id/currentSpeedTextView" />
+
+    <TextView
+        android:id="@+id/avgSpeedLabelTextView"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:includeFontPadding="false"
+        android:text="@string/five_min_average"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/avgSpeedTextView"
+        app:layout_constraintStart_toStartOf="@+id/avgSpeedTextView"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundTop" />
+
+    <TextView
+        android:id="@+id/avgSpeedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_black_italic"
+        android:text="0.0"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        android:textSize="80sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/currentSpeedTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currentSpeedTextView"
+        app:layout_constraintTop_toTopOf="@+id/currentSpeedTextView" />
+
+    <TextView
+        android:id="@+id/avgKmphLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
         android:fontFamily="@font/roboto_black_italic"
         android:text="km/h"
         android:textColor="@color/white"
-        android:textSize="48sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="invisible"
+        android:textSize="44sp"
+        app:layout_constraintEnd_toEndOf="@+id/avgSpeedTextView"
+        app:layout_constraintStart_toStartOf="@+id/avgSpeedTextView"
         app:layout_constraintTop_toBottomOf="@+id/currentSpeedTextView" />
 
     <TextView
