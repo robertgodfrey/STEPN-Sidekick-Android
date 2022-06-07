@@ -16,6 +16,7 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -53,12 +54,13 @@ public class GpsWatchService extends Service {
     CountDownTimer initialCountDownTimer, mainCountDownTimer;
 
     private SoundPool alertSoundPool, voiceSoundPool;
-    private int softAlert, spicyAlert, startSound;
+    private int softAlert, spicyAlert, startSound, avgSpeedCounter;
 
     private double speedLowerLimit, speedUpperLimit, currentSpeed, energy;
-    private float gpsAccuracy;
+    private float gpsAccuracy, speedSum, currentAvgSpeed;
+    private float[] avgSpeeds;
     private boolean voiceAlertsMinuteThirty, voiceAlertsSpeed, voiceAlertsTime,
-            tenSecondTimer, tenSecondTimerDone, justPlayed, killThread;
+            tenSecondTimer, tenSecondTimerDone, justPlayed, killThread, firstFive;
 
     long millisRemaining;
 
@@ -82,6 +84,10 @@ public class GpsWatchService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         killThread = false;
+        avgSpeeds = new float[300];
+        avgSpeedCounter = 0;
+        currentAvgSpeed = 0;
+        firstFive = true;
 
         Intent notificationMainButtonIntent = new Intent(this, SpeedTracker.class);
         PendingIntent pendingOpenActivityIntent = PendingIntent.getActivity(this,
@@ -187,7 +193,7 @@ public class GpsWatchService extends Service {
 
                 if (currentLocation.hasSpeed()) {
                     currentSpeed = currentLocation.getSpeed() * 3.6;
-                    if (currentSpeed < 1.1) {
+                    if (currentSpeed < 1.0) {
                         currentSpeed = 0;
                     }
                 }
@@ -217,6 +223,31 @@ public class GpsWatchService extends Service {
                 if (((millisUntilFinished / 1000) - 1) % 60 == 0 && millisRemaining != ((long) (energy * 5 * 60 * 1000) + 1000)) {
                     energy = Math.round((millisRemaining / 300000.0) * 10) / 10.0;
                 }
+
+                // keep track of five min avg speed
+                if (avgSpeedCounter < 60 * 5) {
+                    if (firstFive) {
+                        avgSpeeds[avgSpeedCounter] = (float) currentSpeed;
+                        speedSum += avgSpeeds[avgSpeedCounter];
+                        avgSpeedCounter++;
+                        currentAvgSpeed = speedSum / avgSpeedCounter;
+                    } else {
+                        speedSum -= avgSpeeds[avgSpeedCounter];
+                        avgSpeeds[avgSpeedCounter] = (float) currentSpeed;
+                        speedSum += avgSpeeds[avgSpeedCounter];
+                        currentAvgSpeed = speedSum / 300;
+                        avgSpeedCounter++;
+                    }
+                } else {
+                    speedSum -= avgSpeeds[0];
+                    avgSpeeds[0] = (float) currentSpeed;
+                    speedSum += avgSpeeds[0];
+                    currentAvgSpeed = speedSum / 300;
+                    avgSpeedCounter = 1;
+                    firstFive = false;
+                }
+
+                Log.d("MAIN TIMER onTick", "speedSum: " + speedSum + "\ncurrentAvg speed: " + currentAvgSpeed + "\navgSpeeds[]: " + avgSpeeds);
 
                 // voice alerts for speed and time, every 5 mins
                 if ((voiceAlertsSpeed || voiceAlertsTime) &&
