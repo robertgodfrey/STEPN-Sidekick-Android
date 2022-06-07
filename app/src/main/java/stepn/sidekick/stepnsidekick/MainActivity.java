@@ -43,13 +43,13 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer.
  *
  * @author Bob Godfrey
- * @version 1.1.0 - added pause button +/- 5 second buttons, notification buttons
+ * @version 1.2.0 - added average speed
  */
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSIONS_FINE_LOCATION = 99;
-    private final float CURRENT_APP_VERSION = 1.1f;
+    private final float CURRENT_APP_VERSION = 1.2f;
 
     // keys for shared prefs
     private final String PREFERENCES_ID = "stepn_sidekick_prefs";

@@ -21,7 +21,7 @@
     <string name="hours_plural">" hrs"</string>
     <string name="gps_off">GPS must be turned on for this application to function. Turn on now?</string>
     <string name="gps_permissions">This app requires precise location permissions</string>
-    <string name="custom">"Custom "</string>
+    <string name="custom" translatable="false">"Custom "</string>
     <string name="minimum_speed_too_low">Minimum speed must be at least 1 km/h</string>
     <string name="maximum_speed_too_low">Max speed must be at least 1 km/h greater than min speed</string>
     <string name="energy_too_low">Energy must be at least 0.2</string>
@@ -34,13 +34,13 @@
     <string name="notes_details1">It is best to use this app on the same device that is running STEPN so that both apps are using the same location data.</string>
     <string name="notes_details2">STEPN adds a 30-second buffer to every activity. This app\'s timer accounts for this extra time, but it may not exactly match STEPN\'s timer.</string>
     <string name="contact">Please contact me if you find any errors or have any suggestions to improve the app:</string>
-    <string name="contact_email">sidekickfeedback@gmail.com</string>
+    <string name="contact_email" translatable="false">sidekickfeedback@gmail.com</string>
     <string name="dis_app_free">This app is free and ad free. </string>
     <string name="support_project">If you find the app useful, please consider supporting.</string>
-    <string name="solana_chain">FmhDh7fNLWrC5CScwcpQhquWFDv7cpQ876iwm6iZLkU1</string>
-    <string name="bnb_chain">0x69b331406a3500d6974bce7cf0896650673e798c</string>
+    <string name="solana_chain" translatable="false">FmhDh7fNLWrC5CScwcpQhquWFDv7cpQ876iwm6iZLkU1</string>
+    <string name="bnb_chain" translatable="false">0x69b331406a3500d6974bce7cf0896650673e798c</string>
     <string name="click_a_logo_to_copy_address">Click logo to copy address</string>
-    <string name="question_mark">\?</string>
+    <string name="question_mark" translatable="false">\?</string>
     <string name="sol_address_copied">SOL address copied to clipboard</string>
     <string name="bnb_address_copied">BNB address copied to clipboard</string>
     <string name="instructions_1">Use the arrows to select a shoe. You can use the default shoes or you can select \"Custom\" to input custom speeds.
@@ -56,7 +56,7 @@
     <string name="next">NEXT</string>
     <string name="skip">SKIP ></string>
     <string name="thirty_sec">" 30 sec)"</string>
-    <string name="go">GO</string>
+    <string name="go" translatable="false">GO</string>
     <string name="welcome">WELCOME!</string>
     <string name="not_a_multiple_of_2">Energy must be a multiple of 0.2</string>
     <string name="no">No</string>
@@ -69,10 +69,10 @@
     <string name="pause">PAUSE</string>
     <string name="stop">STOP</string>
     <string name="update">UPDATE</string>
-    <string name="update_info_top">This update includes more options for controlling the timer:</string>
-    <string name="update_details_one">The stop button has been changed to a pause button</string>
-    <string name="update_details_two">+/-5 seconds buttons have been added to modify workout time if needed</string>
-    <string name="update_details_three">Notification buttons have been added so you can control the timer from outside the app</string>
-    <string name="review_plz">If you have been enjoying the app, please consider leaving a review on the Play Store!</string>
+    <string name="update_info_top">This update includes average speed as an additional statistic.</string>
+    <string name="update_details_one">The average speed is a rolling five - minute average (it will display the average speed from the most recent five minutes, updating every second)</string>
+    <string name="update_details_two">Voice updates for speed now include both the current speed and the average speed</string>
+    <string name="update_details_three">The five-minute average appears in both the main screen and the app\'s notification</string>
+    <string name="review_plz">If you have been enjoying the app, please leave a review on the Play Store and share it with your friends!</string>
     <string name="five_min_average">5-Min Average:</string>
 </resources>

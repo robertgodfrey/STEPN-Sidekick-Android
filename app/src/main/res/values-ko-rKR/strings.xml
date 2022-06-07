@@ -59,10 +59,5 @@
     <string name="pause">일시정지</string>
     <string name="paused">대기중</string>
     <string name="starting_in">"카운트다운: "</string>
-    <string name="update_info_top">이번 업데이트는 타이머를 조절할 수 있는 옵션이 추가되었습니다:</string>
-    <string name="update_details_one">정지 버튼이 일시정지 버튼으로 바뀌었습니다</string>
-    <string name="update_details_two">+/-5초 버튼으로 운동중에 시간을 가감할 수 있습니다</string>
-    <string name="update_details_three">앱을 열지 않더라도 잠금화면에 표시되는 앱 알림을 통해 타이머를 시작/일시정지 할 수 있습니다</string>
-    <string name="review_plz">이 앱이 도움이된다면, 플레이스토어에 평가를 남겨주시면 감사하겠습니다!</string>
     <string name="update">업데이트</string>
 </resources>

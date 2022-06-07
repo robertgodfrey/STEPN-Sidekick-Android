@@ -27,7 +27,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * sound if the speed is outside the specified range. Broadcasts info back to the SpeedTracker class.
  *
  * @author Bob Godfrey
- * @version 1.1.0 - added pause button +/- 5 second buttons, notification buttons
+ * @version 1.2.0 - added average speed
  */
 
 public class GpsWatchService extends Service {
