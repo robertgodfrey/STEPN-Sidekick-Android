@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
     // keys for shared prefs
     private final String PREFERENCES_ID = "stepn_sidekick_prefs";
     private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";
-    private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeed";
+    // private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeed";  OLD, DO NOT USE
+    private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeedType";
     private final String VOICE_ALERTS_TIME_PREF = "voiceAlertsTime";
     private final String VOICE_ALERTS_CD_PREF = "voiceCountdownAlerts";
     private final String ENERGY_PREF = "energy";
@@ -78,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
             energyInMins;
     EditText minSpeedEditText, maxSpeedEditText, energyEditText;
 
-    private int shoeTypeIterator;
+    private int shoeTypeIterator, voiceAlertsSpeedType;
     private double energy;
-    private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsSpeed, voiceAlertsTime,
+    private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsTime,
             gpsPermissions, firstTime;
     private float savedAppVersion; // only use major version changes, eg 1.1, 1.2, not 1.1.2
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         tenSecondTimer = getSharedPrefs.getBoolean(TEN_SECOND_TIMER_PREF, true);
-        voiceAlertsSpeed = getSharedPrefs.getBoolean(VOICE_ALERTS_SPEED_PREF, true);
+        voiceAlertsSpeedType = getSharedPrefs.getInt(VOICE_ALERTS_SPEED_PREF, 3);
         voiceAlertsTime = getSharedPrefs.getBoolean(VOICE_ALERTS_TIME_PREF, true);
         voiceCountdownAlerts = getSharedPrefs.getBoolean(VOICE_ALERTS_CD_PREF, true);
         energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
@@ -220,11 +221,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // voiceAlertsSpeedType: 0 = disabled, 1 = current, 2 = average, 3 = both
         voiceAlertSpeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                voiceAlertsSpeed = !voiceAlertsSpeed;
-                buttonClickSwitch(voiceAlertSpeedButton, voiceAlertSpeedTextView, voiceAlertsSpeed);
+                if (voiceAlertsSpeedType < 3) {
+                    voiceAlertsSpeedType++;
+                } else {
+                    voiceAlertsSpeedType = 0;
+                }
+                updateSpeedButton();
             }
         });
 
@@ -232,8 +238,23 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                dynamicButtonTouchAnim(motionEvent, voiceAlertSpeedButton, voiceAlertSpeedButtonShadow,
-                        voiceAlertSpeedTextView, voiceAlertSpeedTextViewShadow, voiceAlertsSpeed);
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        voiceAlertSpeedButton.setVisibility(View.INVISIBLE);
+                        if (voiceAlertsSpeedType != 0) {
+                            voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_buttons);
+                        } else {
+                            voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_buttons_disabled);
+                        }
+                        voiceAlertSpeedTextViewShadow.setText(voiceAlertSpeedTextView.getText().toString());
+                        voiceAlertSpeedTextView.setVisibility(View.INVISIBLE);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        voiceAlertSpeedButton.setVisibility(View.VISIBLE);
+                        voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_button_shadow);
+                        voiceAlertSpeedTextView.setVisibility(View.VISIBLE);
+                        break;
+                }
                 return false;
             }
         });
@@ -319,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     shoeTypeIterator--;
                 }
-                updatePage(shoeTypeIterator);
+                updatePage();
             }
         });
 
@@ -331,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     shoeTypeIterator++;
                 }
-                updatePage(shoeTypeIterator);
+                updatePage();
             }
         });
 
@@ -674,16 +695,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // updates speed button
+    private void updateSpeedButton() {
+        switch (voiceAlertsSpeedType) {
+            case 0:
+                voiceAlertSpeedTextView.setText(R.string.disabled);
+                voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons_disabled);
+                break;
+            case 1:
+                voiceAlertSpeedTextView.setText(R.string.current);
+                voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons);
+                break;
+            case 2:
+                voiceAlertSpeedTextView.setText(R.string.average);
+                break;
+            default:
+                voiceAlertSpeedTextView.setText(R.string.all);
+                break;
+        }
+    }
+
     // updates page when user changes shoe selection
-    private void updatePage(int i) {
-        shoeTypeImage.setImageResource(shoes.get(i).getImageSource());
-        shoeTypeTextView.setText(shoes.get(i).getTitle());
-        updateFeet(shoes.get(i).getNumFeet());
+    private void updatePage() {
+        shoeTypeImage.setImageResource(shoes.get(shoeTypeIterator).getImageSource());
+        shoeTypeTextView.setText(shoes.get(shoeTypeIterator).getTitle());
+        updateFeet(shoes.get(shoeTypeIterator).getNumFeet());
 
-        minSpeedEditText.setText(String.valueOf(shoes.get(i).getMinSpeed()));
-        maxSpeedEditText.setText(String.valueOf(shoes.get(i).getMaxSpeed()));
+        minSpeedEditText.setText(String.valueOf(shoes.get(shoeTypeIterator).getMinSpeed()));
+        maxSpeedEditText.setText(String.valueOf(shoes.get(shoeTypeIterator).getMaxSpeed()));
 
-        if (i != 4) {
+        if (shoeTypeIterator != 4) {
             minSpeedEditText.setFocusable(false);
             maxSpeedEditText.setFocusable(false);
             minSpeedBox.setImageResource(R.drawable.main_buttons_disabled);
@@ -761,7 +802,7 @@ public class MainActivity extends AppCompatActivity {
             startGPSActivity.putExtra(Finals.NUM_FEET, shoes.get(shoeTypeIterator).getNumFeet());
             startGPSActivity.putExtra(Finals.TEN_SECOND_TIMER, tenSecondTimer);
             startGPSActivity.putExtra(Finals.VOICE_ALERTS_CD, voiceCountdownAlerts);
-            startGPSActivity.putExtra(Finals.VOICE_ALERTS_SPEED, voiceAlertsSpeed);
+            startGPSActivity.putExtra(Finals.VOICE_ALERTS_SPEED, voiceAlertsSpeedType);
             startGPSActivity.putExtra(Finals.VOICE_ALERTS_TIME, voiceAlertsTime);
 
             startActivity(startGPSActivity);
@@ -773,10 +814,6 @@ public class MainActivity extends AppCompatActivity {
         if (!tenSecondTimer) {
             countDownTimerButton.setImageResource(R.drawable.main_buttons_disabled);
             countDownTimerTextView.setText(R.string.disabled);
-        }
-        if (!voiceAlertsSpeed) {
-            voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons_disabled);
-            voiceAlertSpeedTextView.setText(R.string.disabled);
         }
         if (!voiceAlertsTime) {
             voiceAlertTimeButton.setImageResource(R.drawable.main_buttons_disabled);
@@ -790,7 +827,8 @@ public class MainActivity extends AppCompatActivity {
             energyEditText.setText(String.valueOf(energy));
             updateEnergy();
         }
-        updatePage(shoeTypeIterator);
+        updatePage();
+        updateSpeedButton();
     }
 
     // updates the minutes shown when the user enters amount of energy
@@ -1289,7 +1327,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putBoolean(TEN_SECOND_TIMER_PREF, tenSecondTimer);
-        editor.putBoolean(VOICE_ALERTS_SPEED_PREF, voiceAlertsSpeed);
+        editor.putInt(VOICE_ALERTS_SPEED_PREF, voiceAlertsSpeedType);
         editor.putBoolean(VOICE_ALERTS_TIME_PREF, voiceAlertsTime);
         editor.putBoolean(VOICE_ALERTS_CD_PREF, voiceCountdownAlerts);
         editor.putInt(ENERGY_PREF, (int) (energy * 10));

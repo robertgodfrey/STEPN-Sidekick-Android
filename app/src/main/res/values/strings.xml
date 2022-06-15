@@ -75,4 +75,7 @@
     <string name="update_details_three">The five-minute average appears in both the main screen and the app\'s notification</string>
     <string name="review_plz">If you have been enjoying the app, please share it with your friends!</string>
     <string name="five_min_average">5-Min Average:</string>
+    <string name="current">CURRENT</string>
+    <string name="average">AVERAGE</string>
+    <string name="all">ALL</string>
 </resources>
