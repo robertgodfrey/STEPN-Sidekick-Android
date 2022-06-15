@@ -199,7 +199,13 @@ public class GpsWatchService extends Service {
                 // speed alerts
                 if ((currentSpeed <= speedLowerLimit || currentSpeed >= speedUpperLimit) && tenSecondTimerDone) {
                     if (!justPlayed) {
-                        alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 1);
+                        if (currentSpeed <= speedLowerLimit) {
+                            // low-pitch alert
+                            alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 0.8f);
+                        } else {
+                            // high-pitch alert
+                            alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 1.2f);
+                        }
                         justPlayed = true;
                     } else {
                         justPlayed = false;
