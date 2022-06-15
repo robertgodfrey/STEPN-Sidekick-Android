@@ -43,8 +43,8 @@ public class SpeedTracker extends AppCompatActivity {
     private long millis;
     private String shoeType;
     private int numFeet;
-    private boolean tenSecondTimer, tenSecondTimerDone, changedUI, voiceAlertsSpeed,
-            voiceAlertsTime, voiceAlertsMinuteThirty;
+    private boolean tenSecondTimer, tenSecondTimerDone, changedUI, voiceAlertsTime, voiceAlertsAvgSpeed,
+            voiceAlertsCurrentSpeed, voiceAlertsMinuteThirty;
 
     CountDownTimer initialCountDownTimer;
 
@@ -83,7 +83,8 @@ public class SpeedTracker extends AppCompatActivity {
             numFeet = extras.getInt(Finals.NUM_FEET);
             tenSecondTimer = extras.getBoolean(Finals.TEN_SECOND_TIMER);
             voiceAlertsMinuteThirty = extras.getBoolean(Finals.VOICE_ALERTS_CD);
-            voiceAlertsSpeed = extras.getBoolean(Finals.VOICE_ALERTS_SPEED);
+            voiceAlertsCurrentSpeed = extras.getBoolean(Finals.VOICE_ALERTS_CURRENT_SPEED);
+            voiceAlertsAvgSpeed = extras.getBoolean(Finals.VOICE_ALERTS_AVG_SPEED);
             voiceAlertsTime = extras.getBoolean(Finals.VOICE_ALERTS_TIME);
         }
 
@@ -243,7 +244,8 @@ public class SpeedTracker extends AppCompatActivity {
         serviceIntent.putExtra(Finals.ENERGY, energy);
         serviceIntent.putExtra(Finals.TEN_SECOND_TIMER, tenSecondTimer);
         serviceIntent.putExtra(Finals.VOICE_ALERTS_CD, voiceAlertsMinuteThirty);
-        serviceIntent.putExtra(Finals.VOICE_ALERTS_SPEED, voiceAlertsSpeed);
+        serviceIntent.putExtra(Finals.VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
+        serviceIntent.putExtra(Finals.VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
         serviceIntent.putExtra(Finals.VOICE_ALERTS_TIME, voiceAlertsTime);
 
         startService(serviceIntent);

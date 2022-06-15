@@ -12,7 +12,8 @@ public final class Finals {
     public static final String NUM_FEET = "feet";
     public static final String TEN_SECOND_TIMER = "tenSec";
     public static final String VOICE_ALERTS_CD = "voiceCD";
-    public static final String VOICE_ALERTS_SPEED = "voiceSpeed";
+    public static final String VOICE_ALERTS_CURRENT_SPEED = "voiceCurrentSpeed";
+    public static final String VOICE_ALERTS_AVG_SPEED = "voiceAvgSpeed";
     public static final String VOICE_ALERTS_TIME = "voiceTime";
     public static final String COUNTDOWN_TIME = "cdTime";
     public static final String CURRENT_SPEED = "speed";

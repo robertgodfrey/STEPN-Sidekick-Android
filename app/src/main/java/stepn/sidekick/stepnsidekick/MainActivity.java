@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
     private int shoeTypeIterator, voiceAlertsSpeedType;
     private double energy;
-    private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsTime,
-            gpsPermissions, firstTime;
+    private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsTime, voiceAlertsAvgSpeed,
+            voiceAlertsCurrentSpeed, gpsPermissions, firstTime;
     private float savedAppVersion; // only use major version changes, eg 1.1, 1.2, not 1.1.2
 
     LocationManager manager;
@@ -225,10 +225,10 @@ public class MainActivity extends AppCompatActivity {
         voiceAlertSpeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (voiceAlertsSpeedType < 3) {
-                    voiceAlertsSpeedType++;
-                } else {
+                if (voiceAlertsSpeedType == 3){
                     voiceAlertsSpeedType = 0;
+                } else {
+                    voiceAlertsSpeedType++;
                 }
                 updateSpeedButton();
             }
@@ -699,17 +699,25 @@ public class MainActivity extends AppCompatActivity {
     private void updateSpeedButton() {
         switch (voiceAlertsSpeedType) {
             case 0:
+                voiceAlertsAvgSpeed = false;
+                voiceAlertsCurrentSpeed = false;
                 voiceAlertSpeedTextView.setText(R.string.disabled);
                 voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons_disabled);
                 break;
             case 1:
+                voiceAlertsAvgSpeed = false;
+                voiceAlertsCurrentSpeed = true;
                 voiceAlertSpeedTextView.setText(R.string.current);
                 voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons);
                 break;
             case 2:
+                voiceAlertsAvgSpeed = true;
+                voiceAlertsCurrentSpeed = false;
                 voiceAlertSpeedTextView.setText(R.string.average);
                 break;
             default:
+                voiceAlertsAvgSpeed = true;
+                voiceAlertsCurrentSpeed = true;
                 voiceAlertSpeedTextView.setText(R.string.all);
                 break;
         }
@@ -802,7 +810,8 @@ public class MainActivity extends AppCompatActivity {
             startGPSActivity.putExtra(Finals.NUM_FEET, shoes.get(shoeTypeIterator).getNumFeet());
             startGPSActivity.putExtra(Finals.TEN_SECOND_TIMER, tenSecondTimer);
             startGPSActivity.putExtra(Finals.VOICE_ALERTS_CD, voiceCountdownAlerts);
-            startGPSActivity.putExtra(Finals.VOICE_ALERTS_SPEED, voiceAlertsSpeedType);
+            startGPSActivity.putExtra(Finals.VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
+            startGPSActivity.putExtra(Finals.VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
             startGPSActivity.putExtra(Finals.VOICE_ALERTS_TIME, voiceAlertsTime);
 
             startActivity(startGPSActivity);

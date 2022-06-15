@@ -66,5 +66,8 @@
     <string name="update_details_three">5분 평균속도는 앱 메인스크린과 앱 알림에 모두 표시됩니다</string>
     <string name="review_plz">이 앱이 도움이 된다면, 친구들에게 추천해주세요!</string>
     <string name="five_min_average">5분 평균속도:</string>
+    <string name="current">현재</string>
+    <string name="average">평균</string>
+    <string name="all">모두</string>
 
 </resources>

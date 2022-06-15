@@ -585,7 +585,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@string/enabled"
+            android:text="@string/all"
             android:textColor="@color/almost_black"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/voiceAlertSpeedButton"
