@@ -10,8 +10,8 @@ android {
         applicationId "stepn.sidekick.stepnsidekick"
         minSdkVersion 26
         targetSdkVersion 32
-        versionCode 12 // added average speed
-        versionName "1.2.0"
+        versionCode 13 // changed pitch of alarm, added more options for speed voice updates, minor layout changes
+        versionName "1.2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +35,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'androidx.work:work-runtime:2.7.1'
 
 }
