@@ -49,7 +49,7 @@
     <string name="instructions_3">Select whether or not the ten-second countdown timer is enabled. If enabled, this timer
         gives your GPS time to sync and gives you time to switch to the STEPN app to start your activity. If disabled, the app will start the activity timer immediately.</string>
     <string name="instructions_4">Select whether or not voice alerts are enabled. The \"Speed\" and \"Time\" alerts will sound every five minutes, updating you with the amount of
-        time remaining and your current speed. The \"1 min / 30 sec\" alert gives a warning when you have one minute remaining and another warning at thirty
+        time remaining and information about your speed. The \"1 min / 30 sec\" alert gives a warning when you have one minute remaining and another warning at thirty
         seconds. </string>
     <string name="instructions_5">Press the start button to start your activity. Happy earning!</string>
     <string name="welcome_message">Please view these brief instructions before getting started.</string>
