@@ -10,8 +10,8 @@ android {
         applicationId "stepn.sidekick.stepnsidekick"
         minSdkVersion 26
         targetSdkVersion 32
-        versionCode 13 // changed pitch of alarm, added more options for speed voice updates, minor layout changes
-        versionName "1.2.1"
+        versionCode 14 // edited instructions
+        versionName "1.2.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
