@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -87,10 +88,8 @@ public class SpeedTracker extends AppCompatActivity {
         }
 
         tenSecondTimerDone = !tenSecondTimer;
-
         buildUI();
         startService();
-
     }
 
     // updates UI after ten-second countdown timer is complete
@@ -119,10 +118,7 @@ public class SpeedTracker extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 changeUiPausedState();
-
                 sendNewTime(PAUSE_PAUSED);
-
-
             }
         });
     }
@@ -191,6 +187,9 @@ public class SpeedTracker extends AppCompatActivity {
         }
         if (tenSecondTimerDone && !changedUI) {
             changeUI();
+            if (localStatus == PAUSE_PAUSED) {
+                changeUiPausedState();
+            }
         }
 
         if (gpsAccuracy == 0) {
@@ -259,8 +258,8 @@ public class SpeedTracker extends AppCompatActivity {
         super.onResume();
         registerReceiver(secondsAndSpeedReceiver, new IntentFilter(COUNTDOWN_BR));
         if (serviceStatus == PAUSE_PAUSED) {
-            changeUiPausedState();
             pingServiceForTime();
+            changeUiPausedState();
             localStatus = PAUSE_PAUSED;
         } else if (serviceStatus == STOP_STOPPED) {
             onBackPressed();
@@ -446,9 +445,9 @@ public class SpeedTracker extends AppCompatActivity {
     // update UI when user presses pause button (start and stop buttons appear)
     private void changeUiPausedState() {
         minusFiveImageButton.setVisibility(View.GONE);
-        minusTextView.setVisibility(View.INVISIBLE);
+        minusTextView.setVisibility(View.GONE);
         plusFiveImageButton.setVisibility(View.GONE);
-        plusTextView.setVisibility(View.INVISIBLE);
+        plusTextView.setVisibility(View.GONE);
         pauseImageButton.setVisibility(View.GONE);
         startImageButton.setVisibility(View.VISIBLE);
         stopImageButton.setVisibility(View.VISIBLE);
