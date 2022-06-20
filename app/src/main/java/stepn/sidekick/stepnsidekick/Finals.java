@@ -21,9 +21,9 @@ public final class Finals {
     public static final String GPS_ACCURACY = "gpsAcc";
     public static final String TEN_SECOND_DONE = "tenSecDone";
     public static final String TIME_MODIFIER = "timeMod";
-    public static final int STOP = -1;
-    public static final int START = 1;
-    public static final int PAUSE = 0;
+    public static final int STOP_STOPPED = -1; // command to stop/status of stopped
+    public static final int START_RUNNING = 1; // command to start/status of running
+    public static final int PAUSE_PAUSED = 0; // command to pause/status of paused
     public static final int ADD_FIVE = 5;
     public static final int SUB_FIVE = -5;
 

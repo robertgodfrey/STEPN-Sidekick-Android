@@ -10,8 +10,8 @@ android {
         applicationId "stepn.sidekick.stepnsidekick"
         minSdkVersion 26
         targetSdkVersion 32
-        versionCode 14 // edited instructions
-        versionName "1.2.2"
+        versionCode 15 // bug fixes, (very) minor layout changes, improved readability of code
+        versionName "1.2.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -1,5 +1,7 @@
 package stepn.sidekick.stepnsidekick;
 
+import static stepn.sidekick.stepnsidekick.Finals.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -27,15 +29,11 @@ import java.util.concurrent.TimeUnit;
  * the GpsWatchService class.
  *
  * @author Bob Godfrey
- * @version 1.2.0 - added average speed
+ * @version 1.2.3 - Bug fixes, improved readability of code.
  */
 
 public class SpeedTracker extends AppCompatActivity {
 
-    /* ensures UI updates after user modifies timer from service
-     *     1 - running
-     *     0 - paused
-     *    -1 - stopped      */
     public static int serviceStatus;
     private int localStatus;
 
@@ -69,23 +67,23 @@ public class SpeedTracker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speed_tracker);
 
-        serviceStatus = 1;
-        localStatus = 1;
+        serviceStatus = START_RUNNING;
+        localStatus = START_RUNNING;
 
         changedUI = false;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            speedLowerLimit = extras.getDouble(Finals.MIN_SPEED);
-            speedUpperLimit = extras.getDouble(Finals.MAX_SPEED);
-            energy = extras.getDouble(Finals.ENERGY);
-            shoeType = extras.getString(Finals.SHOE_TYPE);
-            numFeet = extras.getInt(Finals.NUM_FEET);
-            tenSecondTimer = extras.getBoolean(Finals.TEN_SECOND_TIMER);
-            voiceAlertsMinuteThirty = extras.getBoolean(Finals.VOICE_ALERTS_CD);
-            voiceAlertsCurrentSpeed = extras.getBoolean(Finals.VOICE_ALERTS_CURRENT_SPEED);
-            voiceAlertsAvgSpeed = extras.getBoolean(Finals.VOICE_ALERTS_AVG_SPEED);
-            voiceAlertsTime = extras.getBoolean(Finals.VOICE_ALERTS_TIME);
+            speedLowerLimit = extras.getDouble(MIN_SPEED);
+            speedUpperLimit = extras.getDouble(MAX_SPEED);
+            energy = extras.getDouble(ENERGY);
+            shoeType = extras.getString(SHOE_TYPE);
+            numFeet = extras.getInt(NUM_FEET);
+            tenSecondTimer = extras.getBoolean(TEN_SECOND_TIMER);
+            voiceAlertsMinuteThirty = extras.getBoolean(VOICE_ALERTS_CD);
+            voiceAlertsCurrentSpeed = extras.getBoolean(VOICE_ALERTS_CURRENT_SPEED);
+            voiceAlertsAvgSpeed = extras.getBoolean(VOICE_ALERTS_AVG_SPEED);
+            voiceAlertsTime = extras.getBoolean(VOICE_ALERTS_TIME);
         }
 
         tenSecondTimerDone = !tenSecondTimer;
@@ -122,7 +120,7 @@ public class SpeedTracker extends AppCompatActivity {
             public void onClick(View view) {
                 changeUiPausedState();
 
-                sendNewTime(Finals.PAUSE);
+                sendNewTime(PAUSE_PAUSED);
 
 
             }
@@ -153,24 +151,24 @@ public class SpeedTracker extends AppCompatActivity {
         float avgSpeed = 0;
 
         if (serviceStatus != localStatus) {
-            if (serviceStatus == 1) {
+            if (serviceStatus == START_RUNNING) {
                 changeUiRunningState();
-                localStatus = 1;
-            } else if (serviceStatus == 0) {
+                localStatus = START_RUNNING;
+            } else if (serviceStatus == PAUSE_PAUSED) {
                 changeUiPausedState();
-                localStatus = 0;
+                localStatus = PAUSE_PAUSED;
             } else {
                 onBackPressed();
             }
         }
 
         if (intent.getExtras() != null) {
-            millis = intent.getLongExtra(Finals.COUNTDOWN_TIME, 0);
-            currentSpeed = intent.getDoubleExtra(Finals.CURRENT_SPEED, 0);
-            avgSpeed = intent.getFloatExtra(Finals.AVERAGE_SPEED, 0);
-            gpsAccuracy = intent.getFloatExtra(Finals.GPS_ACCURACY, 0);
-            energy = intent.getDoubleExtra(Finals.ENERGY, 0);
-            tenSecondTimerDone = intent.getBooleanExtra(Finals.TEN_SECOND_DONE, true);
+            millis = intent.getLongExtra(COUNTDOWN_TIME, 0);
+            currentSpeed = intent.getDoubleExtra(CURRENT_SPEED, 0);
+            avgSpeed = intent.getFloatExtra(AVERAGE_SPEED, 0);
+            gpsAccuracy = intent.getFloatExtra(GPS_ACCURACY, 0);
+            energy = intent.getDoubleExtra(ENERGY, 0);
+            tenSecondTimerDone = intent.getBooleanExtra(TEN_SECOND_DONE, true);
         }
 
         // initial ten second countdown timer
@@ -226,7 +224,7 @@ public class SpeedTracker extends AppCompatActivity {
         time += String.format("%02d:%02d", (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))),
                 (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))));
         if (intent.getExtras() != null && tenSecondTimerDone) {
-            if (intent.getLongExtra(Finals.COUNTDOWN_TIME, 0) == -1) {
+            if (intent.getLongExtra(COUNTDOWN_TIME, 0) == -1) {
                 time = "00:00";
                 onBackPressed();
             }
@@ -239,14 +237,14 @@ public class SpeedTracker extends AppCompatActivity {
     public void startService() {
         Intent serviceIntent = new Intent(this, GpsWatchService.class);
 
-        serviceIntent.putExtra(Finals.MIN_SPEED, speedLowerLimit);
-        serviceIntent.putExtra(Finals.MAX_SPEED, speedUpperLimit);
-        serviceIntent.putExtra(Finals.ENERGY, energy);
-        serviceIntent.putExtra(Finals.TEN_SECOND_TIMER, tenSecondTimer);
-        serviceIntent.putExtra(Finals.VOICE_ALERTS_CD, voiceAlertsMinuteThirty);
-        serviceIntent.putExtra(Finals.VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
-        serviceIntent.putExtra(Finals.VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
-        serviceIntent.putExtra(Finals.VOICE_ALERTS_TIME, voiceAlertsTime);
+        serviceIntent.putExtra(MIN_SPEED, speedLowerLimit);
+        serviceIntent.putExtra(MAX_SPEED, speedUpperLimit);
+        serviceIntent.putExtra(ENERGY, energy);
+        serviceIntent.putExtra(TEN_SECOND_TIMER, tenSecondTimer);
+        serviceIntent.putExtra(VOICE_ALERTS_CD, voiceAlertsMinuteThirty);
+        serviceIntent.putExtra(VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
+        serviceIntent.putExtra(VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
+        serviceIntent.putExtra(VOICE_ALERTS_TIME, voiceAlertsTime);
 
         startService(serviceIntent);
     }
@@ -259,12 +257,12 @@ public class SpeedTracker extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(secondsAndSpeedReceiver, new IntentFilter(Finals.COUNTDOWN_BR));
-        if (serviceStatus == 0 ) {
+        registerReceiver(secondsAndSpeedReceiver, new IntentFilter(COUNTDOWN_BR));
+        if (serviceStatus == PAUSE_PAUSED) {
             changeUiPausedState();
             pingServiceForTime();
-            localStatus = 0;
-        } else if (serviceStatus == -1) {
+            localStatus = PAUSE_PAUSED;
+        } else if (serviceStatus == STOP_STOPPED) {
             onBackPressed();
         }
     }
@@ -364,7 +362,7 @@ public class SpeedTracker extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 changeUiRunningState();
-                sendNewTime(Finals.START);
+                sendNewTime(START_RUNNING);
             }
         });
 
@@ -433,15 +431,15 @@ public class SpeedTracker extends AppCompatActivity {
      *               (uses Finals.class for options)
      */
     private void sendNewTime(int option) {
-        Intent sendTime = new Intent(Finals.MODIFY_TIME_BR);
-        sendTime.putExtra(Finals.TIME_MODIFIER, option);
+        Intent sendTime = new Intent(MODIFY_TIME_BR);
+        sendTime.putExtra(TIME_MODIFIER, option);
         sendBroadcast(sendTime);
     }
 
     // get an updated time from the service if the timer is paused
     // (service only broadcasts time while timer is running)
     private void pingServiceForTime() {
-        Intent getTime = new Intent(Finals.GET_TIME_BR);
+        Intent getTime = new Intent(GET_TIME_BR);
         sendBroadcast(getTime);
     }
 

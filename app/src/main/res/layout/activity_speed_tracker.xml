@@ -402,8 +402,8 @@
 
     <ImageButton
         android:id="@+id/stopImageButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_marginEnd="16dp"
         android:adjustViewBounds="true"
         android:background="@null"
@@ -419,8 +419,8 @@
 
     <ImageButton
         android:id="@+id/playImageButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_marginStart="16dp"
         android:adjustViewBounds="true"
         android:background="@null"

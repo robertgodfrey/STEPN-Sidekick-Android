@@ -1,5 +1,7 @@
 package stepn.sidekick.stepnsidekick;
 
+import static stepn.sidekick.stepnsidekick.Finals.*;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -43,7 +45,7 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer.
  *
  * @author Bob Godfrey
- * @version 1.2.0 - added average speed
+ * @version 1.2.3 - Bug fixes, improved readability of code.
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -803,16 +805,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Intent startGPSActivity = new Intent(getApplicationContext(), SpeedTracker.class);
 
-            startGPSActivity.putExtra(Finals.MIN_SPEED, min);
-            startGPSActivity.putExtra(Finals.MAX_SPEED, max);
-            startGPSActivity.putExtra(Finals.ENERGY, energy);
-            startGPSActivity.putExtra(Finals.SHOE_TYPE, shoes.get(shoeTypeIterator).getTitle());
-            startGPSActivity.putExtra(Finals.NUM_FEET, shoes.get(shoeTypeIterator).getNumFeet());
-            startGPSActivity.putExtra(Finals.TEN_SECOND_TIMER, tenSecondTimer);
-            startGPSActivity.putExtra(Finals.VOICE_ALERTS_CD, voiceCountdownAlerts);
-            startGPSActivity.putExtra(Finals.VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
-            startGPSActivity.putExtra(Finals.VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
-            startGPSActivity.putExtra(Finals.VOICE_ALERTS_TIME, voiceAlertsTime);
+            startGPSActivity.putExtra(MIN_SPEED, min);
+            startGPSActivity.putExtra(MAX_SPEED, max);
+            startGPSActivity.putExtra(ENERGY, energy);
+            startGPSActivity.putExtra(SHOE_TYPE, shoes.get(shoeTypeIterator).getTitle());
+            startGPSActivity.putExtra(NUM_FEET, shoes.get(shoeTypeIterator).getNumFeet());
+            startGPSActivity.putExtra(TEN_SECOND_TIMER, tenSecondTimer);
+            startGPSActivity.putExtra(VOICE_ALERTS_CD, voiceCountdownAlerts);
+            startGPSActivity.putExtra(VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
+            startGPSActivity.putExtra(VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
+            startGPSActivity.putExtra(VOICE_ALERTS_TIME, voiceAlertsTime);
 
             startActivity(startGPSActivity);
         }

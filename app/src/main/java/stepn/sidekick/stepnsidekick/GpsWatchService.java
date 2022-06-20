@@ -1,5 +1,7 @@
 package stepn.sidekick.stepnsidekick;
 
+import static stepn.sidekick.stepnsidekick.Finals.*;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -34,7 +36,7 @@ import java.util.concurrent.TimeUnit;
  * sound if the speed is outside the specified range. Broadcasts info back to the SpeedTracker class.
  *
  * @author Bob Godfrey
- * @version 1.2.0 - added average speed
+ * @version 1.2.3 - Bug fixes, improved readability of code.
  */
 
 public class GpsWatchService extends Service {
@@ -66,7 +68,7 @@ public class GpsWatchService extends Service {
     private final BroadcastReceiver updatedTimeReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             if (intent.getExtras() != null) {
-                int timeMod = intent.getIntExtra(Finals.TIME_MODIFIER, Finals.STOP);
+                int timeMod = intent.getIntExtra(TIME_MODIFIER, STOP_STOPPED);
                 updateTimer(timeMod);
             }
         }
@@ -88,43 +90,19 @@ public class GpsWatchService extends Service {
         currentAvgSpeed = 0;
         firstFive = true;
 
-        Intent notificationMainButtonIntent = new Intent(this, SpeedTracker.class);
-        PendingIntent pendingOpenActivityIntent = PendingIntent.getActivity(this,
-               0, notificationMainButtonIntent, PendingIntent.FLAG_IMMUTABLE);
-
-        Intent notificationPauseButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
-        notificationPauseButtonIntent.putExtra(Finals.TIME_MODIFIER, 0);
-        PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, Finals.PAUSE,
-                notificationPauseButtonIntent, PendingIntent.FLAG_IMMUTABLE);
-
-        notificationBuilder = new NotificationCompat.Builder(this, App.CHANNEL_ID)
-                .setContentTitle("STEPN Sidekick")
-                .setContentText("Running")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setSilent(true)
-                .addAction(0, getString(R.string.pause), pendingPauseIntent)
-                .setContentIntent(pendingOpenActivityIntent);
-        notification = notificationBuilder.build();
-
-        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        startForeground(1, notification);
-
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(1000);
         locationRequest.setFastestInterval(1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        speedLowerLimit = intent.getDoubleExtra(Finals.MIN_SPEED, 0);
-        speedUpperLimit = intent.getDoubleExtra(Finals.MAX_SPEED, 0);
-        energy = (intent.getDoubleExtra(Finals.ENERGY, 0));
-        tenSecondTimer = intent.getBooleanExtra(Finals.TEN_SECOND_TIMER, false);
-        voiceAlertsMinuteThirty = intent.getBooleanExtra(Finals.VOICE_ALERTS_CD, true);
-        voiceAlertsCurrentSpeed = intent.getBooleanExtra(Finals.VOICE_ALERTS_CURRENT_SPEED, true);
-        voiceAlertsAvgSpeed = intent.getBooleanExtra(Finals.VOICE_ALERTS_AVG_SPEED, true);
-        voiceAlertsTime = intent.getBooleanExtra(Finals.VOICE_ALERTS_TIME, true);
-
-        millisRemaining = (long) (energy * 5 * 60 * 1000) + 31000;
+        speedLowerLimit = intent.getDoubleExtra(MIN_SPEED, 0);
+        speedUpperLimit = intent.getDoubleExtra(MAX_SPEED, 0);
+        energy = (intent.getDoubleExtra(ENERGY, 0));
+        tenSecondTimer = intent.getBooleanExtra(TEN_SECOND_TIMER, false);
+        voiceAlertsMinuteThirty = intent.getBooleanExtra(VOICE_ALERTS_CD, true);
+        voiceAlertsCurrentSpeed = intent.getBooleanExtra(VOICE_ALERTS_CURRENT_SPEED, true);
+        voiceAlertsAvgSpeed = intent.getBooleanExtra(VOICE_ALERTS_AVG_SPEED, true);
+        voiceAlertsTime = intent.getBooleanExtra(VOICE_ALERTS_TIME, true);
 
         tenSecondTimerDone =! tenSecondTimer;
         justPlayed = false;
@@ -148,13 +126,13 @@ public class GpsWatchService extends Service {
         spicyAlert = alertSoundPool.load(this, R.raw.alert_sound, 1);
         startSound = alertSoundPool.load(this, R.raw.start_sound, 1);
 
-        initMainCountDownTimer();
-
         // initial ten second countdown timer
         if (tenSecondTimer) {
             initTenSecCountDownTimer();
             initialCountDownTimer.start();
         } else {
+            millisRemaining = (long) (energy * 5 * 60 * 1000) + 31000;
+            initMainCountDownTimer();
             alertSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int i, int i1) {
@@ -170,8 +148,34 @@ public class GpsWatchService extends Service {
 
         startLocationUpdates();
 
-        registerReceiver(updatedTimeReceiver, new IntentFilter(Finals.MODIFY_TIME_BR));
-        registerReceiver(respondToPing, new IntentFilter(Finals.GET_TIME_BR));
+        registerReceiver(updatedTimeReceiver, new IntentFilter(MODIFY_TIME_BR));
+        registerReceiver(respondToPing, new IntentFilter(GET_TIME_BR));
+
+        Intent notificationMainButtonIntent = new Intent(this, SpeedTracker.class);
+        PendingIntent pendingOpenActivityIntent = PendingIntent.getActivity(this,
+                0, notificationMainButtonIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        notificationBuilder = new NotificationCompat.Builder(this, App.CHANNEL_ID)
+                .setContentTitle("STEPN Sidekick")
+                .setContentText("Running")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSilent(true)
+                .setContentIntent(pendingOpenActivityIntent);
+
+        if (tenSecondTimerDone) {
+            Intent notificationPauseButtonIntent = new Intent(MODIFY_TIME_BR);
+            notificationPauseButtonIntent.putExtra(TIME_MODIFIER, 0);
+            PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, PAUSE_PAUSED,
+                    notificationPauseButtonIntent, PendingIntent.FLAG_IMMUTABLE);
+
+            notificationBuilder.addAction(0, getString(R.string.pause), pendingPauseIntent);
+        }
+
+        notification = notificationBuilder.build();
+
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        startForeground(1, notification);
 
         return START_NOT_STICKY;
     }
@@ -215,6 +219,7 @@ public class GpsWatchService extends Service {
             }
         };
     }
+
     // initializes the main countdown timer for the activity
     private void initMainCountDownTimer() {
         mainCountDownTimer = new CountDownTimer(millisRemaining, 1000) {
@@ -308,9 +313,7 @@ public class GpsWatchService extends Service {
         initialCountDownTimer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long l) {
-
                 millisRemaining = l;
-
                 broadcastInfo();
 
                 if (l / 1000 == 2) {
@@ -321,9 +324,10 @@ public class GpsWatchService extends Service {
             @Override
             public void onFinish() {
                 alertSoundPool.play(startSound, 1, 1, 0, 0, 1);
-                mainCountDownTimer.start();
                 tenSecondTimerDone = true;
                 tenSecondTimer = false;
+                millisRemaining = (long) (energy * 5 * 60 * 1000) + 31000;
+                updateTimer(START_RUNNING);
             }
         };
     }
@@ -1018,13 +1022,13 @@ public class GpsWatchService extends Service {
             notificationBuilder.setContentText(getString(R.string.starting_in) + TimeUnit.MILLISECONDS.toSeconds(millisRemaining));
         }
         notificationManager.notify(1, notificationBuilder.build());
-        Intent sendInfo = new Intent(Finals.COUNTDOWN_BR);
-        sendInfo.putExtra(Finals.COUNTDOWN_TIME, millisRemaining);
-        sendInfo.putExtra(Finals.CURRENT_SPEED, currentSpeed);
-        sendInfo.putExtra(Finals.AVERAGE_SPEED, currentAvgSpeed);
-        sendInfo.putExtra(Finals.GPS_ACCURACY, gpsAccuracy);
-        sendInfo.putExtra(Finals.ENERGY, energy);
-        sendInfo.putExtra(Finals.TEN_SECOND_DONE, tenSecondTimerDone);
+        Intent sendInfo = new Intent(COUNTDOWN_BR);
+        sendInfo.putExtra(COUNTDOWN_TIME, millisRemaining);
+        sendInfo.putExtra(CURRENT_SPEED, currentSpeed);
+        sendInfo.putExtra(AVERAGE_SPEED, currentAvgSpeed);
+        sendInfo.putExtra(GPS_ACCURACY, gpsAccuracy);
+        sendInfo.putExtra(ENERGY, energy);
+        sendInfo.putExtra(TEN_SECOND_DONE, tenSecondTimerDone);
         sendBroadcast(sendInfo);
     }
 
@@ -1041,49 +1045,48 @@ public class GpsWatchService extends Service {
 
     @SuppressLint("RestrictedApi")
     private void updateTimer(int timeMod) {
-        if (timeMod == -5) {
-            // sub five
+        if (timeMod == SUB_FIVE) {
+            // subtract five seconds
             mainCountDownTimer.cancel();
             millisRemaining -= 5000;
             initMainCountDownTimer();
             mainCountDownTimer.start();
-        } else if (timeMod == 5) {
-            // add 5
+        } else if (timeMod == ADD_FIVE) {
+            // add five seconds
             mainCountDownTimer.cancel();
             millisRemaining += 5000;
             initMainCountDownTimer();
             mainCountDownTimer.start();
-        } else if (timeMod == 1){
-            // play
+        } else if (timeMod == START_RUNNING){
+            // start timer
             initMainCountDownTimer();
             mainCountDownTimer.start();
             startLocationUpdates();
-            SpeedTracker.serviceStatus = 1;
+            SpeedTracker.serviceStatus = START_RUNNING;
 
-            Intent notificationPauseButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
-            notificationPauseButtonIntent.putExtra(Finals.TIME_MODIFIER, 0);
-            PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, Finals.PAUSE,
+            Intent notificationPauseButtonIntent = new Intent(MODIFY_TIME_BR);
+            notificationPauseButtonIntent.putExtra(TIME_MODIFIER, 0);
+            PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, PAUSE_PAUSED,
                     notificationPauseButtonIntent, PendingIntent.FLAG_IMMUTABLE);
 
             notificationBuilder.mActions.clear();
             notificationBuilder.addAction(0, getString(R.string.pause), pendingPauseIntent);
             notificationManager.notify(1, notificationBuilder.build());
-
-        } else if (timeMod == 0){
-            // pause
+        } else if (timeMod == PAUSE_PAUSED){
+            // pause timer
             mainCountDownTimer.cancel();
             stopLocationUpdates();
-            SpeedTracker.serviceStatus = 0;
+            SpeedTracker.serviceStatus = PAUSE_PAUSED;
             broadcastInfo();
 
-            Intent notificationStartButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
-            notificationStartButtonIntent.putExtra(Finals.TIME_MODIFIER, 1);
-            PendingIntent pendingStartIntent = PendingIntent.getBroadcast(this, Finals.START,
+            Intent notificationStartButtonIntent = new Intent(MODIFY_TIME_BR);
+            notificationStartButtonIntent.putExtra(TIME_MODIFIER, 1);
+            PendingIntent pendingStartIntent = PendingIntent.getBroadcast(this, START_RUNNING,
                     notificationStartButtonIntent, PendingIntent.FLAG_IMMUTABLE);
 
-            Intent notificationStopButtonIntent = new Intent(Finals.MODIFY_TIME_BR);
-            notificationStopButtonIntent.putExtra(Finals.TIME_MODIFIER, -1);
-            PendingIntent pendingStopIntent = PendingIntent.getBroadcast(this, Finals.STOP,
+            Intent notificationStopButtonIntent = new Intent(MODIFY_TIME_BR);
+            notificationStopButtonIntent.putExtra(TIME_MODIFIER, -1);
+            PendingIntent pendingStopIntent = PendingIntent.getBroadcast(this, STOP_STOPPED,
                     notificationStopButtonIntent, PendingIntent.FLAG_IMMUTABLE);
 
             notificationBuilder.setContentText(getString(R.string.paused));
@@ -1091,11 +1094,10 @@ public class GpsWatchService extends Service {
             notificationBuilder.addAction(0, getString(R.string.stop), pendingStopIntent);
             notificationBuilder.addAction(0, getString(R.string.start), pendingStartIntent);
             notificationManager.notify(1, notificationBuilder.build());
-
         } else {
             // stop
             broadcastInfo();
-            SpeedTracker.serviceStatus = -1;
+            SpeedTracker.serviceStatus = STOP_STOPPED;
             stopSelf();
         }
     }
@@ -1121,7 +1123,7 @@ public class GpsWatchService extends Service {
             voiceSoundPool = null;
         }
 
-        SpeedTracker.serviceStatus = -1;
+        SpeedTracker.serviceStatus = STOP_STOPPED;
         unregisterReceiver(updatedTimeReceiver);
         unregisterReceiver(respondToPing);
 
