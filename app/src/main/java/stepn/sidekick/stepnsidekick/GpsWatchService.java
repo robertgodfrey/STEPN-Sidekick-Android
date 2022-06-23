@@ -376,6 +376,9 @@ public class GpsWatchService extends Service {
                 return;
             }
 
+            // aight check it out. i tried doing another setOnLoadComplete listener for all of these voice alerts,
+            // but when i do that it plays the sound twice (even when i move voiceMinutes below this code). so...
+            // it's staying like this for now
             try {
                 Thread.sleep(150);
             } catch (InterruptedException e) {
