@@ -377,7 +377,7 @@ public class GpsWatchService extends Service {
             }
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(150);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -404,7 +404,7 @@ public class GpsWatchService extends Service {
                 minConversion -= 120;
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(150);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -428,7 +428,7 @@ public class GpsWatchService extends Service {
                 minConversion -= 60;
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(150);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -497,7 +497,7 @@ public class GpsWatchService extends Service {
             }
             if (timeMinsStart != -1) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(150);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -513,7 +513,7 @@ public class GpsWatchService extends Service {
             }
             if (timeMinsEnd != -1) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(150);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -688,7 +688,7 @@ public class GpsWatchService extends Service {
         }
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(150);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -705,7 +705,7 @@ public class GpsWatchService extends Service {
         }
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(150);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -730,7 +730,7 @@ public class GpsWatchService extends Service {
         voiceSoundPool.play(voicePoint, 1, 1, 0, 0, 1);
 
         try {
-            Thread.sleep(200);
+            Thread.sleep(150);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -908,7 +908,7 @@ public class GpsWatchService extends Service {
         }
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(150);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -944,7 +944,7 @@ public class GpsWatchService extends Service {
         voiceSoundPool.play(voicePoint, 1, 1, 0, 0, 1);
 
         try {
-            Thread.sleep(200);
+            Thread.sleep(150);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -976,7 +976,7 @@ public class GpsWatchService extends Service {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -993,7 +993,7 @@ public class GpsWatchService extends Service {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
