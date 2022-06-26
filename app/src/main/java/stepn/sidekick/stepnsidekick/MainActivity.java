@@ -46,6 +46,8 @@ import java.util.ArrayList;
  *
  * @author Bob Godfrey
  * @version 1.2.3 - Bug fixes, improved readability of code.
+ *
+ * TODO - Consider updating UI to match STEPN's latest updates (lighter grey borders, more rounded edges, shadow under shoe)
  */
 
 public class MainActivity extends AppCompatActivity {
