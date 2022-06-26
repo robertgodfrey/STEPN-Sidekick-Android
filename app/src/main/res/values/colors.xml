@@ -12,6 +12,7 @@
     <color name="almost_black_background">#28292e</color>
     <color name="less_black_foreground">#3c3c3c</color>
     <color name="gandalf">#88797D</color>
+    <color name="gem_socket_shadow">#d2d2d2</color>
     <color name="white">#FFFFFFFF</color>
     <color name="energy_blue">#a5e5ff</color>
     <color name="energy_blue_lighter">#D0F0FD</color>
