@@ -63,7 +63,7 @@ public class GpsWatchService extends Service {
     private boolean voiceAlertsMinuteThirty, voiceAlertsTime, voiceAlertsCurrentSpeed, voiceAlertsAvgSpeed,
             tenSecondTimer, tenSecondTimerDone, justPlayed, killThread, firstFive;
 
-    long millisRemaining;
+    private long millisRemaining, millisBreak, millisBreak2;
 
     private final BroadcastReceiver updatedTimeReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -556,139 +556,11 @@ public class GpsWatchService extends Service {
         voicePoint = voiceSoundPool.load(GpsWatchService.this, R.raw.point, 1);
         voiceKiloPerHour = voiceSoundPool.load(GpsWatchService.this, R.raw.kilo_per_hour, 1);
 
-        long millisBreak = 200;
-        long millisBreak2 = 200;
+        millisBreak = 200;
+        millisBreak2 = 200;
 
-        switch ((int) ((currentSpeed - Math.floor(currentSpeed)) * 10)) {
-            case 1:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.one, 1);
-                millisBreak2 += 70;
-                break;
-            case 2:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.two, 1);
-                millisBreak2 += 70;
-                break;
-            case 3:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.three, 1);
-                millisBreak2 += 40;
-                break;
-            case 4:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.four, 1);
-                millisBreak2 += 60;
-                break;
-            case 5:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.five, 1);
-                millisBreak2 += 100;
-                break;
-            case 6:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.six, 1);
-                millisBreak2 += 120;
-                break;
-            case 7:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.sevn, 1);
-                millisBreak2 += 180;
-                break;
-            case 8:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.eight, 1);
-                break;
-            case 9:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.nine, 1);
-                millisBreak2 += 120;
-                break;
-            default:
-                voiceCurrentSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.zero, 1);
-                millisBreak2 += 230;
-                break;
-        }
-
-        switch ((int) Math.floor(currentSpeed)) {
-            case 0:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.zero, 1);
-                millisBreak += 230;
-                break;
-            case 1:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.one, 1);
-                millisBreak += 70;
-                break;
-            case 2:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.two, 1);
-                millisBreak += 70;
-                break;
-            case 3:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.three, 1);
-                millisBreak += 40;
-                break;
-            case 4:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.four, 1);
-                millisBreak += 60;
-                break;
-            case 5:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.five, 1);
-                millisBreak += 100;
-                break;
-            case 6:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.six, 1);
-                millisBreak += 120;
-                break;
-            case 7:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.sevn, 1);
-                millisBreak += 180;
-                break;
-            case 8:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.eight, 1);
-                break;
-            case 9:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.nine, 1);
-                millisBreak += 120;
-                break;
-            case 10:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.ten, 1);
-                millisBreak += 60;
-                break;
-            case 11:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.eleven, 1);
-                millisBreak += 180;
-                break;
-            case 12:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.twelve, 1);
-                millisBreak += 175;
-                break;
-            case 13:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.thirteen, 1);
-                millisBreak += 265;
-                break;
-            case 14:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.fourteen, 1);
-                millisBreak += 290;
-                break;
-            case 15:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.fifteen, 1);
-                millisBreak += 440;
-                break;
-            case 16:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.sixteen, 1);
-                millisBreak += 370;
-                break;
-            case 17:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.seventeen, 1);
-                millisBreak += 400;
-                break;
-            case 18:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.eighteen, 1);
-                millisBreak += 235;
-                break;
-            case 19:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.nineteen, 1);
-                millisBreak += 280;
-                break;
-            case 20:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.twenty, 1);
-                break;
-            default:
-                voiceCurrentSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.over_twenty, 1);
-                millisBreak += 430;
-                break;
-        }
+        voiceCurrentSpeedNum1 = speedOne((int) Math.floor(currentSpeed));
+        voiceCurrentSpeedNum2 = speedTwo((int) (currentSpeed - Math.floor(currentSpeed)) * 10);
 
         try {
             Thread.sleep(150);
@@ -733,7 +605,7 @@ public class GpsWatchService extends Service {
         voiceSoundPool.play(voicePoint, 1, 1, 0, 0, 1);
 
         try {
-            Thread.sleep(150);
+            Thread.sleep(250);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -755,8 +627,7 @@ public class GpsWatchService extends Service {
         }
 
         voiceSoundPool.play(voiceKiloPerHour, 1, 1, 0, 0, 1);
-
-
+        
         if (voiceAlertsAvgSpeed) {
             try {
                 Thread.sleep(1800);
@@ -775,140 +646,11 @@ public class GpsWatchService extends Service {
         voicePoint = voiceSoundPool.load(GpsWatchService.this, R.raw.point, 1);
         voiceKiloPerHour = voiceSoundPool.load(GpsWatchService.this, R.raw.kilo_per_hour, 1);
 
-        long millisBreak = 200;
-        long millisBreak2 = 200;
+        millisBreak = 200;
+        millisBreak2 = 200;
 
-        // this are the same two switch statements from above
-        switch ((int) ((currentAvgSpeed - Math.floor(currentAvgSpeed)) * 10)) {
-            case 1:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.one, 1);
-                millisBreak2 += 70;
-                break;
-            case 2:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.two, 1);
-                millisBreak2 += 70;
-                break;
-            case 3:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.three, 1);
-                millisBreak2 += 40;
-                break;
-            case 4:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.four, 1);
-                millisBreak2 += 60;
-                break;
-            case 5:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.five, 1);
-                millisBreak2 += 100;
-                break;
-            case 6:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.six, 1);
-                millisBreak2 += 120;
-                break;
-            case 7:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.sevn, 1);
-                millisBreak2 += 180;
-                break;
-            case 8:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.eight, 1);
-                break;
-            case 9:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.nine, 1);
-                millisBreak2 += 120;
-                break;
-            default:
-                voiceAvgSpeedNum2 = voiceSoundPool.load(GpsWatchService.this, R.raw.zero, 1);
-                millisBreak2 += 230;
-                break;
-        }
-
-        switch ((int) Math.floor(currentAvgSpeed)) {
-            case 0:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.zero, 1);
-                millisBreak += 230;
-                break;
-            case 1:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.one, 1);
-                millisBreak += 70;
-                break;
-            case 2:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.two, 1);
-                millisBreak += 70;
-                break;
-            case 3:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.three, 1);
-                millisBreak += 40;
-                break;
-            case 4:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.four, 1);
-                millisBreak += 60;
-                break;
-            case 5:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.five, 1);
-                millisBreak += 100;
-                break;
-            case 6:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.six, 1);
-                millisBreak += 120;
-                break;
-            case 7:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.sevn, 1);
-                millisBreak += 180;
-                break;
-            case 8:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.eight, 1);
-                break;
-            case 9:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.nine, 1);
-                millisBreak += 120;
-                break;
-            case 10:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.ten, 1);
-                millisBreak += 60;
-                break;
-            case 11:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.eleven, 1);
-                millisBreak += 180;
-                break;
-            case 12:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.twelve, 1);
-                millisBreak += 175;
-                break;
-            case 13:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.thirteen, 1);
-                millisBreak += 265;
-                break;
-            case 14:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.fourteen, 1);
-                millisBreak += 290;
-                break;
-            case 15:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.fifteen, 1);
-                millisBreak += 440;
-                break;
-            case 16:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.sixteen, 1);
-                millisBreak += 370;
-                break;
-            case 17:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.seventeen, 1);
-                millisBreak += 400;
-                break;
-            case 18:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.eighteen, 1);
-                millisBreak += 235;
-                break;
-            case 19:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.nineteen, 1);
-                millisBreak += 280;
-                break;
-            case 20:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.twenty, 1);
-                break;
-            default:
-                voiceAvgSpeedNum1 = voiceSoundPool.load(GpsWatchService.this, R.raw.over_twenty, 1);
-                millisBreak += 430;
-                break;
-        }
+        voiceAvgSpeedNum1 = speedOne((int) Math.floor(currentAvgSpeed));
+        voiceAvgSpeedNum2 = speedTwo((int) ((currentAvgSpeed - Math.floor(currentAvgSpeed)) * 10));
 
         try {
             Thread.sleep(150);
@@ -947,7 +689,7 @@ public class GpsWatchService extends Service {
         voiceSoundPool.play(voicePoint, 1, 1, 0, 0, 1);
 
         try {
-            Thread.sleep(150);
+            Thread.sleep(250);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -969,6 +711,151 @@ public class GpsWatchService extends Service {
         }
 
         voiceSoundPool.play(voiceKiloPerHour, 1, 1, 0, 0, 1);
+    }
+
+    // chooses which voice file to play depending on speed (first number)
+    private int speedOne(int speed) {
+        int speedVoice;
+
+        switch (speed) {
+            case 0:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.zero, 1);
+                millisBreak += 230;
+                break;
+            case 1:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.one, 1);
+                millisBreak += 70;
+                break;
+            case 2:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.two, 1);
+                millisBreak += 70;
+                break;
+            case 3:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.three, 1);
+                millisBreak += 40;
+                break;
+            case 4:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.four, 1);
+                millisBreak += 60;
+                break;
+            case 5:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.five, 1);
+                millisBreak += 100;
+                break;
+            case 6:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.six, 1);
+                millisBreak += 120;
+                break;
+            case 7:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.sevn, 1);
+                millisBreak += 180;
+                break;
+            case 8:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.eight, 1);
+                break;
+            case 9:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.nine, 1);
+                millisBreak += 120;
+                break;
+            case 10:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.ten, 1);
+                millisBreak += 60;
+                break;
+            case 11:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.eleven, 1);
+                millisBreak += 180;
+                break;
+            case 12:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.twelve, 1);
+                millisBreak += 175;
+                break;
+            case 13:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.thirteen, 1);
+                millisBreak += 265;
+                break;
+            case 14:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.fourteen, 1);
+                millisBreak += 290;
+                break;
+            case 15:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.fifteen, 1);
+                millisBreak += 440;
+                break;
+            case 16:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.sixteen, 1);
+                millisBreak += 370;
+                break;
+            case 17:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.seventeen, 1);
+                millisBreak += 400;
+                break;
+            case 18:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.eighteen, 1);
+                millisBreak += 235;
+                break;
+            case 19:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.nineteen, 1);
+                millisBreak += 280;
+                break;
+            case 20:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.twenty, 1);
+                break;
+            default:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.over_twenty, 1);
+                millisBreak += 430;
+                break;
+        }
+
+        return speedVoice;
+    }
+
+    // chooses which voice file to play depending on speed (second number)
+    private int speedTwo(int speed) {
+        int speedVoice;
+
+        switch (speed) {
+            case 1:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.one, 1);
+                millisBreak2 += 70;
+                break;
+            case 2:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.two, 1);
+                millisBreak2 += 70;
+                break;
+            case 3:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.three, 1);
+                millisBreak2 += 40;
+                break;
+            case 4:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.four, 1);
+                millisBreak2 += 60;
+                break;
+            case 5:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.five, 1);
+                millisBreak2 += 100;
+                break;
+            case 6:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.six, 1);
+                millisBreak2 += 120;
+                break;
+            case 7:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.sevn, 1);
+                millisBreak2 += 180;
+                break;
+            case 8:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.eight, 1);
+                break;
+            case 9:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.nine, 1);
+                millisBreak2 += 120;
+                break;
+            default:
+                speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.zero, 1);
+                millisBreak2 += 230;
+                break;
+        }
+
+        return speedVoice;
     }
 
     // one minute remaining voice alert
