@@ -516,7 +516,7 @@ public class GpsWatchService extends Service {
             }
             if (timeMinsEnd != -1) {
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -546,35 +546,13 @@ public class GpsWatchService extends Service {
 
     // plays voice alerts for current speed
     private void voiceCurrentSpeed() {
-        if (killThread) {
-            return;
-        }
-        // voice speed alerts
-        int voiceCurrentSpeed, voiceCurrentSpeedNum1, voicePoint, voiceCurrentSpeedNum2, voiceKiloPerHour;
+        int voiceCurrentSpeed, voiceCurrentSpeedNum1, voiceCurrentSpeedNum2;
 
         voiceCurrentSpeed = voiceSoundPool.load(GpsWatchService.this, R.raw.current_speed, 1);
-        voicePoint = voiceSoundPool.load(GpsWatchService.this, R.raw.point, 1);
-        voiceKiloPerHour = voiceSoundPool.load(GpsWatchService.this, R.raw.kilo_per_hour, 1);
-
-        millisBreak = 200;
-        millisBreak2 = 200;
 
         voiceCurrentSpeedNum1 = speedOne((int) Math.floor(currentSpeed));
-        voiceCurrentSpeedNum2 = speedTwo((int) (currentSpeed - Math.floor(currentSpeed)) * 10);
+        voiceCurrentSpeedNum2 = speedTwo((int) ((currentSpeed - Math.floor(currentSpeed)) * 10));
 
-        try {
-            Thread.sleep(150);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        voiceSoundPool.play(voiceCurrentSpeed, 1, 1, 0, 0, 1);
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
         if (killThread) {
             return;
         }
@@ -585,48 +563,7 @@ public class GpsWatchService extends Service {
             Thread.currentThread().interrupt();
         }
 
-        voiceSoundPool.play(voiceCurrentSpeedNum1, 1, 1, 0, 0, 1);
-
-        try {
-            Thread.sleep(millisBreak);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        if (killThread) {
-            return;
-        }
-
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        voiceSoundPool.play(voicePoint, 1, 1, 0, 0, 1);
-
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        if (killThread) {
-            return;
-        }
-
-        voiceSoundPool.play(voiceCurrentSpeedNum2, 1, 1, 0, 0, 1);
-
-        try {
-            Thread.sleep(millisBreak2);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        if (killThread) {
-            return;
-        }
-
-        voiceSoundPool.play(voiceKiloPerHour, 1, 1, 0, 0, 1);
+        playSpeedVoice(voiceCurrentSpeed, voiceCurrentSpeedNum1, voiceCurrentSpeedNum2, false);
         
         if (voiceAlertsAvgSpeed) {
             try {
@@ -640,17 +577,16 @@ public class GpsWatchService extends Service {
     }
 
     private void voiceAvgSpeed() {
-        int voiceAvgSpeed, voiceAvgSpeedNum1, voiceAvgSpeedNum2, voicePoint, voiceKiloPerHour;
+        int voiceAvgSpeed, voiceAvgSpeedNum1, voiceAvgSpeedNum2;
 
         voiceAvgSpeed = voiceSoundPool.load(GpsWatchService.this, R.raw.avg_speed, 1);
-        voicePoint = voiceSoundPool.load(GpsWatchService.this, R.raw.point, 1);
-        voiceKiloPerHour = voiceSoundPool.load(GpsWatchService.this, R.raw.kilo_per_hour, 1);
-
-        millisBreak = 200;
-        millisBreak2 = 200;
 
         voiceAvgSpeedNum1 = speedOne((int) Math.floor(currentAvgSpeed));
         voiceAvgSpeedNum2 = speedTwo((int) ((currentAvgSpeed - Math.floor(currentAvgSpeed)) * 10));
+
+        if (killThread) {
+            return;
+        }
 
         try {
             Thread.sleep(150);
@@ -658,64 +594,15 @@ public class GpsWatchService extends Service {
             Thread.currentThread().interrupt();
         }
 
-        voiceSoundPool.play(voiceAvgSpeed, 1, 1, 0, 0, 1);
+        playSpeedVoice(voiceAvgSpeed, voiceAvgSpeedNum1, voiceAvgSpeedNum2, true);
 
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        if (killThread) {
-            return;
-        }
-
-        voiceSoundPool.play(voiceAvgSpeedNum1, 1, 1, 0, 0, 1);
-
-        try {
-            Thread.sleep(millisBreak);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        if (killThread) {
-            return;
-        }
-
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        voiceSoundPool.play(voicePoint, 1, 1, 0, 0, 1);
-
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        if (killThread) {
-            return;
-        }
-
-        voiceSoundPool.play(voiceAvgSpeedNum2, 1, 1, 0, 0, 1);
-
-        try {
-            Thread.sleep(millisBreak2);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        if (killThread) {
-            return;
-        }
-
-        voiceSoundPool.play(voiceKiloPerHour, 1, 1, 0, 0, 1);
     }
 
     // chooses which voice file to play depending on speed (first number)
     private int speedOne(int speed) {
         int speedVoice;
+
+        millisBreak = 200;
 
         switch (speed) {
             case 0:
@@ -813,6 +700,8 @@ public class GpsWatchService extends Service {
     private int speedTwo(int speed) {
         int speedVoice;
 
+        millisBreak2 = 200;
+
         switch (speed) {
             case 1:
                 speedVoice = voiceSoundPool.load(GpsWatchService.this, R.raw.one, 1);
@@ -856,6 +745,70 @@ public class GpsWatchService extends Service {
         }
 
         return speedVoice;
+    }
+
+    // plays voice for speed alerts
+    // extraTime is for "5 min average" (takes longer to say than "average speed")
+    private void playSpeedVoice(int speedType, int speedOne, int speedTwo, boolean extraTime) {
+        int voicePoint = voiceSoundPool.load(GpsWatchService.this, R.raw.point, 1);
+        int voiceKiloPerHour = voiceSoundPool.load(GpsWatchService.this, R.raw.kilo_per_hour, 1);
+
+        voiceSoundPool.play(speedType, 1, 1, 0, 0, 1);
+
+        try {
+            Thread.sleep(extraTime ? 1500 : 1100);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        if (killThread) {
+            return;
+        }
+
+        voiceSoundPool.play(speedOne, 1, 1, 0, 0, 1);
+
+        try {
+            Thread.sleep(millisBreak);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        if (killThread) {
+            return;
+        }
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        voiceSoundPool.play(voicePoint, 1, 1, 0, 0, 1);
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        if (killThread) {
+            return;
+        }
+
+        voiceSoundPool.play(speedTwo, 1, 1, 0, 0, 1);
+
+        try {
+            Thread.sleep(millisBreak2);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        if (killThread) {
+            return;
+        }
+
+        voiceSoundPool.play(voiceKiloPerHour, 1, 1, 0, 0, 1);
+
     }
 
     // one minute remaining voice alert
