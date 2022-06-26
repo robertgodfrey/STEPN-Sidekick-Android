@@ -30,6 +30,150 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/walker" />
 
+    <ImageView
+        android:id="@+id/gemSocketOneShadow"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
+        app:srcCompat="@mipmap/gem_socket"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/gemSocketOne"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-12dp"
+        android:layout_marginEnd="4dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toStartOf="@+id/shoeTypeImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeBackground"
+        app:srcCompat="@mipmap/gem_socket" />
+
+    <ImageView
+        android:id="@+id/gemSocketOneLockPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketOne"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketOne"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
+        app:srcCompat="@mipmap/gem_socket_lock" />
+
+    <ImageView
+        android:id="@+id/gemSocketTwoShadow"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
+        app:srcCompat="@mipmap/gem_socket"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/gemSocketTwo"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-12dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toEndOf="@id/shoeTypeImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeBackground"
+        app:srcCompat="@mipmap/gem_socket" />
+
+    <ImageView
+        android:id="@+id/gemSocketTwoLockPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketTwo"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketTwo"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
+        app:srcCompat="@mipmap/gem_socket_lock" />
+
+    <ImageView
+        android:id="@+id/gemSocketThreeShadow"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
+        app:srcCompat="@mipmap/gem_socket"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/gemSocketThree"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-18dp"
+        android:layout_marginEnd="4dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toStartOf="@+id/shoeTypeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
+        app:srcCompat="@mipmap/gem_socket" />
+
+    <ImageView
+        android:id="@+id/gemSocketThreeLockPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketThree"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketThree"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
+        app:srcCompat="@mipmap/gem_socket_lock" />
+
+    <ImageView
+        android:id="@+id/gemSocketFourShadow"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
+        app:srcCompat="@mipmap/gem_socket"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/gemSocketFour"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-18dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toEndOf="@id/shoeTypeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
+        app:srcCompat="@mipmap/gem_socket" />
+
+    <ImageView
+        android:id="@+id/gemSocketFourLockPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketFour"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketFour"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
+        app:srcCompat="@mipmap/gem_socket_lock" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settingsConstraint"
         android:layout_width="match_parent"
