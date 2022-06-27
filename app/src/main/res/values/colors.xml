@@ -6,6 +6,7 @@
     <color name="yellow_accent">#f9b844</color>
     <color name="light_green">#d9fff2</color>
     <color name="button_green">#65ffcb</color>
+    <color name="button_green_darker">#57E3B3</color>
     <color name="button_disabled">#f5f5f5</color>
     <color name="lighter_black">#231F20</color>
     <color name="almost_black">#231f20</color>
