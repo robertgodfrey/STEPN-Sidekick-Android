@@ -4,7 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_green"
     tools:context="stepn.sidekick.stepnsidekick.ShoeOptimizer">
+
+    <ImageView
+        android:id="@+id/backgroundThingShadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-3dp"
+        android:layout_marginBottom="-3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundThing"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toTopOf="@+id/backgroundThing"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <ImageView
+        android:id="@+id/backgroundThing"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="-50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_thing" />
 
     <ImageView
         android:id="@+id/shoeBackground"
@@ -27,7 +56,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backgroundThing"
         app:srcCompat="@mipmap/walker" />
 
     <ImageView
@@ -176,7 +205,7 @@
 
     <ImageView
         android:id="@+id/shoeRarityBoxShadow"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="34dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
@@ -187,13 +216,13 @@
 
     <ImageView
         android:id="@+id/shoeRarityBox"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="34dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toStartOf="@id/shoeTypeBox"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/gemSocketThree"
         app:srcCompat="@drawable/box_common" />
 
@@ -212,7 +241,7 @@
 
     <ImageView
         android:id="@+id/shoeTypeBoxShadow"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="34dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
@@ -223,11 +252,11 @@
 
     <ImageView
         android:id="@+id/shoeTypeBox"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="34dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/shoeRarityBox"
         app:layout_constraintTop_toBottomOf="@+id/gemSocketThree"
