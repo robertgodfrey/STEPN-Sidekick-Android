@@ -5,6 +5,9 @@
       <map>
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/background_thing.xml" value="0.4095" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/box_common.xml" value="0.4025" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/box_epic.xml" value="0.4025" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/box_rare.xml" value="0.4025" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/box_uncommon.xml" value="0.4025" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/circle.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/circles_common.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/circles_rare.xml" value="0.375" />
@@ -16,6 +19,7 @@
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_background_thing.xml" value="0.4095" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_button_shadow.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_buttons.xml" value="0.375" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_buttons_disabled.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/roundy_button.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/roundy_green_background.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/scrubber_control.xml" value="0.4095" />

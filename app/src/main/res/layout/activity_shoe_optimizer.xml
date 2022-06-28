@@ -28,7 +28,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="-50dp"
+        android:layout_marginBottom="-500dp"
         app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -205,25 +205,26 @@
 
     <ImageView
         android:id="@+id/shoeRarityBoxShadow"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="34dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/shoeRarityBox"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/shoeRarityBox"
         app:layout_constraintTop_toTopOf="@+id/shoeRarityBox"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/main_button_shadow" />
 
     <ImageView
         android:id="@+id/shoeRarityBox"
-        android:layout_width="140dp"
+        android:layout_width="100dp"
         android:layout_height="34dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toStartOf="@id/shoeTypeBox"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
-        app:layout_constraintTop_toBottomOf="@+id/gemSocketThree"
+        app:layout_constraintTop_toTopOf="@id/shoeTypeBox"
         app:srcCompat="@drawable/box_common" />
 
     <TextView
@@ -239,27 +240,41 @@
         app:layout_constraintStart_toStartOf="@+id/shoeRarityBox"
         app:layout_constraintTop_toTopOf="@+id/shoeRarityBox" />
 
+    <TextView
+        android:id="@+id/rarityLabelTextView"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rarity"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/shoeRarityBox"
+        app:layout_constraintEnd_toEndOf="@+id/shoeRarityBox"
+        app:layout_constraintStart_toStartOf="@+id/shoeRarityBox" />
+
     <ImageView
         android:id="@+id/shoeTypeBoxShadow"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="34dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/shoeTypeBox"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/shoeTypeBox"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeBox"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/main_button_shadow" />
 
     <ImageView
         android:id="@+id/shoeTypeBox"
-        android:layout_width="140dp"
+        android:layout_width="100dp"
         android:layout_height="34dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toStartOf="@id/energyBoxOptimizer"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/shoeRarityBox"
-        app:layout_constraintTop_toBottomOf="@+id/gemSocketThree"
+        app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
         app:srcCompat="@drawable/box_common" />
 
     <TextView
@@ -314,12 +329,62 @@
         app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
         app:srcCompat="@mipmap/footprint" />
 
+    <TextView
+        android:id="@+id/shoeTypeLabelTextView"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/energyBoxOptimizer"
+        app:layout_constraintEnd_toEndOf="@+id/shoeTypeBox"
+        app:layout_constraintStart_toStartOf="@+id/shoeTypeBox" />
+
+    <ImageView
+        android:id="@+id/energyBoxOptimizerShadow"
+        android:layout_width="0dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="-2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/energyBoxOptimizer"
+        app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
+        app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
+        app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
+        app:srcCompat="@drawable/energy_input_box"
+        app:tint="@color/energy_blue_border" />
+
+    <TextView
+        android:id="@+id/energyLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RegItalic"
+        android:text="Energy"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
+        app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
+        app:layout_constraintBottom_toTopOf="@+id/energyBoxOptimizer" />
+
+    <ImageView
+        android:id="@+id/energyBoxOptimizer"
+        android:layout_width="100dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/shoeTypeBox"
+        app:layout_constraintTop_toBottomOf="@+id/gemSocketFour"
+        app:srcCompat="@drawable/energy_input_box" />
+
     <ImageView
         android:id="@+id/seekbarBackground"
         android:layout_width="0dp"
         android:layout_height="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/levelSeekBar"
-        app:layout_constraintEnd_toEndOf="@+id/shoeTypeBox"
+        app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
         app:layout_constraintStart_toStartOf="@+id/shoeRarityBox"
         app:layout_constraintTop_toTopOf="@+id/levelSeekBar"
         app:srcCompat="@drawable/seekbar_background" />
@@ -364,6 +429,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
         app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
         app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+
+    <TextView
+        android:id="@+id/attributesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Attributes"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seekbarBackground" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
