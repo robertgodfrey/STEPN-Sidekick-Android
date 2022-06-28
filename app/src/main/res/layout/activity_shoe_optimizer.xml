@@ -42,13 +42,15 @@
 
         <ImageView
             android:id="@+id/shoeBackground"
-            android:layout_width="0dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="46dp"
+            android:layout_marginEnd="32dp"
             android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="@+id/shoeTypeImageView"
-            app:layout_constraintEnd_toEndOf="@+id/shoeTypeImageView"
-            app:layout_constraintStart_toStartOf="@+id/shoeTypeImageView"
-            app:layout_constraintTop_toTopOf="@+id/shoeTypeImageView"
+            app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+            app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+            app:layout_constraintTop_toTopOf="@+id/backgroundThing"
             app:srcCompat="@drawable/circles_common" />
 
         <ImageView
@@ -56,12 +58,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="90dp"
-            android:layout_marginTop="80dp"
             android:layout_marginEnd="90dp"
+            android:layout_marginBottom="16dp"
             android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="@+id/shoeBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/backgroundThing"
+            app:layout_constraintTop_toTopOf="@+id/shoeBackground"
             app:srcCompat="@mipmap/walker" />
 
         <ImageView
@@ -221,6 +224,19 @@
             app:layout_constraintTop_toTopOf="@+id/shoeRarityButton"
             app:srcCompat="@drawable/main_button_shadow" />
 
+        <TextView
+            android:id="@+id/shoeRarityShadowTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_condensed_bold_italic"
+            android:text="Common"
+            android:textColor="@color/almost_black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/shoeRarityBoxShadow"
+            app:layout_constraintEnd_toEndOf="@+id/shoeRarityBoxShadow"
+            app:layout_constraintStart_toStartOf="@+id/shoeRarityBoxShadow"
+            app:layout_constraintTop_toTopOf="@+id/shoeRarityBoxShadow" />
+
         <ImageButton
             android:id="@+id/shoeRarityButton"
             android:layout_width="94dp"
@@ -271,6 +287,19 @@
             app:layout_constraintStart_toStartOf="@+id/shoeTypeButton"
             app:layout_constraintTop_toTopOf="@+id/shoeTypeButton"
             app:srcCompat="@drawable/main_button_shadow" />
+
+        <TextView
+            android:id="@+id/shoeTypeShadowTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_condensed_bold_italic"
+            android:text="Walker"
+            android:textColor="@color/almost_black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/shoeTypeBoxShadow"
+            app:layout_constraintEnd_toEndOf="@+id/shoeTypeBoxShadow"
+            app:layout_constraintStart_toEndOf="@id/footprint1ImageView"
+            app:layout_constraintTop_toTopOf="@+id/shoeTypeBoxShadow" />
 
         <ImageButton
             android:id="@+id/shoeTypeButton"
@@ -381,11 +410,11 @@
             android:layout_width="94dp"
             android:layout_height="34dp"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="108dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
             app:layout_constraintStart_toEndOf="@+id/shoeTypeButton"
-            app:layout_constraintTop_toBottomOf="@+id/shoeTypeImageView"
+            app:layout_constraintTop_toBottomOf="@+id/gemSocketFour"
             app:srcCompat="@drawable/energy_input_box" />
 
         <EditText
@@ -883,6 +912,19 @@
             app:layout_constraintTop_toTopOf="@+id/optimizeButton"
             app:srcCompat="@drawable/start_button_shadow" />
 
+        <TextView
+            android:id="@+id/optimizeTextViewShadow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_condensed_bold_italic"
+            android:text="OPTIMIZE"
+            android:textColor="@color/almost_black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/optimizeButtonShadow"
+            app:layout_constraintEnd_toEndOf="@+id/optimizeButtonShadow"
+            app:layout_constraintStart_toStartOf="@+id/optimizeButtonShadow"
+            app:layout_constraintTop_toTopOf="@+id/optimizeButtonShadow" />
+
         <ImageButton
             android:id="@+id/optimizeButton"
             android:layout_width="140dp"
@@ -1080,7 +1122,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="4dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl2"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/backgroundThing"
@@ -1094,7 +1137,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="4dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl3"
             app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl1"
             app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
@@ -1107,7 +1151,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginTop="16dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl4"
             app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl2"
             app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
@@ -1120,7 +1165,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginTop="16dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl5"
             app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl3"
             app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
@@ -1132,7 +1178,8 @@
             android:layout_height="50dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
             app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl4"
             app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
@@ -1144,7 +1191,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/backgroundThing"
             app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl7"
@@ -1158,7 +1206,8 @@
             android:layout_marginTop="4dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl8"
             app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl6"
             app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
@@ -1171,7 +1220,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginTop="4dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl9"
             app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl7"
             app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
@@ -1184,7 +1234,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginTop="4dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl10"
             app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl8"
             app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
@@ -1196,7 +1247,8 @@
             android:layout_height="50dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:alpha="0.35"
+            android:alpha="0.5"
+            app:tint="@color/gandalf"
             app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
             app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl9"
             app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"

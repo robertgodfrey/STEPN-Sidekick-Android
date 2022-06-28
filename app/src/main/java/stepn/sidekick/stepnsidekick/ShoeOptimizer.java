@@ -1,7 +1,10 @@
 package stepn.sidekick.stepnsidekick;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Shoe optimizer. Uses community data to determine best points for GST earning and mystery box
@@ -22,6 +27,15 @@ import android.widget.TextView;
  */
 
 public class ShoeOptimizer extends AppCompatActivity {
+
+    private final int COMMON = 0;
+    private final int UNCOMMON = 1;
+    private final int RARE = 2;
+    private final int EPIC = 3;
+    private final int WALKER = 0;
+    private final int JOGGER = 1;
+    private final int RUNNER = 2;
+    private final int TRAINER = 3;
 
     ImageButton shoeRarityButton, shoeTypeButton, optimizeButton;
     SeekBar levelSeekbar;
@@ -41,11 +55,16 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10, footOne, footTwo,
             footThree;
 
+    int shoeRarity, shoeType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoe_optimizer);
+
+        // TODO get these from shared prefs
+        shoeRarity = 1;
+        shoeType = 0;
 
         buildUI();
     }
@@ -127,7 +146,13 @@ public class ShoeOptimizer extends AppCompatActivity {
         shoeRarityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO
+                if (shoeRarity == 3) {
+                    shoeRarity = 0;
+                } else {
+                    shoeRarity++;
+                }
+
+                updateRarity();
             }
         });
 
@@ -142,7 +167,13 @@ public class ShoeOptimizer extends AppCompatActivity {
         shoeTypeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO
+                if (shoeType == 3) {
+                    shoeType = 0;
+                } else {
+                    shoeType++;
+                }
+
+                updateType();
             }
         });
 
@@ -171,6 +202,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                         optimizeButtonShadow.setImageResource(R.drawable.start_button);
                         break;
                     case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
                         optimizeButton.setVisibility(View.VISIBLE);
                         optimizeTextView.setVisibility(View.VISIBLE);
                         optimizeButtonShadow.setImageResource(R.drawable.start_button_shadow);
@@ -179,32 +211,126 @@ public class ShoeOptimizer extends AppCompatActivity {
                 return false;
             }
         });
+
+        updateRarity();
+        updateType();
     }
 
-    // updates number of footprints depending on the type of shoe selected
-    private void updateFeet(int numFeet) {
-
-        switch (numFeet) {
-            case 1:
-                footOne.setImageResource(R.mipmap.footprint);
-                footTwo.setVisibility(View.GONE);
+    // updates UI depending on shoe rarity
+    private void updateRarity() {
+        switch (shoeRarity) {
+            case UNCOMMON:
+                shoeCircles.setImageResource(R.drawable.circles_uncommon);
+                shoeRarityTextView.setText("Uncommon");
+                shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityButton.setImageResource(R.drawable.box_uncommon);
+                shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeButton.setImageResource(R.drawable.box_uncommon);
+                footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footThree.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                effEditText.setHint("8 - 21.6");
+                luckEditText.setHint("8 - 21.6");
+                comfortEditText.setHint("8 - 21.6");
+                resEditText.setHint("8 - 21.6");
                 break;
-            case 2:
+            case RARE:
+                shoeCircles.setImageResource(R.drawable.circles_rare);
+                shoeRarityTextView.setText("Rare");
+                shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityButton.setImageResource(R.drawable.box_rare);
+                shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeButton.setImageResource(R.drawable.box_rare);
+                footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footThree.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                effEditText.setHint("15 - 42");
+                luckEditText.setHint("15 - 42");
+                comfortEditText.setHint("15 - 42");
+                resEditText.setHint("15 - 42");
+                break;
+            case EPIC:
+                shoeCircles.setImageResource(R.drawable.circles_epic);
+                shoeRarityTextView.setText("Epic");
+                shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityButton.setImageResource(R.drawable.box_epic);
+                shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeButton.setImageResource(R.drawable.box_epic);
+                footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footThree.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                effEditText.setHint("28 - 75.6");
+                luckEditText.setHint("28 - 75.6");
+                comfortEditText.setHint("28 - 75.6");
+                resEditText.setHint("28 - 75.6");
+                break;
+            default:
+                shoeCircles.setImageResource(R.drawable.circles_common);
+                shoeRarityTextView.setText("Common");
+                shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                shoeRarityButton.setImageResource(R.drawable.box_common);
+                shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                shoeTypeButton.setImageResource(R.drawable.box_common);
+                footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                footThree.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                effEditText.setHint("1 - 10");
+                luckEditText.setHint("1 - 10");
+                comfortEditText.setHint("1 - 10");
+                resEditText.setHint("1 - 10");
+        }
+
+        shoeCircles.setScaleX(1.1f);
+        shoeCircles.setScaleY(1.1f);
+        ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                shoeCircles,
+                PropertyValuesHolder.ofFloat("scaleX", 1f),
+                PropertyValuesHolder.ofFloat("scaleY", 1f));
+        scaler.setDuration(1000);
+        scaler.start();
+    }
+
+    // updates UI depending on shoe type
+    private void updateType() {
+        switch (shoeType) {
+            case JOGGER:
+                shoeTypeImageView.setImageResource(R.mipmap.jogger);
+                shoeTypeTextView.setText("Jogger");
+                footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.GONE);
                 break;
-            case 3:
+            case RUNNER:
+                shoeTypeImageView.setImageResource(R.mipmap.runner);
+                shoeTypeTextView.setText("Runner");
                 footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.VISIBLE);
                 break;
-            case 4:
+            case TRAINER:
+                shoeTypeImageView.setImageResource(R.mipmap.trainer);
+                shoeTypeTextView.setText("Trainer");
                 footOne.setImageResource(R.mipmap.trainer_t);
                 footTwo.setVisibility(View.GONE);
                 footThree.setVisibility(View.GONE);
                 break;
             default:
-                footOne.setImageResource(R.mipmap.bolt);
+                shoeTypeImageView.setImageResource(R.mipmap.walker);
+                shoeTypeTextView.setText("Walker");
+                footOne.setImageResource(R.mipmap.footprint);
+                footTwo.setVisibility(View.GONE);
+                footThree.setVisibility(View.GONE);
         }
+
+        shoeTypeImageView.setScaleX(1.1f);
+        shoeTypeImageView.setScaleY(1.1f);
+        ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                shoeTypeImageView,
+                PropertyValuesHolder.ofFloat("scaleX", 1f),
+                PropertyValuesHolder.ofFloat("scaleY", 1f));
+        scaler.setDuration(1000);
+        scaler.start();
+
     }
+
 }
