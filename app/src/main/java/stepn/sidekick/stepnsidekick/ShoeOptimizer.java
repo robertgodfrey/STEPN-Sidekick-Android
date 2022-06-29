@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,10 +29,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ShoeOptimizer extends AppCompatActivity {
 
-    private final int COMMON = 0;
-    private final int UNCOMMON = 1;
-    private final int RARE = 2;
-    private final int EPIC = 3;
+    private final int COMMON = 2;
+    private final int UNCOMMON = 3;
+    private final int RARE = 4;
+    private final int EPIC = 5;
     private final int WALKER = 0;
     private final int JOGGER = 1;
     private final int RUNNER = 2;
@@ -45,7 +46,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
             gstLimitTextView, durabilityLossTextView, repairCostTextView, gstTotalTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
-            resPlusTv, optimizeTextView;
+            resPlusTv, optimizeTextView, shoeRarityShadowTextView, shoeTypeShadowTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -55,7 +56,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10, footOne, footTwo,
             footThree;
 
-    int shoeRarity, shoeType;
+    int shoeRarity, shoeType, shoeLevel, pointsAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +64,9 @@ public class ShoeOptimizer extends AppCompatActivity {
         setContentView(R.layout.activity_shoe_optimizer);
 
         // TODO get these from shared prefs
-        shoeRarity = 1;
-        shoeType = 0;
+        shoeRarity = COMMON;
+        shoeType = WALKER;
+        shoeLevel = 28;
 
         buildUI();
     }
@@ -85,7 +87,9 @@ public class ShoeOptimizer extends AppCompatActivity {
         resEditText = findViewById(R.id.baseResEditText);
 
         shoeRarityTextView = findViewById(R.id.shoeRarityTextView);
+        shoeRarityShadowTextView = findViewById(R.id.shoeRarityShadowTextView);
         shoeTypeTextView = findViewById(R.id.shoeTypeTextView);
+        shoeTypeShadowTextView = findViewById(R.id.shoeTypeShadowTextView);
         levelTextView = findViewById(R.id.levelTextView);
         effTotalTextView = findViewById(R.id.totalEffTextView);
         luckTotalTextView = findViewById(R.id.totalLuckTextView);
@@ -146,8 +150,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         shoeRarityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (shoeRarity == 3) {
-                    shoeRarity = 0;
+                if (shoeRarity == 5) {
+                    shoeRarity = 2;
                 } else {
                     shoeRarity++;
                 }
@@ -159,7 +163,32 @@ public class ShoeOptimizer extends AppCompatActivity {
         shoeRarityButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                // TODO
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        shoeRarityButton.setVisibility(View.INVISIBLE);
+                        shoeRarityTextView.setVisibility(View.INVISIBLE);
+                        shoeRarityShadowTextView.setText(shoeRarityTextView.getText().toString());
+                        switch (shoeRarity) {
+                            case UNCOMMON:
+                                shoeRarityButtonShadow.setImageResource(R.drawable.box_uncommon);
+                                break;
+                            case RARE:
+                                shoeRarityButtonShadow.setImageResource(R.drawable.box_rare);
+                                break;
+                            case EPIC:
+                                shoeRarityButtonShadow.setImageResource(R.drawable.box_epic);
+                                break;
+                            default:
+                                shoeRarityButtonShadow.setImageResource(R.drawable.box_common);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        shoeRarityButton.setVisibility(View.VISIBLE);
+                        shoeRarityTextView.setVisibility(View.VISIBLE);
+                        shoeRarityButtonShadow.setImageResource(R.drawable.main_button_shadow);
+                        break;
+                }
                 return false;
             }
         });
@@ -180,8 +209,56 @@ public class ShoeOptimizer extends AppCompatActivity {
         shoeTypeButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                // TODO
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        shoeTypeButton.setVisibility(View.INVISIBLE);
+                        shoeTypeTextView.setVisibility(View.INVISIBLE);
+                        shoeTypeShadowTextView.setText(shoeTypeTextView.getText().toString());
+                        switch (shoeRarity) {
+                            case UNCOMMON:
+                                shoeTypeButtonShadow.setImageResource(R.drawable.box_uncommon);
+                                break;
+                            case RARE:
+                                shoeTypeButtonShadow.setImageResource(R.drawable.box_rare);
+                                break;
+                            case EPIC:
+                                shoeTypeButtonShadow.setImageResource(R.drawable.box_epic);
+                                break;
+                            default:
+                                shoeTypeButtonShadow.setImageResource(R.drawable.box_common);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        shoeTypeButton.setVisibility(View.VISIBLE);
+                        shoeTypeTextView.setVisibility(View.VISIBLE);
+                        shoeTypeButtonShadow.setImageResource(R.drawable.main_button_shadow);
+                        break;
+                }
                 return false;
+            }
+        });
+
+        levelSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                levelTextView.setText(String.valueOf(i + 1));
+                if (i > 0) {
+                    minLevelImageView.setVisibility(View.VISIBLE);
+                } else {
+                    minLevelImageView.setVisibility(View.INVISIBLE);
+                }
+                shoeLevel = i + 1;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                updateValues();
             }
         });
 
@@ -212,8 +289,11 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
+        levelSeekbar.setProgress(shoeLevel);
+
         updateRarity();
         updateType();
+        updateValues();
     }
 
     // updates UI depending on shoe rarity
@@ -223,8 +303,10 @@ public class ShoeOptimizer extends AppCompatActivity {
                 shoeCircles.setImageResource(R.drawable.circles_uncommon);
                 shoeRarityTextView.setText("Uncommon");
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_uncommon);
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_uncommon);
                 footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
@@ -238,8 +320,10 @@ public class ShoeOptimizer extends AppCompatActivity {
                 shoeCircles.setImageResource(R.drawable.circles_rare);
                 shoeRarityTextView.setText("Rare");
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_rare);
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_rare);
                 footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
@@ -253,8 +337,10 @@ public class ShoeOptimizer extends AppCompatActivity {
                 shoeCircles.setImageResource(R.drawable.circles_epic);
                 shoeRarityTextView.setText("Epic");
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_epic);
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_epic);
                 footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
@@ -268,8 +354,10 @@ public class ShoeOptimizer extends AppCompatActivity {
                 shoeCircles.setImageResource(R.drawable.circles_common);
                 shoeRarityTextView.setText("Common");
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
                 shoeRarityButton.setImageResource(R.drawable.box_common);
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
                 shoeTypeButton.setImageResource(R.drawable.box_common);
                 footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
                 footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
@@ -288,6 +376,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 PropertyValuesHolder.ofFloat("scaleY", 1f));
         scaler.setDuration(1000);
         scaler.start();
+
+        updateValues();
     }
 
     // updates UI depending on shoe type
@@ -330,7 +420,36 @@ public class ShoeOptimizer extends AppCompatActivity {
                 PropertyValuesHolder.ofFloat("scaleY", 1f));
         scaler.setDuration(1000);
         scaler.start();
+    }
 
+    // updates values depending on level, rarity, stats, and energy
+    private void updateValues() {
+        pointsAvailable = shoeLevel * 2 * shoeRarity;
+        pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
+
+        if (shoeLevel >= 5) {
+            gemSocketOneLockPlus.setImageResource(R.mipmap.gem_socket_plus);
+        } else {
+            gemSocketOneLockPlus.setImageResource(R.mipmap.gem_socket_lock);
+        }
+
+        if (shoeLevel >= 10) {
+            gemSocketTwoLockPlus.setImageResource(R.mipmap.gem_socket_plus);
+        } else {
+            gemSocketTwoLockPlus.setImageResource(R.mipmap.gem_socket_lock);
+        }
+
+        if (shoeLevel >= 15) {
+            gemSocketThreeLockPlus.setImageResource(R.mipmap.gem_socket_plus);
+        } else {
+            gemSocketThreeLockPlus.setImageResource(R.mipmap.gem_socket_lock);
+        }
+
+        if (shoeLevel >= 20) {
+            gemSocketFourLockPlus.setImageResource(R.mipmap.gem_socket_plus);
+        } else {
+            gemSocketFourLockPlus.setImageResource(R.mipmap.gem_socket_lock);
+        }
     }
 
 }

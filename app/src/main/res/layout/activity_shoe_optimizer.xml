@@ -456,10 +456,10 @@
             android:id="@+id/seekbarBackground"
             android:layout_width="0dp"
             android:layout_height="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/levelSeekBar"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
             app:layout_constraintStart_toStartOf="@+id/shoeRarityButton"
-            app:layout_constraintTop_toTopOf="@+id/levelSeekBar"
+            app:layout_constraintTop_toBottomOf="@+id/energyBoxOptimizer"
             app:srcCompat="@drawable/seekbar_background" />
 
         <ImageView
@@ -468,9 +468,9 @@
             android:layout_height="16dp"
             android:layout_marginStart="4dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/levelSeekBar"
+            app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
             app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
-            app:layout_constraintTop_toTopOf="@+id/levelSeekBar"
+            app:layout_constraintTop_toTopOf="@+id/seekbarBackground"
             app:srcCompat="@drawable/seekbar_progress" />
 
         <SeekBar
@@ -478,29 +478,41 @@
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginStart="-2dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="-2dp"
             android:max="29"
             android:progress="0"
             android:progressDrawable="@drawable/level_seekbar"
             android:splitTrack="false"
             android:thumb="@drawable/thumb"
+            app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
             app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
-            app:layout_constraintTop_toBottomOf="@+id/shoeRarityButton" />
+            app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+
+        <TextView
+            android:id="@+id/levelLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto_condensed_bold_italic"
+            android:text="Level"
+            android:textColor="@color/almost_black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+            app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+            app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
 
         <TextView
             android:id="@+id/levelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="2dp"
             android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Level 1"
+            android:text="1"
             android:textColor="@color/almost_black"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
-            app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+            app:layout_constraintStart_toEndOf="@+id/levelLabelTextView"
             app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
 
         <TextView
@@ -879,24 +891,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="5dp"
             android:fontFamily="@font/roboto_condensed_regular_italic"
-            android:text="Points Available: "
+            android:text="Points Available:"
             android:textColor="@color/gandalf"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/baseResEditText"
+            app:layout_constraintEnd_toStartOf="@+id/pointsTextView"
             app:layout_constraintTop_toBottomOf="@+id/resTextView" />
 
         <TextView
             android:id="@+id/pointsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
             android:fontFamily="@font/roboto_condensed_bold_italic"
             android:text="0"
             android:textColor="@color/gandalf"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/pointsLabelTextView"
+            app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
             app:layout_constraintTop_toBottomOf="@+id/resTextView" />
 
         <ImageView

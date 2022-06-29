@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private final float CURRENT_APP_VERSION = 1.2f;
 
     // keys for shared prefs
-    private final String PREFERENCES_ID = "stepn_sidekick_prefs";
     private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";
     // private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeed";  OLD, DO NOT USE
     private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeedType";
