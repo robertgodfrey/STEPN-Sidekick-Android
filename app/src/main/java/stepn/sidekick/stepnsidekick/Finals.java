@@ -1,7 +1,8 @@
 package stepn.sidekick.stepnsidekick;
 
-// final Strings to be used throughout the program
+// final Strings & ints to be used throughout the program
 public final class Finals {
+    public static final String PREFERENCES_ID = "stepn_sidekick_prefs";
     public static final String COUNTDOWN_BR = "stepnsidekick.countdown_br";
     public static final String MODIFY_TIME_BR = "stepnsidekick.modify_timer_br";
     public static final String GET_TIME_BR = "stepnsidekick.get_time_br";
