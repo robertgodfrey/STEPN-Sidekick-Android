@@ -7,6 +7,8 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -54,9 +56,12 @@ public class ShoeOptimizer extends AppCompatActivity {
             shoeTypeImageView, shoeCircles, shoeRarityButtonShadow, shoeTypeButtonShadow, minLevelImageView,
             optimizeButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10, footOne, footTwo,
-            footThree;
+            footThree, energyBox;
 
-    int shoeRarity, shoeType, shoeLevel, pointsAvailable;
+    int shoeRarity, shoeType, shoeLevel, pointsAvailable, baseMin;
+
+    float baseMax, baseEff, baseLuck, baseComf, baseRes, totalEff, totalLuck, totalComf,
+            totalRes, gstEarned, repairCost, totalIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +134,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         shoeCircles = findViewById(R.id.shoeBackground);
         shoeRarityButtonShadow = findViewById(R.id.shoeRarityBoxShadow);
         shoeTypeButtonShadow = findViewById(R.id.shoeTypeBoxShadow);
+        energyBox = findViewById(R.id.energyBoxOptimizer);
         minLevelImageView = findViewById(R.id.seekbarMinLevel);
         optimizeButtonShadow = findViewById(R.id.optimizeButtonShadow);
 
@@ -155,7 +161,6 @@ public class ShoeOptimizer extends AppCompatActivity {
                 } else {
                     shoeRarity++;
                 }
-
                 updateRarity();
             }
         });
@@ -201,7 +206,6 @@ public class ShoeOptimizer extends AppCompatActivity {
                 } else {
                     shoeType++;
                 }
-
                 updateType();
             }
         });
@@ -239,6 +243,17 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
+        energyEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    energyBox.setImageResource(R.drawable.energy_box_active);
+                } else {
+                    energyBox.setImageResource(R.drawable.energy_input_box);
+                }
+            }
+        });
+
         levelSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -259,6 +274,78 @@ public class ShoeOptimizer extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 updateValues();
+            }
+        });
+
+        effEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (!effEditText.getText().toString().isEmpty() && !effEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(effEditText.getText().toString()) < baseMin) {
+                            effEditText.setText(String.valueOf(baseMin));
+                        } else if (Float.parseFloat(effEditText.getText().toString()) > baseMax) {
+                            effEditText.setText(String.valueOf(baseMax));
+                        }
+                        effTotalTextView.setText(String.format("%.1f", Float.parseFloat(effEditText.getText().toString())));
+                    } else {
+                        effTotalTextView.setText("0");
+                    }
+                }
+            }
+        });
+
+        luckEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (!luckEditText.getText().toString().isEmpty() && !luckEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(luckEditText.getText().toString()) < baseMin) {
+                            luckEditText.setText(String.valueOf(baseMin));
+                        } else if (Float.parseFloat(luckEditText.getText().toString()) > baseMax) {
+                            luckEditText.setText(String.valueOf(baseMax));
+                        }
+                        luckTotalTextView.setText(String.format("%.1f", Float.parseFloat(luckEditText.getText().toString())));
+                    } else {
+                        luckTotalTextView.setText("0");
+                    }
+                }
+            }
+        });
+
+        comfortEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (!comfortEditText.getText().toString().isEmpty() && !comfortEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(comfortEditText.getText().toString()) < baseMin) {
+                            comfortEditText.setText(String.valueOf(baseMin));
+                        } else if (Float.parseFloat(comfortEditText.getText().toString()) > baseMax) {
+                            comfortEditText.setText(String.valueOf(baseMax));
+                        }
+                        comfortTotalTextView.setText(String.format("%.1f", Float.parseFloat(effEditText.getText().toString())));
+                    } else {
+                        comfortTotalTextView.setText("0");
+                    }
+                }
+            }
+        });
+
+        resEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (!resEditText.getText().toString().isEmpty() && !resEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(resEditText.getText().toString()) < baseMin) {
+                            resEditText.setText(String.valueOf(baseMin));
+                        } else if (Float.parseFloat(resEditText.getText().toString()) > baseMax) {
+                            resEditText.setText(String.valueOf(baseMax));
+                        }
+                        resTotalTextView.setText(String.format("%.1f", Float.parseFloat(effEditText.getText().toString())));
+                    } else {
+                        resTotalTextView.setText("0");
+                    }
+                }
             }
         });
 
@@ -315,6 +402,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 luckEditText.setHint("8 - 21.6");
                 comfortEditText.setHint("8 - 21.6");
                 resEditText.setHint("8 - 21.6");
+                baseMin = 8;
+                baseMax = 21.6f;
                 break;
             case RARE:
                 shoeCircles.setImageResource(R.drawable.circles_rare);
@@ -332,6 +421,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 luckEditText.setHint("15 - 42");
                 comfortEditText.setHint("15 - 42");
                 resEditText.setHint("15 - 42");
+                baseMin = 15;
+                baseMax = 42f;
                 break;
             case EPIC:
                 shoeCircles.setImageResource(R.drawable.circles_epic);
@@ -349,6 +440,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 luckEditText.setHint("28 - 75.6");
                 comfortEditText.setHint("28 - 75.6");
                 resEditText.setHint("28 - 75.6");
+                baseMin = 28;
+                baseMax = 75.6f;
                 break;
             default:
                 shoeCircles.setImageResource(R.drawable.circles_common);
@@ -366,6 +459,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 luckEditText.setHint("1 - 10");
                 comfortEditText.setHint("1 - 10");
                 resEditText.setHint("1 - 10");
+                baseMin = 1;
+                baseMax = 10;
         }
 
         shoeCircles.setScaleX(1.1f);

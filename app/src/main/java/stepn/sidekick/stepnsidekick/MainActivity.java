@@ -330,7 +330,6 @@ public class MainActivity extends AppCompatActivity {
                     energyBox.setImageResource(R.drawable.energy_box_active);
                 } else {
                     energyBox.setImageResource(R.drawable.energy_input_box);
-
                 }
             }
         });
