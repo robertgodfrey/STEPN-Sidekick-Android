@@ -1,11 +1,14 @@
 package stepn.sidekick.stepnsidekick;
 
+import static stepn.sidekick.stepnsidekick.Finals.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,7 +41,9 @@ public class ShoeOptimizer extends AppCompatActivity {
     private final int TRAINER = 3;
 
     ImageButton shoeRarityButton, shoeTypeButton, optimizeButton;
-    Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton;
+    Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
+            subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
+            subResButton, addResButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText;
 
@@ -56,15 +61,21 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10, footOne, footTwo,
             footThree, energyBox;
 
-    int shoeRarity, shoeType, shoeLevel, pointsAvailable;
+    private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit;
 
-    float energy, baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, totalEff, totalLuck,
-            totalComf, totalRes;
+    private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf, gemRes,
+            totalEff, totalLuck, totalComf, totalRes;
+
+    private double energy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoe_optimizer);
+
+        SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+        energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
+        shoeType = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
 
         // TODO get these from shared prefs
         shoeRarity = COMMON;
@@ -85,6 +96,15 @@ public class ShoeOptimizer extends AppCompatActivity {
         gemSocketTwoButton = findViewById(R.id.gemSocketTwoButton);
         gemSocketThreeButton = findViewById(R.id.gemSocketThreeButton);
         gemSocketFourButton = findViewById(R.id.gemSocketFourButton);
+
+        subEffButton = findViewById(R.id.subEffButton);
+        addEffButton = findViewById(R.id.addEffButton);
+        subLuckButton = findViewById(R.id.subLuckButton);
+        addLuckButton = findViewById(R.id.addLuckButton);
+        subComfButton = findViewById(R.id.subComfButton);
+        addComfButton = findViewById(R.id.addComfButton);
+        subResButton = findViewById(R.id.subResButton);
+        addResButton = findViewById(R.id.addResButton);
 
         levelSeekbar = findViewById(R.id.levelSeekBar);
 
@@ -331,8 +351,8 @@ public class ShoeOptimizer extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                calcTotals();
                 updateLevel();
+                calcTotals();
             }
         });
 
@@ -351,7 +371,33 @@ public class ShoeOptimizer extends AppCompatActivity {
                         effTotalTextView.setText("0");
                     }
                     baseEff = Float.parseFloat(effTotalTextView.getText().toString());
-                    calcTotals();
+                    updatePoints();
+                }
+            }
+        });
+
+        subEffButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (totalEff - gemEff > baseEff) {
+                    totalEff--;
+                    pointsAvailable++;
+
+                    effTotalTextView.setText(String.valueOf(totalEff));
+                     updatePoints();
+                }
+            }
+        });
+
+        addEffButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pointsAvailable > 0) {
+                    totalEff++;
+                    pointsAvailable--;
+
+                    effTotalTextView.setText(String.valueOf(totalEff));
+                    updatePoints();
                 }
             }
         });
@@ -371,7 +417,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                         luckTotalTextView.setText("0");
                     }
                     baseLuck = Float.parseFloat(luckTotalTextView.getText().toString());
-                    calcTotals();
+                    updatePoints();
                 }
             }
         });
@@ -391,7 +437,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                         comfortTotalTextView.setText("0");
                     }
                     baseComf = Float.parseFloat(comfortTotalTextView.getText().toString());
-                    calcTotals();
+                    updatePoints();
                 }
             }
         });
@@ -411,7 +457,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                         resTotalTextView.setText("0");
                     }
                     baseRes = Float.parseFloat(resTotalTextView.getText().toString());
-                    calcTotals();
+                    updatePoints();
                 }
             }
         });
@@ -541,6 +587,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         pointsAvailable = shoeLevel * 2 * shoeRarity;
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
+
     }
 
     // updates UI depending on shoe type
@@ -583,12 +630,11 @@ public class ShoeOptimizer extends AppCompatActivity {
                 PropertyValuesHolder.ofFloat("scaleY", 1f));
         scaler.setDuration(1000);
         scaler.start();
+        calcTotals();
     }
 
     // updates values depending on level
     private void updateLevel() {
-        int gstLimit;
-
         pointsAvailable = shoeLevel * 2 * shoeRarity;
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
 
@@ -625,6 +671,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
 
         gstLimitTextView.setText(String.valueOf(gstLimit));
+
+        updatePoints();
     }
 
     private void chooseSocketType() {
@@ -655,5 +703,56 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
 
         gstEarnedTextView.setText(String.valueOf(gstTotal));
+
+        if (gstTotal > gstLimit) {
+            gstEarnedTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.red));
+        } else {
+            gstEarnedTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+        }
+    }
+
+    private void updatePoints() {
+        if (pointsAvailable > 0) {
+            effPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            addEffButton.setClickable(true);
+            luckPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            addLuckButton.setClickable(true);
+            comfPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            addComfButton.setClickable(true);
+            resPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            addResButton.setClickable(true);
+        } else {
+            effPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            addEffButton.setClickable(false);
+            luckPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            addLuckButton.setClickable(false);
+            comfPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            addComfButton.setClickable(false);
+            resPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            addResButton.setClickable(false);
+        }
+
+        if (totalEff - gemEff > baseEff) {
+            effMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            subEffButton.setClickable(true);
+        } else {
+            effMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            subEffButton.setClickable(false);
+        }
+
+        pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
+        calcTotals();
+    }
+
+    // to save prefs
+    @Override
+    protected void onStop() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // editor.putInt(RARITY, 6); // TODO rarity, level, baseEff, baseLuck, baseComf, baseRes, gemSocket x 4, totalEff, totalLuck, totalComf, totalRes.... yikes
+        editor.apply();
+
+        super.onStop();
     }
 }

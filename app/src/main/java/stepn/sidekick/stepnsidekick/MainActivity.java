@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
     private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeedType";
     private final String VOICE_ALERTS_TIME_PREF = "voiceAlertsTime";
     private final String VOICE_ALERTS_CD_PREF = "voiceCountdownAlerts";
-    private final String ENERGY_PREF = "energy";
-    private final String SHOE_TYPE_ITERATOR_PREF = "shoeTypeIterator";
     private final String CUSTOM_MIN_SPEED_PREF = "customMinSpeed";
     private final String CUSTOM_MAX_SPEED_PREF = "customMaxSpeed";
     private final String FIRST_TIME_PREF = "firstTime";

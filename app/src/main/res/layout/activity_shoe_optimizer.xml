@@ -729,6 +729,17 @@
             app:layout_constraintEnd_toStartOf="@+id/totalTextView"
             app:layout_constraintTop_toTopOf="@+id/effTextView" />
 
+        <Button
+            android:id="@+id/subEffButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/subEffTextView"
+            app:layout_constraintEnd_toEndOf="@+id/subEffTextView"
+            app:layout_constraintStart_toStartOf="@+id/subEffTextView"
+            app:layout_constraintTop_toTopOf="@+id/subEffTextView" />
+
         <TextView
             android:id="@+id/totalEffTextView"
             android:layout_width="wrap_content"
@@ -756,6 +767,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/effTextView"
             app:layout_constraintStart_toEndOf="@+id/totalTextView"
             app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+        <Button
+            android:id="@+id/addEffButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/addEffTextView"
+            app:layout_constraintEnd_toEndOf="@+id/addEffTextView"
+            app:layout_constraintStart_toStartOf="@+id/addEffTextView"
+            app:layout_constraintTop_toTopOf="@+id/addEffTextView" />
 
         <EditText
             android:id="@+id/baseLuckEditText"
@@ -789,6 +811,17 @@
             app:layout_constraintEnd_toStartOf="@+id/totalTextView"
             app:layout_constraintTop_toTopOf="@+id/luckTextView" />
 
+        <Button
+            android:id="@+id/subLuckButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/subLuckTextView"
+            app:layout_constraintEnd_toEndOf="@+id/subLuckTextView"
+            app:layout_constraintStart_toStartOf="@+id/subLuckTextView"
+            app:layout_constraintTop_toTopOf="@+id/subLuckTextView" />
+
         <TextView
             android:id="@+id/totalLuckTextView"
             android:layout_width="wrap_content"
@@ -816,6 +849,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
             app:layout_constraintStart_toEndOf="@+id/totalTextView"
             app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+        <Button
+            android:id="@+id/addLuckButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/addLuckTextView"
+            app:layout_constraintEnd_toEndOf="@+id/addLuckTextView"
+            app:layout_constraintStart_toStartOf="@+id/addLuckTextView"
+            app:layout_constraintTop_toTopOf="@+id/addLuckTextView" />
 
         <EditText
             android:id="@+id/baseComfortEditText"
@@ -849,6 +893,17 @@
             app:layout_constraintEnd_toStartOf="@+id/totalTextView"
             app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
 
+        <Button
+            android:id="@+id/subComfButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/subComfTextView"
+            app:layout_constraintEnd_toEndOf="@+id/subComfTextView"
+            app:layout_constraintStart_toStartOf="@+id/subComfTextView"
+            app:layout_constraintTop_toTopOf="@+id/subComfTextView" />
+
         <TextView
             android:id="@+id/totalComfTextView"
             android:layout_width="wrap_content"
@@ -876,6 +931,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
             app:layout_constraintStart_toEndOf="@+id/totalTextView"
             app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+        <Button
+            android:id="@+id/addComfButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/addComfTextView"
+            app:layout_constraintEnd_toEndOf="@+id/addComfTextView"
+            app:layout_constraintStart_toStartOf="@+id/addComfTextView"
+            app:layout_constraintTop_toTopOf="@+id/addComfTextView" />
 
         <EditText
             android:id="@+id/baseResEditText"
@@ -909,6 +975,17 @@
             app:layout_constraintEnd_toStartOf="@+id/totalTextView"
             app:layout_constraintTop_toTopOf="@+id/resTextView" />
 
+        <Button
+            android:id="@+id/subResButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/subResTextView"
+            app:layout_constraintEnd_toEndOf="@+id/subResTextView"
+            app:layout_constraintStart_toStartOf="@+id/subResTextView"
+            app:layout_constraintTop_toTopOf="@+id/subResTextView" />
+
         <TextView
             android:id="@+id/totalResTextView"
             android:layout_width="wrap_content"
@@ -936,6 +1013,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/resTextView"
             app:layout_constraintStart_toEndOf="@+id/totalTextView"
             app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+        <Button
+            android:id="@+id/addResButton"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/addResTextView"
+            app:layout_constraintEnd_toEndOf="@+id/addResTextView"
+            app:layout_constraintStart_toStartOf="@+id/addResTextView"
+            app:layout_constraintTop_toTopOf="@+id/addResTextView" />
 
         <TextView
             android:id="@+id/pointsLabelTextView"
