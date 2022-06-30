@@ -7,18 +7,15 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Shoe optimizer. Uses community data to determine best points for GST earning and mystery box
@@ -41,12 +38,13 @@ public class ShoeOptimizer extends AppCompatActivity {
     private final int TRAINER = 3;
 
     ImageButton shoeRarityButton, shoeTypeButton, optimizeButton;
+    Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText;
 
     TextView shoeRarityTextView, shoeTypeTextView, levelTextView, effTotalTextView, luckTotalTextView,
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
-            gstLimitTextView, durabilityLossTextView, repairCostTextView, gstTotalTextView,
+            gstLimitTextView, durabilityLossTextView, repairCostTextView, gstIncomeTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
             resPlusTv, optimizeTextView, shoeRarityShadowTextView, shoeTypeShadowTextView;
 
@@ -58,10 +56,10 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10, footOne, footTwo,
             footThree, energyBox;
 
-    int shoeRarity, shoeType, shoeLevel, pointsAvailable, baseMin;
+    int shoeRarity, shoeType, shoeLevel, pointsAvailable;
 
-    float baseMax, baseEff, baseLuck, baseComf, baseRes, totalEff, totalLuck, totalComf,
-            totalRes, gstEarned, repairCost, totalIncome;
+    float energy, baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, totalEff, totalLuck,
+            totalComf, totalRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +80,11 @@ public class ShoeOptimizer extends AppCompatActivity {
         shoeRarityButton = findViewById(R.id.shoeRarityButton);
         shoeTypeButton = findViewById(R.id.shoeTypeButton);
         optimizeButton = findViewById(R.id.optimizeButton);
+
+        gemSocketOneButton = findViewById(R.id.gemSocketOneButton);
+        gemSocketTwoButton = findViewById(R.id.gemSocketTwoButton);
+        gemSocketThreeButton = findViewById(R.id.gemSocketThreeButton);
+        gemSocketFourButton = findViewById(R.id.gemSocketFourButton);
 
         levelSeekbar = findViewById(R.id.levelSeekBar);
 
@@ -105,7 +108,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         gstLimitTextView = findViewById(R.id.gstLimitPerDayTextView);
         durabilityLossTextView = findViewById(R.id.durabilityLossTextView);
         repairCostTextView = findViewById(R.id.repairCostTextView);
-        gstTotalTextView = findViewById(R.id.gstIncomeTextView);
+        gstIncomeTextView = findViewById(R.id.gstIncomeTextView);
         optimizeTextView = findViewById(R.id.optimizeTextView);
 
         effMinusTv = findViewById(R.id.subEffTextView);
@@ -152,6 +155,50 @@ public class ShoeOptimizer extends AppCompatActivity {
         footOne = findViewById(R.id.footprint1ImageView);
         footTwo = findViewById(R.id.footprint2ImageView);
         footThree = findViewById(R.id.footprint3ImageView);
+
+        gemSocketOneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (shoeLevel < 5) {
+                    Toast.makeText(ShoeOptimizer.this, "Socket available at level 5", Toast.LENGTH_SHORT).show();
+                } else {
+                    chooseSocketType();
+                }
+            }
+        });
+
+        gemSocketTwoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (shoeLevel < 10) {
+                    Toast.makeText(ShoeOptimizer.this, "Socket available at level 10", Toast.LENGTH_SHORT).show();
+                } else {
+                    chooseSocketType();
+                }
+            }
+        });
+
+        gemSocketThreeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (shoeLevel < 15) {
+                    Toast.makeText(ShoeOptimizer.this, "Socket available at level 15", Toast.LENGTH_SHORT).show();
+                } else {
+                    chooseSocketType();
+                }
+            }
+        });
+
+        gemSocketFourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (shoeLevel < 20) {
+                    Toast.makeText(ShoeOptimizer.this, "Socket available at level 20", Toast.LENGTH_SHORT).show();
+                } else {
+                    chooseSocketType();
+                }
+            }
+        });
 
         shoeRarityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +297,17 @@ public class ShoeOptimizer extends AppCompatActivity {
                     energyBox.setImageResource(R.drawable.energy_box_active);
                 } else {
                     energyBox.setImageResource(R.drawable.energy_input_box);
+                    if (!energyEditText.getText().toString().isEmpty() && !energyEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(energyEditText.getText().toString()) < 0.2) {
+                            energyEditText.setText("0.2");
+                        } else if (Float.parseFloat(energyEditText.getText().toString()) > 25) {
+                            energyEditText.setText("25");
+                        }
+                    } else {
+                        energyEditText.setText("0");
+                    }
+                    energy = Float.parseFloat(energyEditText.getText().toString());
+                    calcTotals();
                 }
             }
         });
@@ -273,7 +331,8 @@ public class ShoeOptimizer extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                updateValues();
+                calcTotals();
+                updateLevel();
             }
         });
 
@@ -291,6 +350,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                     } else {
                         effTotalTextView.setText("0");
                     }
+                    baseEff = Float.parseFloat(effTotalTextView.getText().toString());
+                    calcTotals();
                 }
             }
         });
@@ -309,6 +370,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                     } else {
                         luckTotalTextView.setText("0");
                     }
+                    baseLuck = Float.parseFloat(luckTotalTextView.getText().toString());
+                    calcTotals();
                 }
             }
         });
@@ -327,6 +390,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                     } else {
                         comfortTotalTextView.setText("0");
                     }
+                    baseComf = Float.parseFloat(comfortTotalTextView.getText().toString());
+                    calcTotals();
                 }
             }
         });
@@ -345,6 +410,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                     } else {
                         resTotalTextView.setText("0");
                     }
+                    baseRes = Float.parseFloat(resTotalTextView.getText().toString());
+                    calcTotals();
                 }
             }
         });
@@ -380,7 +447,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         updateRarity();
         updateType();
-        updateValues();
+        updateLevel();
     }
 
     // updates UI depending on shoe rarity
@@ -472,7 +539,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         scaler.setDuration(1000);
         scaler.start();
 
-        updateValues();
+        pointsAvailable = shoeLevel * 2 * shoeRarity;
+        pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
     }
 
     // updates UI depending on shoe type
@@ -517,8 +585,10 @@ public class ShoeOptimizer extends AppCompatActivity {
         scaler.start();
     }
 
-    // updates values depending on level, rarity, stats, and energy
-    private void updateValues() {
+    // updates values depending on level
+    private void updateLevel() {
+        int gstLimit;
+
         pointsAvailable = shoeLevel * 2 * shoeRarity;
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
 
@@ -545,6 +615,45 @@ public class ShoeOptimizer extends AppCompatActivity {
         } else {
             gemSocketFourLockPlus.setImageResource(R.mipmap.gem_socket_lock);
         }
+
+        if (shoeLevel < 10) {
+            gstLimit = 5 + (shoeLevel * 5);
+        } else if (shoeLevel < 23) {
+            gstLimit = 60 + ((shoeLevel - 10) * 10);
+        } else {
+            gstLimit = 195 + ((shoeLevel - 23) * 15);
+        }
+
+        gstLimitTextView.setText(String.valueOf(gstLimit));
     }
 
+    private void chooseSocketType() {
+        // TODO
+    }
+
+    // calculate gst earnings & durability
+    private void calcTotals() {
+        float gstTotal = 0;
+
+        totalEff = Float.parseFloat(effTotalTextView.getText().toString());
+        totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
+        totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
+        totalRes = Float.parseFloat(resTotalTextView.getText().toString());
+
+        switch (shoeType) {
+            case JOGGER:
+                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.52) - 5.4)) * 10) / 10);
+                break;
+            case RUNNER:
+                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.525) - 5.45)) * 10) / 10);
+                break;
+            case TRAINER:
+                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.527) - 5.48)) * 10) / 10);
+                break;
+            default:
+                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.515) - 5.35)) * 10) / 10);
+        }
+
+        gstEarnedTextView.setText(String.valueOf(gstTotal));
+    }
 }

@@ -52,7 +52,7 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="46dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="32dp"
             android:adjustViewBounds="true"
             app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
@@ -110,6 +110,17 @@
             app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
             app:srcCompat="@mipmap/gem_socket_lock" />
 
+        <Button
+            android:id="@+id/gemSocketOneButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/gemSocketOne"
+            app:layout_constraintEnd_toEndOf="@+id/gemSocketOne"
+            app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
+            app:layout_constraintTop_toTopOf="@+id/gemSocketOne" />
+
         <ImageView
             android:id="@+id/gemSocketTwoShadow"
             android:layout_width="42dp"
@@ -145,6 +156,17 @@
             app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
             app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
             app:srcCompat="@mipmap/gem_socket_lock" />
+
+        <Button
+            android:id="@+id/gemSocketTwoButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/gemSocketTwo"
+            app:layout_constraintEnd_toEndOf="@+id/gemSocketTwo"
+            app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
+            app:layout_constraintTop_toTopOf="@+id/gemSocketTwo" />
 
         <ImageView
             android:id="@+id/gemSocketThreeShadow"
@@ -182,6 +204,17 @@
             app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
             app:srcCompat="@mipmap/gem_socket_lock" />
 
+        <Button
+            android:id="@+id/gemSocketThreeButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/gemSocketThree"
+            app:layout_constraintEnd_toEndOf="@+id/gemSocketThree"
+            app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
+            app:layout_constraintTop_toTopOf="@+id/gemSocketThree" />
+
         <ImageView
             android:id="@+id/gemSocketFourShadow"
             android:layout_width="42dp"
@@ -217,6 +250,17 @@
             app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
             app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
             app:srcCompat="@mipmap/gem_socket_lock" />
+
+        <Button
+            android:id="@+id/gemSocketFourButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/gemSocketFour"
+            app:layout_constraintEnd_toEndOf="@+id/gemSocketFour"
+            app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
+            app:layout_constraintTop_toTopOf="@+id/gemSocketFour" />
 
         <ImageView
             android:id="@+id/shoeRarityBoxShadow"
