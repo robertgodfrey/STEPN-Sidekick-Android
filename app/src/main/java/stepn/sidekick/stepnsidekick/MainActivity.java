@@ -801,7 +801,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
 
         } else {
-            Intent startGPSActivity = new Intent(getApplicationContext(), ShoeOptimizer.class);
+            Intent startGPSActivity = new Intent(getApplicationContext(), SpeedTracker.class);
 
             startGPSActivity.putExtra(MIN_SPEED, min);
             startGPSActivity.putExtra(MAX_SPEED, max);

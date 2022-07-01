@@ -79,8 +79,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         // TODO get these from shared prefs
         shoeRarity = COMMON;
-        shoeType = WALKER;
-        shoeLevel = 28;
+        shoeLevel = 15;
 
         buildUI();
     }
@@ -331,6 +330,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
             }
         });
+
+        energyEditText.setText(String.valueOf(energy));
 
         levelSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
