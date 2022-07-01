@@ -15,6 +15,6 @@
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/gandalf</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/background_off_white</item>
     </style>
 </resources>
