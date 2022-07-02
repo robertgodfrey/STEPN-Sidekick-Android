@@ -7,7 +7,7 @@
         <item name="colorOnPrimary">@color/almost_black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/light_green</item>
-        <item name="colorSecondaryVariant">@color/lighter_black</item>
+        <item name="colorSecondaryVariant">@color/almost_black</item>
         <item name="colorOnSecondary">@color/almost_black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -16,5 +16,6 @@
         <item name="colorAccent">@color/gandalf</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="android:windowBackground">@color/background_off_white</item>
+        <item name="android:navigationBarColor">@color/and_nav_bar_grey</item>
     </style>
 </resources>

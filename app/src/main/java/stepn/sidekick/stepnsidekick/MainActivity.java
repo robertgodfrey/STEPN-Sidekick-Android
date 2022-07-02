@@ -4,6 +4,8 @@ import static stepn.sidekick.stepnsidekick.Finals.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -30,12 +32,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -87,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
     private float savedAppVersion; // only use major version changes, eg 1.1, 1.2, not 1.1.2
 
     LocationManager manager;
+
+    ScrollView mainScroll;
+    ConstraintLayout bottomNav;
 
     ArrayList<Shoe> shoes;
 
@@ -186,6 +197,29 @@ public class MainActivity extends AppCompatActivity {
         energyEditText = findViewById(R.id.energyToSpendEditText);
         energyInMins = findViewById(R.id.energyInMinsTextView);
 
+        mainScroll = findViewById(R.id.scrollView2);
+        bottomNav = findViewById(R.id.navigationBar);
+
+        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+
+        mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    if (bottomNav.getVisibility() == View.VISIBLE) {
+                        bottomNav.startAnimation(slideDown);
+                        bottomNav.setVisibility(View.INVISIBLE);
+                    }
+                } else {
+                    if (bottomNav.getVisibility() == View.INVISIBLE) {
+                        bottomNav.startAnimation(slideUp);
+                        bottomNav.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+
         startButton.setEnabled(false);
 
         helpButton.setOnClickListener(new View.OnClickListener() {
@@ -251,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
                         voiceAlertSpeedTextView.setVisibility(View.INVISIBLE);
                         break;
                     case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
                         voiceAlertSpeedButton.setVisibility(View.VISIBLE);
                         voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_button_shadow);
                         voiceAlertSpeedTextView.setVisibility(View.VISIBLE);
@@ -404,6 +439,7 @@ public class MainActivity extends AppCompatActivity {
                 updateEnergy();
             }
         });
+
     }
 
     // dialog message if the device's GPS is turned off
@@ -639,6 +675,7 @@ public class MainActivity extends AppCompatActivity {
                 buttonShadow.setImageResource(buttonBackground);
                 break;
             case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
                 button.setVisibility(View.VISIBLE);
                 buttonText.setVisibility(View.VISIBLE);
                 buttonShadow.setImageResource(buttonShadowBackground);
@@ -671,6 +708,7 @@ public class MainActivity extends AppCompatActivity {
                 buttonText.setVisibility(View.INVISIBLE);
                 break;
             case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
                 button.setVisibility(View.VISIBLE);
                 buttonShadow.setImageResource(R.drawable.main_button_shadow);
                 buttonText.setVisibility(View.VISIBLE);
