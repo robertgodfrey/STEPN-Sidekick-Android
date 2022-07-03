@@ -7,7 +7,7 @@
     tools:context="stepn.sidekick.stepnsidekick.MainActivity">
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/mainActScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -885,19 +885,6 @@
             app:srcCompat="@mipmap/nav_runner" />
 
         <ImageView
-            android:id="@+id/optimizerSelected"
-            android:layout_width="48dp"
-            android:layout_height="20dp"
-            android:adjustViewBounds="true"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/navBackground"
-            app:layout_constraintEnd_toEndOf="@+id/optimizerIcon"
-            app:layout_constraintStart_toStartOf="@+id/optimizerIcon"
-            app:layout_constraintTop_toTopOf="@+id/navBackground"
-            app:srcCompat="@drawable/start_button_shadow"
-            app:tint="@color/button_green" />
-
-        <ImageView
             android:id="@+id/optimizerIcon"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
@@ -910,18 +897,16 @@
             app:layout_constraintTop_toTopOf="@+id/navBackground"
             app:srcCompat="@mipmap/nav_optimizer" />
 
-        <ImageView
-            android:id="@+id/infoSelected"
-            android:layout_width="48dp"
-            android:layout_height="20dp"
-            android:adjustViewBounds="true"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/navBackground"
-            app:layout_constraintEnd_toEndOf="@+id/infoIcon"
-            app:layout_constraintStart_toStartOf="@+id/infoIcon"
-            app:layout_constraintTop_toTopOf="@+id/navBackground"
-            app:srcCompat="@drawable/start_button_shadow"
-            app:tint="@color/button_green" />
+        <Button
+            android:id="@+id/goToOptimizerButton"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:alpha="0"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/optimizerIcon"
+            app:layout_constraintEnd_toEndOf="@+id/optimizerIcon"
+            app:layout_constraintStart_toStartOf="@+id/optimizerIcon"
+            app:layout_constraintTop_toTopOf="@+id/optimizerIcon" />
 
         <ImageView
             android:id="@+id/infoIcon"
@@ -934,6 +919,17 @@
             app:layout_constraintStart_toEndOf="@+id/optimizerIcon"
             app:layout_constraintTop_toTopOf="@+id/navBackground"
             app:srcCompat="@mipmap/nav_info" />
+
+        <Button
+            android:id="@+id/goToInfoButton"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:alpha="0"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/infoIcon"
+            app:layout_constraintEnd_toEndOf="@+id/infoIcon"
+            app:layout_constraintStart_toStartOf="@+id/infoIcon"
+            app:layout_constraintTop_toTopOf="@+id/infoIcon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,6 +3,7 @@ package stepn.sidekick.stepnsidekick;
 import static stepn.sidekick.stepnsidekick.Finals.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.animation.ObjectAnimator;
@@ -10,12 +11,16 @@ import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +36,19 @@ import android.widget.Toast;
 
 public class ShoeOptimizer extends AppCompatActivity {
 
+    private final String SHOE_RARITY_PREF = "shoeRarity";
+    private final String SHOE_LEVEL_PREF = "shoeLevel";
+    private final String BASE_EFF_PREF = "baseEff";
+    private final String ADDED_EFF_PREF = "addedEff";
+    private final String BASE_LUCK_PREF = "baseLuck";
+    private final String ADDED_LUCK_PREF = "addedLuck";
+    private final String BASE_COMF_PREF = "baseComf";
+    private final String ADDED_COMF_PREF = "addedComf";
+    private final String BASE_RES_PREF = "baseRes";
+    private final String ADDED_RES_PREF = "addedRes";
+
+    // TODO still need ot add prefs for gems :,)
+
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
     private final int RARE = 4;
@@ -43,7 +61,7 @@ public class ShoeOptimizer extends AppCompatActivity {
     ImageButton shoeRarityButton, shoeTypeButton, optimizeButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
-            subResButton, addResButton;
+            subResButton, addResButton, backToMainButton, goToInfoButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText;
 
@@ -61,10 +79,14 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10, footOne, footTwo,
             footThree, energyBox;
 
-    private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit;
+    ScrollView mainScroll;
+    ConstraintLayout bottomNav;
 
-    private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf, gemRes,
-            totalEff, totalLuck, totalComf, totalRes;
+    private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
+            addedComf, addedRes;
+
+    private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf, gemRes;
+
 
     private double energy;
 
@@ -76,10 +98,22 @@ public class ShoeOptimizer extends AppCompatActivity {
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
         shoeType = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
+        shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
+        shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 0);
+        baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF, 0);
+        addedEff = getSharedPrefs.getInt(ADDED_EFF_PREF, 0);
+        baseLuck = getSharedPrefs.getFloat(BASE_LUCK_PREF, 0);
+        addedLuck = getSharedPrefs.getInt(ADDED_LUCK_PREF, 0);
+        baseComf = getSharedPrefs.getFloat(BASE_COMF_PREF, 0);
+        addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF, 0);
+        baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
+        addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
 
-        // TODO get these from shared prefs
-        shoeRarity = COMMON;
-        shoeLevel = 15;
+        // TODO
+        gemEff = 0;
+        gemLuck = 0;
+        gemComf = 0;
+        gemRes =0 ;
 
         buildUI();
     }
@@ -104,6 +138,9 @@ public class ShoeOptimizer extends AppCompatActivity {
         addComfButton = findViewById(R.id.addComfButton);
         subResButton = findViewById(R.id.subResButton);
         addResButton = findViewById(R.id.addResButton);
+
+        backToMainButton = findViewById(R.id.goToMainButton);
+        goToInfoButton = findViewById(R.id.goToInfoButton);
 
         levelSeekbar = findViewById(R.id.levelSeekBar);
 
@@ -174,6 +211,33 @@ public class ShoeOptimizer extends AppCompatActivity {
         footOne = findViewById(R.id.footprint1ImageView);
         footTwo = findViewById(R.id.footprint2ImageView);
         footThree = findViewById(R.id.footprint3ImageView);
+
+        mainScroll = findViewById(R.id.optimizerScrollView);
+        bottomNav = findViewById(R.id.navigationBar);
+
+        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+
+        mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY && mainScroll.getScrollY() > 0) {
+                    if (bottomNav.getVisibility() == View.VISIBLE) {
+                        bottomNav.startAnimation(slideDown);
+                        bottomNav.setVisibility(View.INVISIBLE);
+                    }
+                } else {
+                    if (bottomNav.getVisibility() == View.INVISIBLE && mainScroll.getChildAt(0).getBottom()
+                            > (mainScroll.getHeight() + mainScroll.getScrollY())) {
+                        bottomNav.startAnimation(slideUp);
+                        bottomNav.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                Log.d("YIS", "onScrollChange: scroll Y: " + mainScroll.getScrollY());
+                Log.d("NO", "onScrollChange: height: " + mainScroll.getHeight());
+            }
+        });
 
         gemSocketOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -380,12 +444,12 @@ public class ShoeOptimizer extends AppCompatActivity {
         subEffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (totalEff - gemEff > baseEff) {
-                    totalEff--;
+                if (addedEff > 0) {
+                    addedEff--;
                     pointsAvailable++;
 
-                    effTotalTextView.setText(String.valueOf(totalEff));
-                     updatePoints();
+                    effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
+                    updatePoints();
                 }
             }
         });
@@ -394,10 +458,88 @@ public class ShoeOptimizer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (pointsAvailable > 0) {
-                    totalEff++;
+                    addedEff++;
                     pointsAvailable--;
 
-                    effTotalTextView.setText(String.valueOf(totalEff));
+                    effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
+                    updatePoints();
+                }
+            }
+        });
+
+        subLuckButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (addedLuck > 0) {
+                    addedLuck--;
+                    pointsAvailable++;
+
+                    luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
+                    updatePoints();
+                }
+            }
+        });
+
+        addLuckButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pointsAvailable > 0) {
+                    addedLuck++;
+                    pointsAvailable--;
+
+                    luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
+                    updatePoints();
+                }
+            }
+        });
+
+        subComfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (addedComf > 0) {
+                    addedComf--;
+                    pointsAvailable++;
+
+                    comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
+                    updatePoints();
+                }
+            }
+        });
+
+        addComfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pointsAvailable > 0) {
+                    addedComf++;
+                    pointsAvailable--;
+
+                    comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
+                    updatePoints();
+                }
+            }
+        });
+
+        subResButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (addedRes > 0) {
+                    addedRes--;
+                    pointsAvailable++;
+
+                    resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
+                    updatePoints();
+                }
+            }
+        });
+
+        addResButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pointsAvailable > 0) {
+                    addedRes++;
+                    pointsAvailable--;
+
+                    resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
                     updatePoints();
                 }
             }
@@ -433,7 +575,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                         } else if (Float.parseFloat(comfortEditText.getText().toString()) > baseMax) {
                             comfortEditText.setText(String.valueOf(baseMax));
                         }
-                        comfortTotalTextView.setText(String.format("%.1f", Float.parseFloat(effEditText.getText().toString())));
+                        comfortTotalTextView.setText(String.format("%.1f", Float.parseFloat(comfortEditText.getText().toString())));
                     } else {
                         comfortTotalTextView.setText("0");
                     }
@@ -453,7 +595,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                         } else if (Float.parseFloat(resEditText.getText().toString()) > baseMax) {
                             resEditText.setText(String.valueOf(baseMax));
                         }
-                        resTotalTextView.setText(String.format("%.1f", Float.parseFloat(effEditText.getText().toString())));
+                        resTotalTextView.setText(String.format("%.1f", Float.parseFloat(resEditText.getText().toString())));
                     } else {
                         resTotalTextView.setText("0");
                     }
@@ -490,11 +632,27 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
-        levelSeekbar.setProgress(shoeLevel);
+        backToMainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        // TODO
+        goToInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+            }
+        });
+
+        levelSeekbar.setProgress(shoeLevel - 1);
 
         updateRarity();
         updateType();
         updateLevel();
+        loadPoints();
     }
 
     // updates UI depending on shoe rarity
@@ -684,10 +842,10 @@ public class ShoeOptimizer extends AppCompatActivity {
     private void calcTotals() {
         float gstTotal = 0;
 
-        totalEff = Float.parseFloat(effTotalTextView.getText().toString());
-        totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
-        totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
-        totalRes = Float.parseFloat(resTotalTextView.getText().toString());
+        float totalEff = Float.parseFloat(effTotalTextView.getText().toString());
+        float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
+        float totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
+        float totalRes = Float.parseFloat(resTotalTextView.getText().toString());
 
         switch (shoeType) {
             case JOGGER:
@@ -733,7 +891,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             addResButton.setClickable(false);
         }
 
-        if (totalEff - gemEff > baseEff) {
+        if (addedEff > 0) {
             effMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
             subEffButton.setClickable(true);
         } else {
@@ -741,8 +899,45 @@ public class ShoeOptimizer extends AppCompatActivity {
             subEffButton.setClickable(false);
         }
 
+        if (addedLuck > 0) {
+            luckMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            subLuckButton.setClickable(true);
+        } else {
+            luckMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            subLuckButton.setClickable(false);
+        }
+
+        if (addedComf > 0) {
+            comfMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            subComfButton.setClickable(true);
+        } else {
+            comfMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            subComfButton.setClickable(false);
+        }
+
+        if (addedRes > 0) {
+            resMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            subResButton.setClickable(true);
+        } else {
+            resMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            subResButton.setClickable(false);
+        }
+
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
         calcTotals();
+    }
+
+    // load initial point values
+    private void loadPoints() {
+        effEditText.setText(String.valueOf(baseEff));
+        effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
+        luckEditText.setText(String.valueOf(baseLuck));
+        luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
+        comfortEditText.setText(String.valueOf(baseComf));
+        comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
+        resEditText.setText(String.valueOf(baseRes));
+        resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
+
     }
 
     // to save prefs
@@ -751,9 +946,26 @@ public class ShoeOptimizer extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // editor.putInt(RARITY, 6); // TODO rarity, level, baseEff, baseLuck, baseComf, baseRes, gemSocket x 4, totalEff, totalLuck, totalComf, totalRes.... yikes
+        // TODO gems...
+        editor.putInt(SHOE_RARITY_PREF, shoeRarity);
+        editor.putInt(SHOE_LEVEL_PREF, shoeLevel);
+        editor.putFloat(BASE_EFF_PREF, baseEff);
+        editor.putInt(ADDED_EFF_PREF, addedEff);
+        editor.putFloat(BASE_LUCK_PREF, baseLuck);
+        editor.putInt(ADDED_LUCK_PREF, addedLuck);
+        editor.putFloat(BASE_COMF_PREF, baseComf);
+        editor.putInt(ADDED_COMF_PREF, addedComf);
+        editor.putFloat(BASE_RES_PREF, baseRes);
+        editor.putInt(ADDED_RES_PREF, addedRes);
         editor.apply();
 
         super.onStop();
+    }
+
+    // to remove transition anim
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }

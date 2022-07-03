@@ -5,7 +5,6 @@ import static stepn.sidekick.stepnsidekick.Finals.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -42,9 +41,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.ArrayList;
 
 /**
@@ -74,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private final String FIRST_TIME_PREF = "firstTime";
     private final String APP_VERSION_PREF = "appVersion";
 
-    Button leftButton, rightButton, disabledStartButtonHelper;
+    Button leftButton, rightButton, disabledStartButtonHelper, goToOptimizerButton, gotToInfoButton;
     ImageButton startButton, countDownTimerButton, voiceAlertSpeedButton, voiceAlertTimeButton,
             voiceAlertCountdownButton, helpButton;
     ImageView countDownTimerButtonShadow, voiceAlertSpeedButtonShadow, voiceAlertTimeButtonShadow,
@@ -150,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startImageButton);
         startButtonShadow = findViewById(R.id.startButtonShadow);
         disabledStartButtonHelper = findViewById(R.id.disabledStartButtonHelper);
+        goToOptimizerButton = findViewById(R.id.goToOptimizerButton);
+        gotToInfoButton = findViewById(R.id.goToInfoButton);
 
         helpButton = findViewById(R.id.helpButton);
         helpButtonShadow = findViewById(R.id.helpButtonShadow);
@@ -197,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         energyEditText = findViewById(R.id.energyToSpendEditText);
         energyInMins = findViewById(R.id.energyInMinsTextView);
 
-        mainScroll = findViewById(R.id.scrollView2);
+        mainScroll = findViewById(R.id.mainActScrollView);
         bottomNav = findViewById(R.id.navigationBar);
 
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
@@ -437,6 +435,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 updateEnergy();
+            }
+        });
+
+        goToOptimizerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startOptimizer = new Intent(getApplicationContext(), ShoeOptimizer.class);
+                startActivity(startOptimizer);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        gotToInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent showInfo = new Intent(getApplicationContext(), ShoeOptimizer.class); // TODO!
+                startActivity(showInfo);
             }
         });
 
