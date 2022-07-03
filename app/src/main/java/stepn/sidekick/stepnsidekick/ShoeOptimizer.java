@@ -441,6 +441,9 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
+        // was going to make a function for all these damn buttons but without pointers I can't think
+        // of how to do it :(
+
         subEffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -451,6 +454,20 @@ public class ShoeOptimizer extends AppCompatActivity {
                     effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
                     updatePoints();
                 }
+            }
+        });
+
+        subEffButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (addedEff > 0) {
+                    pointsAvailable += addedEff;
+                    addedEff = 0;
+
+                    effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
+                    updatePoints();
+                }
+                return false;
             }
         });
 
@@ -467,6 +484,20 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
+        addEffButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (pointsAvailable > 0) {
+                    addedEff += pointsAvailable;
+                    pointsAvailable = 0;
+
+                    effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
+                    updatePoints();
+                }
+                return false;
+            }
+        });
+
         subLuckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -477,6 +508,20 @@ public class ShoeOptimizer extends AppCompatActivity {
                     luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
                     updatePoints();
                 }
+            }
+        });
+
+        subLuckButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (addedLuck > 0) {
+                    pointsAvailable += addedLuck;
+                    addedLuck = 0;
+
+                    luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
+                    updatePoints();
+                }
+                return false;
             }
         });
 
@@ -493,6 +538,20 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
+        addLuckButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (pointsAvailable > 0) {
+                    addedLuck += pointsAvailable;
+                    pointsAvailable = 0;
+
+                    luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
+                    updatePoints();
+                }
+                return false;
+            }
+        });
+
         subComfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -503,6 +562,20 @@ public class ShoeOptimizer extends AppCompatActivity {
                     comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
                     updatePoints();
                 }
+            }
+        });
+
+        subComfButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (addedComf > 0) {
+                    pointsAvailable += addedComf;
+                    addedComf = 0;
+
+                    comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
+                    updatePoints();
+                }
+                return false;
             }
         });
 
@@ -519,6 +592,20 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
+        addComfButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (pointsAvailable > 0) {
+                    addedComf += pointsAvailable;
+                    pointsAvailable = 0;
+
+                    comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
+                    updatePoints();
+                }
+                return false;
+            }
+        });
+
         subResButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -532,6 +619,20 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
+        subResButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (addedRes > 0) {
+                    pointsAvailable += addedRes;
+                    addedRes = 0;
+
+                    resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
+                    updatePoints();
+                }
+                return false;
+            }
+        });
+
         addResButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -542,6 +643,20 @@ public class ShoeOptimizer extends AppCompatActivity {
                     resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
                     updatePoints();
                 }
+            }
+        });
+
+        addResButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (pointsAvailable > 0) {
+                    addedRes += pointsAvailable;
+                    pointsAvailable = 0;
+
+                    resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
+                    updatePoints();
+                }
+                return false;
             }
         });
 
@@ -794,7 +909,21 @@ public class ShoeOptimizer extends AppCompatActivity {
 
     // updates values depending on level
     private void updateLevel() {
-        pointsAvailable = shoeLevel * 2 * shoeRarity;
+        pointsAvailable = (shoeLevel * 2 * shoeRarity) - addedEff - addedLuck - addedComf - addedRes;
+
+        if (pointsAvailable < 0) {
+            pointsAvailable = (shoeLevel * 2 * shoeRarity);
+            addedEff = 0;
+            addedLuck = 0;
+            addedComf = 0;
+            addedRes = 0;
+
+            effTotalTextView.setText(String.valueOf(baseEff));
+            luckTotalTextView.setText(String.valueOf(baseLuck));
+            comfortTotalTextView.setText(String.valueOf(baseComf));
+            resTotalTextView.setText(String.valueOf(baseRes));
+        }
+
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
 
         if (shoeLevel >= 5) {
