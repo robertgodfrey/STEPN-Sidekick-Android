@@ -337,6 +337,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                     shoeType++;
                 }
                 updateType();
+                calcTotals();
             }
         });
 
@@ -768,6 +769,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         updateType();
         updateLevel();
         loadPoints();
+        calcTotals();
     }
 
     // updates UI depending on shoe rarity
@@ -859,9 +861,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         scaler.setDuration(1000);
         scaler.start();
 
-        pointsAvailable = shoeLevel * 2 * shoeRarity;
-        pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
-
+        updatePoints();
     }
 
     // updates UI depending on shoe type
@@ -904,27 +904,10 @@ public class ShoeOptimizer extends AppCompatActivity {
                 PropertyValuesHolder.ofFloat("scaleY", 1f));
         scaler.setDuration(1000);
         scaler.start();
-        calcTotals();
     }
 
     // updates values depending on level
     private void updateLevel() {
-        pointsAvailable = (shoeLevel * 2 * shoeRarity) - addedEff - addedLuck - addedComf - addedRes;
-
-        if (pointsAvailable < 0) {
-            pointsAvailable = (shoeLevel * 2 * shoeRarity);
-            addedEff = 0;
-            addedLuck = 0;
-            addedComf = 0;
-            addedRes = 0;
-
-            effTotalTextView.setText(String.valueOf(baseEff));
-            luckTotalTextView.setText(String.valueOf(baseLuck));
-            comfortTotalTextView.setText(String.valueOf(baseComf));
-            resTotalTextView.setText(String.valueOf(baseRes));
-        }
-
-        pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
 
         if (shoeLevel >= 5) {
             gemSocketOneLockPlus.setImageResource(R.mipmap.gem_socket_plus);
@@ -1000,6 +983,23 @@ public class ShoeOptimizer extends AppCompatActivity {
     }
 
     private void updatePoints() {
+        pointsAvailable = (shoeLevel * 2 * shoeRarity) - addedEff - addedLuck - addedComf - addedRes;
+
+        if (pointsAvailable < 0) {
+            pointsAvailable = (shoeLevel * 2 * shoeRarity);
+            addedEff = 0;
+            addedLuck = 0;
+            addedComf = 0;
+            addedRes = 0;
+
+            effTotalTextView.setText(String.valueOf(baseEff));
+            luckTotalTextView.setText(String.valueOf(baseLuck));
+            comfortTotalTextView.setText(String.valueOf(baseComf));
+            resTotalTextView.setText(String.valueOf(baseRes));
+        }
+
+        pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
+
         if (pointsAvailable > 0) {
             effPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
             addEffButton.setClickable(true);
