@@ -85,8 +85,8 @@ public class ShoeOptimizer extends AppCompatActivity {
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes;
 
-    private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf, gemRes;
-
+    private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
+            gemRes;
 
     private double energy;
 
@@ -221,21 +221,17 @@ public class ShoeOptimizer extends AppCompatActivity {
         mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY && mainScroll.getScrollY() > 0) {
-                    if (bottomNav.getVisibility() == View.VISIBLE) {
-                        bottomNav.startAnimation(slideDown);
-                        bottomNav.setVisibility(View.INVISIBLE);
-                    }
-                } else {
-                    if (bottomNav.getVisibility() == View.INVISIBLE && mainScroll.getChildAt(0).getBottom()
-                            > (mainScroll.getHeight() + mainScroll.getScrollY())) {
-                        bottomNav.startAnimation(slideUp);
-                        bottomNav.setVisibility(View.VISIBLE);
-                    }
+                int scrollChange = oldScrollY - scrollY;
+                if (scrollChange < -5 && bottomNav.getVisibility() == View.VISIBLE
+                        && mainScroll.getScrollY() > 0) {
+                    bottomNav.startAnimation(slideDown);
+                    bottomNav.setVisibility(View.INVISIBLE);
+                } else if (scrollChange > 5
+                        && bottomNav.getVisibility() == View.INVISIBLE
+                        && mainScroll.getChildAt(0).getBottom() > (mainScroll.getHeight() + mainScroll.getScrollY())) {
+                    bottomNav.startAnimation(slideUp);
+                    bottomNav.setVisibility(View.VISIBLE);
                 }
-
-                Log.d("YIS", "onScrollChange: scroll Y: " + mainScroll.getScrollY());
-                Log.d("NO", "onScrollChange: height: " + mainScroll.getHeight());
             }
         });
 
@@ -292,6 +288,15 @@ public class ShoeOptimizer extends AppCompatActivity {
                     shoeRarity++;
                 }
                 updateRarity();
+
+                shoeCircles.setScaleX(1.1f);
+                shoeCircles.setScaleY(1.1f);
+                ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                        shoeCircles,
+                        PropertyValuesHolder.ofFloat("scaleX", 1f),
+                        PropertyValuesHolder.ofFloat("scaleY", 1f));
+                scaler.setDuration(1000);
+                scaler.start();
             }
         });
 
@@ -338,6 +343,13 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
                 updateType();
                 calcTotals();
+
+                ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                        shoeTypeImageView,
+                        PropertyValuesHolder.ofFloat("scaleX", 1f),
+                        PropertyValuesHolder.ofFloat("scaleY", 1f));
+                scaler.setDuration(1000);
+                scaler.start();
             }
         });
 
@@ -428,16 +440,81 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (!b) {
                     if (!effEditText.getText().toString().isEmpty() && !effEditText.getText().toString().equals(".")) {
                         if (Float.parseFloat(effEditText.getText().toString()) < baseMin) {
+                            baseEff = baseMin;
                             effEditText.setText(String.valueOf(baseMin));
                         } else if (Float.parseFloat(effEditText.getText().toString()) > baseMax) {
+                            baseEff = baseMax;
                             effEditText.setText(String.valueOf(baseMax));
+                        } else {
+                            baseEff = Float.parseFloat(effEditText.getText().toString());
                         }
-                        effTotalTextView.setText(String.format("%.1f", Float.parseFloat(effEditText.getText().toString())));
-                    } else {
-                        effTotalTextView.setText("0");
                     }
-                    baseEff = Float.parseFloat(effTotalTextView.getText().toString());
+
                     updatePoints();
+                }
+            }
+        });
+
+        luckEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (!luckEditText.getText().toString().isEmpty() && !luckEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(luckEditText.getText().toString()) < baseMin) {
+                            baseLuck = baseMin;
+                            luckEditText.setText(String.valueOf(baseMin));
+                        } else if (Float.parseFloat(luckEditText.getText().toString()) > baseMax) {
+                            baseLuck = baseMax;
+                            luckEditText.setText(String.valueOf(baseMax));
+                        } else {
+                            baseLuck = Float.parseFloat(luckEditText.getText().toString());
+                        }
+                    }
+
+                    updatePoints();
+                }
+            }
+        });
+
+        comfortEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (!comfortEditText.getText().toString().isEmpty() && !comfortEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(comfortEditText.getText().toString()) < baseMin) {
+                            baseComf = baseMin;
+                            comfortEditText.setText(String.valueOf(baseMin));
+                        } else if (Float.parseFloat(comfortEditText.getText().toString()) > baseMax) {
+                            baseComf = baseMax;
+                            comfortEditText.setText(String.valueOf(baseMax));
+                        } else {
+                            baseComf = Float.parseFloat(comfortEditText.getText().toString());
+                        }
+                    }
+
+                    updatePoints();
+                }
+            }
+        });
+
+        resEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    if (!resEditText.getText().toString().isEmpty() && !resEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(resEditText.getText().toString()) < baseMin) {
+                            baseRes = baseMin;
+                            resEditText.setText(String.valueOf(baseMin));
+                        } else if (Float.parseFloat(resEditText.getText().toString()) > baseMax) {
+                            baseRes = baseMax;
+                            resEditText.setText(String.valueOf(baseMax));
+                        } else {
+                            baseRes = Float.parseFloat(resEditText.getText().toString());
+                        }
+                    }
+
+                    updatePoints();
+                    resEditText.clearFocus();
                 }
             }
         });
@@ -661,66 +738,6 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
-        luckEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    if (!luckEditText.getText().toString().isEmpty() && !luckEditText.getText().toString().equals(".")) {
-                        if (Float.parseFloat(luckEditText.getText().toString()) < baseMin) {
-                            luckEditText.setText(String.valueOf(baseMin));
-                        } else if (Float.parseFloat(luckEditText.getText().toString()) > baseMax) {
-                            luckEditText.setText(String.valueOf(baseMax));
-                        }
-                        luckTotalTextView.setText(String.format("%.1f", Float.parseFloat(luckEditText.getText().toString())));
-                    } else {
-                        luckTotalTextView.setText("0");
-                    }
-                    baseLuck = Float.parseFloat(luckTotalTextView.getText().toString());
-                    updatePoints();
-                }
-            }
-        });
-
-        comfortEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    if (!comfortEditText.getText().toString().isEmpty() && !comfortEditText.getText().toString().equals(".")) {
-                        if (Float.parseFloat(comfortEditText.getText().toString()) < baseMin) {
-                            comfortEditText.setText(String.valueOf(baseMin));
-                        } else if (Float.parseFloat(comfortEditText.getText().toString()) > baseMax) {
-                            comfortEditText.setText(String.valueOf(baseMax));
-                        }
-                        comfortTotalTextView.setText(String.format("%.1f", Float.parseFloat(comfortEditText.getText().toString())));
-                    } else {
-                        comfortTotalTextView.setText("0");
-                    }
-                    baseComf = Float.parseFloat(comfortTotalTextView.getText().toString());
-                    updatePoints();
-                }
-            }
-        });
-
-        resEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!b) {
-                    if (!resEditText.getText().toString().isEmpty() && !resEditText.getText().toString().equals(".")) {
-                        if (Float.parseFloat(resEditText.getText().toString()) < baseMin) {
-                            resEditText.setText(String.valueOf(baseMin));
-                        } else if (Float.parseFloat(resEditText.getText().toString()) > baseMax) {
-                            resEditText.setText(String.valueOf(baseMax));
-                        }
-                        resTotalTextView.setText(String.format("%.1f", Float.parseFloat(resEditText.getText().toString())));
-                    } else {
-                        resTotalTextView.setText("0");
-                    }
-                    baseRes = Float.parseFloat(resTotalTextView.getText().toString());
-                    updatePoints();
-                }
-            }
-        });
-
         optimizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -852,15 +869,6 @@ public class ShoeOptimizer extends AppCompatActivity {
                 baseMax = 10;
         }
 
-        shoeCircles.setScaleX(1.1f);
-        shoeCircles.setScaleY(1.1f);
-        ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
-                shoeCircles,
-                PropertyValuesHolder.ofFloat("scaleX", 1f),
-                PropertyValuesHolder.ofFloat("scaleY", 1f));
-        scaler.setDuration(1000);
-        scaler.start();
-
         updatePoints();
     }
 
@@ -898,12 +906,6 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         shoeTypeImageView.setScaleX(1.1f);
         shoeTypeImageView.setScaleY(1.1f);
-        ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
-                shoeTypeImageView,
-                PropertyValuesHolder.ofFloat("scaleX", 1f),
-                PropertyValuesHolder.ofFloat("scaleY", 1f));
-        scaler.setDuration(1000);
-        scaler.start();
     }
 
     // updates values depending on level
@@ -950,8 +952,10 @@ public class ShoeOptimizer extends AppCompatActivity {
         // TODO
     }
 
-    // calculate gst earnings & durability
+    // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
+        int durabilityLost;
+        float repairCost;
         float gstTotal = 0;
 
         float totalEff = Float.parseFloat(effTotalTextView.getText().toString());
@@ -973,13 +977,316 @@ public class ShoeOptimizer extends AppCompatActivity {
                 gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.515) - 5.35)) * 10) / 10);
         }
 
+        durabilityLost = (int) (energy * Math.ceil(80 * Math.pow((totalRes + 10), -1.2) + 0.25));
+
+        repairCost = calcRepairCost(durabilityLost);
+
         gstEarnedTextView.setText(String.valueOf(gstTotal));
+        durabilityLossTextView.setText(String.valueOf(durabilityLost));
+        repairCostTextView.setText(String.format("%.1f", repairCost));
+        gstIncomeTextView.setText(String.format("%.1f", gstTotal - repairCost));
 
         if (gstTotal > gstLimit) {
             gstEarnedTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.red));
         } else {
             gstEarnedTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
         }
+    }
+
+    // calculates repair cost in gst based on shoe rarity, level, and durability lost
+    private float calcRepairCost(int durabilityLost) {
+        float baseCost;
+
+        if (shoeRarity == COMMON) {
+            switch (shoeLevel) {
+                case 1:
+                    baseCost = 0.31f;
+                    break;
+                case 2:
+                    baseCost = 0.32f;
+                    break;
+                case 3:
+                    baseCost = 0.33f;
+                    break;
+                case 4:
+                    baseCost = 0.35f;
+                    break;
+                case 5:
+                    baseCost = 0.36f;
+                    break;
+                case 6:
+                    baseCost = 0.37f;
+                    break;
+                case 7:
+                    baseCost = 0.38f;
+                    break;
+                case 8:
+                    baseCost = 0.4f;
+                    break;
+                case 9:
+                    baseCost = 0.41f;
+                    break;
+                case 10:
+                    baseCost = 0.42f;
+                    break;
+                case 11:
+                    baseCost = 0.44f;
+                    break;
+                case 12:
+                    baseCost = 0.46f;
+                    break;
+                case 13:
+                    baseCost = 0.48f;
+                    break;
+                case 14:
+                    baseCost = 0.5f;
+                    break;
+                case 15:
+                    baseCost = 0.52f;
+                    break;
+                case 16:
+                    baseCost = 0.54f;
+                    break;
+                case 17:
+                    baseCost = 0.56f;
+                    break;
+                case 18:
+                    baseCost = 0.58f;
+                    break;
+                case 19:
+                    baseCost = 0.6f;
+                    break;
+                case 20:
+                    baseCost = 0.62f;
+                    break;
+                case 21:
+                    baseCost = 0.64f;
+                    break;
+                case 22:
+                    baseCost = 0.67f;
+                    break;
+                case 23:
+                    baseCost = 0.7f;
+                    break;
+                case 24:
+                    baseCost = 0.72f;
+                    break;
+                case 25:
+                    baseCost = 0.75f;
+                    break;
+                case 26:
+                    baseCost = 0.78f;
+                    break;
+                case 27:
+                    baseCost = 0.81f;
+                    break;
+                case 28:
+                    baseCost = 0.83f;
+                    break;
+                case 29:
+                    baseCost = 0.87f;
+                    break;
+                case 30:
+                    baseCost = 0.9f;
+                    break;
+                default:
+                    baseCost = 0;
+            }
+        } else if (shoeRarity == UNCOMMON) {
+            switch (shoeLevel) {
+                case 1:
+                    baseCost = 0.41f;
+                    break;
+                case 2:
+                    baseCost = 0.43f;
+                    break;
+                case 3:
+                    baseCost = 0.45f;
+                    break;
+                case 4:
+                    baseCost = 0.46f;
+                    break;
+                case 5:
+                    baseCost = 0.48f;
+                    break;
+                case 6:
+                    baseCost = 0.5f;
+                    break;
+                case 7:
+                    baseCost = 0.51f;
+                    break;
+                case 8:
+                    baseCost = 0.53f;
+                    break;
+                case 9:
+                    baseCost = 0.55f;
+                    break;
+                case 10:
+                    baseCost = 0.57f;
+                    break;
+                case 11:
+                    baseCost = 0.6f;
+                    break;
+                case 12:
+                    baseCost = 0.62f;
+                    break;
+                case 13:
+                    baseCost = 0.64f;
+                    break;
+                case 14:
+                    baseCost = 0.66f;
+                    break;
+                case 15:
+                    baseCost = 0.69f;
+                    break;
+                case 16:
+                    baseCost = 0.71f;
+                    break;
+                case 17:
+                    baseCost = 0.74f;
+                    break;
+                case 18:
+                    baseCost = 0.77f;
+                    break;
+                case 19:
+                    baseCost = 0.8f;
+                    break;
+                case 20:
+                    baseCost = 0.83f;
+                    break;
+                case 21:
+                    baseCost = 0.86f;
+                    break;
+                case 22:
+                    baseCost = 0.89f;
+                    break;
+                case 23:
+                    baseCost = 0.92f;
+                    break;
+                case 24:
+                    baseCost = 0.95f;
+                    break;
+                case 25:
+                    baseCost = 1;
+                    break;
+                case 26:
+                    baseCost = 1.03f;
+                    break;
+                case 27:
+                    baseCost = 1.06f;
+                    break;
+                case 28:
+                    baseCost = 1.11f;
+                    break;
+                case 29:
+                    baseCost = 1.15f;
+                    break;
+                case 30:
+                    baseCost = 1.2f;
+                    break;
+                default:
+                    baseCost = 0;
+            }
+        } else if (shoeRarity == RARE) {
+            switch (shoeLevel) {
+                case 1:
+                    baseCost = 0.51f;
+                    break;
+                case 2:
+                    baseCost = 0.54f;
+                    break;
+                case 3:
+                    baseCost = 0.57f;
+                    break;
+                case 4:
+                    baseCost = 0.59f;
+                    break;
+                case 5:
+                    baseCost = 0.61f;
+                    break;
+                case 6:
+                    baseCost = 0.63f;
+                    break;
+                case 7:
+                    baseCost = 0.65f;
+                    break;
+                case 8:
+                    baseCost = 0.67f;
+                    break;
+                case 9:
+                    baseCost = 0.69f;
+                    break;
+                case 10:
+                    baseCost = 0.72f;
+                    break;
+                case 11:
+                    baseCost = 0.75f;
+                    break;
+                case 12:
+                    baseCost = 0.78f;
+                    break;
+                case 13:
+                    baseCost = 0.81f;
+                    break;
+                case 14:
+                    baseCost = 0.84f;
+                    break;
+                case 15:
+                    baseCost = 0.87f;
+                    break;
+                case 16:
+                    baseCost = 0.90f;
+                    break;
+                case 17:
+                    baseCost = 0.94f;
+                    break;
+                case 18:
+                    baseCost = 0.97f;
+                    break;
+                case 19:
+                    baseCost = 1;
+                    break;
+                case 20:
+                    baseCost = 1.04f;
+                    break;
+                case 21:
+                    baseCost = 1.08f;
+                    break;
+                case 22:
+                    baseCost = 1.12f;
+                    break;
+                case 23:
+                    baseCost = 1.16f;
+                    break;
+                case 24:
+                    baseCost = 1.2f;
+                    break;
+                case 25:
+                    baseCost = 1.25f;
+                    break;
+                case 26:
+                    baseCost = 1.3f;
+                    break;
+                case 27:
+                    baseCost = 1.34f;
+                    break;
+                case 28:
+                    baseCost = 1.39f;
+                    break;
+                case 29:
+                    baseCost = 1.45f;
+                    break;
+                case 30:
+                    baseCost = 1.5f;
+                    break;
+                default:
+                    baseCost = 0;
+            }
+        } else {
+            baseCost = 1;
+        }
+
+        return baseCost * durabilityLost;
     }
 
     private void updatePoints() {
@@ -991,12 +1298,12 @@ public class ShoeOptimizer extends AppCompatActivity {
             addedLuck = 0;
             addedComf = 0;
             addedRes = 0;
-
-            effTotalTextView.setText(String.valueOf(baseEff));
-            luckTotalTextView.setText(String.valueOf(baseLuck));
-            comfortTotalTextView.setText(String.valueOf(baseComf));
-            resTotalTextView.setText(String.valueOf(baseRes));
         }
+
+        effTotalTextView.setText(String.valueOf(baseEff + gemEff + addedEff));
+        luckTotalTextView.setText(String.valueOf(baseLuck + gemLuck + addedLuck));
+        comfortTotalTextView.setText(String.valueOf(baseComf + gemComf + addedComf));
+        resTotalTextView.setText(String.valueOf(baseRes + gemRes + addedRes));
 
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
 

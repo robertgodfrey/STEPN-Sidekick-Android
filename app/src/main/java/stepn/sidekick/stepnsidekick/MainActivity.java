@@ -204,16 +204,16 @@ public class MainActivity extends AppCompatActivity {
         mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY) {
-                    if (bottomNav.getVisibility() == View.VISIBLE) {
-                        bottomNav.startAnimation(slideDown);
-                        bottomNav.setVisibility(View.INVISIBLE);
-                    }
-                } else {
-                    if (bottomNav.getVisibility() == View.INVISIBLE) {
-                        bottomNav.startAnimation(slideUp);
-                        bottomNav.setVisibility(View.VISIBLE);
-                    }
+                int scrollChange = oldScrollY - scrollY;
+                if (scrollChange < -5 && bottomNav.getVisibility() == View.VISIBLE
+                        && mainScroll.getScrollY() > 0) {
+                    bottomNav.startAnimation(slideDown);
+                    bottomNav.setVisibility(View.INVISIBLE);
+                } else if (scrollChange > 5
+                        && bottomNav.getVisibility() == View.INVISIBLE
+                        && mainScroll.getChildAt(0).getBottom() > (mainScroll.getHeight() + mainScroll.getScrollY())) {
+                    bottomNav.startAnimation(slideUp);
+                    bottomNav.setVisibility(View.VISIBLE);
                 }
             }
         });

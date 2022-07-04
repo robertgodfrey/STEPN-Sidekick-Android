@@ -7,6 +7,13 @@
     android:background="@color/light_green"
     tools:context="stepn.sidekick.stepnsidekick.ShoeOptimizer">
 
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:layout_width="0px"
+        android:layout_height="0px" />
+
     <ScrollView
         android:id="@+id/optimizerScrollView"
         android:layout_width="match_parent"
