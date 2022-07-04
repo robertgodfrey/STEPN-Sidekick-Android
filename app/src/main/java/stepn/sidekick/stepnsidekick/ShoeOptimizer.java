@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -58,12 +60,12 @@ public class ShoeOptimizer extends AppCompatActivity {
     private final int RUNNER = 2;
     private final int TRAINER = 3;
 
-    ImageButton shoeRarityButton, shoeTypeButton, optimizeButton;
+    ImageButton shoeRarityButton, shoeTypeButton, optimizeButton, backgroundButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
             subResButton, addResButton, backToMainButton, goToInfoButton;
     SeekBar levelSeekbar;
-    EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText;
+    EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief;
 
     TextView shoeRarityTextView, shoeTypeTextView, levelTextView, effTotalTextView, luckTotalTextView,
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
@@ -141,6 +143,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         backToMainButton = findViewById(R.id.goToMainButton);
         goToInfoButton = findViewById(R.id.goToInfoButton);
+        backgroundButton = findViewById(R.id.backgroundThingButton);
 
         levelSeekbar = findViewById(R.id.levelSeekBar);
 
@@ -149,6 +152,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         luckEditText = findViewById(R.id.baseLuckEditText);
         comfortEditText = findViewById(R.id.baseComfortEditText);
         resEditText = findViewById(R.id.baseResEditText);
+        focusThief = findViewById(R.id.focusThief);
 
         shoeRarityTextView = findViewById(R.id.shoeRarityTextView);
         shoeRarityShadowTextView = findViewById(R.id.shoeRarityShadowTextView);
@@ -218,6 +222,13 @@ public class ShoeOptimizer extends AppCompatActivity {
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
 
+        backgroundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearFocus(view);
+            }
+        });
+
         mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -243,6 +254,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 } else {
                     chooseSocketType();
                 }
+                clearFocus(view);
             }
         });
 
@@ -254,6 +266,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 } else {
                     chooseSocketType();
                 }
+                clearFocus(view);
             }
         });
 
@@ -265,6 +278,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 } else {
                     chooseSocketType();
                 }
+                clearFocus(view);
             }
         });
 
@@ -276,6 +290,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 } else {
                     chooseSocketType();
                 }
+                clearFocus(view);
             }
         });
 
@@ -297,6 +312,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                         PropertyValuesHolder.ofFloat("scaleY", 1f));
                 scaler.setDuration(1000);
                 scaler.start();
+
+                clearFocus(view);
             }
         });
 
@@ -350,6 +367,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                         PropertyValuesHolder.ofFloat("scaleY", 1f));
                 scaler.setDuration(1000);
                 scaler.start();
+
+                clearFocus(view);
             }
         });
 
@@ -514,7 +533,6 @@ public class ShoeOptimizer extends AppCompatActivity {
                     }
 
                     updatePoints();
-                    resEditText.clearFocus();
                 }
             }
         });
@@ -531,6 +549,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
                     updatePoints();
+                    clearFocus(view);
                 }
             }
         });
@@ -544,6 +563,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
                     updatePoints();
+                    clearFocus(view);
                 }
                 return false;
             }
@@ -558,6 +578,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
                     updatePoints();
+                    clearFocus(view);
                 }
             }
         });
@@ -571,6 +592,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
                     updatePoints();
+                    clearFocus(view);
                 }
                 return false;
             }
@@ -585,6 +607,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
                     updatePoints();
+                    clearFocus(view);
                 }
             }
         });
@@ -598,6 +621,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
                     updatePoints();
+                    clearFocus(view);
                 }
                 return false;
             }
@@ -612,6 +636,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
                     updatePoints();
+                    clearFocus(view);
                 }
             }
         });
@@ -625,6 +650,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
                     updatePoints();
+                    clearFocus(view);
                 }
                 return false;
             }
@@ -639,6 +665,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
                     updatePoints();
+                    clearFocus(view);
                 }
             }
         });
@@ -652,6 +679,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
                     updatePoints();
+                    clearFocus(view);
                 }
                 return false;
             }
@@ -666,6 +694,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
                     updatePoints();
+                    clearFocus(view);
                 }
             }
         });
@@ -679,6 +708,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
                     updatePoints();
+                    clearFocus(view);
                 }
                 return false;
             }
@@ -693,6 +723,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
                     updatePoints();
+                    clearFocus(view);
                 }
             }
         });
@@ -706,6 +737,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
                     updatePoints();
+                    clearFocus(view);
                 }
                 return false;
             }
@@ -720,6 +752,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
                     updatePoints();
+                    clearFocus(view);
                 }
             }
         });
@@ -733,6 +766,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                     resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
                     updatePoints();
+                    clearFocus(view);
                 }
                 return false;
             }
@@ -742,6 +776,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO
+                clearFocus(view);
             }
         });
 
@@ -1374,6 +1409,21 @@ public class ShoeOptimizer extends AppCompatActivity {
         resEditText.setText(String.valueOf(baseRes));
         resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
 
+    }
+
+    // clears focus from the input boxes by focusing on another hidden edittext
+    private void clearFocus(View view) {
+        energyEditText.clearFocus();
+        effEditText.clearFocus();
+        luckEditText.clearFocus();
+        comfortEditText.clearFocus();
+        resEditText.clearFocus();
+
+        focusThief.requestFocus();
+
+        InputMethodManager imm = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     // to save prefs
