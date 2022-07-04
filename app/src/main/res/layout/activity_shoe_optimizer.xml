@@ -7,12 +7,14 @@
     android:background="@color/light_green"
     tools:context="stepn.sidekick.stepnsidekick.ShoeOptimizer">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/focusThief"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:clickable="true"
-        android:layout_width="0px"
-        android:layout_height="0px" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/optimizerScrollView"
@@ -26,13 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/focusThiefEditText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ImageView
                 android:id="@+id/backgroundThingShadow"
                 android:layout_width="0dp"
@@ -41,20 +36,21 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="-3dp"
                 android:layout_marginBottom="-3dp"
-                app:layout_constraintBottom_toBottomOf="@+id/backgroundThing"
-                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
-                app:layout_constraintStart_toStartOf="@id/backgroundThing"
-                app:layout_constraintTop_toTopOf="@+id/backgroundThing"
+                app:layout_constraintBottom_toBottomOf="@+id/backgroundThingButton"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThingButton"
+                app:layout_constraintStart_toStartOf="@id/backgroundThingButton"
+                app:layout_constraintTop_toTopOf="@+id/backgroundThingButton"
                 app:srcCompat="@drawable/start_button_shadow" />
 
-            <ImageView
-                android:id="@+id/backgroundThing"
+            <ImageButton
+                android:id="@+id/backgroundThingButton"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="-30dp"
+                android:background="@null"
                 app:layout_constraintBottom_toBottomOf="@+id/mysteryBoxLvl8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,9 +65,9 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="32dp"
                 android:adjustViewBounds="true"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
-                app:layout_constraintTop_toTopOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+                app:layout_constraintTop_toTopOf="@+id/backgroundThingButton"
                 app:srcCompat="@drawable/circles_common" />
 
             <ImageView
@@ -311,7 +307,7 @@
                 android:background="@null"
                 app:layout_constraintEnd_toStartOf="@id/shoeTypeButton"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="@id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@id/backgroundThingButton"
                 app:layout_constraintTop_toTopOf="@id/shoeTypeButton"
                 app:srcCompat="@drawable/box_common" />
 
@@ -477,7 +473,7 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
                 app:layout_constraintStart_toEndOf="@+id/shoeTypeButton"
                 app:layout_constraintTop_toBottomOf="@+id/gemSocketFour"
                 app:srcCompat="@drawable/energy_input_box" />
@@ -590,7 +586,7 @@
                 android:text="Attributes"
                 android:textColor="@color/almost_black"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/seekbarBackground" />
 
             <TextView
@@ -616,7 +612,7 @@
                 android:textColor="@color/almost_black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/attributesTextView"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing" />
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton" />
 
             <ImageView
                 android:id="@+id/effIcon"
@@ -624,9 +620,9 @@
                 android:layout_height="16dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/attributesTextView"
-                app:srcCompat="@drawable/efficiency" />
+                app:srcCompat="@drawable/symbol_efficiency" />
 
             <TextView
                 android:id="@+id/effTextView"
@@ -647,9 +643,9 @@
                 android:layout_height="16dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/effIcon"
-                app:srcCompat="@drawable/luck" />
+                app:srcCompat="@drawable/symbol_luck" />
 
 
             <TextView
@@ -671,9 +667,9 @@
                 android:layout_height="16dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/luckIcon"
-                app:srcCompat="@drawable/comfort" />
+                app:srcCompat="@drawable/symbol_comfort" />
 
             <TextView
                 android:id="@+id/comfortTextView"
@@ -694,9 +690,9 @@
                 android:layout_height="16dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/comfIcon"
-                app:srcCompat="@drawable/res" />
+                app:srcCompat="@drawable/symbol_res" />
 
             <TextView
                 android:id="@+id/resTextView"
@@ -1062,7 +1058,7 @@
                 android:text="0"
                 android:textColor="@color/gandalf"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/resTextView" />
 
             <ImageView
@@ -1097,8 +1093,8 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
                 android:background="@null"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
                 app:srcCompat="@drawable/start_button" />
 
@@ -1125,7 +1121,7 @@
                 android:text="GST Earned / Daily Limit:"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
 
             <TextView
@@ -1152,7 +1148,7 @@
                 android:text="0"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
 
             <TextView
@@ -1178,7 +1174,7 @@
                 android:text="Durability Loss:"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/gstPerDayLabelTextView" />
 
             <TextView
@@ -1191,7 +1187,7 @@
                 android:text="0"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/gstLimitPerDayTextView" />
 
             <TextView
@@ -1204,7 +1200,7 @@
                 android:text="Repair Cost:"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
 
             <TextView
@@ -1217,7 +1213,7 @@
                 android:text="0"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/durabilityLossTextView" />
 
             <TextView
@@ -1230,7 +1226,7 @@
                 android:text="Total Income:"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/repairLabelTextView" />
 
             <TextView
@@ -1243,7 +1239,7 @@
                 android:text="GST"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/repairCostTextView" />
 
             <ImageView
@@ -1278,8 +1274,8 @@
                 android:text="Mystery Box Chance"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
 
             <ImageView
@@ -1292,7 +1288,7 @@
                 app:tint="@color/gandalf"
                 app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl2"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
                 app:srcCompat="@mipmap/mb1" />
 
@@ -1346,7 +1342,7 @@
                 android:layout_marginTop="16dp"
                 android:alpha="0.5"
                 app:tint="@color/gandalf"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
                 app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl4"
                 app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
                 app:srcCompat="@mipmap/mb5" />
@@ -1360,7 +1356,7 @@
                 android:alpha="0.5"
                 app:tint="@color/gandalf"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl7"
                 app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
                 app:srcCompat="@mipmap/mb6" />
@@ -1415,7 +1411,7 @@
                 android:layout_marginTop="4dp"
                 android:alpha="0.5"
                 app:tint="@color/gandalf"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
                 app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl9"
                 app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
                 app:srcCompat="@mipmap/mb10" />
@@ -1434,9 +1430,9 @@
                 android:textColor="@color/gandalf"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-                app:layout_constraintStart_toStartOf="@+id/backgroundThing"
-                app:layout_constraintTop_toBottomOf="@+id/backgroundThing" />
+                app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+                app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+                app:layout_constraintTop_toBottomOf="@+id/backgroundThingButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,8 +6,8 @@
   <path
       android:pathData="m2.5771,7.335 l-1.9234,-1.9908 0.0185,-2.7965 1.9496,-1.9641 2.7386,0.0189 1.9234,1.9908 -0.0185,2.7965 -1.9496,1.9641z"
       android:strokeWidth="0.1244"
-      android:fillColor="#8ea6ee"
-      android:strokeColor="#4360a3"/>
+      android:fillColor="@color/res_socket"
+      android:strokeColor="@color/res_socket_border"/>
   <path
       android:pathData="M2.7394,2.6013L5.1981,2.6013A0.121,0.121 0,0 1,5.3192 2.7224L5.3192,5.2151A0.121,0.121 0,0 1,5.1981 5.3362L2.7394,5.3362A0.121,0.121 0,0 1,2.6183 5.2151L2.6183,2.7224A0.121,0.121 0,0 1,2.7394 2.6013z"
       android:strokeWidth="0.36674616"
