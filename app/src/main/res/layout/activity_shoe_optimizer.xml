@@ -622,7 +622,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/attributesTextView"
-                app:srcCompat="@drawable/symbol_efficiency" />
+                app:srcCompat="@drawable/gem_symbol_efficiency" />
 
             <TextView
                 android:id="@+id/effTextView"
@@ -645,7 +645,7 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/effIcon"
-                app:srcCompat="@drawable/symbol_luck" />
+                app:srcCompat="@drawable/gem_symbol_luck" />
 
 
             <TextView
@@ -669,7 +669,7 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/luckIcon"
-                app:srcCompat="@drawable/symbol_comfort" />
+                app:srcCompat="@drawable/gem_symbol_comfort" />
 
             <TextView
                 android:id="@+id/comfortTextView"
@@ -692,7 +692,7 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
                 app:layout_constraintTop_toBottomOf="@+id/comfIcon"
-                app:srcCompat="@drawable/symbol_res" />
+                app:srcCompat="@drawable/gem_symbol_res" />
 
             <TextView
                 android:id="@+id/resTextView"
@@ -1529,4 +1529,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

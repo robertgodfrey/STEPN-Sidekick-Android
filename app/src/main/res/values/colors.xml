@@ -22,11 +22,11 @@
     <color name="energy_blue_border">#187DA5</color>
     <color name="energy_blue_darker">#2084AC</color>
     <color name="res_socket">#8ea6ee</color>
-    <color name="res_socket_border">#4360a3</color>
-    <color name="luck_socket">#a4e7f8</color>
-    <color name="luck_socket_border">#6faeca</color>
-    <color name="eff_socket">#ffdd67</color>
-    <color name="eff_socket_border">#d8bc51</color>
-    <color name="comf_socket">#ff8889</color>
-    <color name="comf_socket_border">#c7484a</color>
+    <color name="res_socket_border">#244686</color>
+    <color name="luck_socket">#a9e4f6</color>
+    <color name="luck_socket_border">#519ec8</color>
+    <color name="eff_socket">#fede65</color>
+    <color name="eff_socket_border">#e6c247</color>
+    <color name="comf_socket">#f79091</color>
+    <color name="comf_socket_border">#e44549</color>
 </resources>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="500dp">
+
+    <ImageView
+        android:id="@+id/alertBoxBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="-24dp"
+        app:layout_constraintBottom_toBottomOf="@id/nextButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/alert_box" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:includeFontPadding="false"
+        android:text="SELECT SOCKET TYPE"
+        android:textColor="@color/gandalf"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toTopOf="@+id/alertBoxBackground" />
+
+    <ImageView
+        android:id="@+id/effType"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@id/luckType"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/gem_symbol_efficiency" />
+
+    <TextView
+        android:id="@+id/effLabel"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="Efficiency"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/effType"
+        app:layout_constraintStart_toStartOf="@+id/effType"
+        app:layout_constraintTop_toBottomOf="@+id/effType" />
+
+    <ImageView
+        android:id="@+id/effTypeSelected"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/effType"
+        app:layout_constraintEnd_toEndOf="@+id/effType"
+        app:layout_constraintStart_toStartOf="@+id/effType"
+        app:layout_constraintTop_toTopOf="@+id/effType"
+        app:srcCompat="@drawable/gem_selector_outline" />
+
+    <ImageView
+        android:id="@+id/luckType"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/comfType"
+        app:layout_constraintStart_toEndOf="@+id/effType"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/gem_symbol_luck" />
+
+    <TextView
+        android:id="@+id/luckLabel"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="Luck"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/luckType"
+        app:layout_constraintStart_toStartOf="@+id/luckType"
+        app:layout_constraintTop_toBottomOf="@+id/luckType" />
+
+    <ImageView
+        android:id="@+id/comfType"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/resType"
+        app:layout_constraintStart_toEndOf="@+id/luckType"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/gem_symbol_comfort" />
+
+    <TextView
+        android:id="@+id/comfLabel"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="Comfort"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/comfType"
+        app:layout_constraintStart_toStartOf="@+id/comfType"
+        app:layout_constraintTop_toBottomOf="@+id/comfType" />
+
+    <ImageView
+        android:id="@+id/resType"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@id/comfType"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/gem_symbol_res" />
+
+    <TextView
+        android:id="@+id/resLabel"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="Resilience"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/resType"
+        app:layout_constraintStart_toStartOf="@+id/resType"
+        app:layout_constraintTop_toBottomOf="@+id/resType" />
+
+    <ImageView
+        android:id="@+id/nextButtonShadow"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="@+id/nextButton"
+        app:layout_constraintStart_toStartOf="@+id/nextButton"
+        app:layout_constraintTop_toTopOf="@+id/nextButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <TextView
+        android:id="@+id/nextButtonShadowTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        style="@style/ButtonBoldItalic"
+        android:text="@string/okay"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/nextButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/nextButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/nextButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/nextButtonShadow" />
+
+    <ImageButton
+        android:id="@+id/nextButton"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:src="@drawable/start_button"
+        app:layout_constraintEnd_toEndOf="@id/textView"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
+
+    <TextView
+        android:id="@+id/nextButtonTextView"
+        style="@style/ButtonBoldItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="@string/okay"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="@+id/nextButton"
+        app:layout_constraintStart_toStartOf="@+id/nextButton"
+        app:layout_constraintTop_toTopOf="@+id/nextButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
