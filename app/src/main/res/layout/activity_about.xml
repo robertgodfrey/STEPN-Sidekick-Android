@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_green"
     tools:context=".About">
 
     <ScrollView
@@ -18,36 +19,66 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/backgroundThingShadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="-3dp"
+                android:layout_marginBottom="-3dp"
+                app:layout_constraintBottom_toBottomOf="@+id/backgroundThing"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@id/backgroundThing"
+                app:layout_constraintTop_toTopOf="@+id/backgroundThing"
+                app:srcCompat="@drawable/start_button_shadow" />
+
+            <ImageView
+                android:id="@+id/backgroundThing"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="-24dp"
+                android:background="@null"
+                app:layout_constraintBottom_toBottomOf="@+id/clickToCopyTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/background_thing" />
+
             <TextView
                 android:id="@+id/aboutTextView"
                 style="@style/BoldItalicTitles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:includeFontPadding="false"
                 android:text="@string/about"
                 android:textColor="@color/almost_black"
                 android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/backgroundThing" />
 
             <TextView
                 android:id="@+id/aboutDeetsTextView"
                 style="@style/RegText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/roboto"
                 android:includeFontPadding="false"
                 android:text="@string/app_goal"
                 android:textAlignment="center"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@id/backgroundThing"
                 app:layout_constraintTop_toBottomOf="@+id/aboutTextView" />
 
             <TextView
@@ -55,9 +86,10 @@
                 style="@style/BoldItalicSubtitles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:includeFontPadding="false"
                 android:text="@string/notes"
+                android:textAllCaps="true"
                 android:textColor="@color/almost_black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/notesDeets1TextView"
@@ -75,7 +107,7 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/backgroundThing"
                 app:layout_constraintTop_toBottomOf="@+id/notesTextView" />
 
             <TextView
@@ -83,14 +115,15 @@
                 style="@style/RegText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginEnd="16dp"
+                android:fontFamily="@font/roboto"
                 android:includeFontPadding="false"
                 android:text="@string/notes_details1"
                 android:textAlignment="textStart"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
                 app:layout_constraintStart_toEndOf="@+id/notesOneLabel"
                 app:layout_constraintTop_toTopOf="@+id/notesOneLabel" />
 
@@ -106,7 +139,7 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/backgroundThing"
                 app:layout_constraintTop_toBottomOf="@+id/notesDeets1TextView" />
 
             <TextView
@@ -114,44 +147,45 @@
                 style="@style/RegText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginEnd="16dp"
+                android:fontFamily="@font/roboto"
                 android:includeFontPadding="false"
                 android:text="@string/notes_details2"
                 android:textAlignment="textStart"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
                 app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
                 app:layout_constraintTop_toTopOf="@+id/notesTwoLabel" />
 
             <TextView
                 android:id="@+id/contactTextView"
                 style="@style/RegText"
-                android:layout_width="300dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="20dp"
                 android:includeFontPadding="false"
                 android:text="@string/contact"
                 android:textAlignment="center"
                 android:textColor="@color/almost_black"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@id/backgroundThing"
                 app:layout_constraintTop_toBottomOf="@+id/notesDeets2TextView" />
 
             <TextView
                 android:id="@+id/contactEmailTextView"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/roboto_condensed_bold"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_medium"
                 android:includeFontPadding="false"
                 android:text="@string/contact_email"
                 android:textAlignment="center"
-                android:textColor="@color/energy_blue_border"
+                android:textColor="@color/luck_socket_border"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,17 +208,17 @@
 
             <TextView
                 android:id="@+id/appIsFreeTextView"
+                style="@style/RegText"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:includeFontPadding="false"
-                style="@style/RegText"
                 android:text="@string/dis_app_free"
                 android:textAlignment="center"
                 android:textColor="@color/almost_black"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@id/backgroundThing"
                 app:layout_constraintTop_toBottomOf="@+id/contactEmailTextView" />
 
             <TextView
@@ -199,8 +233,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/almost_black"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+                app:layout_constraintStart_toStartOf="@id/backgroundThing"
                 app:layout_constraintTop_toBottomOf="@+id/appIsFreeTextView" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -242,7 +276,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="80dp"
                 android:includeFontPadding="false"
                 android:text="@string/click_a_logo_to_copy_address"
                 android:textColor="@color/gandalf"
@@ -334,6 +368,17 @@
             app:layout_constraintTop_toTopOf="@+id/navBackground"
             app:srcCompat="@mipmap/nav_runner" />
 
+        <Button
+            android:id="@+id/backToExerciseButton"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:alpha="0"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/runnerIcon"
+            app:layout_constraintEnd_toEndOf="@+id/runnerIcon"
+            app:layout_constraintStart_toStartOf="@+id/runnerIcon"
+            app:layout_constraintTop_toTopOf="@+id/runnerIcon" />
+
         <ImageView
             android:id="@+id/optimizerIcon"
             android:layout_width="wrap_content"
@@ -382,17 +427,6 @@
             app:layout_constraintStart_toEndOf="@+id/optimizerIcon"
             app:layout_constraintTop_toTopOf="@+id/navBackground"
             app:srcCompat="@mipmap/nav_info" />
-
-        <Button
-            android:id="@+id/goToInfoButton"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:alpha="0"
-            android:background="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/infoIcon"
-            app:layout_constraintEnd_toEndOf="@+id/infoIcon"
-            app:layout_constraintStart_toStartOf="@+id/infoIcon"
-            app:layout_constraintTop_toTopOf="@+id/infoIcon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

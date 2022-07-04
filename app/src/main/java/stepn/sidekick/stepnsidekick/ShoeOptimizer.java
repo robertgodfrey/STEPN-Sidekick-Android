@@ -10,6 +10,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -807,11 +808,13 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
-        // TODO
         goToInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                onBackPressed();
+                Intent startInfo = new Intent(getApplicationContext(), About.class);
+                startActivity(startInfo);
+                overridePendingTransition(0, 0);
             }
         });
 

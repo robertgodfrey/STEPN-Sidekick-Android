@@ -32,7 +32,7 @@
     <string name="how_to">INSTRUCTIONS</string>
     <string name="notes">Notes</string>
     <string name="notes_details1">It is best to use this app on the same device that is running STEPN so that both apps are using the same location data.</string>
-    <string name="notes_details2">STEPN adds a 30-second buffer to every activity. This app\'s timer accounts for this extra time, but it may not exactly match STEPN\'s timer.</string>
+    <string name="notes_details2">STEPN adds a 30-second buffer to every activity. This app\'s timer accounts for this extra time, but it may not match STEPN\'s timer exactly.</string>
     <string name="contact">Please contact me if you find any errors or have any suggestions to improve the app:</string>
     <string name="contact_email" translatable="false">sidekickfeedback@gmail.com</string>
     <string name="dis_app_free">This app is free and ad free. </string>

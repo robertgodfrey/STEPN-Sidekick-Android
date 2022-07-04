@@ -450,8 +450,9 @@ public class MainActivity extends AppCompatActivity {
         gotToInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent showInfo = new Intent(getApplicationContext(), ShoeOptimizer.class); // TODO!
+                Intent showInfo = new Intent(getApplicationContext(), About.class);
                 startActivity(showInfo);
+                overridePendingTransition(0, 0);
             }
         });
 
