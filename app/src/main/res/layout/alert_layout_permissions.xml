@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/textView1"
-        style="@style/AlertText"
+        style="@style/RegText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -35,7 +35,7 @@
             android:padding="2dp" />
 
         <TextView
-            style="@style/AlertText"
+            style="@style/RegText"
             android:layout_width="100dp"
             android:layout_height="35dp"
             android:layout_gravity="end"

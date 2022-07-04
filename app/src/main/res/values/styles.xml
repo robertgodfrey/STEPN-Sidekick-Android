@@ -28,14 +28,7 @@
         <item name="android:fontFamily">@font/roboto_condensed_bold_italic</item>
     </style>
     <style name="RegText">
-        <item name="android:fontFamily">@font/roboto_condensed_regular</item>
-    </style>
-    <style name="AlertText">
         <item name="android:fontFamily">@font/roboto</item>
     </style>
-
-
-
-
 
 </resources>

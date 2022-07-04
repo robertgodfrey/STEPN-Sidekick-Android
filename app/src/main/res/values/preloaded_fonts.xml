@@ -8,9 +8,6 @@
         <item>@font/roboto_black_italic</item>
         <item>@font/roboto_bold_italic</item>
         <item>@font/roboto_condensed_bold_italic</item>
-        <item>@font/roboto_condensed_regular</item>
         <item>@font/roboto_condensed_regular_italic</item>
-        <item>@font/roboto_medium</item>
-
     </array>
 </resources>

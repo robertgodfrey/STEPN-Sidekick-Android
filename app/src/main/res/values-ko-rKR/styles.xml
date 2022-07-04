@@ -18,8 +18,5 @@
     <style name="RegText">
         <item name="android:fontFamily">@font/noto_sans</item>
     </style>
-    <style name="AlertText">
-        <item name="android:fontFamily">@font/noto_sans</item>
-    </style>
 
 </resources>

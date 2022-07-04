@@ -28,7 +28,7 @@
     <string name="plz_turn_on_gps">Please turn on GPS before starting</string>
     <string name="plz_allow_precise_location">Please allow the app to access your precise location</string>
     <string name="okay">OKAY</string>
-    <string name="about">ABOUT</string>
+    <string name="about">" ABOUT "</string>
     <string name="how_to">INSTRUCTIONS</string>
     <string name="notes">Notes</string>
     <string name="notes_details1">It is best to use this app on the same device that is running STEPN so that both apps are using the same location data.</string>
