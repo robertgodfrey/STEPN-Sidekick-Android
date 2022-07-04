@@ -46,7 +46,7 @@
 
     <TextView
         android:id="@+id/textView3"
-        style="@style/AlertText"
+        style="@style/RegText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
