@@ -125,7 +125,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/footprint2ImageView"
                 app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-                app:srcCompat="@mipmap/footprint" />
+                app:srcCompat="@drawable/footprint" />
 
             <ImageView
                 android:id="@+id/footprint2ImageView"
@@ -138,7 +138,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/footprint3ImageView"
                 app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-                app:srcCompat="@mipmap/footprint" />
+                app:srcCompat="@drawable/footprint" />
 
             <ImageView
                 android:id="@+id/footprint3ImageView"
@@ -151,21 +151,21 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@+id/bigOlBox"
                 app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-                app:srcCompat="@mipmap/footprint" />
+                app:srcCompat="@drawable/footprint" />
 
             <ImageView
                 android:id="@+id/shoeTypeImageView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="80dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginEnd="90dp"
-                android:layout_marginBottom="64dp"
+                android:layout_marginBottom="42dp"
                 app:layout_constraintBottom_toBottomOf="@+id/bigOlBox"
                 app:layout_constraintEnd_toEndOf="@+id/bigOlBox"
                 app:layout_constraintStart_toStartOf="@+id/bigOlBox"
                 app:layout_constraintTop_toTopOf="@+id/bigOlBox"
-                app:srcCompat="@mipmap/walker" />
+                app:srcCompat="@drawable/shoe_custom" />
 
             <Button
                 android:id="@+id/leftArrowButton"
@@ -502,7 +502,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/energyBox"
                 app:layout_constraintEnd_toEndOf="@+id/energyBox"
                 app:layout_constraintTop_toTopOf="@+id/energyBox"
-                app:srcCompat="@mipmap/energy_bolt" />
+                app:srcCompat="@drawable/energy_bolt" />
 
             <TextView
                 android:id="@+id/energyInMinsTextView"
@@ -819,7 +819,7 @@
                 app:layout_constraintStart_toStartOf="@+id/bigOlBox"
                 app:layout_constraintTop_toTopOf="@+id/bigOlBox"
                 app:layout_constraintVertical_bias="0.42"
-                app:srcCompat="@mipmap/gmt"
+                app:srcCompat="@drawable/thumb"
                 app:tint="@color/yellow" />
 
             <ImageView
@@ -836,7 +836,7 @@
                 app:layout_constraintStart_toEndOf="@+id/shoeTypeImageView"
                 app:layout_constraintTop_toTopOf="@+id/bigOlBox"
                 app:layout_constraintVertical_bias="0.42"
-                app:srcCompat="@mipmap/gmt"
+                app:srcCompat="@drawable/thumb"
                 app:tint="@color/yellow" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

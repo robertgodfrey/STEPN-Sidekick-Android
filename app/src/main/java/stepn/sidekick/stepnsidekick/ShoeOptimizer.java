@@ -914,30 +914,30 @@ public class ShoeOptimizer extends AppCompatActivity {
     private void updateType() {
         switch (shoeType) {
             case JOGGER:
-                shoeTypeImageView.setImageResource(R.mipmap.jogger);
+                shoeTypeImageView.setImageResource(R.drawable.shoe_jogger);
                 shoeTypeTextView.setText("Jogger");
-                footOne.setImageResource(R.mipmap.footprint);
+                footOne.setImageResource(R.drawable.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.GONE);
                 break;
             case RUNNER:
-                shoeTypeImageView.setImageResource(R.mipmap.runner);
+                shoeTypeImageView.setImageResource(R.drawable.shoe_runner);
                 shoeTypeTextView.setText("Runner");
-                footOne.setImageResource(R.mipmap.footprint);
+                footOne.setImageResource(R.drawable.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.VISIBLE);
                 break;
             case TRAINER:
-                shoeTypeImageView.setImageResource(R.mipmap.trainer);
+                shoeTypeImageView.setImageResource(R.drawable.shoe_trainer);
                 shoeTypeTextView.setText("Trainer");
                 footOne.setImageResource(R.mipmap.trainer_t);
                 footTwo.setVisibility(View.GONE);
                 footThree.setVisibility(View.GONE);
                 break;
             default:
-                shoeTypeImageView.setImageResource(R.mipmap.walker);
+                shoeTypeImageView.setImageResource(R.drawable.shoe_walker);
                 shoeTypeTextView.setText("Walker");
-                footOne.setImageResource(R.mipmap.footprint);
+                footOne.setImageResource(R.drawable.footprint);
                 footTwo.setVisibility(View.GONE);
                 footThree.setVisibility(View.GONE);
         }
@@ -952,25 +952,25 @@ public class ShoeOptimizer extends AppCompatActivity {
         if (shoeLevel >= 5) {
             gemSocketOneLockPlus.setImageResource(R.mipmap.gem_socket_plus);
         } else {
-            gemSocketOneLockPlus.setImageResource(R.mipmap.gem_socket_lock);
+            gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_lock);
         }
 
         if (shoeLevel >= 10) {
             gemSocketTwoLockPlus.setImageResource(R.mipmap.gem_socket_plus);
         } else {
-            gemSocketTwoLockPlus.setImageResource(R.mipmap.gem_socket_lock);
+            gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_lock);
         }
 
         if (shoeLevel >= 15) {
             gemSocketThreeLockPlus.setImageResource(R.mipmap.gem_socket_plus);
         } else {
-            gemSocketThreeLockPlus.setImageResource(R.mipmap.gem_socket_lock);
+            gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_lock);
         }
 
         if (shoeLevel >= 20) {
             gemSocketFourLockPlus.setImageResource(R.mipmap.gem_socket_plus);
         } else {
-            gemSocketFourLockPlus.setImageResource(R.mipmap.gem_socket_lock);
+            gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_lock);
         }
 
         if (shoeLevel < 10) {

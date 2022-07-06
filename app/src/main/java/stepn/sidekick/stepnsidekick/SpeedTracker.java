@@ -326,7 +326,7 @@ public class SpeedTracker extends AppCompatActivity {
 
         switch (numFeet) {
             case 1:
-                footRight.setImageResource(R.mipmap.footprint);
+                footRight.setImageResource(R.drawable.footprint);
                 footCenter.setVisibility(View.GONE);
                 break;
             case 2:
@@ -334,7 +334,7 @@ public class SpeedTracker extends AppCompatActivity {
                 footLeft.setVisibility(View.GONE);
                 break;
             case 3:
-                footRight.setImageResource(R.mipmap.footprint);
+                footRight.setImageResource(R.drawable.footprint);
                 footCenter.setVisibility(View.VISIBLE);
                 footLeft.setVisibility(View.VISIBLE);
                 break;
@@ -344,7 +344,7 @@ public class SpeedTracker extends AppCompatActivity {
                 footLeft.setVisibility(View.GONE);
                 break;
             default:
-                footRight.setImageResource(R.mipmap.bolt);
+                footRight.setImageResource(R.drawable.bolt);
         }
 
         pauseImageButton.setOnClickListener(new View.OnClickListener() {

@@ -255,7 +255,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/binanceLogo"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/sol_logo" />
+                    app:srcCompat="@drawable/logo_solana" />
 
                 <ImageView
                     android:id="@+id/binanceLogo"
@@ -266,7 +266,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/solanaLogo"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/bnb_logo" />
+                    app:srcCompat="@drawable/logo_bnb" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -293,7 +293,7 @@
                 android:rotation="220"
                 app:layout_constraintStart_toEndOf="@+id/clickToCopyTextView"
                 app:layout_constraintTop_toBottomOf="@+id/donateConstraint"
-                app:srcCompat="@mipmap/arrow" />
+                app:srcCompat="@drawable/arrow" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -303,7 +303,7 @@
                 android:scaleX="-1"
                 app:layout_constraintEnd_toStartOf="@+id/clickToCopyTextView"
                 app:layout_constraintTop_toBottomOf="@+id/donateConstraint"
-                app:srcCompat="@mipmap/arrow" />
+                app:srcCompat="@drawable/arrow" />
 
             <Button
                 android:id="@+id/solButton"

@@ -117,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
 
         shoes = new ArrayList<>();
 
-        shoes.add(new Shoe("Walker", R.mipmap.walker, 1.0f, 6.0f, 1));
-        shoes.add(new Shoe("Jogger", R.mipmap.jogger, 4.0f, 10.0f, 2));
-        shoes.add(new Shoe("Runner", R.mipmap.runner, 8.0f, 20.0f, 3));
-        shoes.add(new Shoe("Trainer", R.mipmap.trainer, 1.0f, 20.0f, 4));
-        shoes.add(new Shoe(getString(R.string.custom), R.mipmap.custom, customMinSpeed, customMaxSpeed, 0));
+        shoes.add(new Shoe("Walker", R.drawable.shoe_walker, 1.0f, 6.0f, 1));
+        shoes.add(new Shoe("Jogger", R.drawable.shoe_jogger, 4.0f, 10.0f, 2));
+        shoes.add(new Shoe("Runner", R.drawable.shoe_runner, 8.0f, 20.0f, 3));
+        shoes.add(new Shoe("Trainer", R.drawable.shoe_trainer, 1.0f, 20.0f, 4));
+        shoes.add(new Shoe(getString(R.string.custom), R.drawable.shoe_custom, customMinSpeed, customMaxSpeed, 0));
 
         buildUI();
 
@@ -866,7 +866,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (numFeet) {
             case 1:
-                footOne.setImageResource(R.mipmap.footprint);
+                footOne.setImageResource(R.drawable.footprint);
                 footTwo.setVisibility(View.GONE);
                 break;
             case 2:
@@ -874,7 +874,7 @@ public class MainActivity extends AppCompatActivity {
                 footThree.setVisibility(View.GONE);
                 break;
             case 3:
-                footOne.setImageResource(R.mipmap.footprint);
+                footOne.setImageResource(R.drawable.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.VISIBLE);
                 break;
@@ -884,7 +884,7 @@ public class MainActivity extends AppCompatActivity {
                 footThree.setVisibility(View.GONE);
                 break;
             default:
-                footOne.setImageResource(R.mipmap.bolt);
+                footOne.setImageResource(R.drawable.bolt);
         }
     }
 

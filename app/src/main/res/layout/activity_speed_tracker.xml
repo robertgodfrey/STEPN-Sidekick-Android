@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/energyAmountTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/energyAmountTextView"
-        app:srcCompat="@mipmap/energy_bolt" />
+        app:srcCompat="@drawable/energy_bolt" />
 
     <TextView
         android:id="@+id/energyAmountTextView"
@@ -128,7 +128,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeOnGpsTextView"
-        app:srcCompat="@mipmap/footprint" />
+        app:srcCompat="@drawable/footprint" />
 
     <ImageView
         android:id="@+id/footprintCenterGpsImageView"
@@ -142,7 +142,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@id/footprintLeftGpsImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeOnGpsTextView"
-        app:srcCompat="@mipmap/footprint" />
+        app:srcCompat="@drawable/footprint" />
 
     <ImageView
         android:id="@+id/footprintRightGpsImageView"
@@ -156,7 +156,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/shoeTypeOnGpsTextView"
         app:layout_constraintEnd_toStartOf="@+id/shoeTypeOnGpsTextView"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeOnGpsTextView"
-        app:srcCompat="@mipmap/footprint" />
+        app:srcCompat="@drawable/footprint" />
 
     <TextView
         android:id="@+id/shoeSpeedTextView"
@@ -184,7 +184,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundTop"
-        app:srcCompat="@mipmap/stopwatch" />
+        app:srcCompat="@drawable/stopwatch" />
 
     <TextView
         android:id="@+id/initialCountdownTextView"
@@ -343,7 +343,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@mipmap/gmt"
+        android:src="@drawable/thumb"
         app:layout_constraintBottom_toBottomOf="@+id/pauseImageButton"
         android:visibility="gone"
         android:alpha="0"
@@ -376,7 +376,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@mipmap/gmt"
+        android:src="@drawable/thumb"
         android:alpha="0"
         android:visibility="gone"
         app:tint="@color/white"
@@ -431,6 +431,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/stopImageButton"
         app:layout_constraintTop_toBottomOf="@+id/timeRemainingTextView"
-        app:srcCompat="@mipmap/play_button" />
+        app:srcCompat="@drawable/button_play" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -82,7 +82,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-                app:srcCompat="@mipmap/walker" />
+                app:srcCompat="@drawable/shoe_walker" />
 
             <ImageView
                 android:id="@+id/gemSocketOneShadow"
@@ -118,7 +118,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gemSocketOne"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
-                app:srcCompat="@mipmap/gem_socket_lock" />
+                app:srcCompat="@drawable/gem_socket_lock" />
 
             <Button
                 android:id="@+id/gemSocketOneButton"
@@ -165,7 +165,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gemSocketTwo"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
-                app:srcCompat="@mipmap/gem_socket_lock" />
+                app:srcCompat="@drawable/gem_socket_lock" />
 
             <Button
                 android:id="@+id/gemSocketTwoButton"
@@ -212,7 +212,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gemSocketThree"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
-                app:srcCompat="@mipmap/gem_socket_lock" />
+                app:srcCompat="@drawable/gem_socket_lock" />
 
             <Button
                 android:id="@+id/gemSocketThreeButton"
@@ -259,7 +259,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gemSocketFour"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
-                app:srcCompat="@mipmap/gem_socket_lock" />
+                app:srcCompat="@drawable/gem_socket_lock" />
 
             <Button
                 android:id="@+id/gemSocketFourButton"
@@ -399,7 +399,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/footprint2ImageView"
                 app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-                app:srcCompat="@mipmap/footprint" />
+                app:srcCompat="@drawable/footprint" />
 
             <ImageView
                 android:id="@+id/footprint2ImageView"
@@ -412,7 +412,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/footprint3ImageView"
                 app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-                app:srcCompat="@mipmap/footprint" />
+                app:srcCompat="@drawable/footprint" />
 
             <ImageView
                 android:id="@+id/footprint3ImageView"
@@ -425,7 +425,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@+id/shoeTypeButton"
                 app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-                app:srcCompat="@mipmap/footprint" />
+                app:srcCompat="@drawable/footprint" />
 
             <TextView
                 android:id="@+id/shoeTypeLabelTextView"
@@ -511,7 +511,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/energyBoxOptimizer"
                 app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
                 app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
-                app:srcCompat="@mipmap/energy_bolt" />
+                app:srcCompat="@drawable/energy_bolt" />
 
             <ImageView
                 android:id="@+id/seekbarBackground"

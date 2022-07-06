@@ -139,6 +139,122 @@
         app:layout_constraintTop_toBottomOf="@+id/resType" />
 
     <ImageView
+        android:id="@+id/socketCommon"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@id/socketUncommon"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/effLabel"
+        app:srcCompat="@drawable/gem_socket_eff_0" />
+
+    <ImageView
+        android:id="@+id/socketCommonPlus"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/socketCommon"
+        app:layout_constraintEnd_toEndOf="@id/socketCommon"
+        app:layout_constraintStart_toStartOf="@id/socketCommon"
+        app:layout_constraintTop_toTopOf="@+id/socketCommon"
+        app:srcCompat="@mipmap/gem_socket_plus" />
+
+    <ImageView
+        android:id="@+id/socketCommonSelected"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/socketCommon"
+        app:layout_constraintEnd_toEndOf="@+id/socketCommon"
+        app:layout_constraintStart_toStartOf="@+id/socketCommon"
+        app:layout_constraintTop_toTopOf="@+id/socketCommon"
+        app:srcCompat="@drawable/gem_selector_outline" />
+
+    <ImageView
+        android:id="@+id/socketUncommon"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@id/socketCommon"
+        app:layout_constraintEnd_toStartOf="@id/socketRare"
+        app:layout_constraintTop_toBottomOf="@+id/effLabel"
+        app:srcCompat="@drawable/gem_socket_eff_1" />
+
+    <ImageView
+        android:id="@+id/socketUncommonPlus"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/socketUncommon"
+        app:layout_constraintEnd_toEndOf="@id/socketUncommon"
+        app:layout_constraintStart_toStartOf="@id/socketUncommon"
+        app:layout_constraintTop_toTopOf="@+id/socketUncommon"
+        app:srcCompat="@mipmap/gem_socket_plus" />
+
+    <ImageView
+        android:id="@+id/socketRare"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@id/socketUncommon"
+        app:layout_constraintEnd_toStartOf="@id/socketEpic"
+        app:layout_constraintTop_toBottomOf="@+id/effLabel"
+        app:srcCompat="@drawable/gem_socket_eff_2" />
+
+    <ImageView
+        android:id="@+id/socketRarePlus"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/socketRare"
+        app:layout_constraintEnd_toEndOf="@id/socketRare"
+        app:layout_constraintStart_toStartOf="@id/socketRare"
+        app:layout_constraintTop_toTopOf="@+id/socketRare"
+        app:srcCompat="@mipmap/gem_socket_plus" />
+
+    <ImageView
+        android:id="@+id/socketEpic"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@id/socketRare"
+        app:layout_constraintEnd_toStartOf="@id/socketLeg"
+        app:layout_constraintTop_toBottomOf="@+id/effLabel"
+        app:srcCompat="@drawable/gem_socket_eff_3" />
+
+    <ImageView
+        android:id="@+id/socketEpicPlus"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/socketEpic"
+        app:layout_constraintEnd_toEndOf="@id/socketEpic"
+        app:layout_constraintStart_toStartOf="@id/socketEpic"
+        app:layout_constraintTop_toTopOf="@+id/socketEpic"
+        app:srcCompat="@mipmap/gem_socket_plus" />
+
+    <ImageView
+        android:id="@+id/socketLeg"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@id/socketEpic"
+        app:layout_constraintTop_toBottomOf="@+id/effLabel"
+        app:srcCompat="@drawable/gem_socket_eff_4" />
+
+    <ImageView
+        android:id="@+id/socketLegPlus"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/socketLeg"
+        app:layout_constraintEnd_toEndOf="@id/socketLeg"
+        app:layout_constraintStart_toStartOf="@id/socketLeg"
+        app:layout_constraintTop_toTopOf="@+id/socketLeg"
+        app:srcCompat="@mipmap/gem_socket_plus" />
+
+    <ImageView
         android:id="@+id/nextButtonShadow"
         android:layout_width="100dp"
         android:layout_height="36dp"
@@ -169,12 +285,12 @@
         android:id="@+id/nextButton"
         android:layout_width="100dp"
         android:layout_height="36dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
         android:background="@null"
         android:src="@drawable/start_button"
-        app:layout_constraintEnd_toEndOf="@id/textView"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/socketCommon" />
 
     <TextView
         android:id="@+id/nextButtonTextView"
