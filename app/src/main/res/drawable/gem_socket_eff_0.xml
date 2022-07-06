@@ -5,11 +5,7 @@
     android:viewportHeight="8">
     <path
         android:pathData="m2.5,7.5 l-2.1213203436,-2.1213203436 0,-3 2.1213203436,-2.1213203436 3,0 2.1213203436,2.1213203436 0,3 -2.1213203436,2.1213203436z"
-        android:strokeWidth="0.4"
-        android:fillColor="#00FFFFFF"
-        android:strokeColor="@color/button_green_darker"/>
-
+        android:strokeWidth="0.18"
+        android:fillColor="@color/eff_socket"
+        android:strokeColor="@color/eff_socket_border"/>
 </vector>
-
-
-

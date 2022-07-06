@@ -5,7 +5,7 @@
     android:viewportHeight="7.9375">
   <path
       android:pathData="m2.604,7.2699 l-1.8862,-1.9523 0.0181,-2.7424 1.9119,-1.9261 2.6856,0.0186 1.8862,1.9523 -0.0181,2.7424 -1.9119,1.9261z"
-      android:strokeWidth="0.122"
+      android:strokeWidth="0.18"
       android:fillColor="@color/eff_socket"
       android:strokeColor="@color/eff_socket_border"/>
   <path

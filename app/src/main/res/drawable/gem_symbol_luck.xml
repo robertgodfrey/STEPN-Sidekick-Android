@@ -5,7 +5,7 @@
     android:viewportHeight="7.9375">
   <path
       android:pathData="m2.5828,7.3212 l-1.9155,-1.9826 0.0184,-2.785 1.9416,-1.956 2.7274,0.0189 1.9155,1.9826 -0.0184,2.785 -1.9416,1.956z"
-      android:strokeWidth="0.1238"
+      android:strokeWidth="0.18"
       android:fillColor="@color/luck_socket"
       android:strokeColor="@color/luck_socket_border"/>
   <path

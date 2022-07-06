@@ -6,7 +6,12 @@
     <path
         android:pathData="m2.5,7.5 l-2.1213203436,-2.1213203436 0,-3 2.1213203436,-2.1213203436 3,0 2.1213203436,2.1213203436 0,3 -2.1213203436,2.1213203436z"
         android:strokeWidth="0.18"
-        android:fillColor="#eaeaea"
-        android:strokeColor="#d2d2d2"/>
-
+        android:fillColor="@color/eff_socket"
+        android:strokeColor="@color/eff_socket_border"/>
+    <path
+        android:pathData="m0.379,1.7 l0,-1.44 l1.44,0z"
+        android:strokeWidth="0.18"
+        android:fillColor="@color/eff_socket"
+        android:strokeColor="@color/eff_socket_border"
+        android:strokeLineJoin="round"/>
 </vector>
