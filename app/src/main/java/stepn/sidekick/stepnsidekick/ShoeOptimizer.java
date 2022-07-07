@@ -116,6 +116,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
         addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
 
+        // TODO gem stuff
+
         // TODO
         gemEff = 0;
         gemLuck = 0;
@@ -257,7 +259,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (shoeLevel < 5) {
                     Toast.makeText(ShoeOptimizer.this, "Socket available at level 5", Toast.LENGTH_SHORT).show();
                 } else {
-                    chooseSocketType();
+                    chooseSocketType(1);
                 }
                 clearFocus(view);
             }
@@ -269,7 +271,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (shoeLevel < 10) {
                     Toast.makeText(ShoeOptimizer.this, "Socket available at level 10", Toast.LENGTH_SHORT).show();
                 } else {
-                    chooseSocketType();
+                    chooseSocketType(2);
                 }
                 clearFocus(view);
             }
@@ -281,7 +283,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (shoeLevel < 15) {
                     Toast.makeText(ShoeOptimizer.this, "Socket available at level 15", Toast.LENGTH_SHORT).show();
                 } else {
-                    chooseSocketType();
+                    chooseSocketType(3);
                 }
                 clearFocus(view);
             }
@@ -293,7 +295,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (shoeLevel < 20) {
                     Toast.makeText(ShoeOptimizer.this, "Socket available at level 20", Toast.LENGTH_SHORT).show();
                 } else {
-                    chooseSocketType();
+                    chooseSocketType(4);
                 }
                 clearFocus(view);
             }
@@ -990,7 +992,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         updatePoints();
     }
 
-    private void chooseSocketType() {
+    private void chooseSocketType(int socketNum) {
         Dialog choseGem = new Dialog(ShoeOptimizer.this);
 
         choseGem.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1017,6 +1019,17 @@ public class ShoeOptimizer extends AppCompatActivity {
         ImageButton saveButton = choseGem.findViewById(R.id.saveGemButton);
 
         choseGem.show();
+
+        effTypeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                effTypeSelected.setVisibility(View.VISIBLE);
+                luckTypeSelected.setVisibility(View.INVISIBLE);
+                comfTypeSelected.setVisibility(View.INVISIBLE);
+                resTypeSelected.setVisibility(View.INVISIBLE);
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

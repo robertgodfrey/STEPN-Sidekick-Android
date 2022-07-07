@@ -29,6 +29,10 @@ public final class Finals {
     public static final int PAUSE_PAUSED = 0; // command to pause/status of paused
     public static final int ADD_FIVE = 5;
     public static final int SUB_FIVE = -5;
+    public static final int EFF = 0;
+    public static final int LUCK = 1;
+    public static final int COMF = 2;
+    public static final int RES = 3;
 
     private Finals() {}
 }
