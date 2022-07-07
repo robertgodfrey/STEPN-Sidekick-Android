@@ -12,12 +12,12 @@ import static stepn.sidekick.stepnsidekick.Finals.*;
 public class Gem {
     private int socketType, socketRarity, mountedGem, socketImageSource, gemImageSource;
 
-    public Gem(int socketType, int socketRarity, int mountedGem, int socketImageSource, int gemImageSource) {
+    public Gem(int socketType, int socketRarity, int mountedGem) {
         this.socketType = socketType;
         this.socketRarity = socketRarity;
         this.mountedGem = mountedGem;
-        this.socketImageSource = socketImageSource;
-        this.gemImageSource = gemImageSource;
+        updateSocketResource();
+        updateGemResource();
     }
 
     public int getSocketType() {
@@ -44,10 +44,10 @@ public class Gem {
 
     public void setMountedGem(int mountedGem) {
         this.mountedGem = mountedGem;
-
+        updateGemResource();
     }
 
-    public int socketImageSource() {
+    public int getSocketImageSource() {
         return socketImageSource;
     }
 
@@ -57,6 +57,25 @@ public class Gem {
 
     private void updateSocketResource() {
         switch (socketType) {
+            case EFF:
+                switch (socketRarity) {
+                    case 1:
+                        socketImageSource = R.drawable.gem_socket_eff_1;
+                        break;
+                    case 2:
+                        socketImageSource = R.drawable.gem_socket_eff_2;
+                        break;
+                    case 3:
+                        socketImageSource = R.drawable.gem_socket_eff_3;
+                        break;
+                    case 4:
+                        socketImageSource = R.drawable.gem_socket_eff_4;
+                        break;
+                    default:
+                        socketImageSource = R.drawable.gem_socket_eff_0;
+                        break;
+                }
+                break;
             case LUCK:
                 switch (socketRarity) {
                     case 1:
@@ -115,24 +134,111 @@ public class Gem {
                 }
                 break;
             default:
-                switch (socketRarity) {
-                    case 1:
-                        socketImageSource = R.drawable.gem_socket_eff_1;
-                        break;
-                    case 2:
-                        socketImageSource = R.drawable.gem_socket_eff_2;
-                        break;
-                    case 3:
-                        socketImageSource = R.drawable.gem_socket_eff_3;
-                        break;
-                    case 4:
-                        socketImageSource = R.drawable.gem_socket_eff_4;
-                        break;
-                    default:
-                        socketImageSource = R.drawable.gem_socket_eff_0;
-                        break;
-                }
+                socketImageSource = R.drawable.gem_socket_gray;
         }
     }
 
+    private void updateGemResource() {
+        switch (socketType) {
+            case EFF:
+                switch (mountedGem) {
+                    case 1:
+                        gemImageSource = R.drawable.gem_eff_level1;
+                        break;
+                    case 2:
+                        gemImageSource = R.drawable.gem_eff_level2;
+                        break;
+                    case 3:
+                        gemImageSource = R.drawable.gem_eff_level3;
+                        break;
+                    case 4:
+                        gemImageSource = R.drawable.gem_eff_level4;
+                        break;
+                    case 5:
+                        gemImageSource = R.drawable.gem_eff_level5;
+                        break;
+                    case 6:
+                        gemImageSource = R.drawable.gem_eff_level6;
+                        break;
+                    default:
+                        gemImageSource = R.drawable.gem_socket_plus;
+                }
+                break;
+            case LUCK:
+                switch (mountedGem) {
+                    case 1:
+                        gemImageSource = R.drawable.gem_luck_level1;
+                        break;
+                    case 2:
+                        gemImageSource = R.drawable.gem_luck_level2;
+                        break;
+                    case 3:
+                        gemImageSource = R.drawable.gem_luck_level3;
+                        break;
+                    case 4:
+                        gemImageSource = R.drawable.gem_luck_level4;
+                        break;
+                    case 5:
+                        gemImageSource = R.drawable.gem_luck_level5;
+                        break;
+                    case 6:
+                        gemImageSource = R.drawable.gem_luck_level6;
+                        break;
+                    default:
+                        gemImageSource = R.drawable.gem_socket_plus;
+                }
+                break;
+            case COMF:
+                switch (mountedGem) {
+                    case 1:
+                        gemImageSource = R.drawable.gem_comf_level1;
+                        break;
+                    case 2:
+                        gemImageSource = R.drawable.gem_comf_level2;
+                        break;
+                    case 3:
+                        gemImageSource = R.drawable.gem_comf_level3;
+                        break;
+                    case 4:
+                        gemImageSource = R.drawable.gem_comf_level4;
+                        break;
+                    case 5:
+                        gemImageSource = R.drawable.gem_comf_level5;
+                        break;
+                    case 6:
+                        gemImageSource = R.drawable.gem_comf_level6;
+                        break;
+                    default:
+                        gemImageSource = R.drawable.gem_socket_plus;
+                }
+                break;
+            case RES:
+                switch (mountedGem) {
+                    case 1:
+                        gemImageSource = R.drawable.gem_res_level1;
+                        break;
+                    case 2:
+                        gemImageSource = R.drawable.gem_res_level2;
+                        break;
+                    case 3:
+                        gemImageSource = R.drawable.gem_res_level3;
+                        break;
+                    case 4:
+                        gemImageSource = R.drawable.gem_res_level4;
+                        break;
+                    case 5:
+                        gemImageSource = R.drawable.gem_res_level5;
+                        break;
+                    case 6:
+                        gemImageSource = R.drawable.gem_res_level6;
+                        break;
+                    default:
+                        gemImageSource = R.drawable.gem_socket_plus;
+                }
+                break;
+            default:
+                gemImageSource = 0;
+
+        }
+    }
 }

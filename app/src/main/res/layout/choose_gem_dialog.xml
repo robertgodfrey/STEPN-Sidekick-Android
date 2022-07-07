@@ -34,8 +34,9 @@
 
     <ImageView
         android:id="@+id/effTypeSelected"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/effType"
         app:layout_constraintEnd_toEndOf="@+id/effType"
         app:layout_constraintStart_toStartOf="@+id/effType"
@@ -71,9 +72,10 @@
 
     <ImageView
         android:id="@+id/luckTypeSelected"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:visibility="invisible"
+        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/luckType"
         app:layout_constraintEnd_toEndOf="@+id/luckType"
         app:layout_constraintStart_toStartOf="@+id/luckType"
@@ -108,9 +110,10 @@
 
     <ImageView
         android:id="@+id/comfTypeSelected"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:visibility="invisible"
+        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/comfType"
         app:layout_constraintEnd_toEndOf="@+id/comfType"
         app:layout_constraintStart_toStartOf="@+id/comfType"
@@ -145,9 +148,10 @@
 
     <ImageView
         android:id="@+id/resTypeSelected"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:visibility="invisible"
+        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/resType"
         app:layout_constraintEnd_toEndOf="@+id/resType"
         app:layout_constraintStart_toStartOf="@+id/resType"
@@ -193,11 +197,12 @@
         app:srcCompat="@drawable/gem_socket_gray"
         app:tint="@color/gem_socket_shadow" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/gemSocket"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
+        android:background="@null"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/effLabel"
@@ -205,24 +210,61 @@
 
     <ImageView
         android:id="@+id/socketPlus"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        app:layout_constraintBottom_toBottomOf="@id/gemSocket"
-        app:layout_constraintEnd_toEndOf="@id/gemSocket"
-        app:layout_constraintStart_toStartOf="@id/gemSocket"
-        app:layout_constraintTop_toTopOf="@+id/gemSocket"
-        app:srcCompat="@mipmap/gem_socket_plus" />
-
-    <ImageView
-        android:id="@+id/socketGem"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/gemSocket"
         app:layout_constraintEnd_toEndOf="@id/gemSocket"
         app:layout_constraintStart_toStartOf="@id/gemSocket"
         app:layout_constraintTop_toTopOf="@+id/gemSocket"
-        app:srcCompat="@drawable/gem_eff_level1" />
+        app:srcCompat="@drawable/gem_socket_plus" />
+
+    <TextView
+        android:id="@+id/minusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="46dp"
+        android:fontFamily="@font/roboto_black"
+        android:text="-"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocket"
+        app:layout_constraintEnd_toStartOf="@+id/gemSocket"
+        app:layout_constraintTop_toTopOf="@+id/gemSocket" />
+
+    <Button
+        android:id="@+id/minusButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/minusTextView"
+        app:layout_constraintEnd_toEndOf="@+id/minusTextView"
+        app:layout_constraintStart_toStartOf="@+id/minusTextView"
+        app:layout_constraintTop_toTopOf="@+id/minusTextView" />
+
+    <TextView
+        android:id="@+id/plusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:fontFamily="@font/roboto_black"
+        android:text="+"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocket"
+        app:layout_constraintStart_toEndOf="@+id/gemSocket"
+        app:layout_constraintTop_toTopOf="@+id/gemSocket" />
+
+    <Button
+        android:id="@+id/plusButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/plusTextView"
+        app:layout_constraintEnd_toEndOf="@+id/plusTextView"
+        app:layout_constraintStart_toStartOf="@+id/plusTextView"
+        app:layout_constraintTop_toTopOf="@+id/plusTextView" />
 
     <ImageView
         android:id="@+id/saveGemButtonShadow"

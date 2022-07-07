@@ -40,11 +40,13 @@
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_eff_3.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_eff_4.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_gray.xml" value="0.4025" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_lock.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_luck_0.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_luck_1.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_luck_2.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_luck_3.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_luck_4.xml" value="0.4035" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_plus.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_res_0.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_res_1.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/gem_socket_res_2.xml" value="0.4035" />
@@ -60,10 +62,12 @@
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/ic_gst.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/ic_gst_fea137c5.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/ic_lock.xml" value="0.4035" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/ic_untitled_1.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/input_box_speeds.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/level_seekbar.xml" value="0.4105" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/luck.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_background_thing.xml" value="0.4095" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_box.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_button_shadow.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_buttons.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_buttons_disabled.xml" value="0.4035" />

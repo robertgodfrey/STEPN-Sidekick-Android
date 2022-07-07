@@ -52,7 +52,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/box" />
+                app:srcCompat="@drawable/main_box" />
 
             <ImageView
                 android:id="@+id/helpButtonShadow"
