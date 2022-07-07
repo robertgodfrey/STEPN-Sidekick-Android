@@ -9,13 +9,17 @@ import androidx.core.content.ContextCompat;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -987,7 +991,42 @@ public class ShoeOptimizer extends AppCompatActivity {
     }
 
     private void chooseSocketType() {
-        // TODO
+        Dialog choseGem = new Dialog(ShoeOptimizer.this);
+
+        choseGem.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        choseGem.setCancelable(true);
+        choseGem.setContentView(R.layout.choose_gem_dialog);
+        choseGem.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        choseGem.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        ImageButton effTypeButton = choseGem.findViewById(R.id.effType);
+        ImageButton luckTypeButton = choseGem.findViewById(R.id.luckType);
+        ImageButton comfTypeButton = choseGem.findViewById(R.id.comfType);
+        ImageButton resTypeButton = choseGem.findViewById(R.id.resType);
+
+        ImageView effTypeSelected = choseGem.findViewById(R.id.effTypeSelected);
+        ImageView luckTypeSelected = choseGem.findViewById(R.id.luckTypeSelected);
+        ImageView comfTypeSelected = choseGem.findViewById(R.id.comfTypeSelected);
+        ImageView resTypeSelected = choseGem.findViewById(R.id.resTypeSelected);
+
+        ImageView gemSocket = choseGem.findViewById(R.id.gemSocket);
+        ImageView gemSocketPlus = choseGem.findViewById(R.id.socketPlus);
+        ImageView gem = choseGem.findViewById(R.id.socketGem);
+
+        ImageButton saveButton = choseGem.findViewById(R.id.saveGemButton);
+
+        choseGem.show();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choseGem.dismiss();
+
+                // TODO save gem stuff
+
+            }
+        });
     }
 
     // calculate gst earnings, durability lost, repair cost, and mb chance
