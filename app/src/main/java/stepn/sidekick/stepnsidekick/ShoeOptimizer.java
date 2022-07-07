@@ -985,25 +985,25 @@ public class ShoeOptimizer extends AppCompatActivity {
         if (shoeLevel >= 5) {
             gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_plus);
         } else {
-            gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_lock);
+            gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_locks);
         }
 
         if (shoeLevel >= 10) {
             gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_plus);
         } else {
-            gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_lock);
+            gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_locks);
         }
 
         if (shoeLevel >= 15) {
             gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_plus);
         } else {
-            gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_lock);
+            gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_locks);
         }
 
         if (shoeLevel >= 20) {
             gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_plus);
         } else {
-            gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_lock);
+            gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_locks);
         }
 
         if (shoeLevel < 10) {
