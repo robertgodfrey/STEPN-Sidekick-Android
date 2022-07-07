@@ -24,7 +24,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="-16dp"
-        app:layout_constraintBottom_toBottomOf="@id/nextButton"
+        app:layout_constraintBottom_toBottomOf="@id/saveGemButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -66,10 +66,10 @@
         android:layout_height="36dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
-        app:layout_constraintEnd_toEndOf="@+id/nextButton"
-        app:layout_constraintStart_toStartOf="@+id/nextButton"
-        app:layout_constraintTop_toTopOf="@+id/nextButton"
+        app:layout_constraintBottom_toBottomOf="@+id/saveGemButton"
+        app:layout_constraintEnd_toEndOf="@+id/saveGemButton"
+        app:layout_constraintStart_toStartOf="@+id/saveGemButton"
+        app:layout_constraintTop_toTopOf="@+id/saveGemButton"
         app:srcCompat="@drawable/start_button_shadow" />
 
     <TextView
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toTopOf="@+id/nextButtonShadow" />
 
     <ImageButton
-        android:id="@+id/nextButton"
+        android:id="@+id/saveGemButton"
         android:layout_width="100dp"
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
@@ -107,10 +107,10 @@
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
-        app:layout_constraintEnd_toEndOf="@+id/nextButton"
-        app:layout_constraintStart_toStartOf="@+id/nextButton"
-        app:layout_constraintTop_toTopOf="@+id/nextButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/saveGemButton"
+        app:layout_constraintEnd_toEndOf="@+id/saveGemButton"
+        app:layout_constraintStart_toStartOf="@+id/saveGemButton"
+        app:layout_constraintTop_toTopOf="@+id/saveGemButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
