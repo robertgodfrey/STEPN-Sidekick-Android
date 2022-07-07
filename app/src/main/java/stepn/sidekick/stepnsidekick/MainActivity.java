@@ -31,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             countDownTimerTextViewShadow, voiceAlertSpeedTextViewShadow,
             voiceAlertTimeTextViewShadow, voiceAlertCountdownTextViewShadow, shoeTypeTextView,
             energyInMins;
-    EditText minSpeedEditText, maxSpeedEditText, energyEditText;
+    EditText minSpeedEditText, maxSpeedEditText, energyEditText, focusThief;
 
     private int shoeTypeIterator, voiceAlertsSpeedType;
     private double energy;
@@ -191,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
         minSpeedEditText = findViewById(R.id.minSpeedEditText);
         maxSpeedEditText = findViewById(R.id.maxSpeedEditText);
         energyEditText = findViewById(R.id.energyToSpendEditText);
+        focusThief = findViewById(R.id.focusThief);
         energyInMins = findViewById(R.id.energyInMinsTextView);
 
         mainScroll = findViewById(R.id.mainActScrollView);
@@ -222,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 howTo();
+                clearFocus(view);
             }
         });
 
@@ -239,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 tenSecondTimer = !tenSecondTimer;
                 buttonClickSwitch(countDownTimerButton, countDownTimerTextView, tenSecondTimer);
+                clearFocus(view);
             }
         });
 
@@ -262,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
                     voiceAlertsSpeedType++;
                 }
                 updateSpeedButton();
+                clearFocus(view);
             }
         });
 
@@ -296,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 voiceAlertsTime = !voiceAlertsTime;
                 buttonClickSwitch(voiceAlertTimeButton, voiceAlertTimeTextView, voiceAlertsTime);
+                clearFocus(view);
             }
         });
 
@@ -314,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 voiceCountdownAlerts = !voiceCountdownAlerts;
                 buttonClickSwitch(voiceAlertCountdownButton, voiceAlertCountdownTextView, voiceCountdownAlerts);
+                clearFocus(view);
             }
         });
 
@@ -332,6 +339,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 shakeDaBox(energyBox, energyBoxShadow, energyEditText);
                 Toast.makeText(MainActivity.this, getString(R.string.energy_too_low), Toast.LENGTH_SHORT).show();
+                clearFocus(view);
             }
         });
 
@@ -339,6 +347,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startButtonClick();
+                clearFocus(view);
             }
         });
 
@@ -372,6 +381,7 @@ public class MainActivity extends AppCompatActivity {
                     shoeTypeIterator--;
                 }
                 updatePage();
+                clearFocus(view);
             }
         });
 
@@ -384,6 +394,7 @@ public class MainActivity extends AppCompatActivity {
                     shoeTypeIterator++;
                 }
                 updatePage();
+                clearFocus(view);
             }
         });
 
@@ -439,6 +450,7 @@ public class MainActivity extends AppCompatActivity {
         goToOptimizerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clearFocus(view);
                 Intent startOptimizer = new Intent(getApplicationContext(), ShoeOptimizer.class);
                 startActivity(startOptimizer);
                 overridePendingTransition(0, 0);
@@ -448,6 +460,7 @@ public class MainActivity extends AppCompatActivity {
         gotToInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clearFocus(view);
                 Intent showInfo = new Intent(getApplicationContext(), About.class);
                 startActivity(showInfo);
                 overridePendingTransition(0, 0);
@@ -1240,6 +1253,19 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    // clears focus from the input boxes by focusing on another hidden edittext
+    private void clearFocus(View view) {
+        energyEditText.clearFocus();
+        minSpeedEditText.clearFocus();
+        maxSpeedEditText.clearFocus();
+
+        focusThief.requestFocus();
+
+        InputMethodManager imm = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     // to save prefs

@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="stepn.sidekick.stepnsidekick.MainActivity">
 
+    <EditText
+        android:id="@+id/focusThief"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:id="@+id/mainActScrollView"
         android:layout_width="match_parent"
