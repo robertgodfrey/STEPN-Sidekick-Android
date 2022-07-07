@@ -118,7 +118,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gemSocketOne"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
-                app:srcCompat="@drawable/gem_socket_locks" />
+                app:srcCompat="@drawable/gem_socket_lock" />
 
             <Button
                 android:id="@+id/gemSocketOneButton"
@@ -165,7 +165,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gemSocketTwo"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
-                app:srcCompat="@drawable/gem_socket_locks" />
+                app:srcCompat="@drawable/gem_socket_lock" />
 
             <Button
                 android:id="@+id/gemSocketTwoButton"
@@ -212,7 +212,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gemSocketThree"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
-                app:srcCompat="@drawable/gem_socket_locks" />
+                app:srcCompat="@drawable/gem_socket_lock" />
 
             <Button
                 android:id="@+id/gemSocketThreeButton"
@@ -259,7 +259,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/gemSocketFour"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
-                app:srcCompat="@drawable/gem_socket_locks" />
+                app:srcCompat="@drawable/gem_socket_lock" />
 
             <Button
                 android:id="@+id/gemSocketFourButton"
