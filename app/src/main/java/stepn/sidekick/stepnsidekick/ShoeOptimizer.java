@@ -11,11 +11,13 @@ import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -103,12 +105,11 @@ public class ShoeOptimizer extends AppCompatActivity {
     ConstraintLayout bottomNav;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
-            addedComf, addedRes, tempSocketType, tempSocketRarity, tempMountedGem;
-
+            addedComf, addedRes;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes;
-
     private double energy;
+    private boolean saveNew;
 
     ArrayList<Gem> gems;
 
@@ -981,29 +982,36 @@ public class ShoeOptimizer extends AppCompatActivity {
     // updates values depending on level
     private void updateLevel() {
 
-        // TODO need to change socket background as well
         if (shoeLevel >= 5) {
             gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_plus);
+            gemSocketOne.setImageResource(gems.get(0).getSocketImageSource());
         } else {
             gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_lock);
+            gemSocketOne.setImageResource(R.drawable.gem_socket_gray);
         }
 
         if (shoeLevel >= 10) {
             gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_plus);
+            gemSocketTwo.setImageResource(gems.get(1).getSocketImageSource());
         } else {
             gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_lock);
+            gemSocketTwo.setImageResource(R.drawable.gem_socket_gray);
         }
 
         if (shoeLevel >= 15) {
             gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_plus);
+            gemSocketThree.setImageResource(gems.get(2).getSocketImageSource());
         } else {
             gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_lock);
+            gemSocketThree.setImageResource(R.drawable.gem_socket_gray);
         }
 
         if (shoeLevel >= 20) {
             gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_plus);
+            gemSocketFour.setImageResource(gems.get(3).getSocketImageSource());
         } else {
             gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_lock);
+            gemSocketFour.setImageResource(R.drawable.gem_socket_gray);
         }
 
         if (shoeLevel < 10) {
@@ -1019,10 +1027,14 @@ public class ShoeOptimizer extends AppCompatActivity {
         updatePoints();
     }
 
+    // dialog for choosing socket and gem
     private void chooseSocketType(int socketNum) {
+        final int tempSocketType, tempSocketRarity, tempGemMounted;
+        saveNew = false;
+
         tempSocketType = gems.get(socketNum).getSocketType();
         tempSocketRarity = gems.get(socketNum).getSocketRarity();
-        tempMountedGem = gems.get(socketNum).getMountedGem();
+        tempGemMounted = gems.get(socketNum).getMountedGem();
 
         Dialog choseGem = new Dialog(ShoeOptimizer.this);
 
@@ -1032,6 +1044,17 @@ public class ShoeOptimizer extends AppCompatActivity {
         choseGem.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         choseGem.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
+
+        choseGem.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (!saveNew) {
+                    gems.get(socketNum).setSocketType(tempSocketType);
+                    gems.get(socketNum).setSocketRarity(tempSocketRarity);
+                    gems.get(socketNum).setMountedGem(tempGemMounted);
+                }
+            }
+        });
 
         ImageButton effTypeButton = choseGem.findViewById(R.id.effType);
         ImageButton luckTypeButton = choseGem.findViewById(R.id.luckType);
@@ -1045,6 +1068,12 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         ImageButton gemSocket = choseGem.findViewById(R.id.gemSocket);
         ImageView gemSocketPlus = choseGem.findViewById(R.id.socketPlus);
+
+        TextView decreaseRarityTextView = choseGem.findViewById(R.id.minusTextView);
+        TextView increaseRarityTextView = choseGem.findViewById(R.id.plusTextView);
+
+        Button decreaseRarityButton = choseGem.findViewById(R.id.decreaseRarityButton);
+        Button increaseRarityButton = choseGem.findViewById(R.id.increaseRarityButton);
 
         ImageButton saveButton = choseGem.findViewById(R.id.saveGemButton);
 
@@ -1082,6 +1111,17 @@ public class ShoeOptimizer extends AppCompatActivity {
                 resTypeSelected.setVisibility(View.INVISIBLE);
         }
 
+        if (gems.get(socketNum).getSocketRarity() == 0) {
+            decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+        } else if ((gems.get(socketNum).getSocketRarity() == 1 && shoeRarity <= COMMON)
+                || (gems.get(socketNum).getSocketRarity() == 2 && shoeRarity <= UNCOMMON)
+                || (gems.get(socketNum).getSocketRarity() == 3 && shoeRarity <= RARE)
+                || gems.get(socketNum).getSocketRarity() == 4) {
+            increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+        }
+
+        Log.d("TESTIN", "shoeRarity: " + shoeRarity + "gem socket rarity: " + gems.get(socketNum).getSocketRarity());
+
         choseGem.show();
 
         effTypeButton.setOnClickListener(new View.OnClickListener() {
@@ -1092,8 +1132,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                gemSocket.setImageResource(R.drawable.gem_socket_eff_0);
-                tempSocketType = EFF;
+                gems.get(socketNum).setSocketType(EFF);
+                gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
             }
         });
 
@@ -1105,8 +1145,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                gemSocket.setImageResource(R.drawable.gem_socket_luck_0);
-                tempSocketType = LUCK;
+                gems.get(socketNum).setSocketType(LUCK);
+                gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
             }
         });
 
@@ -1118,8 +1158,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 comfTypeSelected.setVisibility(View.VISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                gemSocket.setImageResource(R.drawable.gem_socket_comf_0);
-                tempSocketType = COMF;
+                gems.get(socketNum).setSocketType(COMF);
+                gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
             }
         });
 
@@ -1131,19 +1171,69 @@ public class ShoeOptimizer extends AppCompatActivity {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.VISIBLE);
 
-                gemSocket.setImageResource(R.drawable.gem_socket_res_0);
-                tempSocketType = RES;
+                gems.get(socketNum).setSocketType(RES);
+                gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
+            }
+        });
+
+        // TODO: - fix gem socket rarity increase/decrease textview color to change properly
+        //       - shoeraritybutton needs to change gem socket rarity (going from epic to common decreases all gem sockets to highest rarity of uncommon)
+
+        decreaseRarityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getSocketRarity() > 0) {
+                    gems.get(socketNum).setSocketRarity(gems.get(socketNum).getSocketRarity() - 1);
+                    gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
+                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                }
+                if (gems.get(socketNum).getSocketRarity() == 0) {
+                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                }
+
+            }
+        });
+
+        increaseRarityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getSocketRarity() == 0) {
+                    gems.get(socketNum).setSocketRarity(1);
+                    if (shoeRarity == COMMON) {
+                        increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                    }
+                } else if (gems.get(socketNum).getSocketRarity() == 1 && shoeRarity > COMMON) {
+                    gems.get(socketNum).setSocketRarity(2);
+                    if (shoeRarity <= UNCOMMON) {
+                        increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                    }
+                } else if (gems.get(socketNum).getSocketRarity() == 2 && shoeRarity > UNCOMMON) {
+                    gems.get(socketNum).setSocketRarity(3);
+                    if (shoeRarity <= RARE) {
+                        increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                    }
+                } else if (gems.get(socketNum).getSocketRarity() == 3 && shoeRarity > RARE) {
+                    gems.get(socketNum).setSocketRarity(4);
+                    increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                }
+
+                gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
+
+            }
+        });
+
+        gemSocket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ShoeOptimizer.this, "ADDING GEM", Toast.LENGTH_SHORT).show();
             }
         });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveNew = true;
                 choseGem.dismiss();
-
-                gems.get(socketNum).setSocketType(tempSocketType);
-                gems.get(socketNum).setSocketRarity(tempSocketRarity);
-                gems.get(socketNum).setMountedGem(tempMountedGem);
 
                 switch (socketNum) {
                     case 1:
@@ -1166,7 +1256,9 @@ public class ShoeOptimizer extends AppCompatActivity {
 
             }
         });
+
     }
+
 
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
