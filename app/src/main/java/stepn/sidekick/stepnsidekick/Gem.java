@@ -27,6 +27,7 @@ public class Gem {
     public void setSocketType(int socketType) {
         this.socketType = socketType;
         updateSocketResource();
+        updateGemResource();
     }
 
     public int getSocketRarity() {
@@ -237,7 +238,7 @@ public class Gem {
                 }
                 break;
             default:
-                gemImageSource = 0;
+                gemImageSource = R.drawable.gem_socket_plus;
 
         }
     }

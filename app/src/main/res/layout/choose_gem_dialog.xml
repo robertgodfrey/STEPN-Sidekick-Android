@@ -212,8 +212,8 @@
 
     <ImageView
         android:id="@+id/socketPlus"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         app:layout_constraintBottom_toBottomOf="@id/gemSocket"
         app:layout_constraintEnd_toEndOf="@id/gemSocket"
         app:layout_constraintStart_toStartOf="@id/gemSocket"
@@ -289,7 +289,6 @@
         android:background="@null"
         android:paddingTop="4dp"
         android:scaleType="centerInside"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/gemLevel1"
         app:layout_constraintEnd_toEndOf="@+id/gemLevel1"
         app:layout_constraintStart_toStartOf="@+id/gemLevel1"
@@ -315,7 +314,6 @@
         android:id="@+id/gemLevel2Selected"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:visibility="invisible"
         android:background="@null"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/gemLevel2"
@@ -340,7 +338,6 @@
         android:id="@+id/gemLevel3Selected"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:visibility="invisible"
         android:background="@null"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/gemLevel3"
@@ -365,7 +362,6 @@
         android:id="@+id/gemLevel4Selected"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:visibility="invisible"
         android:background="@null"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/gemLevel4"
@@ -391,7 +387,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="2dp"
-        android:visibility="invisible"
         android:background="@null"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/gemLevel5"
@@ -416,7 +411,6 @@
         android:id="@+id/gemLevel6Selected"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:visibility="invisible"
         android:background="@null"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/gemLevel6"
@@ -438,71 +432,58 @@
         app:srcCompat="@drawable/gem_eff_level6" />
 
     <TextView
-        android:id="@+id/gemSocketLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/roboto_condensed_regular_italic"
-        android:text="Socket:"
-        android:textColor="@color/almost_black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemLevel1" />
-
-    <TextView
-        android:id="@+id/gemSocketDetailsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/roboto_condensed_regular_italic"
-        android:text="+0% to gem parameters"
-        android:textAlignment="textEnd"
-        android:textColor="@color/almost_black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemLevel1" />
-
-    <TextView
         android:id="@+id/gemLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
         android:text="Gem:"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemSocketLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel1" />
 
     <TextView
-        android:id="@+id/gemDetails1TextView"
+        android:id="@+id/gemDetailsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
-        android:text="+0 EFF"
+        android:text="+ 0"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/gemSocketDetailsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/gemSocketDetailsTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel1" />
 
     <TextView
-        android:id="@+id/gemDetails2TextView"
+        android:id="@+id/socketLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Socket:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemLabelTextView" />
+
+    <TextView
+        android:id="@+id/socketDetailsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
-        android:text="+0% to base"
+        android:text="x 1"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemSocketDetailsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/gemDetailsTextView" />
 
     <TextView
         android:id="@+id/totalLabelTextView"
@@ -516,7 +497,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/socketLabelTextView" />
 
     <TextView
         android:id="@+id/totalPointsTextView"
@@ -525,12 +506,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:text="+0"
+        android:text="+ 0"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/socketLabelTextView" />
 
     <TextView
         android:id="@+id/seeCalcTextView"

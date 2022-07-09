@@ -15,10 +15,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -35,7 +33,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 /**
@@ -112,7 +109,7 @@ public class ShoeOptimizer extends AppCompatActivity {
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
-            gemRes;
+            gemRes, dpScale;
     private double energy;
     private boolean saveNew;
 
@@ -136,6 +133,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF, 0);
         baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
         addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
+
+        dpScale = getResources().getDisplayMetrics().density;
 
         gems = new ArrayList<>();
 
@@ -400,6 +399,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 updateType();
                 calcTotals();
 
+                shoeTypeImageView.setScaleX(1.1f);
+                shoeTypeImageView.setScaleY(1.1f);
                 ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
                         shoeTypeImageView,
                         PropertyValuesHolder.ofFloat("scaleX", 1f),
@@ -1001,7 +1002,7 @@ public class ShoeOptimizer extends AppCompatActivity {
     private void updateLevel() {
 
         if (shoeLevel >= 5) {
-            gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_plus);
+            gemSocketOneLockPlus.setImageResource(gems.get(0).getGemImageSource());
             gemSocketOne.setImageResource(gems.get(0).getSocketImageSource());
         } else {
             gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_lock);
@@ -1009,7 +1010,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
 
         if (shoeLevel >= 10) {
-            gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_plus);
+            gemSocketTwoLockPlus.setImageResource(gems.get(1).getGemImageSource());
             gemSocketTwo.setImageResource(gems.get(1).getSocketImageSource());
         } else {
             gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_lock);
@@ -1017,7 +1018,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
 
         if (shoeLevel >= 15) {
-            gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_plus);
+            gemSocketThreeLockPlus.setImageResource(gems.get(2).getGemImageSource());
             gemSocketThree.setImageResource(gems.get(2).getSocketImageSource());
         } else {
             gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_lock);
@@ -1025,7 +1026,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
 
         if (shoeLevel >= 20) {
-            gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_plus);
+            gemSocketFourLockPlus.setImageResource(gems.get(3).getGemImageSource());
             gemSocketFour.setImageResource(gems.get(3).getSocketImageSource());
         } else {
             gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_lock);
@@ -1051,11 +1052,103 @@ public class ShoeOptimizer extends AppCompatActivity {
         gemSocketThree.setImageResource(gems.get(2).getSocketImageSource());
         gemSocketFour.setImageResource(gems.get(3).getSocketImageSource());
 
+        gemSocketOneLockPlus.setImageResource(gems.get(0).getGemImageSource());
+        gemSocketTwoLockPlus.setImageResource(gems.get(1).getGemImageSource());
+        gemSocketThreeLockPlus.setImageResource(gems.get(2).getGemImageSource());
+        gemSocketFourLockPlus.setImageResource(gems.get(3).getGemImageSource());
+
+        switch (gems.get(0).getMountedGem()) {
+            case 0:
+                gemSocketOneLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
+                break;
+            case 1:
+                gemSocketOneLockPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
+                break;
+            case 2:
+                gemSocketOneLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, (int) (1 * dpScale + 0.5f));
+                break;
+            case 3:
+                gemSocketOneLockPlus.setPadding(0, 0, 0, (int) (1 * dpScale + 0.5f));
+                break;
+            case 4:
+            case 5:
+                gemSocketOneLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, 0);
+                break;
+            default:
+                gemSocketOneLockPlus.setPadding(0,0,0,0);
+        }
+
+        switch (gems.get(1).getMountedGem()) {
+            case 0:
+                gemSocketTwoLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
+                break;
+            case 1:
+                gemSocketTwoLockPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
+                break;
+            case 2:
+                gemSocketTwoLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, (int) (1 * dpScale + 0.5f));
+                break;
+            case 3:
+                gemSocketTwoLockPlus.setPadding(0, 0, 0, (int) (1 * dpScale + 0.5f));
+                break;
+            case 4:
+            case 5:
+                gemSocketTwoLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, 0);
+                break;
+            default:
+                gemSocketTwoLockPlus.setPadding(0,0,0,0);
+        }
+
+        switch (gems.get(2).getMountedGem()) {
+            case 0:
+                gemSocketThreeLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
+                break;
+            case 1:
+                gemSocketThreeLockPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
+                break;
+            case 2:
+                gemSocketThreeLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, (int) (1 * dpScale + 0.5f));
+                break;
+            case 3:
+                gemSocketThreeLockPlus.setPadding(0, 0, 0, (int) (1 * dpScale + 0.5f));
+                break;
+            case 4:
+            case 5:
+                gemSocketThreeLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, 0);
+                break;
+            default:
+                gemSocketThreeLockPlus.setPadding(0,0,0,0);
+        }
+
+        switch (gems.get(3).getMountedGem()) {
+            case 0:
+                gemSocketFourLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
+                break;
+            case 1:
+                gemSocketFourLockPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
+                break;
+            case 2:
+                gemSocketFourLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, (int) (1 * dpScale + 0.5f));
+                break;
+            case 3:
+                gemSocketFourLockPlus.setPadding(0, 0, 0, (int) (1 * dpScale + 0.5f));
+                break;
+            case 4:
+            case 5:
+                gemSocketFourLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, 0);
+                break;
+            default:
+                gemSocketFourLockPlus.setPadding(0,0,0,0);
+        }
+
     }
 
     // dialog for choosing socket and gem
-    private void chooseSocketType(int socketNum) {
+    private void chooseSocketType(final int socketNum) {
         final int tempSocketType, tempSocketRarity, tempGemMounted;
+        double gemParams;
+        String gemParamsString;
+
         saveNew = false;
 
         tempSocketType = gems.get(socketNum).getSocketType();
@@ -1114,6 +1207,9 @@ public class ShoeOptimizer extends AppCompatActivity {
         Button decreaseRarityButton = choseGem.findViewById(R.id.decreaseRarityButton);
         Button increaseRarityButton = choseGem.findViewById(R.id.increaseRarityButton);
 
+        TextView gemDetailsTextView = choseGem.findViewById(R.id.gemDetailsTextView);
+        TextView socketDetailsTextView = choseGem.findViewById(R.id.socketDetailsTextView);
+
         ImageButton saveButton = choseGem.findViewById(R.id.saveGemButton);
 
         ArrayList<ImageButton> selectedButtons = new ArrayList<>();
@@ -1144,6 +1240,32 @@ public class ShoeOptimizer extends AppCompatActivity {
                 for (int i = 0; i < 6; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_eff);
                 }
+
+                switch (gems.get(socketNum).getMountedGem()) {
+                    case 1:
+                        gemParams = Math.floor((2 + (0.05 * baseEff)) * 10) / 10;
+                        break;
+                    case 2:
+                        gemParams = Math.floor((8 + (0.7 * baseEff)) * 10) / 10;
+                        break;
+                    case 3:
+                        gemParams = Math.floor((25 + (2.2 * baseEff)) * 10) / 10;
+                        break;
+                    case 4:
+                        gemParams = Math.floor((72 + (6 * baseEff)) * 10) / 10;
+                        break;
+                    case 5:
+                        gemParams = Math.floor((200 + (14 * baseEff)) * 10) / 10;
+                        break;
+                    case 6:
+                        gemParams = Math.floor((400 + (43 * baseEff)) * 10) / 10;
+                        break;
+                    default:
+                        gemParams = 0;
+                }
+
+                gemParamsString = "+ " + gemParams;
+                gemDetailsTextView.setText(gemParamsString);
                 break;
             case LUCK:
                 effTypeSelected.setVisibility(View.INVISIBLE);
@@ -1214,6 +1336,70 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
         }
 
+        switch (gems.get(socketNum).getMountedGem()) {
+            case 1:
+                lvl1SelectedButton.setAlpha(1.0f);
+                lvl2SelectedButton.setAlpha(0.0f);
+                lvl3SelectedButton.setAlpha(0.0f);
+                lvl4SelectedButton.setAlpha(0.0f);
+                lvl5SelectedButton.setAlpha(0.0f);
+                lvl6SelectedButton.setAlpha(0.0f);
+                gemSocketPlus.setPadding(0, (int) (3 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
+                break;
+            case 2:
+                lvl1SelectedButton.setAlpha(0.0f);
+                lvl2SelectedButton.setAlpha(1.0f);
+                lvl3SelectedButton.setAlpha(0.0f);
+                lvl4SelectedButton.setAlpha(0.0f);
+                lvl5SelectedButton.setAlpha(0.0f);
+                lvl6SelectedButton.setAlpha(0.0f);
+                break;
+            case 3:
+                lvl1SelectedButton.setAlpha(0.0f);
+                lvl2SelectedButton.setAlpha(0.0f);
+                lvl3SelectedButton.setAlpha(1.0f);
+                lvl4SelectedButton.setAlpha(0.0f);
+                lvl5SelectedButton.setAlpha(0.0f);
+                lvl6SelectedButton.setAlpha(0.0f);
+                break;
+            case 4:
+                lvl1SelectedButton.setAlpha(0.0f);
+                lvl2SelectedButton.setAlpha(0.0f);
+                lvl3SelectedButton.setAlpha(0.0f);
+                lvl4SelectedButton.setAlpha(1.0f);
+                lvl5SelectedButton.setAlpha(0.0f);
+                lvl6SelectedButton.setAlpha(0.0f);
+                gemSocketPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, 0);
+                break;
+            case 5:
+                lvl1SelectedButton.setAlpha(0.0f);
+                lvl2SelectedButton.setAlpha(0.0f);
+                lvl3SelectedButton.setAlpha(0.0f);
+                lvl4SelectedButton.setAlpha(0.0f);
+                lvl5SelectedButton.setAlpha(1.0f);
+                lvl6SelectedButton.setAlpha(0.0f);
+                gemSocketPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, 0);
+                break;
+            case 6:
+                lvl1SelectedButton.setAlpha(0.0f);
+                lvl2SelectedButton.setAlpha(0.0f);
+                lvl3SelectedButton.setAlpha(0.0f);
+                lvl4SelectedButton.setAlpha(0.0f);
+                lvl5SelectedButton.setAlpha(0.0f);
+                lvl6SelectedButton.setAlpha(1.0f);
+                break;
+            default:
+                lvl1SelectedButton.setAlpha(0.0f);
+                lvl2SelectedButton.setAlpha(0.0f);
+                lvl3SelectedButton.setAlpha(0.0f);
+                lvl4SelectedButton.setAlpha(0.0f);
+                lvl5SelectedButton.setAlpha(0.0f);
+                lvl6SelectedButton.setAlpha(0.0f);
+                break;
+        }
+
+        gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+
         if (gems.get(socketNum).getSocketRarity() == 0) {
             decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
         } else if ((gems.get(socketNum).getSocketRarity() == 1 && shoeRarity <= COMMON)
@@ -1246,6 +1432,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                 gems.get(socketNum).setSocketType(EFF);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
+                gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
             }
         });
 
@@ -1270,6 +1457,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                 gems.get(socketNum).setSocketType(LUCK);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
+                gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
             }
         });
 
@@ -1294,6 +1482,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                 gems.get(socketNum).setSocketType(COMF);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
+                gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
             }
         });
 
@@ -1318,6 +1507,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
                 gems.get(socketNum).setSocketType(RES);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
+                gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
             }
         });
 
@@ -1382,32 +1572,149 @@ public class ShoeOptimizer extends AppCompatActivity {
             public void onClick(View view) {
                 saveNew = true;
                 choseGem.dismiss();
+                updateGems();
+            }
+        });
 
-                switch (socketNum) {
-                    case 1:
-                        gemSocketTwo.setImageResource(gems.get(socketNum).getSocketImageSource());
-                        gemSocketTwoLockPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                        break;
-                    case 2:
-                        gemSocketThree.setImageResource(gems.get(socketNum).getSocketImageSource());
-                        gemSocketThreeLockPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                        break;
-                    case 3:
-                        gemSocketFour.setImageResource(gems.get(socketNum).getSocketImageSource());
-                        gemSocketFourLockPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                        break;
-                    default:
-                        gemSocketOne.setImageResource(gems.get(socketNum).getSocketImageSource());
-                        gemSocketOneLockPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                        break;
+        lvl1SelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 1) {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    lvl1SelectedButton.setAlpha(0.0f);
+                } else {
+                    gems.get(socketNum).setMountedGem(1);
+                    gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+                    gemSocketPlus.setPadding(0, (int) (3 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
+
+                    lvl1SelectedButton.setAlpha(1.0f);
+                    lvl2SelectedButton.setAlpha(0.0f);
+                    lvl3SelectedButton.setAlpha(0.0f);
+                    lvl4SelectedButton.setAlpha(0.0f);
+                    lvl5SelectedButton.setAlpha(0.0f);
+                    lvl6SelectedButton.setAlpha(0.0f);
                 }
+            }
+        });
 
+        lvl2SelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 2) {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    lvl2SelectedButton.setAlpha(0.0f);
+                } else {
+                    gems.get(socketNum).setMountedGem(2);
+                    gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+                    gemSocketPlus.setPadding(0,0,0,0);
+
+                    lvl1SelectedButton.setAlpha(0.0f);
+                    lvl2SelectedButton.setAlpha(1.0f);
+                    lvl3SelectedButton.setAlpha(0.0f);
+                    lvl4SelectedButton.setAlpha(0.0f);
+                    lvl5SelectedButton.setAlpha(0.0f);
+                    lvl6SelectedButton.setAlpha(0.0f);
+                }
+            }
+        });
+
+        lvl3SelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 3) {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    lvl3SelectedButton.setAlpha(0.0f);
+                } else {
+                    gems.get(socketNum).setMountedGem(3);
+                    gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+                    gemSocketPlus.setPadding(0,0,0,0);
+
+                    lvl1SelectedButton.setAlpha(0.0f);
+                    lvl2SelectedButton.setAlpha(0.0f);
+                    lvl3SelectedButton.setAlpha(1.0f);
+                    lvl4SelectedButton.setAlpha(0.0f);
+                    lvl5SelectedButton.setAlpha(0.0f);
+                    lvl6SelectedButton.setAlpha(0.0f);
+                }
+            }
+        });
+
+        lvl4SelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 4) {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    lvl4SelectedButton.setAlpha(0.0f);
+                } else {
+                    gems.get(socketNum).setMountedGem(4);
+                    gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+                    gemSocketPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, 0);
+
+                    lvl1SelectedButton.setAlpha(0.0f);
+                    lvl2SelectedButton.setAlpha(0.0f);
+                    lvl3SelectedButton.setAlpha(0.0f);
+                    lvl4SelectedButton.setAlpha(1.0f);
+                    lvl5SelectedButton.setAlpha(0.0f);
+                    lvl6SelectedButton.setAlpha(0.0f);
+                }
+            }
+        });
+
+        lvl5SelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 5) {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    lvl5SelectedButton.setAlpha(0.0f);
+                } else {
+                    gems.get(socketNum).setMountedGem(5);
+                    gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+                    gemSocketPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, 0);
+
+                    lvl1SelectedButton.setAlpha(0.0f);
+                    lvl2SelectedButton.setAlpha(0.0f);
+                    lvl3SelectedButton.setAlpha(0.0f);
+                    lvl4SelectedButton.setAlpha(0.0f);
+                    lvl5SelectedButton.setAlpha(1.0f);
+                    lvl6SelectedButton.setAlpha(0.0f);
+                }
+            }
+        });
+
+        lvl6SelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 6) {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    lvl6SelectedButton.setAlpha(0.0f);
+                } else {
+                    gems.get(socketNum).setMountedGem(6);
+                    gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+                    gemSocketPlus.setPadding(0,0,0,0);
+
+                    lvl1SelectedButton.setAlpha(0.0f);
+                    lvl2SelectedButton.setAlpha(0.0f);
+                    lvl3SelectedButton.setAlpha(0.0f);
+                    lvl4SelectedButton.setAlpha(0.0f);
+                    lvl5SelectedButton.setAlpha(0.0f);
+                    lvl6SelectedButton.setAlpha(1.0f);
+                }
             }
         });
 
         // TODO
-        //  - add all the gem buttons and functionality
-        //  - add number calcs at bottom
         //  - make grey versions of socket rarities? might as well
 
     }
