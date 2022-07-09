@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 /**
@@ -1090,16 +1092,38 @@ public class ShoeOptimizer extends AppCompatActivity {
         ImageView comfTypeSelected = choseGem.findViewById(R.id.comfTypeSelected);
         ImageView resTypeSelected = choseGem.findViewById(R.id.resTypeSelected);
 
-        ImageButton gemSocket = choseGem.findViewById(R.id.gemSocket);
+        ImageButton lvl1SelectedButton = choseGem.findViewById(R.id.gemLevel1Selected);
+        ImageButton lvl2SelectedButton = choseGem.findViewById(R.id.gemLevel2Selected);
+        ImageButton lvl3SelectedButton = choseGem.findViewById(R.id.gemLevel3Selected);
+        ImageButton lvl4SelectedButton = choseGem.findViewById(R.id.gemLevel4Selected);
+        ImageButton lvl5SelectedButton = choseGem.findViewById(R.id.gemLevel5Selected);
+        ImageButton lvl6SelectedButton = choseGem.findViewById(R.id.gemLevel6Selected);
+
+        ImageView lvl1Gem = choseGem.findViewById(R.id.gemLevel1);
+        ImageView lvl2Gem = choseGem.findViewById(R.id.gemLevel2);
+        ImageView lvl3Gem = choseGem.findViewById(R.id.gemLevel3);
+        ImageView lvl4Gem = choseGem.findViewById(R.id.gemLevel4);
+        ImageView lvl5Gem = choseGem.findViewById(R.id.gemLevel5);
+        ImageView lvl6Gem = choseGem.findViewById(R.id.gemLevel6);
+
+        ImageView gemSocket = choseGem.findViewById(R.id.gemSocket);
         ImageView gemSocketPlus = choseGem.findViewById(R.id.socketPlus);
 
         TextView decreaseRarityTextView = choseGem.findViewById(R.id.minusTextView);
         TextView increaseRarityTextView = choseGem.findViewById(R.id.plusTextView);
-
         Button decreaseRarityButton = choseGem.findViewById(R.id.decreaseRarityButton);
         Button increaseRarityButton = choseGem.findViewById(R.id.increaseRarityButton);
 
         ImageButton saveButton = choseGem.findViewById(R.id.saveGemButton);
+
+        ArrayList<ImageButton> selectedButtons = new ArrayList<>();
+
+        selectedButtons.add(lvl1SelectedButton);
+        selectedButtons.add(lvl2SelectedButton);
+        selectedButtons.add(lvl3SelectedButton);
+        selectedButtons.add(lvl4SelectedButton);
+        selectedButtons.add(lvl5SelectedButton);
+        selectedButtons.add(lvl6SelectedButton);
 
         gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
 
@@ -1109,30 +1133,85 @@ public class ShoeOptimizer extends AppCompatActivity {
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
+
+                lvl1Gem.setImageResource(R.drawable.gem_eff_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_eff_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_eff_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_eff_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_eff_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_eff_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_eff);
+                }
                 break;
             case LUCK:
                 effTypeSelected.setVisibility(View.INVISIBLE);
                 luckTypeSelected.setVisibility(View.VISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
+
+                lvl1Gem.setImageResource(R.drawable.gem_luck_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_luck_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_luck_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_luck_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_luck_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_luck_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_luck);
+                }
                 break;
             case COMF:
                 effTypeSelected.setVisibility(View.INVISIBLE);
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.VISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
+
+                lvl1Gem.setImageResource(R.drawable.gem_comf_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_comf_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_comf_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_comf_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_comf_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_comf_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_comf);
+                }
                 break;
             case RES:
                 effTypeSelected.setVisibility(View.INVISIBLE);
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.VISIBLE);
+
+                lvl1Gem.setImageResource(R.drawable.gem_res_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_res_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_res_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_res_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_res_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_res_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_res);
+                }
                 break;
             default:
                 effTypeSelected.setVisibility(View.INVISIBLE);
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
+
+                lvl1Gem.setImageResource(R.drawable.gem_grey_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_grey_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_grey_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_grey_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_grey_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_grey_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_common);
+                }
         }
 
         if (gems.get(socketNum).getSocketRarity() == 0) {
@@ -1144,8 +1223,6 @@ public class ShoeOptimizer extends AppCompatActivity {
             increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
         }
 
-        Log.d("TESTIN", "shoeRarity: " + shoeRarity + "gem socket rarity: " + gems.get(socketNum).getSocketRarity());
-
         choseGem.show();
 
         effTypeButton.setOnClickListener(new View.OnClickListener() {
@@ -1155,6 +1232,17 @@ public class ShoeOptimizer extends AppCompatActivity {
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
+
+                lvl1Gem.setImageResource(R.drawable.gem_eff_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_eff_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_eff_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_eff_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_eff_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_eff_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_eff);
+                }
 
                 gems.get(socketNum).setSocketType(EFF);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
@@ -1169,6 +1257,17 @@ public class ShoeOptimizer extends AppCompatActivity {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
+                lvl1Gem.setImageResource(R.drawable.gem_luck_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_luck_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_luck_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_luck_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_luck_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_luck_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_luck);
+                }
+
                 gems.get(socketNum).setSocketType(LUCK);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
             }
@@ -1182,6 +1281,17 @@ public class ShoeOptimizer extends AppCompatActivity {
                 comfTypeSelected.setVisibility(View.VISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
+                lvl1Gem.setImageResource(R.drawable.gem_comf_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_comf_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_comf_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_comf_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_comf_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_comf_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_comf);
+                }
+
                 gems.get(socketNum).setSocketType(COMF);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
             }
@@ -1194,6 +1304,17 @@ public class ShoeOptimizer extends AppCompatActivity {
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.VISIBLE);
+
+                lvl1Gem.setImageResource(R.drawable.gem_res_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_res_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_res_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_res_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_res_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_res_level6);
+
+                for (int i = 0; i < 6; i++) {
+                    selectedButtons.get(i).setImageResource(R.drawable.circles_res);
+                }
 
                 gems.get(socketNum).setSocketType(RES);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
@@ -1283,6 +1404,11 @@ public class ShoeOptimizer extends AppCompatActivity {
 
             }
         });
+
+        // TODO
+        //  - add all the gem buttons and functionality
+        //  - add number calcs at bottom
+        //  - make grey versions of socket rarities? might as well
 
     }
 
