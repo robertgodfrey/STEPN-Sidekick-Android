@@ -11,6 +11,7 @@ import static stepn.sidekick.stepnsidekick.Finals.*;
 
 public class Gem {
     private int socketType, socketRarity, mountedGem, socketImageSource, gemImageSource;
+    private float basePoints;
 
     public Gem(int socketType, int socketRarity, int mountedGem) {
         this.socketType = socketType;
@@ -54,6 +55,78 @@ public class Gem {
 
     public int getGemImageSource() {
         return gemImageSource;
+    }
+
+    public float getBasePoints() {
+        return basePoints;
+    }
+
+    public void setBasePoints(float basePoints) {
+        this.basePoints = basePoints;
+    }
+
+    public double getGemParams() {
+        double gemParams;
+
+        switch (mountedGem) {
+            case 1:
+                gemParams = Math.floor((2 + (0.05 * basePoints)) * 10) / 10;
+                break;
+            case 2:
+                gemParams = Math.floor((8 + (0.7 * basePoints)) * 10) / 10;
+                break;
+            case 3:
+                gemParams = Math.floor((25 + (2.2 * basePoints)) * 10) / 10;
+                break;
+            case 4:
+                gemParams = Math.floor((72 + (6 * basePoints)) * 10) / 10;
+                break;
+            case 5:
+                gemParams = Math.floor((200 + (14 * basePoints)) * 10) / 10;
+                break;
+            case 6:
+                gemParams = Math.floor((400 + (43 * basePoints)) * 10) / 10;
+                break;
+            default:
+                gemParams = 0;
+        }
+
+        return gemParams;
+    }
+
+    public double getSocketParams() {
+        double socketParams;
+
+        switch (socketRarity) {
+            case 1:
+                socketParams = 1.1;
+                break;
+            case 2:
+                socketParams = 1.2;
+                break;
+            case 3:
+                socketParams = 1.3;
+                break;
+            case 4:
+                socketParams = 1.5;
+                break;
+            default:
+                socketParams = 1;
+        }
+
+        return socketParams;
+    }
+
+    public String getGemParamsString() {
+        return "+ " + getGemParams();
+    }
+
+    public String getSocketParamsString() {
+        return "x " + getSocketParams();
+    }
+
+    public String getTotalPointsString() {
+        return "+ " + (Math.round(getGemParams() * getSocketParams() * 10) / 10.0);
     }
 
     private void updateSocketResource() {
@@ -135,7 +208,23 @@ public class Gem {
                 }
                 break;
             default:
-                socketImageSource = R.drawable.gem_socket_gray;
+                switch (socketRarity) {
+                    case 1:
+                        socketImageSource = R.drawable.gem_socket_gray_1;
+                        break;
+                    case 2:
+                        socketImageSource = R.drawable.gem_socket_gray_2;
+                        break;
+                    case 3:
+                        socketImageSource = R.drawable.gem_socket_gray_3;
+                        break;
+                    case 4:
+                        socketImageSource = R.drawable.gem_socket_gray_4;
+                        break;
+                    default:
+                        socketImageSource = R.drawable.gem_socket_gray_0;
+                        break;
+                }
         }
     }
 
