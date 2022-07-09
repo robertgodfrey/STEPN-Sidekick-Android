@@ -71,6 +71,9 @@ public class ShoeOptimizer extends AppCompatActivity {
     private final String GEM_FOUR_RARITY_PREF = "gemFourRarity";
     private final String GEM_FOUR_MOUNTED_PREF = "gemFourGem";
 
+    // TODO remove
+    final String TAG = "calcTotals";
+
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
     private final int RARE = 4;
@@ -881,6 +884,11 @@ public class ShoeOptimizer extends AppCompatActivity {
                 resEditText.setHint("8 - 21.6");
                 baseMin = 8;
                 baseMax = 21.6f;
+                for (int i = 0; i < 4; i++) {
+                    if (gems.get(i).getSocketRarity() > 2) {
+                        gems.get(i).setSocketRarity(2);
+                    }
+                }
                 break;
             case RARE:
                 shoeCircles.setImageResource(R.drawable.circles_rare);
@@ -900,6 +908,11 @@ public class ShoeOptimizer extends AppCompatActivity {
                 resEditText.setHint("15 - 42");
                 baseMin = 15;
                 baseMax = 42f;
+                for (int i = 0; i < 4; i++) {
+                    if (gems.get(i).getSocketRarity() > 3) {
+                        gems.get(i).setSocketRarity(3);
+                    }
+                }
                 break;
             case EPIC:
                 shoeCircles.setImageResource(R.drawable.circles_epic);
@@ -938,8 +951,14 @@ public class ShoeOptimizer extends AppCompatActivity {
                 resEditText.setHint("1 - 10");
                 baseMin = 1;
                 baseMax = 10;
+                for (int i = 0; i < 4; i++) {
+                    if (gems.get(i).getSocketRarity() > 1) {
+                        gems.get(i).setSocketRarity(1);
+                    }
+                }
         }
 
+        updateGems();
         updatePoints();
     }
 
@@ -974,9 +993,6 @@ public class ShoeOptimizer extends AppCompatActivity {
                 footTwo.setVisibility(View.GONE);
                 footThree.setVisibility(View.GONE);
         }
-
-        shoeTypeImageView.setScaleX(1.1f);
-        shoeTypeImageView.setScaleY(1.1f);
     }
 
     // updates values depending on level
@@ -1025,6 +1041,14 @@ public class ShoeOptimizer extends AppCompatActivity {
         gstLimitTextView.setText(String.valueOf(gstLimit));
 
         updatePoints();
+    }
+
+    private void updateGems() {
+        gemSocketOne.setImageResource(gems.get(0).getSocketImageSource());
+        gemSocketTwo.setImageResource(gems.get(1).getSocketImageSource());
+        gemSocketThree.setImageResource(gems.get(2).getSocketImageSource());
+        gemSocketFour.setImageResource(gems.get(3).getSocketImageSource());
+
     }
 
     // dialog for choosing socket and gem
@@ -1176,16 +1200,13 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
-        // TODO: - fix gem socket rarity increase/decrease textview color to change properly
-        //       - shoeraritybutton needs to change gem socket rarity (going from epic to common decreases all gem sockets to highest rarity of uncommon)
-
         decreaseRarityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (gems.get(socketNum).getSocketRarity() > 0) {
                     gems.get(socketNum).setSocketRarity(gems.get(socketNum).getSocketRarity() - 1);
                     gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
-                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                    increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
                 }
                 if (gems.get(socketNum).getSocketRarity() == 0) {
                     decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
@@ -1215,6 +1236,12 @@ public class ShoeOptimizer extends AppCompatActivity {
                 } else if (gems.get(socketNum).getSocketRarity() == 3 && shoeRarity > RARE) {
                     gems.get(socketNum).setSocketRarity(4);
                     increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                }
+
+                if (gems.get(socketNum).getSocketRarity() == 0) {
+                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                } else {
+                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
                 }
 
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
@@ -1262,6 +1289,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
+
         int durabilityLost;
         float repairCost;
         float gstTotal = 0;
@@ -1281,13 +1309,13 @@ public class ShoeOptimizer extends AppCompatActivity {
                 gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.525) - 5.45)) * 10) / 10);
                 break;
             case TRAINER:
-                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.527) - 5.48)) * 10) / 10);
+                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.527) - 5)) * 10) / 10);
                 break;
             default:
                 gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.515) - 5.35)) * 10) / 10);
         }
 
-        durabilityLost = (int) (energy * Math.ceil(80 * Math.pow((totalRes + 10), -1.2) + 0.25));
+        durabilityLost = (int) Math.ceil(energy * ((80 * Math.pow((totalRes + 11), -1.2)) + 0.25));
 
         repairCost = calcRepairCost(durabilityLost);
 

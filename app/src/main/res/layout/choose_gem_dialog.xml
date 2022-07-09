@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="500dp">
+    android:layout_height="600dp">
 
     <ImageView
         android:id="@+id/alertBoxBackground"
@@ -14,8 +15,10 @@
         android:layout_marginBottom="-24dp"
         app:layout_constraintBottom_toBottomOf="@id/saveGemButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/alert_box" />
 
     <TextView
@@ -26,7 +29,7 @@
         android:layout_marginTop="24dp"
         android:includeFontPadding="false"
         android:text="SELECT SOCKET TYPE"
-        android:textColor="@color/gandalf"
+        android:textColor="@color/almost_black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
@@ -34,20 +37,19 @@
 
     <ImageView
         android:id="@+id/effTypeSelected"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/effType"
         app:layout_constraintEnd_toEndOf="@+id/effType"
         app:layout_constraintStart_toStartOf="@+id/effType"
         app:layout_constraintTop_toTopOf="@+id/effType"
-        app:srcCompat="@drawable/gem_selector_outline" />
+        app:srcCompat="@drawable/circles_eff" />
 
     <ImageButton
         android:id="@+id/effType"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:background="@null"
         android:padding="12dp"
         android:scaleType="fitCenter"
@@ -62,6 +64,7 @@
         style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
         android:includeFontPadding="false"
         android:text="Efficiency"
         android:textColor="@color/gandalf"
@@ -72,21 +75,20 @@
 
     <ImageView
         android:id="@+id/luckTypeSelected"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:visibility="invisible"
-        android:layout_marginTop="1dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/luckType"
         app:layout_constraintEnd_toEndOf="@+id/luckType"
         app:layout_constraintStart_toStartOf="@+id/luckType"
         app:layout_constraintTop_toTopOf="@+id/luckType"
-        app:srcCompat="@drawable/gem_selector_outline" />
+        app:srcCompat="@drawable/circles_luck" />
 
     <ImageButton
         android:id="@+id/luckType"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:background="@null"
         android:padding="12dp"
         android:scaleType="fitCenter"
@@ -104,27 +106,27 @@
         android:text="Luck"
         android:textColor="@color/gandalf"
         android:textSize="14sp"
+        android:layout_marginTop="-2dp"
         app:layout_constraintEnd_toEndOf="@+id/luckType"
         app:layout_constraintStart_toStartOf="@+id/luckType"
         app:layout_constraintTop_toBottomOf="@+id/luckType" />
 
     <ImageView
         android:id="@+id/comfTypeSelected"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:visibility="invisible"
-        android:layout_marginTop="1dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/comfType"
         app:layout_constraintEnd_toEndOf="@+id/comfType"
         app:layout_constraintStart_toStartOf="@+id/comfType"
         app:layout_constraintTop_toTopOf="@+id/comfType"
-        app:srcCompat="@drawable/gem_selector_outline" />
+        app:srcCompat="@drawable/circles_comf" />
 
     <ImageButton
         android:id="@+id/comfType"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:background="@null"
         android:padding="12dp"
         android:scaleType="fitCenter"
@@ -142,27 +144,27 @@
         android:text="Comfort"
         android:textColor="@color/gandalf"
         android:textSize="14sp"
+        android:layout_marginTop="-2dp"
         app:layout_constraintEnd_toEndOf="@+id/comfType"
         app:layout_constraintStart_toStartOf="@+id/comfType"
         app:layout_constraintTop_toBottomOf="@+id/comfType" />
 
     <ImageView
         android:id="@+id/resTypeSelected"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:visibility="invisible"
-        android:layout_marginTop="1dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/resType"
         app:layout_constraintEnd_toEndOf="@+id/resType"
         app:layout_constraintStart_toStartOf="@+id/resType"
         app:layout_constraintTop_toTopOf="@+id/resType"
-        app:srcCompat="@drawable/gem_selector_outline" />
+        app:srcCompat="@drawable/cirlces_res" />
 
     <ImageButton
         android:id="@+id/resType"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:background="@null"
         android:padding="12dp"
         android:scaleType="fitCenter"
@@ -180,6 +182,7 @@
         android:text="Resilience"
         android:textColor="@color/gandalf"
         android:textSize="14sp"
+        android:layout_marginTop="-2dp"
         app:layout_constraintEnd_toEndOf="@+id/resType"
         app:layout_constraintStart_toStartOf="@+id/resType"
         app:layout_constraintTop_toBottomOf="@+id/resType" />
@@ -210,8 +213,8 @@
 
     <ImageView
         android:id="@+id/socketPlus"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         app:layout_constraintBottom_toBottomOf="@id/gemSocket"
         app:layout_constraintEnd_toEndOf="@id/gemSocket"
         app:layout_constraintStart_toStartOf="@id/gemSocket"
@@ -266,10 +269,275 @@
         app:layout_constraintStart_toStartOf="@+id/plusTextView"
         app:layout_constraintTop_toTopOf="@+id/plusTextView" />
 
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:includeFontPadding="false"
+        android:text="SELECT GEM"
+        android:textColor="@color/almost_black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemSocket" />
+
+    <ImageView
+        android:id="@+id/gemLevel1Selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemLevel1"
+        app:layout_constraintEnd_toEndOf="@+id/gemLevel1"
+        app:layout_constraintStart_toStartOf="@+id/gemLevel1"
+        app:layout_constraintTop_toTopOf="@+id/gemLevel1"
+        app:srcCompat="@drawable/circles_eff" />
+
+    <ImageView
+        android:id="@+id/gemLevel1"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintEnd_toStartOf="@id/gemLevel2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/gem_eff_level1" />
+
+    <ImageView
+        android:id="@+id/gemLevel2Selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemLevel2"
+        app:layout_constraintEnd_toEndOf="@+id/gemLevel2"
+        app:layout_constraintStart_toStartOf="@+id/gemLevel2"
+        app:layout_constraintTop_toTopOf="@+id/gemLevel2"
+        app:srcCompat="@drawable/circles_eff" />
+
+    <ImageView
+        android:id="@+id/gemLevel2"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/gemLevel3"
+        app:layout_constraintStart_toEndOf="@+id/gemLevel1"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/gem_eff_level2" />
+
+    <ImageView
+        android:id="@+id/gemLevel3Selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="2dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemLevel3"
+        app:layout_constraintEnd_toEndOf="@+id/gemLevel3"
+        app:layout_constraintStart_toStartOf="@+id/gemLevel3"
+        app:layout_constraintTop_toTopOf="@+id/gemLevel3"
+        app:srcCompat="@drawable/circles_eff" />
+
+    <ImageView
+        android:id="@+id/gemLevel3"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/gemLevel4"
+        app:layout_constraintStart_toEndOf="@+id/gemLevel2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/gem_eff_level3" />
+
+    <ImageView
+        android:id="@+id/gemLevel4Selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemLevel4"
+        app:layout_constraintEnd_toEndOf="@+id/gemLevel4"
+        app:layout_constraintStart_toStartOf="@+id/gemLevel4"
+        app:layout_constraintTop_toTopOf="@+id/gemLevel4"
+        app:srcCompat="@drawable/circles_eff" />
+
+    <ImageView
+        android:id="@+id/gemLevel4"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/gemLevel5"
+        app:layout_constraintStart_toEndOf="@+id/gemLevel3"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/gem_eff_level4" />
+
+    <ImageView
+        android:id="@+id/gemLevel5Selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemLevel5"
+        app:layout_constraintEnd_toEndOf="@+id/gemLevel5"
+        app:layout_constraintStart_toStartOf="@+id/gemLevel5"
+        app:layout_constraintTop_toTopOf="@+id/gemLevel5"
+        app:srcCompat="@drawable/circles_eff" />
+
+    <ImageView
+        android:id="@+id/gemLevel5"
+        android:layout_width="30dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/gemLevel6"
+        app:layout_constraintStart_toEndOf="@+id/gemLevel4"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/gem_eff_level5" />
+
+    <ImageView
+        android:id="@+id/gemLevel6Selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemLevel6"
+        app:layout_constraintEnd_toEndOf="@+id/gemLevel6"
+        app:layout_constraintStart_toStartOf="@+id/gemLevel6"
+        app:layout_constraintTop_toTopOf="@+id/gemLevel6"
+        app:srcCompat="@drawable/circles_eff" />
+
+    <ImageView
+        android:id="@+id/gemLevel6"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@+id/gemLevel5"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/gem_eff_level6" />
+
+    <TextView
+        android:id="@+id/gemSocketLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Socket:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel1" />
+
+    <TextView
+        android:id="@+id/gemSocketDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="+0% to gem parameters"
+        android:textAlignment="textEnd"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel1" />
+
+    <TextView
+        android:id="@+id/gemLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Gem:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemSocketLabelTextView" />
+
+    <TextView
+        android:id="@+id/gemDetails1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="+2 EFF"
+        android:textAlignment="textEnd"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketDetailsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/gemSocketDetailsTextView" />
+
+    <TextView
+        android:id="@+id/gemDetails2TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="+5% to base"
+        android:textAlignment="textEnd"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemSocketDetailsTextView" />
+
+    <TextView
+        android:id="@+id/totalLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Total Points:"
+        android:textAlignment="textEnd"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemLabelTextView" />
+
+    <TextView
+        android:id="@+id/totalPointsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="+0"
+        android:textAlignment="textEnd"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemLabelTextView" />
+
+    <TextView
+        android:id="@+id/seeCalcTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="View Calculation"
+        android:textColor="@color/gandalf"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/totalPointsTextView" />
+
     <ImageView
         android:id="@+id/saveGemButtonShadow"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/saveGemButton"
@@ -287,7 +555,7 @@
         android:text="SAVE"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/saveGemButtonShadow"
         app:layout_constraintEnd_toEndOf="@+id/saveGemButtonShadow"
         app:layout_constraintStart_toStartOf="@+id/saveGemButtonShadow"
@@ -295,14 +563,14 @@
 
     <ImageButton
         android:id="@+id/saveGemButton"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="42dp"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
         android:background="@null"
         android:src="@drawable/start_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gemSocket" />
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcTextView" />
 
     <TextView
         android:id="@+id/saveGemButtonTextView"
@@ -313,7 +581,7 @@
         android:text="SAVE"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/saveGemButton"
         app:layout_constraintEnd_toEndOf="@+id/saveGemButton"
         app:layout_constraintStart_toStartOf="@+id/saveGemButton"
