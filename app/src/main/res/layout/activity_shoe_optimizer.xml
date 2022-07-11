@@ -93,7 +93,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
-                app:srcCompat="@drawable/gem_socket_gray"
+                app:srcCompat="@drawable/gem_socket_gray_0"
                 app:tint="@color/gem_socket_shadow" />
 
             <ImageView
@@ -105,7 +105,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintEnd_toStartOf="@+id/shoeTypeImageView"
                 app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-                app:srcCompat="@drawable/gem_socket_gray" />
+                app:srcCompat="@drawable/gem_socket_gray_0" />
 
             <ImageView
                 android:id="@+id/gemSocketOneLockPlus"
@@ -140,7 +140,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
-                app:srcCompat="@drawable/gem_socket_gray"
+                app:srcCompat="@drawable/gem_socket_gray_0"
                 app:tint="@color/gem_socket_shadow" />
 
             <ImageView
@@ -152,7 +152,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toEndOf="@id/shoeTypeImageView"
                 app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-                app:srcCompat="@drawable/gem_socket_gray" />
+                app:srcCompat="@drawable/gem_socket_gray_0" />
 
             <ImageView
                 android:id="@+id/gemSocketTwoLockPlus"
@@ -187,7 +187,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
-                app:srcCompat="@drawable/gem_socket_gray"
+                app:srcCompat="@drawable/gem_socket_gray_0"
                 app:tint="@color/gem_socket_shadow" />
 
             <ImageView
@@ -199,7 +199,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintEnd_toStartOf="@+id/shoeTypeImageView"
                 app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
-                app:srcCompat="@drawable/gem_socket_gray" />
+                app:srcCompat="@drawable/gem_socket_gray_0" />
 
             <ImageView
                 android:id="@+id/gemSocketThreeLockPlus"
@@ -234,7 +234,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
                 app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
-                app:srcCompat="@drawable/gem_socket_gray"
+                app:srcCompat="@drawable/gem_socket_gray_0"
                 app:tint="@color/gem_socket_shadow" />
 
             <ImageView
@@ -246,7 +246,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toEndOf="@id/shoeTypeImageView"
                 app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
-                app:srcCompat="@drawable/gem_socket_gray" />
+                app:srcCompat="@drawable/gem_socket_gray_0" />
 
             <ImageView
                 android:id="@+id/gemSocketFourLockPlus"

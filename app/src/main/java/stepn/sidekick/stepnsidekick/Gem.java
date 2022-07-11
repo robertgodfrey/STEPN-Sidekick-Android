@@ -70,22 +70,22 @@ public class Gem {
 
         switch (mountedGem) {
             case 1:
-                gemParams = Math.floor((2 + (0.05 * basePoints)) * 10) / 10;
+                gemParams = Math.floor((2 + (0.05 * basePoints)) * 10) / 10.0;
                 break;
             case 2:
-                gemParams = Math.floor((8 + (0.7 * basePoints)) * 10) / 10;
+                gemParams = Math.floor((8 + (0.7 * basePoints)) * 10) / 10.0;
                 break;
             case 3:
-                gemParams = Math.floor((25 + (2.2 * basePoints)) * 10) / 10;
+                gemParams = Math.floor((25 + (2.2 * basePoints)) * 10) / 10.0;
                 break;
             case 4:
-                gemParams = Math.floor((72 + (6 * basePoints)) * 10) / 10;
+                gemParams = Math.floor((72 + (6 * basePoints)) * 10) / 10.0;
                 break;
             case 5:
-                gemParams = Math.floor((200 + (14 * basePoints)) * 10) / 10;
+                gemParams = Math.floor((200 + (14 * basePoints)) * 10) / 10.0;
                 break;
             case 6:
-                gemParams = Math.floor((400 + (43 * basePoints)) * 10) / 10;
+                gemParams = Math.floor((400 + (43 * basePoints)) * 10) / 10.0;
                 break;
             default:
                 gemParams = 0;
@@ -127,6 +127,10 @@ public class Gem {
 
     public String getTotalPointsString() {
         return "+ " + (Math.round(getGemParams() * getSocketParams() * 10) / 10.0);
+    }
+
+    public float getTotalPoints() {
+        return (float) (Math.round(getGemParams() * getSocketParams() * 10) / 10.0);
     }
 
     private void updateSocketResource() {
@@ -330,5 +334,51 @@ public class Gem {
                 gemImageSource = R.drawable.gem_socket_plus;
 
         }
+    }
+
+    // each gem image has different dimensions so need to manually set the padding for each one
+    // i think this is easier than going in and editing all the vector files so they are the same size ¯\_(ツ)_/¯
+    public int getTopPadding() {
+        int topPadding;
+
+        switch (mountedGem) {
+            case 0:
+                topPadding = 2;
+                break;
+            case 1:
+                topPadding = 4;
+                break;
+            case 2:
+            case 4:
+            case 5:
+                topPadding = 1;
+                break;
+            default:
+                topPadding = 0;
+                break;
+        }
+
+        return topPadding;
+    }
+
+    public int getBottomPadding() {
+        int bottomPadding;
+
+        switch (mountedGem) {
+            case 0:
+                bottomPadding = 2;
+                break;
+            case 1:
+                bottomPadding = 3;
+                break;
+            case 2:
+            case 3:
+                bottomPadding = 1;
+                break;
+            default:
+                bottomPadding = 0;
+                break;
+        }
+        return bottomPadding;
     }
 }

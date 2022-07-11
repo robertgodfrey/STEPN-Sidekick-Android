@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -47,6 +48,8 @@ import java.util.ArrayList;
 public class ShoeOptimizer extends AppCompatActivity {
 
     // holy preferences batman
+    private final String OPT_SHOE_TYPE_PREF = "optShoe";
+    private final String OPT_ENERGY_PERF = "optEnergy";
     private final String SHOE_RARITY_PREF = "shoeRarity";
     private final String SHOE_LEVEL_PREF = "shoeLevel";
     private final String BASE_EFF_PREF = "baseEff";
@@ -109,8 +112,7 @@ public class ShoeOptimizer extends AppCompatActivity {
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
-            gemRes, dpScale;
-    private double energy;
+            gemRes, dpScale, energy;
     private boolean saveNew;
 
     ArrayList<Gem> gems;
@@ -121,8 +123,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         setContentView(R.layout.activity_shoe_optimizer);
 
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-        energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
-        shoeType = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
+        energy = getSharedPrefs.getFloat(OPT_ENERGY_PERF, 0);
+        shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, 0);
         shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
         shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 0);
         baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF, 0);
@@ -961,8 +963,37 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
         }
 
-        updateGems();
-        updatePoints();
+        // make sure bases are correct for shoe rarity
+        if (baseEff < baseMin) {
+            baseEff = baseMin;
+            effEditText.setText(String.valueOf(baseEff));
+        } else if (baseEff > baseMax) {
+            baseEff = baseMax;
+            effEditText.setText(String.valueOf(baseEff));
+        }
+        if (baseLuck < baseMin) {
+            baseLuck = baseMin;
+            luckEditText.setText(String.valueOf(baseLuck));
+        } else if (baseLuck > baseMax) {
+            baseLuck = baseMax;
+            luckEditText.setText(String.valueOf(baseLuck));
+        }
+        if (baseComf < baseMin) {
+            baseComf = baseMin;
+            comfortEditText.setText(String.valueOf(baseComf));
+        } else if (baseComf > baseMax) {
+            baseComf = baseMax;
+            comfortEditText.setText(String.valueOf(baseComf));
+        }
+        if (baseRes < baseMin) {
+            baseRes = baseMin;
+            resEditText.setText(String.valueOf(baseRes));
+        } else if (baseRes > baseMax) {
+            baseRes = baseMax;
+            resEditText.setText(String.valueOf(baseRes));
+        }
+
+        updateLevel();
     }
 
     // updates UI depending on shoe type
@@ -1004,33 +1035,45 @@ public class ShoeOptimizer extends AppCompatActivity {
         if (shoeLevel >= 5) {
             gemSocketOneLockPlus.setImageResource(gems.get(0).getGemImageSource());
             gemSocketOne.setImageResource(gems.get(0).getSocketImageSource());
+            gemSocketOneLockPlus.setPadding(0, (int) (gems.get(0).getTopPadding() * dpScale + 0.5f), 0,
+                    (int) (gems.get(0).getBottomPadding() * dpScale + 0.5f));
         } else {
             gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_lock);
-            gemSocketOne.setImageResource(R.drawable.gem_socket_gray);
+            gemSocketOne.setImageResource(R.drawable.gem_socket_gray_0);
+            gemSocketOneLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
         }
 
         if (shoeLevel >= 10) {
             gemSocketTwoLockPlus.setImageResource(gems.get(1).getGemImageSource());
             gemSocketTwo.setImageResource(gems.get(1).getSocketImageSource());
+            gemSocketTwoLockPlus.setPadding(0, (int) (gems.get(1).getTopPadding() * dpScale + 0.5f), 0,
+                    (int) (gems.get(1).getBottomPadding() * dpScale + 0.5f));
         } else {
             gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_lock);
-            gemSocketTwo.setImageResource(R.drawable.gem_socket_gray);
+            gemSocketTwo.setImageResource(R.drawable.gem_socket_gray_0);
+            gemSocketTwoLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
         }
 
         if (shoeLevel >= 15) {
             gemSocketThreeLockPlus.setImageResource(gems.get(2).getGemImageSource());
             gemSocketThree.setImageResource(gems.get(2).getSocketImageSource());
+            gemSocketThreeLockPlus.setPadding(0, (int) (gems.get(2).getTopPadding() * dpScale + 0.5f), 0,
+                    (int) (gems.get(2).getBottomPadding() * dpScale + 0.5f));
         } else {
             gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_lock);
-            gemSocketThree.setImageResource(R.drawable.gem_socket_gray);
+            gemSocketThree.setImageResource(R.drawable.gem_socket_gray_0);
+            gemSocketThreeLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
         }
 
         if (shoeLevel >= 20) {
             gemSocketFourLockPlus.setImageResource(gems.get(3).getGemImageSource());
             gemSocketFour.setImageResource(gems.get(3).getSocketImageSource());
+            gemSocketFourLockPlus.setPadding(0, (int) (gems.get(3).getTopPadding() * dpScale + 0.5f), 0,
+                    (int) (gems.get(3).getBottomPadding() * dpScale + 0.5f));
         } else {
             gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_lock);
-            gemSocketFour.setImageResource(R.drawable.gem_socket_gray);
+            gemSocketFour.setImageResource(R.drawable.gem_socket_gray_0);
+            gemSocketFourLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
         }
 
         if (shoeLevel < 10) {
@@ -1042,118 +1085,20 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
 
         gstLimitTextView.setText(String.valueOf(gstLimit));
-
         updatePoints();
-    }
-
-    private void updateGems() {
-        gemSocketOne.setImageResource(gems.get(0).getSocketImageSource());
-        gemSocketTwo.setImageResource(gems.get(1).getSocketImageSource());
-        gemSocketThree.setImageResource(gems.get(2).getSocketImageSource());
-        gemSocketFour.setImageResource(gems.get(3).getSocketImageSource());
-
-        gemSocketOneLockPlus.setImageResource(gems.get(0).getGemImageSource());
-        gemSocketTwoLockPlus.setImageResource(gems.get(1).getGemImageSource());
-        gemSocketThreeLockPlus.setImageResource(gems.get(2).getGemImageSource());
-        gemSocketFourLockPlus.setImageResource(gems.get(3).getGemImageSource());
-
-        switch (gems.get(0).getMountedGem()) {
-            case 0:
-                gemSocketOneLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
-                break;
-            case 1:
-                gemSocketOneLockPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
-                break;
-            case 2:
-                gemSocketOneLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, (int) (1 * dpScale + 0.5f));
-                break;
-            case 3:
-                gemSocketOneLockPlus.setPadding(0, 0, 0, (int) (1 * dpScale + 0.5f));
-                break;
-            case 4:
-            case 5:
-                gemSocketOneLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, 0);
-                break;
-            default:
-                gemSocketOneLockPlus.setPadding(0,0,0,0);
-        }
-
-        switch (gems.get(1).getMountedGem()) {
-            case 0:
-                gemSocketTwoLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
-                break;
-            case 1:
-                gemSocketTwoLockPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
-                break;
-            case 2:
-                gemSocketTwoLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, (int) (1 * dpScale + 0.5f));
-                break;
-            case 3:
-                gemSocketTwoLockPlus.setPadding(0, 0, 0, (int) (1 * dpScale + 0.5f));
-                break;
-            case 4:
-            case 5:
-                gemSocketTwoLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, 0);
-                break;
-            default:
-                gemSocketTwoLockPlus.setPadding(0,0,0,0);
-        }
-
-        switch (gems.get(2).getMountedGem()) {
-            case 0:
-                gemSocketThreeLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
-                break;
-            case 1:
-                gemSocketThreeLockPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
-                break;
-            case 2:
-                gemSocketThreeLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, (int) (1 * dpScale + 0.5f));
-                break;
-            case 3:
-                gemSocketThreeLockPlus.setPadding(0, 0, 0, (int) (1 * dpScale + 0.5f));
-                break;
-            case 4:
-            case 5:
-                gemSocketThreeLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, 0);
-                break;
-            default:
-                gemSocketThreeLockPlus.setPadding(0,0,0,0);
-        }
-
-        switch (gems.get(3).getMountedGem()) {
-            case 0:
-                gemSocketFourLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
-                break;
-            case 1:
-                gemSocketFourLockPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
-                break;
-            case 2:
-                gemSocketFourLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, (int) (1 * dpScale + 0.5f));
-                break;
-            case 3:
-                gemSocketFourLockPlus.setPadding(0, 0, 0, (int) (1 * dpScale + 0.5f));
-                break;
-            case 4:
-            case 5:
-                gemSocketFourLockPlus.setPadding(0, (int) (1 * dpScale + 0.5f), 0, 0);
-                break;
-            default:
-                gemSocketFourLockPlus.setPadding(0,0,0,0);
-        }
-
     }
 
     // dialog for choosing socket and gem
     private void chooseSocketType(final int socketNum) {
         final int tempSocketType, tempSocketRarity, tempGemMounted;
-        double gemParams;
-        String gemParamsString;
+        final float tempBasePoints;
 
         saveNew = false;
 
         tempSocketType = gems.get(socketNum).getSocketType();
         tempSocketRarity = gems.get(socketNum).getSocketRarity();
         tempGemMounted = gems.get(socketNum).getMountedGem();
+        tempBasePoints = gems.get(socketNum).getBasePoints();
 
         Dialog choseGem = new Dialog(ShoeOptimizer.this);
 
@@ -1171,6 +1116,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                     gems.get(socketNum).setSocketType(tempSocketType);
                     gems.get(socketNum).setSocketRarity(tempSocketRarity);
                     gems.get(socketNum).setMountedGem(tempGemMounted);
+                    gems.get(socketNum).setBasePoints(tempBasePoints);
                 }
             }
         });
@@ -1206,9 +1152,11 @@ public class ShoeOptimizer extends AppCompatActivity {
         TextView increaseRarityTextView = choseGem.findViewById(R.id.plusTextView);
         Button decreaseRarityButton = choseGem.findViewById(R.id.decreaseRarityButton);
         Button increaseRarityButton = choseGem.findViewById(R.id.increaseRarityButton);
+        Button showCalcsButton = choseGem.findViewById(R.id.seeCalcsButton);
 
         TextView gemDetailsTextView = choseGem.findViewById(R.id.gemDetailsTextView);
         TextView socketDetailsTextView = choseGem.findViewById(R.id.socketDetailsTextView);
+        TextView totalGemPointsTextView = choseGem.findViewById(R.id.totalPointsTextView);
 
         ImageButton saveButton = choseGem.findViewById(R.id.saveGemButton);
 
@@ -1223,8 +1171,10 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
 
-        switch (gems.get(socketNum).getSocketType()) {
+        switch (tempSocketType) {
             case EFF:
+                gems.get(socketNum).setBasePoints(baseEff);
+
                 effTypeSelected.setVisibility(View.VISIBLE);
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
@@ -1240,34 +1190,10 @@ public class ShoeOptimizer extends AppCompatActivity {
                 for (int i = 0; i < 6; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_eff);
                 }
-
-                switch (gems.get(socketNum).getMountedGem()) {
-                    case 1:
-                        gemParams = Math.floor((2 + (0.05 * baseEff)) * 10) / 10;
-                        break;
-                    case 2:
-                        gemParams = Math.floor((8 + (0.7 * baseEff)) * 10) / 10;
-                        break;
-                    case 3:
-                        gemParams = Math.floor((25 + (2.2 * baseEff)) * 10) / 10;
-                        break;
-                    case 4:
-                        gemParams = Math.floor((72 + (6 * baseEff)) * 10) / 10;
-                        break;
-                    case 5:
-                        gemParams = Math.floor((200 + (14 * baseEff)) * 10) / 10;
-                        break;
-                    case 6:
-                        gemParams = Math.floor((400 + (43 * baseEff)) * 10) / 10;
-                        break;
-                    default:
-                        gemParams = 0;
-                }
-
-                gemParamsString = "+ " + gemParams;
-                gemDetailsTextView.setText(gemParamsString);
                 break;
             case LUCK:
+                gems.get(socketNum).setBasePoints(baseLuck);
+
                 effTypeSelected.setVisibility(View.INVISIBLE);
                 luckTypeSelected.setVisibility(View.VISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
@@ -1285,6 +1211,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
                 break;
             case COMF:
+                gems.get(socketNum).setBasePoints(baseComf);
+
                 effTypeSelected.setVisibility(View.INVISIBLE);
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.VISIBLE);
@@ -1302,6 +1230,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
                 break;
             case RES:
+                gems.get(socketNum).setBasePoints(baseRes);
+
                 effTypeSelected.setVisibility(View.INVISIBLE);
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
@@ -1319,6 +1249,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
                 break;
             default:
+                gems.get(socketNum).setBasePoints(0);
+
                 effTypeSelected.setVisibility(View.INVISIBLE);
                 luckTypeSelected.setVisibility(View.INVISIBLE);
                 comfTypeSelected.setVisibility(View.INVISIBLE);
@@ -1336,7 +1268,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
         }
 
-        switch (gems.get(socketNum).getMountedGem()) {
+        switch (tempGemMounted) {
             case 1:
                 lvl1SelectedButton.setAlpha(1.0f);
                 lvl2SelectedButton.setAlpha(0.0f);
@@ -1400,14 +1332,18 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
 
-        if (gems.get(socketNum).getSocketRarity() == 0) {
+        if (tempSocketRarity == 0) {
             decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
-        } else if ((gems.get(socketNum).getSocketRarity() == 1 && shoeRarity <= COMMON)
-                || (gems.get(socketNum).getSocketRarity() == 2 && shoeRarity <= UNCOMMON)
-                || (gems.get(socketNum).getSocketRarity() == 3 && shoeRarity <= RARE)
-                || gems.get(socketNum).getSocketRarity() == 4) {
+        } else if ((tempSocketRarity == 1 && shoeRarity <= COMMON)
+                || (tempSocketRarity == 2 && shoeRarity <= UNCOMMON)
+                || (tempSocketRarity == 3 && shoeRarity <= RARE)
+                || tempSocketRarity == 4) {
             increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
         }
+
+        gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+        socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
+        totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
 
         choseGem.show();
 
@@ -1431,8 +1367,13 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
 
                 gems.get(socketNum).setSocketType(EFF);
+                gems.get(socketNum).setBasePoints(baseEff);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
                 gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1456,8 +1397,13 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
 
                 gems.get(socketNum).setSocketType(LUCK);
+                gems.get(socketNum).setBasePoints(baseLuck);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
                 gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1481,8 +1427,13 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
 
                 gems.get(socketNum).setSocketType(COMF);
+                gems.get(socketNum).setBasePoints(baseComf);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
                 gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1506,8 +1457,13 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
 
                 gems.get(socketNum).setSocketType(RES);
+                gems.get(socketNum).setBasePoints(baseRes);
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
                 gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1522,7 +1478,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (gems.get(socketNum).getSocketRarity() == 0) {
                     decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
                 }
-
+                socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1556,14 +1513,8 @@ public class ShoeOptimizer extends AppCompatActivity {
                 }
 
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
-
-            }
-        });
-
-        gemSocket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ShoeOptimizer.this, "ADDING GEM", Toast.LENGTH_SHORT).show();
+                socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1572,7 +1523,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             public void onClick(View view) {
                 saveNew = true;
                 choseGem.dismiss();
-                updateGems();
+                updateLevel();
             }
         });
 
@@ -1596,6 +1547,9 @@ public class ShoeOptimizer extends AppCompatActivity {
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
                 }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1619,6 +1573,9 @@ public class ShoeOptimizer extends AppCompatActivity {
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
                 }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1642,6 +1599,9 @@ public class ShoeOptimizer extends AppCompatActivity {
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
                 }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1665,6 +1625,9 @@ public class ShoeOptimizer extends AppCompatActivity {
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
                 }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1688,6 +1651,9 @@ public class ShoeOptimizer extends AppCompatActivity {
                     lvl5SelectedButton.setAlpha(1.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
                 }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
@@ -1711,23 +1677,26 @@ public class ShoeOptimizer extends AppCompatActivity {
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(1.0f);
                 }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
             }
         });
 
         // TODO
-        //  - make grey versions of socket rarities? might as well
-
+        showCalcsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ShoeOptimizer.this, "Adding this soon", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
 
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
 
         int durabilityLost;
-        float repairCost;
-        float gstTotal = 0;
-
-        calcGems();
+        float repairCost, gstTotal;
 
         float totalEff = Float.parseFloat(effTotalTextView.getText().toString());
         float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
@@ -1748,7 +1717,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.515) - 5.35)) * 10) / 10);
         }
 
-        durabilityLost = (int) Math.ceil(energy * ((80 * Math.pow((totalRes + 11), -1.2)) + 0.25));
+        durabilityLost = (int) (energy * ((2.22 * Math.exp(-totalRes / 30.9)) + (2.8 * Math.exp(-totalRes / 6.2)) + 0.4));
 
         repairCost = calcRepairCost(durabilityLost);
 
@@ -2071,10 +2040,48 @@ public class ShoeOptimizer extends AppCompatActivity {
             addedRes = 0;
         }
 
-        effTotalTextView.setText(String.valueOf(baseEff + gemEff + addedEff));
-        luckTotalTextView.setText(String.valueOf(baseLuck + gemLuck + addedLuck));
-        comfortTotalTextView.setText(String.valueOf(baseComf + gemComf + addedComf));
-        resTotalTextView.setText(String.valueOf(baseRes + gemRes + addedRes));
+        int gemsUnlocked = 0;
+        gemEff = 0;
+        gemLuck = 0;
+        gemComf = 0;
+        gemRes = 0;
+
+        if (shoeLevel >= 20) {
+            gemsUnlocked = 4;
+        } else if (shoeLevel >= 15) {
+            gemsUnlocked = 3;
+        } else if (shoeLevel >= 10) {
+            gemsUnlocked = 2;
+        } else if (shoeLevel >= 5) {
+            gemsUnlocked = 1;
+        }
+
+        for (int i = 0; i < gemsUnlocked; i++) {
+            switch (gems.get(i).getSocketType()) {
+                case EFF:
+                    gems.get(i).setBasePoints(baseEff);
+                    gemEff += gems.get(i).getTotalPoints();
+                    break;
+                case LUCK:
+                    gems.get(i).setBasePoints(baseLuck);
+                    gemLuck += gems.get(i).getTotalPoints();
+                    break;
+                case COMF:
+                    gems.get(i).setBasePoints(baseComf);
+                    gemComf += gems.get(i).getTotalPoints();
+                    break;
+                case RES:
+                    gems.get(i).setBasePoints(baseRes);
+                    gemRes += gems.get(i).getTotalPoints();
+                    break;
+                default:
+            }
+        }
+
+        effTotalTextView.setText(String.valueOf(Math.floor((baseEff + addedEff + gemEff) * 10) / 10.0));
+        luckTotalTextView.setText(String.valueOf(Math.floor((baseLuck + addedLuck + gemLuck) * 10) / 10.0));
+        comfortTotalTextView.setText(String.valueOf(Math.floor((baseComf + addedComf + gemComf) * 10) / 10.0));
+        resTotalTextView.setText(String.valueOf(Math.floor((baseRes + addedRes + gemRes) * 10) / 10.0));
 
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
 
@@ -2134,27 +2141,12 @@ public class ShoeOptimizer extends AppCompatActivity {
         calcTotals();
     }
 
-    // calcs gem points
-    private void calcGems() {
-        gemEff = 0;
-        gemLuck = 0;
-        gemComf = 0;
-        gemRes = 0;
-
-        // TODO
-    }
-
     // load initial point values
     private void loadPoints() {
         effEditText.setText(String.valueOf(baseEff));
-        effTotalTextView.setText(String.valueOf(baseEff + addedEff + gemEff));
         luckEditText.setText(String.valueOf(baseLuck));
-        luckTotalTextView.setText(String.valueOf(baseLuck + addedLuck + gemLuck));
         comfortEditText.setText(String.valueOf(baseComf));
-        comfortTotalTextView.setText(String.valueOf(baseComf + addedComf + gemComf));
         resEditText.setText(String.valueOf(baseRes));
-        resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
-
     }
 
     // clears focus from the input boxes by focusing on another hidden edittext
@@ -2178,6 +2170,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        editor.putInt(OPT_SHOE_TYPE_PREF, shoeType);
+        editor.putFloat(OPT_ENERGY_PERF, energy);
         editor.putInt(SHOE_RARITY_PREF, shoeRarity);
         editor.putInt(SHOE_LEVEL_PREF, shoeLevel);
         editor.putFloat(BASE_EFF_PREF, baseEff);
