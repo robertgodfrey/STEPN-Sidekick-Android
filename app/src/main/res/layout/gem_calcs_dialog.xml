@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/alertBoxBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="-20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/seeCalcsTotalLabelTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/alert_box" />
+
+    <ImageView
+        android:id="@+id/gemSocketShadow"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintBottom_toBottomOf="@id/seeCalcsSocketImageView"
+        app:layout_constraintEnd_toEndOf="@id/seeCalcsSocketImageView"
+        app:layout_constraintStart_toStartOf="@id/seeCalcsSocketImageView"
+        app:layout_constraintTop_toTopOf="@+id/seeCalcsSocketImageView"
+        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/seeCalcsSocketImageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toTopOf="@+id/alertBoxBackground"
+        app:srcCompat="@drawable/gem_socket_eff_0" />
+
+    <ImageView
+        android:id="@+id/seeCalcsGemImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/seeCalcsSocketImageView"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toTopOf="@+id/seeCalcsSocketImageView"
+        app:srcCompat="@drawable/gem_eff_level1" />
+
+    <TextView
+        android:id="@+id/seeCalcsTitleGemTextView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="Level 1 Gem"
+        android:textColor="@color/gandalf"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsSocketImageView" />
+
+    <TextView
+        android:id="@+id/seeCalcsGemAddedPointsTextView"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="+ 2 points   + 5% to base"
+        android:textColor="@color/gandalf"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsTitleGemTextView" />
+
+    <TextView
+        android:id="@+id/seeCalcsGemTotalCalcTextView"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:includeFontPadding="false"
+        android:text="(14.0 * 0.05) + 2 = 2.7"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsGemAddedPointsTextView" />
+
+    <TextView
+        android:id="@+id/seeCalcsBaseLabelTextView"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="2dp"
+        android:includeFontPadding="false"
+        android:text="Base Eff"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/seeCalcsGemTotalCalcTextView"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsGemTotalCalcTextView" />
+
+    <TextView
+        android:id="@+id/seeCalcsSocketTextView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:includeFontPadding="false"
+        android:text="Common Socket"
+        android:textColor="@color/gandalf"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsBaseLabelTextView" />
+
+    <TextView
+        android:id="@+id/seeCalcsSocketMultiplierTextView"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="Gem points x 1.1"
+        android:textColor="@color/gandalf"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsSocketTextView" />
+
+    <TextView
+        android:id="@+id/seeCalcsSocketTotalCalcTextView"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:includeFontPadding="false"
+        android:text="2.7 * 1.1 = 3.0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsSocketMultiplierTextView" />
+
+    <TextView
+        android:id="@+id/seeCalcsTotalLabelTextView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:includeFontPadding="false"
+        android:text="Total Points:"
+        android:textColor="@color/almost_black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/seeCalcsTotalTextView"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsSocketTotalCalcTextView" />
+
+    <TextView
+        android:id="@+id/seeCalcsTotalTextView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:includeFontPadding="false"
+        android:text="+ 3.0"
+        android:textColor="@color/almost_black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@+id/seeCalcsTotalLabelTextView"
+        app:layout_constraintTop_toBottomOf="@+id/seeCalcsSocketTotalCalcTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -912,7 +912,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.WRAP_CONTENT);
         welcome.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        ImageButton nextButton = welcome.findViewById(R.id.saveGemButton);
+        ImageButton nextButton = welcome.findViewById(R.id.nextButton);
         ImageView nextButtonShadow = welcome.findViewById(R.id.nextButtonShadow);
         TextView nextButtonTextView = welcome.findViewById(R.id.nextButtonTextView);
         Button skipButton = welcome.findViewById(R.id.skipButton);
@@ -957,7 +957,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.WRAP_CONTENT);
         instructionsOne.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        ImageButton nextButton = instructionsOne.findViewById(R.id.saveGemButton);
+        ImageButton nextButton = instructionsOne.findViewById(R.id.nextButton);
         ImageView nextButtonShadow = instructionsOne.findViewById(R.id.nextButtonShadow);
         TextView nextButtonTextView = instructionsOne.findViewById(R.id.nextButtonTextView);
 
@@ -1041,7 +1041,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.WRAP_CONTENT);
         instructionsTwo.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        ImageButton nextButton = instructionsTwo.findViewById(R.id.saveGemButton);
+        ImageButton nextButton = instructionsTwo.findViewById(R.id.nextButton);
         ImageView nextButtonShadow = instructionsTwo.findViewById(R.id.nextButtonShadow);
         TextView nextButtonTextView = instructionsTwo.findViewById(R.id.nextButtonTextView);
 
@@ -1090,7 +1090,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.WRAP_CONTENT);
         instructionsThree.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        ImageButton nextButton = instructionsThree.findViewById(R.id.saveGemButton);
+        ImageButton nextButton = instructionsThree.findViewById(R.id.nextButton);
         ImageView nextButtonShadow = instructionsThree.findViewById(R.id.nextButtonShadow);
         TextView nextButtonTextView = instructionsThree.findViewById(R.id.nextButtonTextView);
 
@@ -1140,7 +1140,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.WRAP_CONTENT);
         instructionsFour.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        ImageButton nextButton = instructionsFour.findViewById(R.id.saveGemButton);
+        ImageButton nextButton = instructionsFour.findViewById(R.id.nextButton);
         ImageView nextButtonShadow = instructionsFour.findViewById(R.id.nextButtonShadow);
         TextView nextButtonTextView = instructionsFour.findViewById(R.id.nextButtonTextView);
 
@@ -1198,9 +1198,9 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.WRAP_CONTENT);
         instructionsFive.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        ImageButton nextButton = instructionsFive.findViewById(R.id.saveGemButton);
-        ImageView nextButtonShadow = instructionsFive.findViewById(R.id.nextButtonShadow);
-        TextView nextButtonTextView = instructionsFive.findViewById(R.id.nextButtonTextView);
+        ImageButton nextButton = instructionsFive.findViewById(R.id.goButton);
+        ImageView nextButtonShadow = instructionsFive.findViewById(R.id.goButtonShadow);
+        TextView nextButtonTextView = instructionsFive.findViewById(R.id.goButtonTextView);
 
         instructionsFive.show();
 
@@ -1232,7 +1232,7 @@ public class MainActivity extends AppCompatActivity {
         updateDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
 
-        ImageButton nextButton = updateDialog.findViewById(R.id.saveGemButton);
+        ImageButton nextButton = updateDialog.findViewById(R.id.nextButton);
         ImageView nextButtonShadow = updateDialog.findViewById(R.id.nextButtonShadow);
         TextView nextButtonTextView = updateDialog.findViewById(R.id.nextButtonTextView);
 

@@ -34,6 +34,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -964,28 +966,28 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
 
         // make sure bases are correct for shoe rarity
-        if (baseEff < baseMin) {
+        if (baseEff < baseMin && baseEff != 0) {
             baseEff = baseMin;
             effEditText.setText(String.valueOf(baseEff));
         } else if (baseEff > baseMax) {
             baseEff = baseMax;
             effEditText.setText(String.valueOf(baseEff));
         }
-        if (baseLuck < baseMin) {
+        if (baseLuck < baseMin && baseLuck != 0) {
             baseLuck = baseMin;
             luckEditText.setText(String.valueOf(baseLuck));
         } else if (baseLuck > baseMax) {
             baseLuck = baseMax;
             luckEditText.setText(String.valueOf(baseLuck));
         }
-        if (baseComf < baseMin) {
+        if (baseComf < baseMin && baseComf != 0) {
             baseComf = baseMin;
             comfortEditText.setText(String.valueOf(baseComf));
         } else if (baseComf > baseMax) {
             baseComf = baseMax;
             comfortEditText.setText(String.valueOf(baseComf));
         }
-        if (baseRes < baseMin) {
+        if (baseRes < baseMin && baseRes != 0) {
             baseRes = baseMin;
             resEditText.setText(String.valueOf(baseRes));
         } else if (baseRes > baseMax) {
@@ -1683,13 +1685,106 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
-        // TODO
         showCalcsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ShoeOptimizer.this, "Adding this soon", Toast.LENGTH_SHORT).show();
+                showGemCalcs(socketNum);
             }
         });
+    }
+
+    // shows detailed gem calculations
+    private void showGemCalcs(int socketNum) {
+        int points, percent;
+        float socketMultiplier;
+        String socketType;
+
+        Dialog showGemCalcDetails = new Dialog(ShoeOptimizer.this);
+
+        showGemCalcDetails.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        showGemCalcDetails.setCancelable(true);
+        showGemCalcDetails.setContentView(R.layout.gem_calcs_dialog);
+        showGemCalcDetails.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        showGemCalcDetails.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        ImageView calcsSocket = showGemCalcDetails.findViewById(R.id.seeCalcsSocketImageView);
+        ImageView calcsGem = showGemCalcDetails.findViewById(R.id.seeCalcsGemImageView);
+
+        TextView calcsGemLvl = showGemCalcDetails.findViewById(R.id.seeCalcsTitleGemTextView);
+        TextView calcsGemInfo = showGemCalcDetails.findViewById(R.id.seeCalcsGemAddedPointsTextView);
+        TextView calcsGemCalcs = showGemCalcDetails.findViewById(R.id.seeCalcsGemTotalCalcTextView);
+        TextView calcsBaseLabel = showGemCalcDetails.findViewById(R.id.seeCalcsBaseLabelTextView);
+
+        TextView calcsSocketRarity = showGemCalcDetails.findViewById(R.id.seeCalcsSocketTextView);
+        TextView calcsSocketInfo = showGemCalcDetails.findViewById(R.id.seeCalcsSocketMultiplierTextView);
+        TextView calcsSocketCalcs = showGemCalcDetails.findViewById(R.id.seeCalcsSocketTotalCalcTextView);
+        TextView calcsTotalPoints = showGemCalcDetails.findViewById(R.id.seeCalcsTotalTextView);
+
+        showGemCalcDetails.show();
+
+        switch (gems.get(socketNum).getMountedGem()) {
+            case 1:
+                points = 2;
+                percent = 5;
+                break;
+            case 2:
+                points = 8;
+                percent = 70;
+                break;
+            case 3:
+                points = 25;
+                percent = 220;
+                break;
+            case 4:
+                points = 72;
+                percent = 600;
+                break;
+            case 5:
+                points = 200;
+                percent = 1400;
+                break;
+            case 6:
+                points = 400;
+                percent = 4300;
+                break;
+            default:
+                points = 0;
+                percent = 0;
+                break;
+        }
+
+        switch (gems.get(socketNum).getSocketType()) {
+            case EFF:
+                socketType = "Eff";
+                break;
+            case LUCK:
+                socketType = "Luck";
+                break;
+            case COMF:
+                socketType = "Comf";
+                break;
+            case RES:
+                socketType = "Res";
+                break;
+            default:
+                socketType = "";
+        }
+
+        String gemLevel = "Level " + gems.get(socketNum).getMountedGem() + " Gem";
+        String gemInfo = "+ " + points + " points     + " + percent + "% to base";
+        String gemCalcs = "(" + gems.get(socketNum).getBasePoints() + " * " + (percent / 100.0) + ") + "
+                + points + " = " + (gems.get(socketNum).getBasePoints() * (percent / 100.0) + points);
+        String basePointsLabel = "Base " + socketType;
+
+        calcsSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
+        calcsGem.setImageResource(gems.get(socketNum).getGemImageSource());
+
+        calcsGemLvl.setText(gemLevel);
+        calcsGemInfo.setText(gemInfo);
+        calcsGemCalcs.setText(gemCalcs);
+        calcsBaseLabel.setText(basePointsLabel);
+
     }
 
     // calculate gst earnings, durability lost, repair cost, and mb chance
@@ -2143,10 +2238,18 @@ public class ShoeOptimizer extends AppCompatActivity {
 
     // load initial point values
     private void loadPoints() {
-        effEditText.setText(String.valueOf(baseEff));
-        luckEditText.setText(String.valueOf(baseLuck));
-        comfortEditText.setText(String.valueOf(baseComf));
-        resEditText.setText(String.valueOf(baseRes));
+        if (baseEff != 0) {
+            effEditText.setText(String.valueOf(baseEff));
+        }
+        if (baseLuck != 0) {
+            luckEditText.setText(String.valueOf(baseLuck));
+        }
+        if (baseComf != 0) {
+            comfortEditText.setText(String.valueOf(baseComf));
+        }
+        if (baseRes != 0) {
+            resEditText.setText(String.valueOf(baseRes));
+        }
     }
 
     // clears focus from the input boxes by focusing on another hidden edittext

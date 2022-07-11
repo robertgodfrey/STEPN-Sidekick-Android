@@ -2,6 +2,8 @@ package stepn.sidekick.stepnsidekick;
 
 import static stepn.sidekick.stepnsidekick.Finals.*;
 
+import android.util.Log;
+
 /**
  * Gem class for saving gem slot type, rarity, and gem mounted.
  *
