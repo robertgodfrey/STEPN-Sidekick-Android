@@ -24,7 +24,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="-16dp"
-        app:layout_constraintBottom_toBottomOf="@id/saveGemButton"
+        app:layout_constraintBottom_toBottomOf="@id/goButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -61,19 +61,19 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
-        android:id="@+id/nextButtonShadow"
+        android:id="@+id/goButtonShadow"
         android:layout_width="100dp"
         android:layout_height="36dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/saveGemButton"
-        app:layout_constraintEnd_toEndOf="@+id/saveGemButton"
-        app:layout_constraintStart_toStartOf="@+id/saveGemButton"
-        app:layout_constraintTop_toTopOf="@+id/saveGemButton"
+        app:layout_constraintBottom_toBottomOf="@+id/goButton"
+        app:layout_constraintEnd_toEndOf="@+id/goButton"
+        app:layout_constraintStart_toStartOf="@+id/goButton"
+        app:layout_constraintTop_toTopOf="@+id/goButton"
         app:srcCompat="@drawable/start_button_shadow" />
 
     <TextView
-        android:id="@+id/nextButtonShadowTextView"
+        android:id="@+id/goButtonShadowTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -82,13 +82,13 @@
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/nextButtonShadow"
-        app:layout_constraintEnd_toEndOf="@+id/nextButtonShadow"
-        app:layout_constraintStart_toStartOf="@+id/nextButtonShadow"
-        app:layout_constraintTop_toTopOf="@+id/nextButtonShadow" />
+        app:layout_constraintBottom_toBottomOf="@+id/goButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/goButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/goButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/goButtonShadow" />
 
     <ImageButton
-        android:id="@+id/saveGemButton"
+        android:id="@+id/goButton"
         android:layout_width="100dp"
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/nextButtonTextView"
+        android:id="@+id/goButtonTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_condensed_bold_italic"
@@ -107,10 +107,10 @@
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/saveGemButton"
-        app:layout_constraintEnd_toEndOf="@+id/saveGemButton"
-        app:layout_constraintStart_toStartOf="@+id/saveGemButton"
-        app:layout_constraintTop_toTopOf="@+id/saveGemButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/goButton"
+        app:layout_constraintEnd_toEndOf="@+id/goButton"
+        app:layout_constraintStart_toStartOf="@+id/goButton"
+        app:layout_constraintTop_toTopOf="@+id/goButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
