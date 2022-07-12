@@ -124,7 +124,7 @@ public class Gem {
     }
 
     public String getSocketParamsString() {
-        return "x " + getSocketParams();
+        return "× " + getSocketParams();
     }
 
     public String getTotalPointsString() {

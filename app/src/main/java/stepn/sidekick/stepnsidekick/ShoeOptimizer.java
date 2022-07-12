@@ -1697,7 +1697,7 @@ public class ShoeOptimizer extends AppCompatActivity {
     private void showGemCalcs(int socketNum) {
         int points, percent;
         float socketMultiplier;
-        String socketType;
+        String socketType, socketRarity;
 
         Dialog showGemCalcDetails = new Dialog(ShoeOptimizer.this);
 
@@ -1771,11 +1771,31 @@ public class ShoeOptimizer extends AppCompatActivity {
                 socketType = "";
         }
 
+        switch (gems.get(socketNum).getSocketRarity()) {
+            case 1:
+                socketRarity = "Uncommon Socket";
+                break;
+            case 2:
+                socketRarity = "Rare Socket";
+                break;
+            case 3:
+                socketRarity = "Epic Socket";
+                break;
+            case 4:
+                socketRarity = "Legendary Socket";
+                break;
+            default:
+                socketRarity = "Common Socket";
+        }
+
         String gemLevel = "Level " + gems.get(socketNum).getMountedGem() + " Gem";
-        String gemInfo = "+ " + points + " points     + " + percent + "% to base";
-        String gemCalcs = "(" + gems.get(socketNum).getBasePoints() + " * " + (percent / 100.0) + ") + "
-                + points + " = " + (gems.get(socketNum).getBasePoints() * (percent / 100.0) + points);
+        String gemInfo = "+ " + percent + "% base\n+ " + points + " points";
+        String gemCalcs = "(" + gems.get(socketNum).getBasePoints() + " × " + percent + "%) + "
+                + points + " = " + gems.get(socketNum).getGemParams();
         String basePointsLabel = "Base " + socketType;
+        String socketInfo = "Gem points " + gems.get(socketNum).getSocketParamsString();
+        String socketCalcs = gems.get(socketNum).getGemParams() + " × " + gems.get(socketNum).getSocketParams()
+                + " = " + gems.get(socketNum).getTotalPoints();
 
         calcsSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
         calcsGem.setImageResource(gems.get(socketNum).getGemImageSource());
@@ -1784,6 +1804,11 @@ public class ShoeOptimizer extends AppCompatActivity {
         calcsGemInfo.setText(gemInfo);
         calcsGemCalcs.setText(gemCalcs);
         calcsBaseLabel.setText(basePointsLabel);
+
+        calcsSocketRarity.setText(socketRarity);
+        calcsSocketInfo.setText(socketInfo);
+        calcsSocketCalcs.setText(socketCalcs);
+        calcsTotalPoints.setText(gems.get(socketNum).getTotalPointsString());
 
     }
 
