@@ -72,22 +72,22 @@ public class Gem {
 
         switch (mountedGem) {
             case 1:
-                gemParams = Math.floor((2 + (0.05 * basePoints)) * 10) / 10.0;
+                gemParams = 2 + (Math.floor(0.05 * basePoints * 10.0) / 10.0);
                 break;
             case 2:
-                gemParams = Math.floor((8 + (0.7 * basePoints)) * 10) / 10.0;
+                gemParams = 8 + Math.floor(0.7 * basePoints * 10.0) / 10.0;
                 break;
             case 3:
-                gemParams = Math.floor((25 + (2.2 * basePoints)) * 10) / 10.0;
+                gemParams = 25 + Math.floor(2.2 * basePoints * 10.0) / 10.0;
                 break;
             case 4:
-                gemParams = Math.floor((72 + (6 * basePoints)) * 10) / 10.0;
+                gemParams = 72 + Math.floor(6 * basePoints * 10.0) / 10.0;
                 break;
             case 5:
-                gemParams = Math.floor((200 + (14 * basePoints)) * 10) / 10.0;
+                gemParams = 200 + Math.floor(14 * basePoints * 10.0) / 10.0;
                 break;
             case 6:
-                gemParams = Math.floor((400 + (43 * basePoints)) * 10) / 10.0;
+                gemParams = 400 + Math.floor(43 * basePoints * 10.0) / 10.0;
                 break;
             default:
                 gemParams = 0;

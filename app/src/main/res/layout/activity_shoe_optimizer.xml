@@ -326,9 +326,9 @@
 
             <TextView
                 android:id="@+id/rarityLabelTextView"
-                style="@style/RegItalic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_regular_italic"
                 android:text="Rarity"
                 android:textColor="@color/gandalf"
                 android:textSize="14sp"
@@ -429,7 +429,7 @@
 
             <TextView
                 android:id="@+id/shoeTypeLabelTextView"
-                style="@style/RegItalic"
+                android:fontFamily="@font/roboto_condensed_regular_italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Type"
@@ -456,7 +456,7 @@
 
             <TextView
                 android:id="@+id/energyLabelTextView"
-                style="@style/RegItalic"
+                android:fontFamily="@font/roboto_condensed_regular_italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Energy"

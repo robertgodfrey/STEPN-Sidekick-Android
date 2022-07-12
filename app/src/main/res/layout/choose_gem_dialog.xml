@@ -23,10 +23,10 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:includeFontPadding="false"
         android:text="SELECT SOCKET TYPE"
         android:textColor="@color/almost_black"
@@ -61,7 +61,7 @@
 
     <TextView
         android:id="@+id/effLabel"
-        style="@style/RegItalic"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -99,7 +99,7 @@
 
     <TextView
         android:id="@+id/luckLabel"
-        style="@style/RegItalic"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -137,7 +137,7 @@
 
     <TextView
         android:id="@+id/comfLabel"
-        style="@style/RegItalic"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -175,7 +175,7 @@
 
     <TextView
         android:id="@+id/resLabel"
-        style="@style/RegItalic"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -200,9 +200,10 @@
         app:srcCompat="@drawable/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/gemSocket"
         android:layout_width="50dp"
+        android:background="@null"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
@@ -270,10 +271,10 @@
 
     <TextView
         android:id="@+id/textView2"
-        style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:includeFontPadding="false"
         android:text="SELECT GEM"
         android:textColor="@color/almost_black"
@@ -557,7 +558,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        style="@style/ButtonBoldItalic"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="SAVE"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
@@ -580,7 +581,7 @@
 
     <TextView
         android:id="@+id/saveGemButtonTextView"
-        style="@style/ButtonBoldItalic"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"

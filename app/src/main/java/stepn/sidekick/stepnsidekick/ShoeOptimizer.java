@@ -1147,7 +1147,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         ImageView lvl5Gem = choseGem.findViewById(R.id.gemLevel5);
         ImageView lvl6Gem = choseGem.findViewById(R.id.gemLevel6);
 
-        ImageView gemSocket = choseGem.findViewById(R.id.gemSocket);
+        ImageButton gemSocket = choseGem.findViewById(R.id.gemSocket);
         ImageView gemSocketPlus = choseGem.findViewById(R.id.socketPlus);
 
         TextView decreaseRarityTextView = choseGem.findViewById(R.id.minusTextView);
@@ -1685,6 +1685,29 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
+        gemSocket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 0) {
+                    Toast.makeText(ShoeOptimizer.this, "Choose a gem to mount", Toast.LENGTH_SHORT).show();
+                } else {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+
+                    lvl1SelectedButton.setAlpha(0.0f);
+                    lvl2SelectedButton.setAlpha(0.0f);
+                    lvl3SelectedButton.setAlpha(0.0f);
+                    lvl4SelectedButton.setAlpha(0.0f);
+                    lvl5SelectedButton.setAlpha(0.0f);
+                    lvl6SelectedButton.setAlpha(0.0f);
+                }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
+            }
+        });
+
         showCalcsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1799,6 +1822,8 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         calcsSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
         calcsGem.setImageResource(gems.get(socketNum).getGemImageSource());
+        calcsGem.setPadding(0, (int) (gems.get(socketNum).getTopPadding() * dpScale + 0.5f), 0,
+                (int) (gems.get(socketNum).getBottomPadding() * dpScale + 0.5f));
 
         calcsGemLvl.setText(gemLevel);
         calcsGemInfo.setText(gemInfo);
@@ -1819,8 +1844,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         float repairCost, gstTotal;
 
         float totalEff = Float.parseFloat(effTotalTextView.getText().toString());
-        float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
-        float totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
+        // float totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
         float totalRes = Float.parseFloat(resTotalTextView.getText().toString());
 
         switch (shoeType) {
@@ -1831,7 +1855,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.49) * 10) / 10);
                 break;
             case TRAINER:
-                gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.495) * 10) / 10);
+                gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.492) * 10) / 10);
                 break;
             default:
                 gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.47) * 10) / 10);
@@ -1840,6 +1864,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         durabilityLost = (int) (energy * ((2.22 * Math.exp(-totalRes / 30.9)) + (2.8 * Math.exp(-totalRes / 6.2)) + 0.4));
 
         repairCost = calcRepairCost(durabilityLost);
+
+        calcMbChances();
 
         gstEarnedTextView.setText(String.valueOf(gstTotal));
         durabilityLossTextView.setText(String.valueOf(durabilityLost));
@@ -2148,6 +2174,37 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
 
         return baseCost * durabilityLost;
+    }
+
+    // calculates mb chances
+    private void calcMbChances() {
+        float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
+
+        if (energy >= Math.pow((0.1 * totalLuck + 0.05), -0.5) + 0.3 && energy <= -Math.pow(totalLuck, 0.2) + 8.5) {
+            mysteryBox1.clearColorFilter();
+            mysteryBox1.setImageTintMode(null);
+            if (energy < (-0.0005 * Math.pow((totalLuck + 40), 2) + 5)) {
+                mysteryBox1.setAlpha(1.0f);
+            } else {
+                mysteryBox1.setAlpha(0.5f);
+            }
+        } else {
+            mysteryBox1.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox1.setAlpha(0.5f);
+        }
+
+        if (energy >= Math.pow((0.01 * totalLuck + 0.06), -0.5) + 0.5 && energy <= (-0.0005 * Math.pow((totalLuck + 40), 2) + 13)) {
+            mysteryBox2.clearColorFilter();
+            mysteryBox2.setImageTintMode(null);
+            if (energy < (-0.0005 * Math.pow(totalLuck, 2) + 6)) {
+                mysteryBox2.setAlpha(1.0f);
+            } else {
+                mysteryBox2.setAlpha(0.5f);
+            }
+        } else {
+            mysteryBox2.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox2.setAlpha(0.5f);
+        }
     }
 
     private void updatePoints() {
