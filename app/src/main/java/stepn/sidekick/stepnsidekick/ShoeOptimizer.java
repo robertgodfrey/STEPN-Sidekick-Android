@@ -1825,16 +1825,16 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         switch (shoeType) {
             case JOGGER:
-                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.52) - 5.4)) * 10) / 10);
+                gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.48) * 10) / 10);
                 break;
             case RUNNER:
-                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.525) - 5.45)) * 10) / 10);
+                gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.49) * 10) / 10);
                 break;
             case TRAINER:
-                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.527) - 5)) * 10) / 10);
+                gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.495) * 10) / 10);
                 break;
             default:
-                gstTotal = (float) (Math.floor((energy * (Math.pow((totalEff + 60), 0.515) - 5.35)) * 10) / 10);
+                gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.47) * 10) / 10);
         }
 
         durabilityLost = (int) (energy * ((2.22 * Math.exp(-totalRes / 30.9)) + (2.8 * Math.exp(-totalRes / 6.2)) + 0.4));
@@ -1854,6 +1854,7 @@ public class ShoeOptimizer extends AppCompatActivity {
     }
 
     // calculates repair cost in gst based on shoe rarity, level, and durability lost
+    // consider making this a formula in the future...
     private float calcRepairCost(int durabilityLost) {
         float baseCost;
 

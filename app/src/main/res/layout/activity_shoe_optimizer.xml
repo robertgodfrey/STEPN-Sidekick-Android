@@ -1118,7 +1118,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/roboto_condensed_regular_italic"
-                android:text="GST Earned / Daily Limit:"
+                android:text="Estimated GST / Daily Limit:"
                 android:textColor="@color/almost_black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
