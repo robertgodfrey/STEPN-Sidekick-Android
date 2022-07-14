@@ -819,7 +819,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         optimizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO
+                optimizeShoe();
                 clearFocus(view);
             }
         });
@@ -1863,7 +1863,7 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         durabilityLost = (int) (energy * ((2.22 * Math.exp(-totalRes / 30.9)) + (2.8 * Math.exp(-totalRes / 6.2)) + 0.4));
 
-        repairCost = calcRepairCost(durabilityLost);
+        repairCost = getRepairCost() * durabilityLost;
 
         calcMbChances();
 
@@ -1879,9 +1879,56 @@ public class ShoeOptimizer extends AppCompatActivity {
         }
     }
 
-    // calculates repair cost in gst based on shoe rarity, level, and durability lost
+    // finds the point allocation that is most profitable
+    // there might be a better way to do this with calculus? but i think this is pretty okay. O(n)
+    private void optimizeShoe() {
+        float gstProfit, energyCo;
+        int optimalAddedEff = 0;
+        int optimalAddedRes = 0;
+        float maxProfit = 0;
+        float localTotalEff = baseEff + gemEff + (shoeLevel * 2 * shoeRarity);
+        float localTotalRes = baseRes + gemRes;
+
+        switch (shoeType) {
+            case JOGGER:
+                energyCo = 0.48f;
+                break;
+            case RUNNER:
+                energyCo = 0.49f;
+                break;
+            case TRAINER:
+                energyCo = 0.492f;
+                break;
+            default:
+                energyCo = 0.47f;
+        }
+
+        while (localTotalEff > baseEff + gemEff) {
+            gstProfit = ((float) (Math.floor(energy * Math.pow(localTotalEff, energyCo) * 10) / 10)) -
+                    (getRepairCost() * (int) (energy * ((2.22 * Math.exp(-localTotalRes / 30.9)) + (2.8 * Math.exp(-localTotalRes / 6.2)) + 0.4)));
+
+            if (gstProfit > maxProfit) {
+                optimalAddedEff = (int) (localTotalEff - baseEff - gemEff);
+                optimalAddedRes = (int) (localTotalRes - baseRes - gemRes);
+                maxProfit = gstProfit;
+            }
+
+            localTotalEff--;
+            localTotalRes++;
+            Log.d(TAG, "optimizeShoe: \ncurrent total Eff: " + localTotalEff + "\ncurrent total Res: " + localTotalRes + "\ncurrent gst profit: " + gstProfit + "\nmaxProfit: " + maxProfit);
+
+        }
+
+        addedEff = optimalAddedEff;
+        addedRes = optimalAddedRes;
+        addedLuck = 0;
+        addedComf = 0;
+        updatePoints();
+    }
+
+    // returns base repair cost in gst based on shoe rarity and level
     // consider making this a formula in the future...
-    private float calcRepairCost(int durabilityLost) {
+    private float getRepairCost() {
         float baseCost;
 
         if (shoeRarity == COMMON) {
@@ -2173,7 +2220,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             baseCost = 1;
         }
 
-        return baseCost * durabilityLost;
+        return baseCost;
     }
 
     // calculates mb chances
