@@ -1719,8 +1719,7 @@ public class ShoeOptimizer extends AppCompatActivity {
     // shows detailed gem calculations
     private void showGemCalcs(int socketNum) {
         int points, percent;
-        float socketMultiplier;
-        String socketType, socketRarity;
+        String socketRarity;
 
         Dialog showGemCalcDetails = new Dialog(ShoeOptimizer.this);
 
@@ -1737,7 +1736,6 @@ public class ShoeOptimizer extends AppCompatActivity {
         TextView calcsGemLvl = showGemCalcDetails.findViewById(R.id.seeCalcsTitleGemTextView);
         TextView calcsGemInfo = showGemCalcDetails.findViewById(R.id.seeCalcsGemAddedPointsTextView);
         TextView calcsGemCalcs = showGemCalcDetails.findViewById(R.id.seeCalcsGemTotalCalcTextView);
-        TextView calcsBaseLabel = showGemCalcDetails.findViewById(R.id.seeCalcsBaseLabelTextView);
 
         TextView calcsSocketRarity = showGemCalcDetails.findViewById(R.id.seeCalcsSocketTextView);
         TextView calcsSocketInfo = showGemCalcDetails.findViewById(R.id.seeCalcsSocketMultiplierTextView);
@@ -1777,23 +1775,6 @@ public class ShoeOptimizer extends AppCompatActivity {
                 break;
         }
 
-        switch (gems.get(socketNum).getSocketType()) {
-            case EFF:
-                socketType = "Eff";
-                break;
-            case LUCK:
-                socketType = "Luck";
-                break;
-            case COMF:
-                socketType = "Comf";
-                break;
-            case RES:
-                socketType = "Res";
-                break;
-            default:
-                socketType = "";
-        }
-
         switch (gems.get(socketNum).getSocketRarity()) {
             case 1:
                 socketRarity = "Uncommon Socket";
@@ -1815,7 +1796,6 @@ public class ShoeOptimizer extends AppCompatActivity {
         String gemInfo = "+ " + percent + "% base\n+ " + points + " points";
         String gemCalcs = "(" + gems.get(socketNum).getBasePoints() + " × " + percent + "%) + "
                 + points + " = " + gems.get(socketNum).getGemParams();
-        String basePointsLabel = "Base " + socketType;
         String socketInfo = "Gem points " + gems.get(socketNum).getSocketParamsString();
         String socketCalcs = gems.get(socketNum).getGemParams() + " × " + gems.get(socketNum).getSocketParams()
                 + " = " + gems.get(socketNum).getTotalPoints();
@@ -1828,7 +1808,6 @@ public class ShoeOptimizer extends AppCompatActivity {
         calcsGemLvl.setText(gemLevel);
         calcsGemInfo.setText(gemInfo);
         calcsGemCalcs.setText(gemCalcs);
-        calcsBaseLabel.setText(basePointsLabel);
 
         calcsSocketRarity.setText(socketRarity);
         calcsSocketInfo.setText(socketInfo);
@@ -2253,7 +2232,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox2.setAlpha(0.5f);
         }
 
-        if (energy <= -0.09091 * totalLuck + 16 && energy >= -0.14286 * totalLuck + 10.5 && energy >= 3.1) {
+        if (energy <= -0.09091 * totalLuck + 16 && energy >= 70 * Math.pow((totalLuck + 8), -1) + 2 && energy >= 3.1) {
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(1.0f);
@@ -2266,7 +2245,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox3.setAlpha(0.5f);
         }
 
-        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && energy >= 50 * Math.pow((totalLuck + 1), -1) + 3) {
+        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && energy >= 70 * Math.pow((totalLuck + 1), -1) + 3) {
             if (energy <= -0.0001 * Math.pow((totalLuck + 40), 2) + 17 && energy >= 50 * Math.pow((totalLuck + 30), -0.2) - 13.5) {
                 mysteryBox4.clearColorFilter();
                 mysteryBox4.setImageTintMode(null);
