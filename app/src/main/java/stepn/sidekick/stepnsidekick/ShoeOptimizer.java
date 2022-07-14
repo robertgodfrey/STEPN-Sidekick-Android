@@ -98,14 +98,14 @@ public class ShoeOptimizer extends AppCompatActivity {
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
             gstLimitTextView, durabilityLossTextView, repairCostTextView, gstIncomeTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
-            resPlusTv, optimizeTextView, shoeRarityShadowTextView, shoeTypeShadowTextView;
+            resPlusTv, optimizeTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
             gemSocketThreeLockPlus, gemSocketFour, gemSocketFourShadow, gemSocketFourLockPlus,
             shoeTypeImageView, shoeCircles, shoeRarityButtonShadow, shoeTypeButtonShadow, minLevelImageView,
             optimizeButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
-            mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10, footOne, footTwo,
+            mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo,
             footThree, energyBox;
 
     ScrollView mainScroll;
@@ -212,6 +212,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         repairCostTextView = findViewById(R.id.repairCostTextView);
         gstIncomeTextView = findViewById(R.id.gstIncomeTextView);
         optimizeTextView = findViewById(R.id.optimizeTextView);
+        lvl10Shrug = findViewById(R.id.lvl10shrug);
 
         effMinusTv = findViewById(R.id.subEffTextView);
         effPlusTv = findViewById(R.id.addEffTextView);
@@ -252,7 +253,6 @@ public class ShoeOptimizer extends AppCompatActivity {
         mysteryBox7 = findViewById(R.id.mysteryBoxLvl7);
         mysteryBox8 = findViewById(R.id.mysteryBoxLvl8);
         mysteryBox9 = findViewById(R.id.mysteryBoxLvl9);
-        mysteryBox10 = findViewById(R.id.mysteryBoxLvl10);
 
         footOne = findViewById(R.id.footprint1ImageView);
         footTwo = findViewById(R.id.footprint2ImageView);
@@ -2180,30 +2180,122 @@ public class ShoeOptimizer extends AppCompatActivity {
     private void calcMbChances() {
         float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
 
-        if (energy >= Math.pow((0.1 * totalLuck + 0.05), -0.5) + 0.3 && energy <= -Math.pow(totalLuck, 0.2) + 8.5) {
+        if (energy <= -0.04 * totalLuck + 6 && energy >= -0.05263 * totalLuck + 2 && energy >= 1) {
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
-            if (energy < (-0.0005 * Math.pow((totalLuck + 40), 2) + 5)) {
-                mysteryBox1.setAlpha(1.0f);
-            } else {
-                mysteryBox1.setAlpha(0.5f);
-            }
+            mysteryBox1.setAlpha(1.0f);
+        } else if (energy > -0.04 * totalLuck + 6 && energy < -0.02 * totalLuck + 8 && totalLuck < 110) {
+            mysteryBox1.clearColorFilter();
+            mysteryBox1.setImageTintMode(null);
+            mysteryBox1.setAlpha(0.5f);
         } else {
             mysteryBox1.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
             mysteryBox1.setAlpha(0.5f);
         }
 
-        if (energy >= Math.pow((0.01 * totalLuck + 0.06), -0.5) + 0.5 && energy <= (-0.0005 * Math.pow((totalLuck + 40), 2) + 13)) {
+        if (energy <= -0.06897 * totalLuck + 10 && energy >= -1.3333 * totalLuck + 6 && energy >= 2) {
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
-            if (energy < (-0.0005 * Math.pow(totalLuck, 2) + 6)) {
-                mysteryBox2.setAlpha(1.0f);
-            } else {
-                mysteryBox2.setAlpha(0.5f);
-            }
+            mysteryBox2.setAlpha(1.0f);
+        } else if (energy > -0.068966 * totalLuck + 10 && energy < -0.04 * totalLuck + 13) {
+            mysteryBox2.clearColorFilter();
+            mysteryBox2.setImageTintMode(null);
+            mysteryBox2.setAlpha(0.5f);
         } else {
             mysteryBox2.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
             mysteryBox2.setAlpha(0.5f);
+        }
+
+        if (energy <= -0.09091 * totalLuck + 16 && energy >= -0.14286 * totalLuck + 10.5 && energy >= 3.1) {
+            mysteryBox3.clearColorFilter();
+            mysteryBox3.setImageTintMode(null);
+            mysteryBox3.setAlpha(1.0f);
+        } else if (energy > -0.09091 * totalLuck + 16 && energy < -0.08333 * totalLuck + 21) {
+            mysteryBox3.clearColorFilter();
+            mysteryBox3.setImageTintMode(null);
+            mysteryBox3.setAlpha(0.5f);
+        } else {
+            mysteryBox3.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox3.setAlpha(0.5f);
+        }
+
+        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && energy >= 50 * Math.pow((totalLuck + 1), -1) + 3) {
+            if (energy <= -0.0001 * Math.pow((totalLuck + 40), 2) + 17 && energy >= 50 * Math.pow((totalLuck + 30), -0.2) - 13.5) {
+                mysteryBox4.clearColorFilter();
+                mysteryBox4.setImageTintMode(null);
+                mysteryBox4.setAlpha(1.0f);
+            } else {
+                mysteryBox4.clearColorFilter();
+                mysteryBox4.setImageTintMode(null);
+                mysteryBox4.setAlpha(0.5f);
+            }
+        } else {
+            mysteryBox4.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox4.setAlpha(0.5f);
+        }
+
+        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 25.5 && energy >= 50 * Math.pow((totalLuck - 2), -1) + 7) {
+            if (energy <= -0.0001 * Math.pow(totalLuck, 2) + 25.5 && energy >= 70 * Math.pow((totalLuck - 10), -0.1) - 32) {
+                mysteryBox5.clearColorFilter();
+                mysteryBox5.setImageTintMode(null);
+                mysteryBox5.setAlpha(1.0f);
+            } else {
+                mysteryBox5.clearColorFilter();
+                mysteryBox5.setImageTintMode(null);
+                mysteryBox5.setAlpha(0.5f);
+            }
+        } else {
+            mysteryBox5.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox5.setAlpha(0.5f);
+        }
+
+        if (energy >= 70 * Math.pow((totalLuck + 20), -0.5) + 7) {
+            if (energy <= -0.00002 * Math.pow((totalLuck - 150), 2) + 25.5 && energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28) {
+                mysteryBox6.clearColorFilter();
+                mysteryBox6.setImageTintMode(null);
+                mysteryBox6.setAlpha(1.0f);
+            } else {
+                mysteryBox6.clearColorFilter();
+                mysteryBox6.setImageTintMode(null);
+                mysteryBox6.setAlpha(0.5f);
+            }
+        } else if (energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28) {
+            mysteryBox6.clearColorFilter();
+            mysteryBox6.setImageTintMode(null);
+            mysteryBox6.setAlpha(0.5f);
+        } else {
+            mysteryBox6.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox6.setAlpha(0.5f);
+        }
+
+        if (energy >= -2 * Math.log(totalLuck - 100) + 30.2 && totalLuck > 150) {
+            mysteryBox7.clearColorFilter();
+            mysteryBox7.setImageTintMode(null);
+            mysteryBox7.setAlpha(1.0f);
+            Log.d(TAG, "calcMbChances: logE(totalLuck -100) = " + Math.log(totalLuck - 100));
+        } else {
+            mysteryBox7.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox7.setAlpha(0.5f);
+        }
+
+        if (energy >= -totalLuck / 150 + 32) {
+            mysteryBox8.clearColorFilter();
+            mysteryBox8.setImageTintMode(null);
+            mysteryBox8.setAlpha(1.0f);
+        } else {
+            mysteryBox8.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox8.setAlpha(0.5f);
+        }
+
+        if (energy >= 24 && totalLuck > 1600) {
+            mysteryBox9.clearColorFilter();
+            mysteryBox9.setImageTintMode(null);
+            mysteryBox9.setAlpha(1.0f);
+            lvl10Shrug.setVisibility(View.VISIBLE);
+        } else {
+            mysteryBox9.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox9.setAlpha(0.5f);
+            lvl10Shrug.setVisibility(View.INVISIBLE);
         }
     }
 
