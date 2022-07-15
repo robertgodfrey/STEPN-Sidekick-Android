@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
  * sound if the speed is outside the specified range. Broadcasts info back to the SpeedTracker class.
  *
  * @author Bob Godfrey
- * @version 1.2.3 - Bug fixes, improved readability of code.
+ * @version 1.3.0 - Added shoe optimizer, changed layout, added ads
  */
 
 public class GpsWatchService extends Service {

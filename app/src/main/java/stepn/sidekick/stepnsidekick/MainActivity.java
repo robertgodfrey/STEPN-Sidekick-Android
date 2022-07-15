@@ -52,9 +52,9 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer.
  *
  * @author Bob Godfrey
- * @version 1.2.3 - Bug fixes, improved readability of code.
+ * @version 1.3.0 - Added shoe optimizer, changed layout, added ads
  *
- * TODO - Consider updating UI to match STEPN's latest updates (lighter grey borders, more rounded edges, shadow under shoe)
+ *
  */
 
 public class MainActivity extends AppCompatActivity {

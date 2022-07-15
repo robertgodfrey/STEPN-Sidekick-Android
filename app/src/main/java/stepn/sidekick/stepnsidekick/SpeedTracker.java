@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * the GpsWatchService class.
  *
  * @author Bob Godfrey
- * @version 1.2.3 - Bug fixes, improved readability of code.
+ * @version 1.3.0 - Added shoe optimizer, changed layout, added ads
  */
 
 public class SpeedTracker extends AppCompatActivity {

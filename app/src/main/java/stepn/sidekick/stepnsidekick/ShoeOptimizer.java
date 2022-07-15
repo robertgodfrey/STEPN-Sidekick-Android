@@ -17,7 +17,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -36,9 +35,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -47,7 +43,7 @@ import java.util.ArrayList;
  * chance.
  *
  * @author Bob Godfrey
- * @version 1.3.0
+ * @version 1.3.0 - Added shoe optimizer, changed layout, added ads
  *
  */
 
@@ -78,9 +74,6 @@ public class ShoeOptimizer extends AppCompatActivity {
     private final String GEM_FOUR_TYPE_PREF = "gemFourType";
     private final String GEM_FOUR_RARITY_PREF = "gemFourRarity";
     private final String GEM_FOUR_MOUNTED_PREF = "gemFourGem";
-
-    // TODO remove
-    final String TAG = "calcTotals";
 
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
@@ -1907,8 +1900,6 @@ public class ShoeOptimizer extends AppCompatActivity {
 
             localTotalEff--;
             localTotalRes++;
-            Log.d(TAG, "optimizeShoe: \ncurrent total Eff: " + localTotalEff + "\ncurrent total Res: " + localTotalRes + "\ncurrent gst profit: " + gstProfit + "\nmaxProfit: " + maxProfit);
-
         }
 
         addedEff = optimalAddedEff;
@@ -2311,7 +2302,6 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
             mysteryBox7.setAlpha(1.0f);
-            Log.d(TAG, "calcMbChances: logE(totalLuck -100) = " + Math.log(totalLuck - 100));
         } else {
             mysteryBox7.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
             mysteryBox7.setAlpha(0.5f);
