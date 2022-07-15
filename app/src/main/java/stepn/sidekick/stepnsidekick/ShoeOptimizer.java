@@ -126,7 +126,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         energy = getSharedPrefs.getFloat(OPT_ENERGY_PERF, 0);
         shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, 0);
         shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
-        shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 0);
+        shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 1);
         baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF, 0);
         addedEff = getSharedPrefs.getInt(ADDED_EFF_PREF, 0);
         baseLuck = getSharedPrefs.getFloat(BASE_LUCK_PREF, 0);
@@ -825,7 +825,11 @@ public class ShoeOptimizer extends AppCompatActivity {
         optimizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                optimizeShoe();
+                if (energy > 0) {
+                    optimizeShoe();
+                } else {
+                    Toast.makeText(ShoeOptimizer.this, "Energy must be greater than 0", Toast.LENGTH_SHORT).show();
+                }
                 clearFocus(view);
             }
         });
