@@ -22,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -54,6 +57,8 @@ public class SpeedTracker extends AppCompatActivity {
     ImageButton pauseImageButton, minusFiveImageButton, plusFiveImageButton, startImageButton,
             stopImageButton;
     ImageView leftGps, centerGps, rightGps, footLeft, footCenter, footRight;
+
+    AdView bannerAd;
 
     // receives broadcast from service to update UI
     private final BroadcastReceiver secondsAndSpeedReceiver = new BroadcastReceiver() {
@@ -285,6 +290,8 @@ public class SpeedTracker extends AppCompatActivity {
     private void buildUI() {
         energyAmountTextView = findViewById(R.id.energyAmountTextView);
 
+        bannerAd = findViewById(R.id.bannerAd);
+
         shoeTypeTextView = findViewById(R.id.shoeTypeOnGpsTextView);
         shoeSpeedTextView = findViewById(R.id.shoeSpeedTextView);
         footLeft = findViewById(R.id.footprintLeftGpsImageView);
@@ -317,6 +324,14 @@ public class SpeedTracker extends AppCompatActivity {
         plusFiveImageButton = findViewById(R.id.plusFiveSecondsButton);
         minusTextView = findViewById(R.id.minusTextView);
         plusTextView = findViewById(R.id.plusTextView);
+
+        if (!MainActivity.ads) {
+            bannerAd.setVisibility(View.GONE);
+        } else {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            bannerAd.loadAd(adRequest);
+        }
+
 
         String shoeSpeed = speedLowerLimit + " - " + speedUpperLimit + " km/h";
         shoeSpeedTextView.setText(shoeSpeed);

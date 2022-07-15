@@ -7,13 +7,24 @@
     android:background="@color/light_green"
     tools:context=".About">
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/bannerAd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        android:background="@color/light_green"
+        app:adUnitId="@string/ad_banner_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:id="@+id/aboutScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/bannerAd">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -38,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="-24dp"
                 android:background="@null"
@@ -160,12 +171,44 @@
                 app:layout_constraintTop_toTopOf="@+id/notesTwoLabel" />
 
             <TextView
+                android:id="@+id/notesThreeLabel"
+                style="@style/RegText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:includeFontPadding="false"
+                android:text="3."
+                android:textAlignment="viewStart"
+                android:textColor="@color/almost_black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/backgroundThing"
+                app:layout_constraintTop_toBottomOf="@+id/notesDeets2TextView" />
+
+            <TextView
+                android:id="@+id/notesDeets3TextView"
+                style="@style/RegText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/roboto"
+                android:includeFontPadding="false"
+                android:text="@string/notes_details3"
+                android:textAlignment="textStart"
+                android:textColor="@color/almost_black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+                app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
+                app:layout_constraintTop_toTopOf="@+id/notesThreeLabel" />
+
+            <TextView
                 android:id="@+id/contactTextView"
                 style="@style/RegText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="20dp"
                 android:includeFontPadding="false"
                 android:text="@string/contact"
@@ -174,7 +217,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/backgroundThing"
                 app:layout_constraintStart_toStartOf="@id/backgroundThing"
-                app:layout_constraintTop_toBottomOf="@+id/notesDeets2TextView" />
+                app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
 
             <TextView
                 android:id="@+id/contactEmailTextView"
@@ -207,35 +250,21 @@
                 app:layout_constraintTop_toTopOf="@+id/contactEmailTextView" />
 
             <TextView
-                android:id="@+id/appIsFreeTextView"
-                style="@style/RegText"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:includeFontPadding="false"
-                android:text="@string/dis_app_free"
-                android:textAlignment="center"
-                android:textColor="@color/almost_black"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@id/backgroundThing"
-                app:layout_constraintStart_toStartOf="@id/backgroundThing"
-                app:layout_constraintTop_toBottomOf="@+id/contactEmailTextView" />
-
-            <TextView
                 android:id="@+id/supportTextView"
+                style="@style/RegText"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:includeFontPadding="false"
-                style="@style/RegText"
                 android:text="@string/support_project"
                 android:textAlignment="center"
                 android:textColor="@color/almost_black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/backgroundThing"
                 app:layout_constraintStart_toStartOf="@id/backgroundThing"
-                app:layout_constraintTop_toBottomOf="@+id/appIsFreeTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/contactEmailTextView" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/donateConstraint"
@@ -276,7 +305,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="80dp"
+                android:layout_marginBottom="100dp"
                 android:includeFontPadding="false"
                 android:text="@string/click_a_logo_to_copy_address"
                 android:textColor="@color/gandalf"

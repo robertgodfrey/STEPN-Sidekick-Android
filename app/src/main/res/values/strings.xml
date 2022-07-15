@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name_release">STEPN Sidekick</string>
-    <string name="app_name_debug">Sidekick Debug</string>
+    <string name="app_name_debug" translatable="false">Sidekick Debug</string>
     <string name="enabled">ENABLED</string>
     <string name="disabled">DISABLED</string>
     <string name="minimum_speed">Minimum Speed</string>
@@ -34,10 +34,10 @@
     <string name="notes">Notes</string>
     <string name="notes_details1">It is best to use this app on the same device that is running STEPN so that both apps are using the same location data.</string>
     <string name="notes_details2">STEPN adds a 30-second buffer to every activity. This app\'s timer accounts for this extra time, but it may not match STEPN\'s timer exactly.</string>
+    <string name="notes_details3">Because mystery box chance is based on community data, it will likely not be accurate toward the edges of the available data. Anything above a level 6 MB is just the app\'s best guess.</string>
     <string name="contact">Please contact me if you find any errors or have any suggestions to improve the app:</string>
     <string name="contact_email" translatable="false">sidekickfeedback@gmail.com</string>
-    <string name="dis_app_free">This app is free and ad free. </string>
-    <string name="support_project">If you find the app useful, please consider supporting.</string>
+    <string name="support_project">If you find the app useful, please consider supporting!</string>
     <string name="solana_chain" translatable="false">FmhDh7fNLWrC5CScwcpQhquWFDv7cpQ876iwm6iZLkU1</string>
     <string name="bnb_chain" translatable="false">0x69b331406a3500d6974bce7cf0896650673e798c</string>
     <string name="click_a_logo_to_copy_address">Click logo to copy address</string>
@@ -70,11 +70,11 @@
     <string name="pause">PAUSE</string>
     <string name="stop">STOP</string>
     <string name="update">UPDATE</string>
-    <string name="update_info_top">This update includes average speed as an additional statistic.</string>
-    <string name="update_details_one">The average speed is a rolling five - minute average (the average speed from the most recent five minutes, updating every second)</string>
-    <string name="update_details_two">Voice updates for speed now include both the current speed and the average speed</string>
-    <string name="update_details_three">The five-minute average appears in both the main screen and the app\'s notification</string>
-    <string name="review_plz">If you have been enjoying the app, please share it with your friends!</string>
+    <string name="update_info_top">Big Update - Shoe Optimizer!</string>
+    <string name="update_details_one">The app now includes a shoe optimizer. Try it out and let me know what you think!</string>
+    <string name="update_details_two">There are ads coming in a later update. As a thank-you for being one of the first to try out this app, you will not see any ads</string>
+    <string name="update_details_three">Please note that if you uninstall and reinstall the app, ads will appear</string>
+    <string name="review_plz">If you have been enjoying the app, please leave a review on the Play Store! If you have already left a review, thank you!</string>
     <string name="five_min_average">5-Min Average:</string>
     <string name="current">CURRENT</string>
     <string name="average">AVERAGE</string>

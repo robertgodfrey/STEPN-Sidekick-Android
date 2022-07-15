@@ -59,8 +59,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static boolean ads;
+
     private static final int PERMISSIONS_FINE_LOCATION = 99;
-    private final float CURRENT_APP_VERSION = 1.2f;
+    private final float CURRENT_APP_VERSION = 1.3f;
 
     // keys for shared prefs
     private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     private int shoeTypeIterator, voiceAlertsSpeedType;
     private double energy;
     private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsTime, voiceAlertsAvgSpeed,
-            voiceAlertsCurrentSpeed, gpsPermissions, firstTime, ads;
+            voiceAlertsCurrentSpeed, gpsPermissions, firstTime;
     private float savedAppVersion; // only use major version changes, eg 1.1, 1.2, not 1.1.2
 
     LocationManager manager;
@@ -118,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         float customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
         firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
         savedAppVersion = getSharedPrefs.getFloat(APP_VERSION_PREF, 1.0f);
-        ads = getSharedPrefs.getBoolean(AD_PREF, true);
+        ads = getSharedPrefs.getBoolean(AD_PREF, false);
 
         shoes = new ArrayList<>();
 
@@ -1300,6 +1302,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putFloat(CUSTOM_MAX_SPEED_PREF, shoes.get(4).getMaxSpeed());
         editor.putBoolean(FIRST_TIME_PREF, firstTime);
         editor.putFloat(APP_VERSION_PREF, savedAppVersion);
+        editor.putBoolean(AD_PREF, false);
         editor.apply();
 
         super.onStop();

@@ -120,7 +120,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             addedComf, addedRes;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy;
-    private boolean saveNew, ads;
+    private boolean saveNew;
 
     ArrayList<Gem> gems;
 
@@ -142,7 +142,6 @@ public class ShoeOptimizer extends AppCompatActivity {
         addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF, 0);
         baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
         addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
-        ads = getSharedPrefs.getBoolean(AD_PREF, true);
 
         dpScale = getResources().getDisplayMetrics().density;
 
@@ -271,7 +270,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
 
-        if (!ads) {
+        if (!MainActivity.ads) {
             bannerAd.setVisibility(View.GONE);
         } else {
             AdRequest adRequest = new AdRequest.Builder().build();

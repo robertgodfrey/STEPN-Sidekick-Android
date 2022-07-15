@@ -23,6 +23,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 /**
  * Information about the app.
  *
@@ -38,6 +41,7 @@ public class About extends AppCompatActivity {
     ClipboardManager clipboard;
     ScrollView mainScroll;
     ConstraintLayout bottomNav;
+    AdView bannerAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +65,17 @@ public class About extends AppCompatActivity {
 
         mainScroll = findViewById(R.id.aboutScrollView);
         bottomNav = findViewById(R.id.navigationBar);
+        bannerAd = findViewById(R.id.bannerAd);
 
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+
+        if (!MainActivity.ads) {
+            bannerAd.setVisibility(View.GONE);
+        } else {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            bannerAd.loadAd(adRequest);
+        }
 
         mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
