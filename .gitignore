@@ -35,3 +35,7 @@ build/
 # unrelated asset folders & keys
 keys/
 app store pics/
+
+# gradle file has ad id, so trying to making it a bit harder to find
+app/build.gradle
+
