@@ -70,9 +70,9 @@
     <string name="pause">PAUSE</string>
     <string name="stop">STOP</string>
     <string name="update">UPDATE</string>
-    <string name="update_info_top">Big Update - Shoe Optimizer!</string>
+    <string name="update_info_top">Shoe Optimizer!</string>
     <string name="update_details_one">The app now includes a shoe optimizer. Try it out and let me know what you think!</string>
-    <string name="update_details_two">There are ads coming in a later update. As a thank-you for being one of the first to try out this app, you will not see any ads</string>
+    <string name="update_details_two">There are ads coming in a later update. As a thank-you for being one of the first to try out this app, you will not see any ads (even after you update)</string>
     <string name="update_details_three">Please note that if you uninstall and reinstall the app, ads will appear</string>
     <string name="review_plz">If you have been enjoying the app, please leave a review on the Play Store! If you have already left a review, thank you!</string>
     <string name="five_min_average">5-Min Average:</string>

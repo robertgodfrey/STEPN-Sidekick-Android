@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         app:adSize="BANNER"
         android:background="@color/light_green"
-        app:adUnitId="@string/ad_banner_id"
+        app:adUnitId="@string/main_ad_banner_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
