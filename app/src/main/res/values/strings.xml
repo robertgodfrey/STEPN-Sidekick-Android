@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">STEPN Sidekick</string>
+    <string name="app_name_release">STEPN Sidekick</string>
+    <string name="app_name_debug">Sidekick Debug</string>
     <string name="enabled">ENABLED</string>
     <string name="disabled">DISABLED</string>
     <string name="minimum_speed">Minimum Speed</string>

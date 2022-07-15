@@ -17,7 +17,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            resValue "string", "app_name", "@string/app_name_debug"
+            resValue "string", "ad_banner_id", "ca-app-pub-3940256099942544/6300978111" // test id
+            debuggable true
+        }
         release {
+            resValue "string", "app_name", "@string/app_name"
+            resValue "string", "ad_banner_id", "replace_me"
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -37,5 +45,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'androidx.work:work-runtime:2.7.1'
+    implementation 'com.google.android.gms:play-services-ads:21.1.0'
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">STEPN 조수</string>
+    <string name="app_name_release">STEPN 조수</string>
     <string name="disabled">꺼짐</string>
     <string name="enabled">켜짐</string>
     <string name="maximum_speed">죄고 속도</string>

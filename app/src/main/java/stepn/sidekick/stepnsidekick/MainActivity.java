@@ -40,6 +40,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 
 /**
@@ -82,11 +86,12 @@ public class MainActivity extends AppCompatActivity {
             voiceAlertTimeTextViewShadow, voiceAlertCountdownTextViewShadow, shoeTypeTextView,
             energyInMins;
     EditText minSpeedEditText, maxSpeedEditText, energyEditText, focusThief;
+    AdView bannerAd;
 
     private int shoeTypeIterator, voiceAlertsSpeedType;
     private double energy;
     private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsTime, voiceAlertsAvgSpeed,
-            voiceAlertsCurrentSpeed, gpsPermissions, firstTime;
+            voiceAlertsCurrentSpeed, gpsPermissions, firstTime, ads;
     private float savedAppVersion; // only use major version changes, eg 1.1, 1.2, not 1.1.2
 
     LocationManager manager;
@@ -113,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         float customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
         firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
         savedAppVersion = getSharedPrefs.getFloat(APP_VERSION_PREF, 1.0f);
+        ads = getSharedPrefs.getBoolean(AD_PREF, true);
 
         shoes = new ArrayList<>();
 
@@ -141,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     // inits UI
     @SuppressLint("ClickableViewAccessibility")
     private void buildUI() {
+        bannerAd = findViewById(R.id.bannerAd);
 
         startButton = findViewById(R.id.startImageButton);
         startButtonShadow = findViewById(R.id.startButtonShadow);
@@ -200,6 +207,15 @@ public class MainActivity extends AppCompatActivity {
 
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+
+        if (!ads) {
+            bannerAd.setVisibility(View.GONE);
+        } else {
+            MobileAds.initialize(this);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            bannerAd.loadAd(adRequest);
+        }
+
 
         mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override

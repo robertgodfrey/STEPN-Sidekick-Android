@@ -34,6 +34,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -110,12 +114,13 @@ public class ShoeOptimizer extends AppCompatActivity {
 
     ScrollView mainScroll;
     ConstraintLayout bottomNav;
+    AdView bannerAd;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy;
-    private boolean saveNew;
+    private boolean saveNew, ads;
 
     ArrayList<Gem> gems;
 
@@ -137,6 +142,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF, 0);
         baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
         addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
+        ads = getSharedPrefs.getBoolean(AD_PREF, true);
 
         dpScale = getResources().getDisplayMetrics().density;
 
@@ -260,9 +266,17 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         mainScroll = findViewById(R.id.optimizerScrollView);
         bottomNav = findViewById(R.id.navigationBar);
+        bannerAd = findViewById(R.id.bannerAd);
 
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+
+        if (!ads) {
+            bannerAd.setVisibility(View.GONE);
+        } else {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            bannerAd.loadAd(adRequest);
+        }
 
         backgroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2236,7 +2250,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(1.0f);
-        } else if (energy > -0.09091 * totalLuck + 16 && energy < -0.08333 * totalLuck + 21) {
+        } else if ((energy > -0.09091 * totalLuck + 16 && energy < -0.08333 * totalLuck + 21) || (energy > 3.5 && energy < 12 && totalLuck > 100 && totalLuck < 500)) {
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(0.5f);
@@ -2265,7 +2279,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 mysteryBox5.clearColorFilter();
                 mysteryBox5.setImageTintMode(null);
                 mysteryBox5.setAlpha(1.0f);
-            } else {
+            } else if (energy > 0 && totalLuck > 50){
                 mysteryBox5.clearColorFilter();
                 mysteryBox5.setImageTintMode(null);
                 mysteryBox5.setAlpha(0.5f);
