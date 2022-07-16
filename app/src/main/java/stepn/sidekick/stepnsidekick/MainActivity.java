@@ -52,8 +52,7 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer.
  *
  * @author Bob Godfrey
- * @version 1.3.0 - Added shoe optimizer, changed layout, added ads
- *
+ * @version 1.3.1 - Minor bug fixes
  *
  */
 

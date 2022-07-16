@@ -185,7 +185,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/bigOlBox"
                 app:layout_constraintStart_toStartOf="@+id/bigOlBox"
                 app:layout_constraintTop_toTopOf="@+id/bigOlBox"
-                app:srcCompat="@drawable/shoe_custom" />
+                app:srcCompat="@drawable/shoe_walker" />
 
             <Button
                 android:id="@+id/leftArrowButton"

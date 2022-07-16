@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
  * chance.
  *
  * @author Bob Godfrey
- * @version 1.3.0 - Added shoe optimizer, changed layout, added ads
+ * @version 1.3.1 - Minor bug fixes
  *
  */
 
@@ -1850,7 +1851,11 @@ public class ShoeOptimizer extends AppCompatActivity {
                 gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.47) * 10) / 10);
         }
 
-        durabilityLost = (int) (energy * ((2.22 * Math.exp(-totalRes / 30.9)) + (2.8 * Math.exp(-totalRes / 6.2)) + 0.4));
+        durabilityLost = (int) Math.round(energy * ((2.22 * Math.exp(-totalRes / 30.9)) + (2.8 * Math.exp(-totalRes / 6.2)) + 0.4));
+
+        if (durabilityLost < 1) {
+            durabilityLost = 1;
+        }
 
         repairCost = getRepairCost() * durabilityLost;
 
@@ -1869,7 +1874,6 @@ public class ShoeOptimizer extends AppCompatActivity {
     }
 
     // finds the point allocation that is most profitable
-    // there might be a better way to do this with calculus? but i think this is pretty okay. O(n)
     private void optimizeShoe() {
         float gstProfit, energyCo;
         int optimalAddedEff = 0;
@@ -1894,11 +1898,11 @@ public class ShoeOptimizer extends AppCompatActivity {
 
         while (localTotalEff > baseEff + gemEff) {
             gstProfit = ((float) (Math.floor(energy * Math.pow(localTotalEff, energyCo) * 10) / 10)) -
-                    (getRepairCost() * (int) (energy * ((2.22 * Math.exp(-localTotalRes / 30.9)) + (2.8 * Math.exp(-localTotalRes / 6.2)) + 0.4)));
+                    (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-localTotalRes / 30.9)) + (2.8 * Math.exp(-localTotalRes / 6.2)) + 0.4)));
 
             if (gstProfit > maxProfit) {
-                optimalAddedEff = (int) (localTotalEff - baseEff - gemEff);
-                optimalAddedRes = (int) (localTotalRes - baseRes - gemRes);
+                optimalAddedEff = (int) Math.round(localTotalEff - baseEff - gemEff);
+                optimalAddedRes = (int) Math.round(localTotalRes - baseRes - gemRes);
                 maxProfit = gstProfit;
             }
 
