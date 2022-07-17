@@ -79,4 +79,5 @@
     <string name="current">CURRENT</string>
     <string name="average">AVERAGE</string>
     <string name="all">ALL</string>
+    <string name="remove_ads">REMOVE ADS</string>
 </resources>

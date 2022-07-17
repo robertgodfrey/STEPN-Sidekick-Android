@@ -3,6 +3,7 @@ package stepn.sidekick.stepnsidekick;
 import static stepn.sidekick.stepnsidekick.Finals.*;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -25,6 +26,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -40,11 +42,26 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.AcknowledgePurchaseParams;
+import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ProductDetails;
+import com.android.billingclient.api.ProductDetailsResponseListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesResponseListener;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.QueryProductDetailsParams;
+import com.android.billingclient.api.QueryPurchasesParams;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Main menu - Allows user to select a type of shoe from a list of default or enter their own
@@ -87,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
             voiceAlertTimeTextViewShadow, voiceAlertCountdownTextViewShadow, shoeTypeTextView,
             energyInMins;
     EditText minSpeedEditText, maxSpeedEditText, energyEditText, focusThief;
+
     AdView bannerAd;
+    private BillingClient billingClient;
 
     private int shoeTypeIterator, voiceAlertsSpeedType;
     private double energy;
@@ -102,11 +121,25 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Shoe> shoes;
 
+    // TODO remove
+    String TAG = "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        billingClient = BillingClient.newBuilder(getApplicationContext()).setListener(new PurchasesUpdatedListener() {
+            @Override
+            public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
+                for (Purchase purchase : list) {
+                    verifyPayment(purchase);
+                }
+            }
+        }).enablePendingPurchases().build();
+
+        connectGooglePlayBilling();
 
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         tenSecondTimer = getSharedPrefs.getBoolean(TEN_SECOND_TIMER_PREF, true);
@@ -1285,6 +1318,90 @@ public class MainActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    // connect to google billing
+    private void connectGooglePlayBilling() {
+        Log.d(TAG, "connectGooglePlayBilling: ");
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingServiceDisconnected() {
+                connectGooglePlayBilling();
+            }
+
+            @Override
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    getProducts();
+                }
+            }
+        });
+    }
+
+    // get list of products from google play (there is only one)
+    private void getProducts() {
+        ArrayList<QueryProductDetailsParams.Product> productList = new ArrayList<>();
+
+        productList.add(QueryProductDetailsParams.Product.newBuilder().setProductId("remove_ads").setProductType(BillingClient.ProductType.INAPP).build());
+        QueryProductDetailsParams queryProductDetailsParams = QueryProductDetailsParams.newBuilder().setProductList(productList).build();
+
+        billingClient.queryProductDetailsAsync(queryProductDetailsParams, new ProductDetailsResponseListener() {
+                    public void onProductDetailsResponse(BillingResult billingResult, List<ProductDetails> productDetailsList) {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && productDetailsList != null) {
+                            Log.d(TAG, "onProductDetailsResponse: removeAddProductDetails.get(0).getTitle: " + productDetailsList);
+                            ProductDetails removeAdsProductDetails = productDetailsList.get(0);
+
+                            Log.d(TAG, "onProductDetailsResponse: descr: " + removeAdsProductDetails.getDescription());
+
+                            for (ProductDetails productDetails : productDetailsList) {
+                                if (productDetails.getProductId().equals("remove_ads")) {
+                                    Log.d(TAG, "onProductDetailsResponse: productId equals remove_ads");
+                                }
+                            }
+                        }
+                    }
+                }
+        );
+    }
+
+    private void verifyPayment(Purchase purchase) {
+        if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
+            if (!purchase.isAcknowledged()) {
+                AcknowledgePurchaseParams acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchase.getPurchaseToken())
+                        .build();
+
+                billingClient.acknowledgePurchase(acknowledgePurchaseParams, new AcknowledgePurchaseResponseListener() {
+                    @Override
+                    public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                            ads = false;
+                        } else {
+                            ads = true;
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        billingClient.queryPurchasesAsync(QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build(),
+                new PurchasesResponseListener() {
+                    @Override
+                    public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
+                        // check billingResult
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                            if (list.get(0).getPurchaseState() == Purchase.PurchaseState.PURCHASED && !list.get(0).isAcknowledged()) {
+                                verifyPayment(list.get(0));
+                            }
+                        }
+                    }
+                }
+        );
+
+        super.onResume();
+    }
+
     // to save prefs
     @Override
     protected void onStop() {
@@ -1301,7 +1418,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putFloat(CUSTOM_MAX_SPEED_PREF, shoes.get(4).getMaxSpeed());
         editor.putBoolean(FIRST_TIME_PREF, firstTime);
         editor.putFloat(APP_VERSION_PREF, savedAppVersion);
-        editor.putBoolean(AD_PREF, false);
+        editor.putBoolean(AD_PREF, ads);
         editor.apply();
 
         super.onStop();

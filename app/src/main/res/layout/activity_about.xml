@@ -92,12 +92,70 @@
                 app:layout_constraintStart_toStartOf="@id/backgroundThing"
                 app:layout_constraintTop_toBottomOf="@+id/aboutTextView" />
 
+            <ImageView
+                android:id="@+id/removeAdsShadowButton"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="4dp"
+                android:adjustViewBounds="true"
+                android:background="@null"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
+                app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
+                app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
+                app:layout_constraintTop_toTopOf="@+id/removeAdsButton"
+                app:srcCompat="@drawable/start_button_shadow" />
+
+            <TextView
+                android:id="@+id/removeAdsShadowTextView"
+                style="@style/ButtonBoldItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/remove_ads"
+                android:textAllCaps="true"
+                android:textColor="@color/almost_black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/removeAdsShadowButton"
+                app:layout_constraintEnd_toEndOf="@+id/removeAdsShadowButton"
+                app:layout_constraintStart_toStartOf="@+id/removeAdsShadowButton"
+                app:layout_constraintTop_toTopOf="@+id/removeAdsShadowButton" />
+
+            <ImageButton
+                android:id="@+id/removeAdsButton"
+                android:layout_width="180dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:background="@null"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView"
+                app:srcCompat="@drawable/start_button" />
+
+            <TextView
+                android:id="@+id/removeAdsTextView"
+                style="@style/ButtonBoldItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/remove_ads"
+                android:textAllCaps="true"
+                android:textColor="@color/almost_black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
+                app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
+                app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
+                app:layout_constraintTop_toTopOf="@+id/removeAdsButton" />
+
             <TextView
                 android:id="@+id/notesTextView"
                 style="@style/BoldItalicSubtitles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:includeFontPadding="false"
                 android:text="@string/notes"
                 android:textAllCaps="true"
@@ -208,7 +266,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
                 android:includeFontPadding="false"
                 android:text="@string/contact"
@@ -217,7 +275,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/backgroundThing"
                 app:layout_constraintStart_toStartOf="@id/backgroundThing"
-                app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
+                app:layout_constraintTop_toBottomOf="@+id/removeAdsButton" />
 
             <TextView
                 android:id="@+id/contactEmailTextView"

@@ -28,6 +28,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 
 import java.util.concurrent.TimeUnit;
 
@@ -93,7 +94,7 @@ public class GpsWatchService extends Service {
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(1000);
         locationRequest.setFastestInterval(1000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
 
         speedLowerLimit = intent.getDoubleExtra(MIN_SPEED, 0);
         speedUpperLimit = intent.getDoubleExtra(MAX_SPEED, 0);

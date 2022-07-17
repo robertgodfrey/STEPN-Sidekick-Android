@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,9 @@ import com.google.android.gms.ads.AdView;
 public class About extends AppCompatActivity {
 
     Button emailButton, solButton, bnbButton, backToExercise, goToOptimizer;
-    TextView emailTextView;
+    ImageButton removeAdsButton;
+    ImageView removeAdsShadow;
+    TextView emailTextView, removeAdsTextView;
     ClipboardManager clipboard;
     ScrollView mainScroll;
     ConstraintLayout bottomNav;
@@ -59,6 +63,10 @@ public class About extends AppCompatActivity {
         backToExercise = findViewById(R.id.backToExerciseButton);
         goToOptimizer = findViewById(R.id.goToOptimizerButton);
 
+        removeAdsButton = findViewById(R.id.removeAdsButton);
+        removeAdsTextView = findViewById(R.id.removeAdsTextView);
+        removeAdsShadow = findViewById(R.id.removeAdsShadowButton);
+
         mainScroll = findViewById(R.id.aboutScrollView);
         bottomNav = findViewById(R.id.navigationBar);
         bannerAd = findViewById(R.id.bannerAd);
@@ -72,6 +80,34 @@ public class About extends AppCompatActivity {
             AdRequest adRequest = new AdRequest.Builder().build();
             bannerAd.loadAd(adRequest);
         }
+
+
+        removeAdsButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        removeAdsButton.setVisibility(View.INVISIBLE);
+                        removeAdsTextView.setVisibility(View.INVISIBLE);
+                        removeAdsShadow.setImageResource(R.drawable.start_button);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        removeAdsButton.setVisibility(View.VISIBLE);
+                        removeAdsTextView.setVisibility(View.VISIBLE);
+                        removeAdsShadow.setImageResource(R.drawable.start_button_shadow);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        removeAdsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+            }
+        });
 
         mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
