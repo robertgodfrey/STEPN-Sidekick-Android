@@ -6,6 +6,7 @@ public final class Finals {
     public static final String ENERGY_PREF = "energy";
     public static final String SHOE_TYPE_ITERATOR_PREF = "shoeTypeIterator";
     public static final String AD_PREF = "ads";
+    public static final String APP_VERSION_PREF = "appVersion";
 
     public static final String COUNTDOWN_BR = "stepnsidekick.countdown_br";
     public static final String MODIFY_TIME_BR = "stepnsidekick.modify_timer_br";

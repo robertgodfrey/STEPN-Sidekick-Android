@@ -1,0 +1,1438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_green"
+    tools:context="stepn.sidekick.stepnsidekick.MainActivity">
+
+    <EditText
+        android:id="@+id/focusThief"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/backgroundThingShadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-3dp"
+        android:layout_marginBottom="-3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundThingButton"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@id/backgroundThingButton"
+        app:layout_constraintTop_toTopOf="@+id/backgroundThingButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <ImageButton
+        android:id="@+id/backgroundThingButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="-30dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/mysteryBoxLvl8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_thing" />
+
+    <ImageView
+        android:id="@+id/shoeBackground"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toTopOf="@+id/backgroundThingButton"
+        app:srcCompat="@drawable/circles_common" />
+
+    <ImageView
+        android:id="@+id/shoeTypeImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginEnd="90dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shoeBackground"
+        app:srcCompat="@drawable/shoe_walker" />
+
+    <ImageView
+        android:id="@+id/gemSocketOneShadow"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
+        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/gemSocketOne"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-12dp"
+        android:layout_marginEnd="4dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toStartOf="@+id/shoeTypeImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeBackground"
+        app:srcCompat="@drawable/gem_socket_gray_0" />
+
+    <ImageView
+        android:id="@+id/gemSocketOneLockPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketOne"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketOne"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
+        app:srcCompat="@drawable/gem_socket_lock" />
+
+    <Button
+        android:id="@+id/gemSocketOneButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketOne"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketOne"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketOne" />
+
+    <ImageView
+        android:id="@+id/gemSocketTwoShadow"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
+        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/gemSocketTwo"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-12dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toEndOf="@id/shoeTypeImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeBackground"
+        app:srcCompat="@drawable/gem_socket_gray_0" />
+
+    <ImageView
+        android:id="@+id/gemSocketTwoLockPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketTwo"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketTwo"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
+        app:srcCompat="@drawable/gem_socket_lock" />
+
+    <Button
+        android:id="@+id/gemSocketTwoButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketTwo"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketTwo"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketTwo" />
+
+    <ImageView
+        android:id="@+id/gemSocketThreeShadow"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
+        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/gemSocketThree"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-22dp"
+        android:layout_marginEnd="4dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toStartOf="@+id/shoeTypeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
+        app:srcCompat="@drawable/gem_socket_gray_0" />
+
+    <ImageView
+        android:id="@+id/gemSocketThreeLockPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketThree"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketThree"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
+        app:srcCompat="@drawable/gem_socket_lock" />
+
+    <Button
+        android:id="@+id/gemSocketThreeButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketThree"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketThree"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketThree" />
+
+    <ImageView
+        android:id="@+id/gemSocketFourShadow"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
+        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:tint="@color/gem_socket_shadow" />
+
+    <ImageView
+        android:id="@+id/gemSocketFour"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-22dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toEndOf="@id/shoeTypeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
+        app:srcCompat="@drawable/gem_socket_gray_0" />
+
+    <ImageView
+        android:id="@+id/gemSocketFourLockPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketFour"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketFour"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
+        app:srcCompat="@drawable/gem_socket_lock" />
+
+    <Button
+        android:id="@+id/gemSocketFourButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/gemSocketFour"
+        app:layout_constraintEnd_toEndOf="@+id/gemSocketFour"
+        app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
+        app:layout_constraintTop_toTopOf="@+id/gemSocketFour" />
+
+    <ImageView
+        android:id="@+id/shoeRarityBoxShadow"
+        android:layout_width="94dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/shoeRarityButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/shoeRarityButton"
+        app:layout_constraintTop_toTopOf="@+id/shoeRarityButton"
+        app:srcCompat="@drawable/main_button_shadow" />
+
+    <TextView
+        android:id="@+id/shoeRarityShadowTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Common"
+        android:textColor="@color/almost_black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeRarityBoxShadow"
+        app:layout_constraintEnd_toEndOf="@+id/shoeRarityBoxShadow"
+        app:layout_constraintStart_toStartOf="@+id/shoeRarityBoxShadow"
+        app:layout_constraintTop_toTopOf="@+id/shoeRarityBoxShadow" />
+
+    <ImageButton
+        android:id="@+id/shoeRarityButton"
+        android:layout_width="94dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="2dp"
+        android:background="@null"
+        app:layout_constraintEnd_toStartOf="@id/shoeTypeButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/backgroundThingButton"
+        app:layout_constraintTop_toTopOf="@id/shoeTypeButton"
+        app:srcCompat="@drawable/box_common" />
+
+    <TextView
+        android:id="@+id/shoeRarityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Common"
+        android:textColor="@color/almost_black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeRarityButton"
+        app:layout_constraintEnd_toEndOf="@+id/shoeRarityButton"
+        app:layout_constraintStart_toStartOf="@+id/shoeRarityButton"
+        app:layout_constraintTop_toTopOf="@+id/shoeRarityButton" />
+
+    <TextView
+        android:id="@+id/rarityLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Rarity"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/shoeRarityButton"
+        app:layout_constraintEnd_toEndOf="@+id/shoeRarityButton"
+        app:layout_constraintStart_toStartOf="@+id/shoeRarityButton" />
+
+    <ImageView
+        android:id="@+id/shoeTypeBoxShadow"
+        android:layout_width="94dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/shoeTypeButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/shoeTypeButton"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeButton"
+        app:srcCompat="@drawable/main_button_shadow" />
+
+    <TextView
+        android:id="@+id/shoeTypeShadowTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Walker"
+        android:textColor="@color/almost_black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTypeBoxShadow"
+        app:layout_constraintEnd_toEndOf="@+id/shoeTypeBoxShadow"
+        app:layout_constraintStart_toEndOf="@id/footprint1ImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeBoxShadow" />
+
+    <ImageButton
+        android:id="@+id/shoeTypeButton"
+        android:layout_width="94dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@null"
+        app:layout_constraintEnd_toStartOf="@id/energyBoxOptimizer"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/shoeRarityButton"
+        app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
+        app:srcCompat="@drawable/box_common" />
+
+    <TextView
+        android:id="@+id/shoeTypeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Walker"
+        android:textColor="@color/almost_black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTypeButton"
+        app:layout_constraintEnd_toEndOf="@+id/shoeTypeButton"
+        app:layout_constraintStart_toEndOf="@id/footprint1ImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeButton" />
+
+    <ImageView
+        android:id="@+id/footprint1ImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginEnd="4dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
+        app:layout_constraintEnd_toStartOf="@+id/shoeTypeTextView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/footprint2ImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
+        app:srcCompat="@drawable/footprint" />
+
+    <ImageView
+        android:id="@+id/footprint2ImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
+        app:layout_constraintEnd_toStartOf="@id/footprint1ImageView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/footprint3ImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
+        app:srcCompat="@drawable/footprint" />
+
+    <ImageView
+        android:id="@+id/footprint3ImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
+        app:layout_constraintEnd_toStartOf="@+id/footprint2ImageView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/shoeTypeButton"
+        app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
+        app:srcCompat="@drawable/footprint" />
+
+    <TextView
+        android:id="@+id/shoeTypeLabelTextView"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/energyBoxOptimizer"
+        app:layout_constraintEnd_toEndOf="@+id/shoeTypeButton"
+        app:layout_constraintStart_toStartOf="@+id/shoeTypeButton" />
+
+    <ImageView
+        android:id="@+id/energyBoxOptimizerShadow"
+        android:layout_width="94dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="-2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/energyBoxOptimizer"
+        app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
+        app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
+        app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
+        app:srcCompat="@drawable/energy_input_box"
+        app:tint="@color/energy_blue_border" />
+
+    <TextView
+        android:id="@+id/energyLabelTextView"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Energy"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/energyBoxOptimizer"
+        app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
+        app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer" />
+
+    <ImageView
+        android:id="@+id/energyBoxOptimizer"
+        android:layout_width="94dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toEndOf="@+id/shoeTypeButton"
+        app:layout_constraintTop_toBottomOf="@+id/gemSocketFour"
+        app:srcCompat="@drawable/energy_input_box" />
+
+    <EditText
+        android:id="@+id/energyToSpendOptimizerEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:hint="0.0"
+        android:inputType="number|numberDecimal"
+        android:maxLength="4"
+        android:paddingHorizontal="36dp"
+        android:paddingVertical="8dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/energyBoxOptimizer"
+        app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
+        app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
+        app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer" />
+
+    <ImageView
+        android:id="@+id/energyBolt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/energyBoxOptimizer"
+        app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
+        app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
+        app:srcCompat="@drawable/energy_bolt" />
+
+    <ImageView
+        android:id="@+id/seekbarBackground"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
+        app:layout_constraintStart_toStartOf="@+id/shoeRarityButton"
+        app:layout_constraintTop_toBottomOf="@+id/energyBoxOptimizer"
+        app:srcCompat="@drawable/seekbar_background" />
+
+    <ImageView
+        android:id="@+id/seekbarMinLevel"
+        android:layout_width="25dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground"
+        app:srcCompat="@drawable/seekbar_progress" />
+
+    <SeekBar
+        android:id="@+id/levelSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="-2dp"
+        android:layout_marginEnd="-2dp"
+        android:max="29"
+        android:progress="0"
+        android:progressDrawable="@drawable/level_seekbar"
+        android:splitTrack="false"
+        android:thumb="@drawable/thumb"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+
+    <TextView
+        android:id="@+id/levelLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Level"
+        android:textColor="@color/almost_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+
+    <TextView
+        android:id="@+id/levelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="1"
+        android:textColor="@color/almost_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toEndOf="@+id/levelLabelTextView"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+
+    <TextView
+        android:id="@+id/attributesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Attributes"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/seekbarBackground" />
+
+    <TextView
+        android:id="@+id/baseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="68dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Base"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/totalTextView" />
+
+
+    <TextView
+        android:id="@+id/totalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Total"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/attributesTextView"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton" />
+
+    <ImageView
+        android:id="@+id/effIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/attributesTextView"
+        app:srcCompat="@drawable/gem_symbol_efficiency" />
+
+    <TextView
+        android:id="@+id/effTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Efficiency"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effIcon"
+        app:layout_constraintStart_toEndOf="@+id/effIcon"
+        app:layout_constraintTop_toTopOf="@+id/effIcon" />
+
+    <ImageView
+        android:id="@+id/luckIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/effIcon"
+        app:srcCompat="@drawable/gem_symbol_luck" />
+
+
+    <TextView
+        android:id="@+id/luckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Luck"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckIcon"
+        app:layout_constraintStart_toEndOf="@+id/luckIcon"
+        app:layout_constraintTop_toTopOf="@+id/luckIcon" />
+
+    <ImageView
+        android:id="@+id/comfIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/luckIcon"
+        app:srcCompat="@drawable/gem_symbol_comfort" />
+
+    <TextView
+        android:id="@+id/comfortTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Comfort"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfIcon"
+        app:layout_constraintStart_toEndOf="@+id/comfIcon"
+        app:layout_constraintTop_toTopOf="@+id/comfIcon" />
+
+    <ImageView
+        android:id="@+id/resIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/comfIcon"
+        app:srcCompat="@drawable/gem_symbol_res" />
+
+    <TextView
+        android:id="@+id/resTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Resilience"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resIcon"
+        app:layout_constraintStart_toEndOf="@+id/resIcon"
+        app:layout_constraintTop_toTopOf="@+id/resIcon" />
+
+    <EditText
+        android:id="@+id/baseEffEditText"
+        android:layout_width="60dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:hint="1-10"
+        android:inputType="number|numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effTextView"
+        app:layout_constraintEnd_toEndOf="@+id/baseTextView"
+        app:layout_constraintStart_toStartOf="@+id/baseTextView"
+        app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+    <TextView
+        android:id="@+id/subEffTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+    <Button
+        android:id="@+id/subEffButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/subEffTextView"
+        app:layout_constraintEnd_toEndOf="@+id/subEffTextView"
+        app:layout_constraintStart_toStartOf="@+id/subEffTextView"
+        app:layout_constraintTop_toTopOf="@+id/subEffTextView" />
+
+    <TextView
+        android:id="@+id/totalEffTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effTextView"
+        app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+    <TextView
+        android:id="@+id/addEffTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+    <Button
+        android:id="@+id/addEffButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/addEffTextView"
+        app:layout_constraintEnd_toEndOf="@+id/addEffTextView"
+        app:layout_constraintStart_toStartOf="@+id/addEffTextView"
+        app:layout_constraintTop_toTopOf="@+id/addEffTextView" />
+
+    <EditText
+        android:id="@+id/baseLuckEditText"
+        android:layout_width="60dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:hint="1-10"
+        android:inputType="number|numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
+        app:layout_constraintEnd_toEndOf="@+id/baseTextView"
+        app:layout_constraintStart_toStartOf="@+id/baseTextView"
+        app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+    <TextView
+        android:id="@+id/subLuckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+    <Button
+        android:id="@+id/subLuckButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/subLuckTextView"
+        app:layout_constraintEnd_toEndOf="@+id/subLuckTextView"
+        app:layout_constraintStart_toStartOf="@+id/subLuckTextView"
+        app:layout_constraintTop_toTopOf="@+id/subLuckTextView" />
+
+    <TextView
+        android:id="@+id/totalLuckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
+        app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+    <TextView
+        android:id="@+id/addLuckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+    <Button
+        android:id="@+id/addLuckButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/addLuckTextView"
+        app:layout_constraintEnd_toEndOf="@+id/addLuckTextView"
+        app:layout_constraintStart_toStartOf="@+id/addLuckTextView"
+        app:layout_constraintTop_toTopOf="@+id/addLuckTextView" />
+
+    <EditText
+        android:id="@+id/baseComfortEditText"
+        android:layout_width="60dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:hint="1-10"
+        android:inputType="number|numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
+        app:layout_constraintEnd_toEndOf="@+id/baseTextView"
+        app:layout_constraintStart_toStartOf="@+id/baseTextView"
+        app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+    <TextView
+        android:id="@+id/subComfTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+    <Button
+        android:id="@+id/subComfButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/subComfTextView"
+        app:layout_constraintEnd_toEndOf="@+id/subComfTextView"
+        app:layout_constraintStart_toStartOf="@+id/subComfTextView"
+        app:layout_constraintTop_toTopOf="@+id/subComfTextView" />
+
+    <TextView
+        android:id="@+id/totalComfTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
+        app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+    <TextView
+        android:id="@+id/addComfTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+    <Button
+        android:id="@+id/addComfButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/addComfTextView"
+        app:layout_constraintEnd_toEndOf="@+id/addComfTextView"
+        app:layout_constraintStart_toStartOf="@+id/addComfTextView"
+        app:layout_constraintTop_toTopOf="@+id/addComfTextView" />
+
+    <EditText
+        android:id="@+id/baseResEditText"
+        android:layout_width="60dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:hint="1-10"
+        android:inputType="number|numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resTextView"
+        app:layout_constraintEnd_toEndOf="@+id/baseTextView"
+        app:layout_constraintStart_toStartOf="@+id/baseTextView"
+        app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+    <TextView
+        android:id="@+id/subResTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+    <Button
+        android:id="@+id/subResButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/subResTextView"
+        app:layout_constraintEnd_toEndOf="@+id/subResTextView"
+        app:layout_constraintStart_toStartOf="@+id/subResTextView"
+        app:layout_constraintTop_toTopOf="@+id/subResTextView" />
+
+    <TextView
+        android:id="@+id/totalResTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resTextView"
+        app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+    <TextView
+        android:id="@+id/addResTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+    <Button
+        android:id="@+id/addResButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/addResTextView"
+        app:layout_constraintEnd_toEndOf="@+id/addResTextView"
+        app:layout_constraintStart_toStartOf="@+id/addResTextView"
+        app:layout_constraintTop_toTopOf="@+id/addResTextView" />
+
+    <TextView
+        android:id="@+id/pointsLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Points Available:"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/pointsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/resTextView" />
+
+    <TextView
+        android:id="@+id/pointsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/resTextView" />
+
+    <ImageView
+        android:id="@+id/optimizeButtonShadow"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/optimizeButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <TextView
+        android:id="@+id/optimizeTextViewShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="OPTIMIZE"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/optimizeButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/optimizeButtonShadow" />
+
+    <ImageButton
+        android:id="@+id/optimizeButton"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
+        app:srcCompat="@drawable/start_button" />
+
+    <TextView
+        android:id="@+id/optimizeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="OPTIMIZE"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeButton"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeButton" />
+
+    <TextView
+        android:id="@+id/gstPerDayLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Estimated GST / Daily Limit:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
+
+    <TextView
+        android:id="@+id/gstPerDayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0.0"
+        android:textAlignment="textEnd"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDaySlashTextView"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
+
+    <TextView
+        android:id="@+id/gstLimitPerDayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
+
+    <TextView
+        android:id="@+id/gstLimitPerDaySlashTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="/"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDayTextView"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
+
+    <TextView
+        android:id="@+id/durabilityLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Durability Loss:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/gstPerDayLabelTextView" />
+
+    <TextView
+        android:id="@+id/durabilityLossTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/gstLimitPerDayTextView" />
+
+    <TextView
+        android:id="@+id/repairLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Repair Cost:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
+
+    <TextView
+        android:id="@+id/repairCostTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/durabilityLossTextView" />
+
+    <TextView
+        android:id="@+id/totalIncomeLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Total Income:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/repairLabelTextView" />
+
+    <TextView
+        android:id="@+id/gstTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="GST"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/repairCostTextView" />
+
+    <ImageView
+        android:id="@+id/gstIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gstTextView"
+        app:layout_constraintEnd_toStartOf="@+id/gstTextView"
+        app:layout_constraintTop_toTopOf="@+id/gstTextView"
+        app:srcCompat="@drawable/logo_gst" />
+
+    <TextView
+        android:id="@+id/gstIncomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstIcon"
+        app:layout_constraintTop_toBottomOf="@+id/repairCostTextView" />
+
+    <TextView
+        android:id="@+id/mysteryBoxChanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Mystery Box Chance"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb1" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl3"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb2" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl4"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl2"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb3" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl5"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl3"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb4" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl4"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb5" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl7"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb6" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl8"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl6"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb7" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="4dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl9"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl7"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb8" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl9"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="4dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl10"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl8"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb9" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl10"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:alpha="0.5"
+        app:tint="@color/gandalf"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl9"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb10" />
+
+    <TextView
+        android:id="@+id/lvl10shrug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¯\\_(ツ)_/¯"
+        android:textColor="@color/almost_black"
+        android:textSize="9sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintTop_toTopOf="@+id/mysteryBoxLvl10" />
+
+    <TextView
+        android:id="@+id/communityDataTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Based on unofficial STEPN community data.\nActual results may vary."
+        android:textAlignment="center"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundThingButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

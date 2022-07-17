@@ -1,86 +1,81 @@
 package stepn.sidekick.stepnsidekick;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
+import static stepn.sidekick.stepnsidekick.MainActivity.ads;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 /**
- * Information about the app.
+ * Information about the app, 'remove ads' button, option to donate
  *
  * @author Bob Godfrey
- * @version 1.3.0
+ * @version 1.3.2 Updated app layout to use fragments instead of activities for menu items
  *
  */
 
-public class About extends AppCompatActivity {
+public class AboutFrag extends Fragment {
 
-    Button emailButton, solButton, bnbButton, backToExercise, goToOptimizer;
+    Button emailButton, solButton, bnbButton;
     ImageButton removeAdsButton;
     ImageView removeAdsShadow;
-    TextView emailTextView, removeAdsTextView;
+    TextView emailTextView, removeAdsTextView, removeAdsShadowTextView;
     ClipboardManager clipboard;
-    ScrollView mainScroll;
-    ConstraintLayout bottomNav;
-    AdView bannerAd;
+
+    public AboutFrag() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
 
-        clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard = (ClipboardManager) requireActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
-        buildUI();
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void buildUI() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
 
-        emailButton = findViewById(R.id.emailButton);
-        solButton = findViewById(R.id.solButton);
-        bnbButton = findViewById(R.id.bnbButton);
-        emailTextView = findViewById(R.id.contactEmailTextView);
-        backToExercise = findViewById(R.id.backToExerciseButton);
-        goToOptimizer = findViewById(R.id.goToOptimizerButton);
+        emailButton = view.findViewById(R.id.emailButton);
+        solButton = view.findViewById(R.id.solButton);
+        bnbButton = view.findViewById(R.id.bnbButton);
+        emailTextView = view.findViewById(R.id.contactEmailTextView);
 
-        removeAdsButton = findViewById(R.id.removeAdsButton);
-        removeAdsTextView = findViewById(R.id.removeAdsTextView);
-        removeAdsShadow = findViewById(R.id.removeAdsShadowButton);
+        removeAdsButton = view.findViewById(R.id.removeAdsButton);
+        removeAdsTextView = view.findViewById(R.id.removeAdsTextView);
+        removeAdsShadow = view.findViewById(R.id.removeAdsShadowButton);
+        removeAdsShadowTextView = view.findViewById(R.id.removeAdsShadowTextView);
 
-        mainScroll = findViewById(R.id.aboutScrollView);
-        bottomNav = findViewById(R.id.navigationBar);
-        bannerAd = findViewById(R.id.bannerAd);
-
-        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
-        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-
-        if (!MainActivity.ads) {
-            bannerAd.setVisibility(View.GONE);
+        if (ads) {
+            removeAdsButton.setVisibility(View.VISIBLE);
+            removeAdsShadow.setVisibility(View.VISIBLE);
+            removeAdsTextView.setVisibility(View.VISIBLE);
+            removeAdsShadowTextView.setVisibility(View.VISIBLE);
         } else {
-            AdRequest adRequest = new AdRequest.Builder().build();
-            bannerAd.loadAd(adRequest);
+            removeAdsButton.setVisibility(View.GONE);
+            removeAdsShadow.setVisibility(View.GONE);
+            removeAdsTextView.setVisibility(View.GONE);
+            removeAdsShadowTextView.setVisibility(View.GONE);
         }
-
 
         removeAdsButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -109,30 +104,13 @@ public class About extends AppCompatActivity {
             }
         });
 
-        mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                int scrollChange = oldScrollY - scrollY;
-                if (scrollChange < -5 && bottomNav.getVisibility() == View.VISIBLE
-                        && mainScroll.getScrollY() > 0) {
-                    bottomNav.startAnimation(slideDown);
-                    bottomNav.setVisibility(View.INVISIBLE);
-                } else if (scrollChange > 5
-                        && bottomNav.getVisibility() == View.INVISIBLE
-                        && mainScroll.getChildAt(0).getBottom() > (mainScroll.getHeight() + mainScroll.getScrollY())) {
-                    bottomNav.startAnimation(slideUp);
-                    bottomNav.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ClipData clip = ClipData.newPlainText("email", getString(R.string.contact_email));
                 clipboard.setPrimaryClip(clip);
 
-                Toast.makeText(About.this, getString(R.string.email_copied), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.email_copied), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -141,11 +119,11 @@ public class About extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        emailTextView.setTextColor(ContextCompat.getColor(About.this, R.color.energy_blue_darker));
+                        emailTextView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.energy_blue_darker));
                         break;
                     case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP:
-                        emailTextView.setTextColor(ContextCompat.getColor(About.this, R.color.luck_socket_border));
+                        emailTextView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.luck_socket_border));
                         break;
                 }
                 return false;
@@ -158,7 +136,7 @@ public class About extends AppCompatActivity {
                 ClipData clip = ClipData.newPlainText("email", getString(R.string.solana_chain));
                 clipboard.setPrimaryClip(clip);
 
-                Toast.makeText(About.this, getString(R.string.sol_address_copied), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.sol_address_copied), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -184,7 +162,7 @@ public class About extends AppCompatActivity {
                 ClipData clip = ClipData.newPlainText("email", getString(R.string.bnb_chain));
                 clipboard.setPrimaryClip(clip);
 
-                Toast.makeText(About.this, getString(R.string.bnb_address_copied), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.bnb_address_copied), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -204,28 +182,6 @@ public class About extends AppCompatActivity {
             }
         });
 
-        backToExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        goToOptimizer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                Intent startOptimizer = new Intent(getApplicationContext(), ShoeOptimizer.class);
-                startActivity(startOptimizer);
-                overridePendingTransition(0, 0);
-            }
-        });
-    }
-
-    // to remove transition anim
-    @Override
-    protected void onPause() {
-        super.onPause();
-        overridePendingTransition(0, 0);
+        return view;
     }
 }

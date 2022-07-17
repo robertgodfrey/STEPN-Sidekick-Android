@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_green"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/backgroundThingShadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-3dp"
+        android:layout_marginBottom="-3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundThing"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toTopOf="@+id/backgroundThing"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <ImageView
+        android:id="@+id/backgroundThing"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="-24dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/clickToCopyTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_thing" />
+
+    <TextView
+        android:id="@+id/aboutTextView"
+        style="@style/BoldItalicTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:includeFontPadding="false"
+        android:text="@string/about"
+        android:textColor="@color/almost_black"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backgroundThing" />
+
+    <TextView
+        android:id="@+id/aboutDeetsTextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:text="@string/app_goal"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/aboutTextView" />
+
+    <ImageView
+        android:id="@+id/removeAdsShadowButton"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="4dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
+        app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
+        app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
+        app:layout_constraintTop_toTopOf="@+id/removeAdsButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <TextView
+        android:id="@+id/removeAdsShadowTextView"
+        style="@style/ButtonBoldItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="@string/remove_ads"
+        android:textAllCaps="true"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAdsShadowButton"
+        app:layout_constraintEnd_toEndOf="@+id/removeAdsShadowButton"
+        app:layout_constraintStart_toStartOf="@+id/removeAdsShadowButton"
+        app:layout_constraintTop_toTopOf="@+id/removeAdsShadowButton" />
+
+    <ImageButton
+        android:id="@+id/removeAdsButton"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView"
+        app:srcCompat="@drawable/start_button" />
+
+    <TextView
+        android:id="@+id/removeAdsTextView"
+        style="@style/ButtonBoldItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="@string/remove_ads"
+        android:textAllCaps="true"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
+        app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
+        app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
+        app:layout_constraintTop_toTopOf="@+id/removeAdsButton" />
+
+    <TextView
+        android:id="@+id/notesTextView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="@string/notes"
+        android:textAllCaps="true"
+        android:textColor="@color/almost_black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/notesDeets1TextView"
+        app:layout_constraintTop_toBottomOf="@+id/aboutDeetsTextView" />
+
+    <TextView
+        android:id="@+id/notesOneLabel"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="1."
+        android:textAlignment="viewStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/notesTextView" />
+
+    <TextView
+        android:id="@+id/notesDeets1TextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:text="@string/notes_details1"
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/notesOneLabel"
+        app:layout_constraintTop_toTopOf="@+id/notesOneLabel" />
+
+    <TextView
+        android:id="@+id/notesTwoLabel"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="2."
+        android:textAlignment="viewStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets1TextView" />
+
+    <TextView
+        android:id="@+id/notesDeets2TextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:text="@string/notes_details2"
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
+        app:layout_constraintTop_toTopOf="@+id/notesTwoLabel" />
+
+    <TextView
+        android:id="@+id/notesThreeLabel"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="3."
+        android:textAlignment="viewStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets2TextView" />
+
+    <TextView
+        android:id="@+id/notesDeets3TextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:text="@string/notes_details3"
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
+        app:layout_constraintTop_toTopOf="@+id/notesThreeLabel" />
+
+    <TextView
+        android:id="@+id/contactTextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:includeFontPadding="false"
+        android:text="@string/contact"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/removeAdsButton" />
+
+    <TextView
+        android:id="@+id/contactEmailTextView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:includeFontPadding="false"
+        android:text="@string/contact_email"
+        android:textAlignment="center"
+        android:textColor="@color/luck_socket_border"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactTextView" />
+
+    <Button
+        android:id="@+id/emailButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="-16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="-16dp"
+        android:alpha="0"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/contactEmailTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/contactEmailTextView" />
+
+    <TextView
+        android:id="@+id/supportTextView"
+        style="@style/RegText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:includeFontPadding="false"
+        android:text="@string/support_project"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/contactEmailTextView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/donateConstraint"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/supportTextView">
+
+        <ImageView
+            android:id="@+id/solanaLogo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toStartOf="@+id/binanceLogo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_solana" />
+
+        <ImageView
+            android:id="@+id/binanceLogo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/solanaLogo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_bnb" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/clickToCopyTextView"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="100dp"
+        android:includeFontPadding="false"
+        android:text="@string/click_a_logo_to_copy_address"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/donateConstraint" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="4dp"
+        android:rotation="220"
+        app:layout_constraintStart_toEndOf="@+id/clickToCopyTextView"
+        app:layout_constraintTop_toBottomOf="@+id/donateConstraint"
+        app:srcCompat="@drawable/arrow" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="4dp"
+        android:rotation="180"
+        android:scaleX="-1"
+        app:layout_constraintEnd_toStartOf="@+id/clickToCopyTextView"
+        app:layout_constraintTop_toBottomOf="@+id/donateConstraint"
+        app:srcCompat="@drawable/arrow" />
+
+    <Button
+        android:id="@+id/solButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="30dp"
+        android:alpha="0"
+        android:background="@null"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/donateConstraint"
+        app:layout_constraintEnd_toStartOf="@+id/bnbButton"
+        app:layout_constraintStart_toStartOf="@+id/donateConstraint"
+        app:layout_constraintTop_toTopOf="@+id/donateConstraint" />
+
+    <Button
+        android:id="@+id/bnbButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0"
+        android:background="@null"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/donateConstraint"
+        app:layout_constraintEnd_toEndOf="@+id/donateConstraint"
+        app:layout_constraintStart_toEndOf="@+id/solButton"
+        app:layout_constraintTop_toTopOf="@+id/donateConstraint" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

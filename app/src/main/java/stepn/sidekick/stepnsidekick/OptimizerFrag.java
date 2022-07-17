@@ -1,10 +1,11 @@
 package stepn.sidekick.stepnsidekick;
 
-import static stepn.sidekick.stepnsidekick.Finals.*;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
+import static android.content.Context.MODE_PRIVATE;
+import static stepn.sidekick.stepnsidekick.Finals.COMF;
+import static stepn.sidekick.stepnsidekick.Finals.EFF;
+import static stepn.sidekick.stepnsidekick.Finals.LUCK;
+import static stepn.sidekick.stepnsidekick.Finals.PREFERENCES_ID;
+import static stepn.sidekick.stepnsidekick.Finals.RES;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -12,18 +13,21 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,21 +38,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 import java.util.ArrayList;
 
 /**
- * Shoe optimizer. Uses community data to determine best points for GST earning and mystery box
- * chance.
+ * Shoe optimizer fragment. Uses community data to determine best points for GST earning and mystery
+ * box chance.
  *
  * @author Bob Godfrey
- * @version 1.3.1 - Minor bug fixes
+ * @version 1.3.2 Updated app layout to use fragments instead of activities for menu items
  *
  */
 
-public class ShoeOptimizer extends AppCompatActivity {
+public class OptimizerFrag extends Fragment {
 
     // holy preferences batman
     private final String OPT_SHOE_TYPE_PREF = "optShoe";
@@ -88,7 +89,7 @@ public class ShoeOptimizer extends AppCompatActivity {
     ImageButton shoeRarityButton, shoeTypeButton, optimizeButton, backgroundButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
-            subResButton, addResButton, backToMainButton, goToInfoButton;
+            subResButton, addResButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief;
 
@@ -106,10 +107,6 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo,
             footThree, energyBox;
 
-    ScrollView mainScroll;
-    ConstraintLayout bottomNav;
-    AdView bannerAd;
-
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
@@ -117,13 +114,15 @@ public class ShoeOptimizer extends AppCompatActivity {
     private boolean saveNew;
 
     ArrayList<Gem> gems;
+    public OptimizerFrag() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shoe_optimizer);
 
-        SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+        SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         energy = getSharedPrefs.getFloat(OPT_ENERGY_PERF, 0);
         shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, 0);
         shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
@@ -157,119 +156,103 @@ public class ShoeOptimizer extends AppCompatActivity {
                 getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF, -1),
                 getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF, 0),
                 getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF, 0)));
-
-        buildUI();
     }
 
-    // initializes all UI objects
     @SuppressLint("ClickableViewAccessibility")
-    private void buildUI() {
-        shoeRarityButton = findViewById(R.id.shoeRarityButton);
-        shoeTypeButton = findViewById(R.id.shoeTypeButton);
-        optimizeButton = findViewById(R.id.optimizeButton);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_optimizer, container, false);
 
-        gemSocketOneButton = findViewById(R.id.gemSocketOneButton);
-        gemSocketTwoButton = findViewById(R.id.gemSocketTwoButton);
-        gemSocketThreeButton = findViewById(R.id.gemSocketThreeButton);
-        gemSocketFourButton = findViewById(R.id.gemSocketFourButton);
+        shoeRarityButton = view.findViewById(R.id.shoeRarityButton);
+        shoeTypeButton = view.findViewById(R.id.shoeTypeButton);
+        optimizeButton = view.findViewById(R.id.optimizeButton);
 
-        subEffButton = findViewById(R.id.subEffButton);
-        addEffButton = findViewById(R.id.addEffButton);
-        subLuckButton = findViewById(R.id.subLuckButton);
-        addLuckButton = findViewById(R.id.addLuckButton);
-        subComfButton = findViewById(R.id.subComfButton);
-        addComfButton = findViewById(R.id.addComfButton);
-        subResButton = findViewById(R.id.subResButton);
-        addResButton = findViewById(R.id.addResButton);
+        gemSocketOneButton = view.findViewById(R.id.gemSocketOneButton);
+        gemSocketTwoButton = view.findViewById(R.id.gemSocketTwoButton);
+        gemSocketThreeButton = view.findViewById(R.id.gemSocketThreeButton);
+        gemSocketFourButton = view.findViewById(R.id.gemSocketFourButton);
 
-        backToMainButton = findViewById(R.id.goToMainButton);
-        goToInfoButton = findViewById(R.id.goToInfoButton);
-        backgroundButton = findViewById(R.id.backgroundThingButton);
+        subEffButton = view.findViewById(R.id.subEffButton);
+        addEffButton = view.findViewById(R.id.addEffButton);
+        subLuckButton = view.findViewById(R.id.subLuckButton);
+        addLuckButton = view.findViewById(R.id.addLuckButton);
+        subComfButton = view.findViewById(R.id.subComfButton);
+        addComfButton = view.findViewById(R.id.addComfButton);
+        subResButton = view.findViewById(R.id.subResButton);
+        addResButton = view.findViewById(R.id.addResButton);
 
-        levelSeekbar = findViewById(R.id.levelSeekBar);
+        backgroundButton = view.findViewById(R.id.backgroundThingButton);
+        levelSeekbar = view.findViewById(R.id.levelSeekBar);
 
-        energyEditText = findViewById(R.id.energyToSpendOptimizerEditText);
-        effEditText = findViewById(R.id.baseEffEditText);
-        luckEditText = findViewById(R.id.baseLuckEditText);
-        comfortEditText = findViewById(R.id.baseComfortEditText);
-        resEditText = findViewById(R.id.baseResEditText);
-        focusThief = findViewById(R.id.focusThief);
+        energyEditText = view.findViewById(R.id.energyToSpendOptimizerEditText);
+        effEditText = view.findViewById(R.id.baseEffEditText);
+        luckEditText = view.findViewById(R.id.baseLuckEditText);
+        comfortEditText = view.findViewById(R.id.baseComfortEditText);
+        resEditText = view.findViewById(R.id.baseResEditText);
+        focusThief = view.findViewById(R.id.focusThief);
 
-        shoeRarityTextView = findViewById(R.id.shoeRarityTextView);
-        shoeRarityShadowTextView = findViewById(R.id.shoeRarityShadowTextView);
-        shoeTypeTextView = findViewById(R.id.shoeTypeTextView);
-        shoeTypeShadowTextView = findViewById(R.id.shoeTypeShadowTextView);
-        levelTextView = findViewById(R.id.levelTextView);
-        effTotalTextView = findViewById(R.id.totalEffTextView);
-        luckTotalTextView = findViewById(R.id.totalLuckTextView);
-        comfortTotalTextView = findViewById(R.id.totalComfTextView);
-        resTotalTextView = findViewById(R.id.totalResTextView);
-        pointsAvailableTextView = findViewById(R.id.pointsTextView);
-        gstEarnedTextView = findViewById(R.id.gstPerDayTextView);
-        gstLimitTextView = findViewById(R.id.gstLimitPerDayTextView);
-        durabilityLossTextView = findViewById(R.id.durabilityLossTextView);
-        repairCostTextView = findViewById(R.id.repairCostTextView);
-        gstIncomeTextView = findViewById(R.id.gstIncomeTextView);
-        optimizeTextView = findViewById(R.id.optimizeTextView);
-        lvl10Shrug = findViewById(R.id.lvl10shrug);
+        shoeRarityTextView = view.findViewById(R.id.shoeRarityTextView);
+        shoeRarityShadowTextView = view.findViewById(R.id.shoeRarityShadowTextView);
+        shoeTypeTextView = view.findViewById(R.id.shoeTypeTextView);
+        shoeTypeShadowTextView = view.findViewById(R.id.shoeTypeShadowTextView);
+        levelTextView = view.findViewById(R.id.levelTextView);
+        effTotalTextView = view.findViewById(R.id.totalEffTextView);
+        luckTotalTextView = view.findViewById(R.id.totalLuckTextView);
+        comfortTotalTextView = view.findViewById(R.id.totalComfTextView);
+        resTotalTextView = view.findViewById(R.id.totalResTextView);
+        pointsAvailableTextView = view.findViewById(R.id.pointsTextView);
+        gstEarnedTextView = view.findViewById(R.id.gstPerDayTextView);
+        gstLimitTextView = view.findViewById(R.id.gstLimitPerDayTextView);
+        durabilityLossTextView = view.findViewById(R.id.durabilityLossTextView);
+        repairCostTextView = view.findViewById(R.id.repairCostTextView);
+        gstIncomeTextView = view.findViewById(R.id.gstIncomeTextView);
+        optimizeTextView = view.findViewById(R.id.optimizeTextView);
+        lvl10Shrug = view.findViewById(R.id.lvl10shrug);
 
-        effMinusTv = findViewById(R.id.subEffTextView);
-        effPlusTv = findViewById(R.id.addEffTextView);
-        luckMinusTv = findViewById(R.id.subLuckTextView);
-        luckPlusTv = findViewById(R.id.addLuckTextView);
-        comfMinusTv = findViewById(R.id.subComfTextView);
-        comfPlusTv = findViewById(R.id.addComfTextView);
-        resMinusTv = findViewById(R.id.subResTextView);
-        resPlusTv = findViewById(R.id.addResTextView);
+        effMinusTv = view.findViewById(R.id.subEffTextView);
+        effPlusTv = view.findViewById(R.id.addEffTextView);
+        luckMinusTv = view.findViewById(R.id.subLuckTextView);
+        luckPlusTv = view.findViewById(R.id.addLuckTextView);
+        comfMinusTv = view.findViewById(R.id.subComfTextView);
+        comfPlusTv = view.findViewById(R.id.addComfTextView);
+        resMinusTv = view.findViewById(R.id.subResTextView);
+        resPlusTv = view.findViewById(R.id.addResTextView);
 
-        gemSocketOne = findViewById(R.id.gemSocketOne);
-        gemSocketOneShadow = findViewById(R.id.gemSocketOneShadow);
-        gemSocketOneLockPlus = findViewById(R.id.gemSocketOneLockPlus);
-        gemSocketTwo = findViewById(R.id.gemSocketTwo);
-        gemSocketTwoShadow = findViewById(R.id.gemSocketTwoShadow);
-        gemSocketTwoLockPlus = findViewById(R.id.gemSocketTwoLockPlus);
-        gemSocketThree = findViewById(R.id.gemSocketThree);
-        gemSocketThreeShadow = findViewById(R.id.gemSocketThreeShadow);
-        gemSocketThreeLockPlus = findViewById(R.id.gemSocketThreeLockPlus);
-        gemSocketFour = findViewById(R.id.gemSocketFour);
-        gemSocketFourShadow = findViewById(R.id.gemSocketFourShadow);
-        gemSocketFourLockPlus = findViewById(R.id.gemSocketFourLockPlus);
+        gemSocketOne = view.findViewById(R.id.gemSocketOne);
+        gemSocketOneShadow = view.findViewById(R.id.gemSocketOneShadow);
+        gemSocketOneLockPlus = view.findViewById(R.id.gemSocketOneLockPlus);
+        gemSocketTwo = view.findViewById(R.id.gemSocketTwo);
+        gemSocketTwoShadow = view.findViewById(R.id.gemSocketTwoShadow);
+        gemSocketTwoLockPlus = view.findViewById(R.id.gemSocketTwoLockPlus);
+        gemSocketThree = view.findViewById(R.id.gemSocketThree);
+        gemSocketThreeShadow = view.findViewById(R.id.gemSocketThreeShadow);
+        gemSocketThreeLockPlus = view.findViewById(R.id.gemSocketThreeLockPlus);
+        gemSocketFour = view.findViewById(R.id.gemSocketFour);
+        gemSocketFourShadow = view.findViewById(R.id.gemSocketFourShadow);
+        gemSocketFourLockPlus = view.findViewById(R.id.gemSocketFourLockPlus);
 
-        shoeTypeImageView = findViewById(R.id.shoeTypeImageView);
-        shoeCircles = findViewById(R.id.shoeBackground);
-        shoeRarityButtonShadow = findViewById(R.id.shoeRarityBoxShadow);
-        shoeTypeButtonShadow = findViewById(R.id.shoeTypeBoxShadow);
-        energyBox = findViewById(R.id.energyBoxOptimizer);
-        minLevelImageView = findViewById(R.id.seekbarMinLevel);
-        optimizeButtonShadow = findViewById(R.id.optimizeButtonShadow);
+        shoeTypeImageView = view.findViewById(R.id.shoeTypeImageView);
+        shoeCircles = view.findViewById(R.id.shoeBackground);
+        shoeRarityButtonShadow = view.findViewById(R.id.shoeRarityBoxShadow);
+        shoeTypeButtonShadow = view.findViewById(R.id.shoeTypeBoxShadow);
+        energyBox = view.findViewById(R.id.energyBoxOptimizer);
+        minLevelImageView = view.findViewById(R.id.seekbarMinLevel);
+        optimizeButtonShadow = view.findViewById(R.id.optimizeButtonShadow);
 
-        mysteryBox1 = findViewById(R.id.mysteryBoxLvl1);
-        mysteryBox2 = findViewById(R.id.mysteryBoxLvl2);
-        mysteryBox3 = findViewById(R.id.mysteryBoxLvl3);
-        mysteryBox4 = findViewById(R.id.mysteryBoxLvl4);
-        mysteryBox5 = findViewById(R.id.mysteryBoxLvl5);
-        mysteryBox6 = findViewById(R.id.mysteryBoxLvl6);
-        mysteryBox7 = findViewById(R.id.mysteryBoxLvl7);
-        mysteryBox8 = findViewById(R.id.mysteryBoxLvl8);
-        mysteryBox9 = findViewById(R.id.mysteryBoxLvl9);
+        mysteryBox1 = view.findViewById(R.id.mysteryBoxLvl1);
+        mysteryBox2 = view.findViewById(R.id.mysteryBoxLvl2);
+        mysteryBox3 = view.findViewById(R.id.mysteryBoxLvl3);
+        mysteryBox4 = view.findViewById(R.id.mysteryBoxLvl4);
+        mysteryBox5 = view.findViewById(R.id.mysteryBoxLvl5);
+        mysteryBox6 = view.findViewById(R.id.mysteryBoxLvl6);
+        mysteryBox7 = view.findViewById(R.id.mysteryBoxLvl7);
+        mysteryBox8 = view.findViewById(R.id.mysteryBoxLvl8);
+        mysteryBox9 = view.findViewById(R.id.mysteryBoxLvl9);
 
-        footOne = findViewById(R.id.footprint1ImageView);
-        footTwo = findViewById(R.id.footprint2ImageView);
-        footThree = findViewById(R.id.footprint3ImageView);
-
-        mainScroll = findViewById(R.id.optimizerScrollView);
-        bottomNav = findViewById(R.id.navigationBar);
-        bannerAd = findViewById(R.id.bannerAd);
-
-        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
-        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-
-        if (!MainActivity.ads) {
-            bannerAd.setVisibility(View.GONE);
-        } else {
-            AdRequest adRequest = new AdRequest.Builder().build();
-            bannerAd.loadAd(adRequest);
-        }
+        footOne = view.findViewById(R.id.footprint1ImageView);
+        footTwo = view.findViewById(R.id.footprint2ImageView);
+        footThree = view.findViewById(R.id.footprint3ImageView);
 
         backgroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,28 +261,11 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
-        mainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                int scrollChange = oldScrollY - scrollY;
-                if (scrollChange < -5 && bottomNav.getVisibility() == View.VISIBLE
-                        && mainScroll.getScrollY() > 0) {
-                    bottomNav.startAnimation(slideDown);
-                    bottomNav.setVisibility(View.INVISIBLE);
-                } else if (scrollChange > 5
-                        && bottomNav.getVisibility() == View.INVISIBLE
-                        && mainScroll.getChildAt(0).getBottom() > (mainScroll.getHeight() + mainScroll.getScrollY())) {
-                    bottomNav.startAnimation(slideUp);
-                    bottomNav.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
         gemSocketOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (shoeLevel < 5) {
-                    Toast.makeText(ShoeOptimizer.this, "Socket available at level 5", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Socket available at level 5", Toast.LENGTH_SHORT).show();
                 } else {
                     chooseSocketType(0);
                 }
@@ -311,7 +277,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (shoeLevel < 10) {
-                    Toast.makeText(ShoeOptimizer.this, "Socket available at level 10", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Socket available at level 10", Toast.LENGTH_SHORT).show();
                 } else {
                     chooseSocketType(1);
                 }
@@ -323,7 +289,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (shoeLevel < 15) {
-                    Toast.makeText(ShoeOptimizer.this, "Socket available at level 15", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Socket available at level 15", Toast.LENGTH_SHORT).show();
                 } else {
                     chooseSocketType(2);
                 }
@@ -335,7 +301,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (shoeLevel < 20) {
-                    Toast.makeText(ShoeOptimizer.this, "Socket available at level 20", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Socket available at level 20", Toast.LENGTH_SHORT).show();
                 } else {
                     chooseSocketType(3);
                 }
@@ -829,7 +795,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (energy > 0) {
                     optimizeShoe();
                 } else {
-                    Toast.makeText(ShoeOptimizer.this, "Energy must be greater than 0", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Energy must be greater than 0", Toast.LENGTH_SHORT).show();
                 }
                 clearFocus(view);
             }
@@ -855,23 +821,6 @@ public class ShoeOptimizer extends AppCompatActivity {
             }
         });
 
-        backToMainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        goToInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                Intent startInfo = new Intent(getApplicationContext(), About.class);
-                startActivity(startInfo);
-                overridePendingTransition(0, 0);
-            }
-        });
-
         levelSeekbar.setProgress(shoeLevel - 1);
 
         updateRarity();
@@ -879,6 +828,8 @@ public class ShoeOptimizer extends AppCompatActivity {
         updateLevel();
         loadPoints();
         calcTotals();
+
+        return view;
     }
 
     // updates UI depending on shoe rarity
@@ -887,15 +838,15 @@ public class ShoeOptimizer extends AppCompatActivity {
             case UNCOMMON:
                 shoeCircles.setImageResource(R.drawable.circles_uncommon);
                 shoeRarityTextView.setText("Uncommon");
-                shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_uncommon);
-                shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_uncommon);
-                footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                footThree.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 effEditText.setHint("8 - 21.6");
                 luckEditText.setHint("8 - 21.6");
                 comfortEditText.setHint("8 - 21.6");
@@ -911,15 +862,15 @@ public class ShoeOptimizer extends AppCompatActivity {
             case RARE:
                 shoeCircles.setImageResource(R.drawable.circles_rare);
                 shoeRarityTextView.setText("Rare");
-                shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_rare);
-                shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_rare);
-                footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                footThree.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 effEditText.setHint("15 - 42");
                 luckEditText.setHint("15 - 42");
                 comfortEditText.setHint("15 - 42");
@@ -935,15 +886,15 @@ public class ShoeOptimizer extends AppCompatActivity {
             case EPIC:
                 shoeCircles.setImageResource(R.drawable.circles_epic);
                 shoeRarityTextView.setText("Epic");
-                shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_epic);
-                shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_epic);
-                footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
-                footThree.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.white));
+                footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 effEditText.setHint("28 - 75.6");
                 luckEditText.setHint("28 - 75.6");
                 comfortEditText.setHint("28 - 75.6");
@@ -954,15 +905,15 @@ public class ShoeOptimizer extends AppCompatActivity {
             default:
                 shoeCircles.setImageResource(R.drawable.circles_common);
                 shoeRarityTextView.setText("Common");
-                shoeRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
-                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeRarityButton.setImageResource(R.drawable.box_common);
-                shoeTypeTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
-                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeTypeButton.setImageResource(R.drawable.box_common);
-                footOne.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
-                footTwo.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
-                footThree.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 effEditText.setHint("1 - 10");
                 luckEditText.setHint("1 - 10");
                 comfortEditText.setHint("1 - 10");
@@ -1113,7 +1064,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         tempGemMounted = gems.get(socketNum).getMountedGem();
         tempBasePoints = gems.get(socketNum).getBasePoints();
 
-        Dialog choseGem = new Dialog(ShoeOptimizer.this);
+        Dialog choseGem = new Dialog(requireActivity());
 
         choseGem.requestWindowFeature(Window.FEATURE_NO_TITLE);
         choseGem.setCancelable(true);
@@ -1346,12 +1297,12 @@ public class ShoeOptimizer extends AppCompatActivity {
         gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
 
         if (tempSocketRarity == 0) {
-            decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            decreaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
         } else if ((tempSocketRarity == 1 && shoeRarity <= COMMON)
                 || (tempSocketRarity == 2 && shoeRarity <= UNCOMMON)
                 || (tempSocketRarity == 3 && shoeRarity <= RARE)
                 || tempSocketRarity == 4) {
-            increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
         }
 
         gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
@@ -1486,10 +1437,10 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (gems.get(socketNum).getSocketRarity() > 0) {
                     gems.get(socketNum).setSocketRarity(gems.get(socketNum).getSocketRarity() - 1);
                     gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
-                    increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                    increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 }
                 if (gems.get(socketNum).getSocketRarity() == 0) {
-                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
                 }
                 socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
                 totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
@@ -1502,27 +1453,27 @@ public class ShoeOptimizer extends AppCompatActivity {
                 if (gems.get(socketNum).getSocketRarity() == 0) {
                     gems.get(socketNum).setSocketRarity(1);
                     if (shoeRarity == COMMON) {
-                        increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                        increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
                     }
                 } else if (gems.get(socketNum).getSocketRarity() == 1 && shoeRarity > COMMON) {
                     gems.get(socketNum).setSocketRarity(2);
                     if (shoeRarity <= UNCOMMON) {
-                        increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                        increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
                     }
                 } else if (gems.get(socketNum).getSocketRarity() == 2 && shoeRarity > UNCOMMON) {
                     gems.get(socketNum).setSocketRarity(3);
                     if (shoeRarity <= RARE) {
-                        increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                        increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
                     }
                 } else if (gems.get(socketNum).getSocketRarity() == 3 && shoeRarity > RARE) {
                     gems.get(socketNum).setSocketRarity(4);
-                    increaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                    increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
                 }
 
                 if (gems.get(socketNum).getSocketRarity() == 0) {
-                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
                 } else {
-                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 }
 
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
@@ -1700,7 +1651,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (gems.get(socketNum).getMountedGem() == 0) {
-                    Toast.makeText(ShoeOptimizer.this, "Choose a gem to mount", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Choose a gem to mount", Toast.LENGTH_SHORT).show();
                 } else {
                     gems.get(socketNum).setMountedGem(0);
                     gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
@@ -1732,7 +1683,7 @@ public class ShoeOptimizer extends AppCompatActivity {
         int points, percent;
         String socketRarity;
 
-        Dialog showGemCalcDetails = new Dialog(ShoeOptimizer.this);
+        Dialog showGemCalcDetails = new Dialog(requireActivity());
 
         showGemCalcDetails.requestWindowFeature(Window.FEATURE_NO_TITLE);
         showGemCalcDetails.setCancelable(true);
@@ -1867,9 +1818,9 @@ public class ShoeOptimizer extends AppCompatActivity {
         gstIncomeTextView.setText(String.format("%.1f", gstTotal - repairCost));
 
         if (gstTotal > gstLimit) {
-            gstEarnedTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.red));
+            gstEarnedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
         } else {
-            gstEarnedTextView.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            gstEarnedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
         }
     }
 
@@ -2227,7 +2178,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox1.setImageTintMode(null);
             mysteryBox1.setAlpha(0.5f);
         } else {
-            mysteryBox1.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox1.setAlpha(0.5f);
         }
 
@@ -2240,7 +2191,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox2.setImageTintMode(null);
             mysteryBox2.setAlpha(0.5f);
         } else {
-            mysteryBox2.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox2.setAlpha(0.5f);
         }
 
@@ -2253,7 +2204,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(0.5f);
         } else {
-            mysteryBox3.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox3.setAlpha(0.5f);
         }
 
@@ -2268,7 +2219,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 mysteryBox4.setAlpha(0.5f);
             }
         } else {
-            mysteryBox4.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox4.setAlpha(0.5f);
         }
 
@@ -2283,7 +2234,7 @@ public class ShoeOptimizer extends AppCompatActivity {
                 mysteryBox5.setAlpha(0.5f);
             }
         } else {
-            mysteryBox5.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox5.setAlpha(0.5f);
         }
 
@@ -2302,7 +2253,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox6.setImageTintMode(null);
             mysteryBox6.setAlpha(0.5f);
         } else {
-            mysteryBox6.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox6.setAlpha(0.5f);
         }
 
@@ -2311,7 +2262,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox7.setImageTintMode(null);
             mysteryBox7.setAlpha(1.0f);
         } else {
-            mysteryBox7.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox7.setAlpha(0.5f);
         }
 
@@ -2320,7 +2271,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox8.setImageTintMode(null);
             mysteryBox8.setAlpha(1.0f);
         } else {
-            mysteryBox8.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox8.setAlpha(0.5f);
         }
 
@@ -2330,7 +2281,7 @@ public class ShoeOptimizer extends AppCompatActivity {
             mysteryBox9.setAlpha(1.0f);
             lvl10Shrug.setVisibility(View.VISIBLE);
         } else {
-            mysteryBox9.setColorFilter(ContextCompat.getColor(ShoeOptimizer.this, R.color.gandalf));
+            mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox9.setAlpha(0.5f);
             lvl10Shrug.setVisibility(View.INVISIBLE);
         }
@@ -2393,54 +2344,54 @@ public class ShoeOptimizer extends AppCompatActivity {
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
 
         if (pointsAvailable > 0) {
-            effPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            effPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
             addEffButton.setClickable(true);
-            luckPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            luckPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
             addLuckButton.setClickable(true);
-            comfPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            comfPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
             addComfButton.setClickable(true);
-            resPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            resPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
             addResButton.setClickable(true);
         } else {
-            effPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            effPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
             addEffButton.setClickable(false);
-            luckPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            luckPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
             addLuckButton.setClickable(false);
-            comfPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            comfPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
             addComfButton.setClickable(false);
-            resPlusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            resPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
             addResButton.setClickable(false);
         }
 
         if (addedEff > 0) {
-            effMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            effMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
             subEffButton.setClickable(true);
         } else {
-            effMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            effMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
             subEffButton.setClickable(false);
         }
 
         if (addedLuck > 0) {
-            luckMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            luckMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
             subLuckButton.setClickable(true);
         } else {
-            luckMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            luckMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
             subLuckButton.setClickable(false);
         }
 
         if (addedComf > 0) {
-            comfMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            comfMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
             subComfButton.setClickable(true);
         } else {
-            comfMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            comfMinusTv.setTextColor(ContextCompat.getColor(requireActivity(), R.color.gem_socket_shadow));
             subComfButton.setClickable(false);
         }
 
         if (addedRes > 0) {
-            resMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.almost_black));
+            resMinusTv.setTextColor(ContextCompat.getColor(requireActivity(), R.color.almost_black));
             subResButton.setClickable(true);
         } else {
-            resMinusTv.setTextColor(ContextCompat.getColor(ShoeOptimizer.this, R.color.gem_socket_shadow));
+            resMinusTv.setTextColor(ContextCompat.getColor(requireActivity(), R.color.gem_socket_shadow));
             subResButton.setClickable(false);
         }
 
@@ -2481,8 +2432,8 @@ public class ShoeOptimizer extends AppCompatActivity {
 
     // to save prefs
     @Override
-    protected void onStop() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+    public void onStop() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putInt(OPT_SHOE_TYPE_PREF, shoeType);
@@ -2514,12 +2465,5 @@ public class ShoeOptimizer extends AppCompatActivity {
         editor.apply();
 
         super.onStop();
-    }
-
-    // to remove transition anim
-    @Override
-    protected void onPause() {
-        super.onPause();
-        overridePendingTransition(0, 0);
     }
 }
