@@ -43,6 +43,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Information about the app, 'remove ads' button, option to donate
@@ -104,10 +105,7 @@ public class AboutFrag extends Fragment {
             removeAdsTextView.setVisibility(View.VISIBLE);
             removeAdsShadowTextView.setVisibility(View.VISIBLE);
         } else {
-            removeAdsButton.setVisibility(View.GONE);
-            removeAdsShadow.setVisibility(View.GONE);
-            removeAdsTextView.setVisibility(View.GONE);
-            removeAdsShadowTextView.setVisibility(View.GONE);
+            hideAdsButton();
         }
 
         removeAdsButton.setOnTouchListener(new View.OnTouchListener() {
@@ -166,7 +164,7 @@ public class AboutFrag extends Fragment {
         solButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipData clip = ClipData.newPlainText("email", getString(R.string.solana_chain));
+                ClipData clip = ClipData.newPlainText("sol", getString(R.string.solana_chain));
                 clipboard.setPrimaryClip(clip);
 
                 Toast.makeText(getContext(), getString(R.string.sol_address_copied), Toast.LENGTH_SHORT).show();
@@ -192,7 +190,7 @@ public class AboutFrag extends Fragment {
         bnbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipData clip = ClipData.newPlainText("email", getString(R.string.bnb_chain));
+                ClipData clip = ClipData.newPlainText("bnb", getString(R.string.bnb_chain));
                 clipboard.setPrimaryClip(clip);
 
                 Toast.makeText(getActivity(), getString(R.string.bnb_address_copied), Toast.LENGTH_SHORT).show();
@@ -223,197 +221,105 @@ public class AboutFrag extends Fragment {
                 .setListener(purchasesUpdatedListener).enablePendingPurchases().build();
 
         billingClient.startConnection(new BillingClientStateListener() {
-
             @Override
-            public void onBillingSetupFinished(
-                    @NonNull BillingResult billingResult) {
-
-                if (billingResult.getResponseCode() ==
-                        BillingClient.BillingResponseCode.OK) {
-                    Log.i(TAG, "OnBillingSetupFinish connected");
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     queryProduct();
-                } else {
-                    Log.i(TAG, "OnBillingSetupFinish failed");
                 }
             }
 
             @Override
             public void onBillingServiceDisconnected() {
-                Log.i(TAG, "OnBillingSetupFinish connection lost");
+                billingSetup();
             }
         });
 
     }
 
     private void queryProduct() {
-        QueryProductDetailsParams queryProductDetailsParams =
-                QueryProductDetailsParams.newBuilder()
-                        .setProductList(ImmutableList.of(QueryProductDetailsParams.Product.newBuilder()
-                                .setProductId("remove_ads")
-                                .setProductType(BillingClient.ProductType.INAPP)
-                                .build()))
-                        .build();
+        QueryProductDetailsParams queryProductDetailsParams =QueryProductDetailsParams.newBuilder()
+                .setProductList(ImmutableList.of(QueryProductDetailsParams.Product.newBuilder()
+                        .setProductId("remove_ads")
+                        .setProductType(BillingClient.ProductType.INAPP)
+                        .build()))
+                .build();
 
         billingClient.queryProductDetailsAsync(queryProductDetailsParams, new ProductDetailsResponseListener() {
                     public void onProductDetailsResponse(
                             @NonNull BillingResult billingResult, @NonNull List<ProductDetails> productDetailsList) {
                         if (!productDetailsList.isEmpty()) {
                             productDetails = productDetailsList.get(0);
-                        } else {
-                            Log.i(TAG, "onProductDetailsResponse: No products");
                         }
                     }
                 }
         );
+
+
     }
 
     public void makePurchase(View view) {
         if (productDetails != null) {
-            BillingFlowParams billingFlowParams =
-                    BillingFlowParams.newBuilder()
-                            .setProductDetailsParamsList(ImmutableList.of(BillingFlowParams
-                                    .ProductDetailsParams.newBuilder().setProductDetails(productDetails).build()))
-                            .build();
+            BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                    .setProductDetailsParamsList(ImmutableList.of(
+                            BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(productDetails).build()))
+                    .build();
 
             billingClient.launchBillingFlow(requireActivity(), billingFlowParams);
-        } else {
-            Log.d(TAG, "makePurchase: oopsie daisy tehehe :)");
         }
     }
 
     private final PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
         @Override
-        public void onPurchasesUpdated(BillingResult billingResult,
-                                       List<Purchase> purchases) {
-
-            if (billingResult.getResponseCode() ==
-                    BillingClient.BillingResponseCode.OK
-                    && purchases != null) {
+        public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
+            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null) {
                 for (Purchase purchase : purchases) {
                     completePurchase(purchase);
                 }
-            } else if (billingResult.getResponseCode() ==
-                    BillingClient.BillingResponseCode.USER_CANCELED) {
-                Log.i(TAG, "onPurchasesUpdated: Purchase Canceled");
+            } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+                ads = false;
+                Toast.makeText(requireActivity(), "Thank you! Ads are now disabled", Toast.LENGTH_SHORT).show();
+                ((MainActivity) requireActivity()).updateAds();
+                hideAdsButton();
+            } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
+                Log.i(TAG, "onPurchasesUpdated: purchase cancelled");
+                Toast.makeText(requireActivity(), "Purchase cancelled", Toast.LENGTH_SHORT).show();
+                ads = true;
             } else {
-                Log.i(TAG, "onPurchasesUpdated: Error");
+                ads = true;
             }
         }
     };
 
     private void completePurchase(Purchase item) {
-
         purchase = item;
 
-        if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED)
-            ads = false;
-    }
-
-
-
-
-    /*
-    billingClient = BillingClient.newBuilder(requireActivity()).setListener(new PurchasesUpdatedListener() {
-                @Override
-                public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
-                    // TODO
-                }
-            }).enablePendingPurchases().build();
-
-            connectGooglePlayBilling();
-
-
-    // connect to google billing
-    private void connectGooglePlayBilling() {
-        Log.d(TAG, "connectGooglePlayBilling: ");
-        billingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingServiceDisconnected() {
-                connectGooglePlayBilling();
-            }
-
-            @Override
-            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    getProducts();
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onResume() {
-        billingClient.queryPurchasesAsync(QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build(),
-                new PurchasesResponseListener() {
-                    @Override
-                    public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
-                        // check billingResult
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                            if (list.get(0).getPurchaseState() == Purchase.PurchaseState.PURCHASED && !list.get(0).isAcknowledged()) {
-                                verifyPayment(list.get(0));
-                            }
-                        }
-                    }
-                }
-        );
-
-        super.onResume();
-    }
-
-
-
-    // get list of products from google play (there is only one)
-    private void getProducts() {
-        ArrayList<QueryProductDetailsParams.Product> productList = new ArrayList<>();
-
-        productList.add(QueryProductDetailsParams.Product.newBuilder().setProductId("remove_ads").setProductType(BillingClient.ProductType.INAPP).build());
-
-
-        QueryProductDetailsParams queryProductDetailsParams = QueryProductDetailsParams.newBuilder().setProductList(productList).build();
-
-        billingClient.queryProductDetailsAsync(queryProductDetailsParams, new ProductDetailsResponseListener() {
-                    public void onProductDetailsResponse(BillingResult billingResult, List<ProductDetails> productDetailsList) {
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && productDetailsList != null) {
-                            Log.d(TAG, "onProductDetailsResponse: removeAddProductDetails.get(0).getTitle: " + productDetailsList);
-
-                            ProductDetails removeAdsProductDetails = productDetailsList.get(0);
-
-                            Log.d(TAG, "onProductDetailsResponse: descr: " + removeAdsProductDetails.getDescription());
-
-                            List<BillingFlowParams.ProductDetailsParams> produx = new ArrayList<>();
-                            produx.add(BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(productDetailsList.get(0)).build());
-
-                            billingClient.launchBillingFlow(MainActivity.this, BillingFlowParams.newBuilder().setProductDetailsParamsList(produx).build());
-
-                            BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder().setProductDetailsParamsList(produx).build();
-
-                        }
-                    }
-                }
-        );
-    }
-
-    private void verifyPayment(Purchase purchase) {
         if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
             if (!purchase.isAcknowledged()) {
                 AcknowledgePurchaseParams acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
-                        .setPurchaseToken(purchase.getPurchaseToken())
-                        .build();
-
+                        .setPurchaseToken(purchase.getPurchaseToken()).build();
                 billingClient.acknowledgePurchase(acknowledgePurchaseParams, new AcknowledgePurchaseResponseListener() {
                     @Override
                     public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
                         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                             ads = false;
-                        } else {
-                            ads = true;
+                            Toast.makeText(requireActivity(), "Thank you! Ads are now disabled", Toast.LENGTH_SHORT).show();
+                            ((MainActivity) requireActivity()).updateAds();
+                            hideAdsButton();
                         }
                     }
                 });
+            } else {
+                ads = false;
+                ((MainActivity) requireActivity()).updateAds();
             }
-        }
+        } 
     }
 
-     */
+    private void hideAdsButton() {
+        removeAdsButton.setVisibility(View.GONE);
+        removeAdsShadow.setVisibility(View.GONE);
+        removeAdsTextView.setVisibility(View.GONE);
+        removeAdsShadowTextView.setVisibility(View.GONE);
+    }
 
 }

@@ -37,9 +37,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
  *
@@ -69,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-        // TODO ads = getSharedPrefs.getBoolean(AD_PREF, false);
-        ads = true;
+        ads = getSharedPrefs.getBoolean(AD_PREF, true);
+
+        Toast.makeText(MainActivity.this, ads ? "ads enabled" : "ads disabled", Toast.LENGTH_SHORT).show();
 
         buildUI();
     }
@@ -159,6 +157,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void updateAds() {
+        if (!ads) {
+            bannerAd.setVisibility(View.GONE);
+        }
     }
 
     // to save prefs

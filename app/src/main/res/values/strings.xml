@@ -40,6 +40,7 @@
     <string name="support_project">If you find the app useful, please consider supporting!</string>
     <string name="solana_chain" translatable="false">FmhDh7fNLWrC5CScwcpQhquWFDv7cpQ876iwm6iZLkU1</string>
     <string name="bnb_chain" translatable="false">0x69b331406a3500d6974bce7cf0896650673e798c</string>
+    <stirng name="eth_chain" translatable="false">0x0a35f6827edf6da57096a1e9e5bf1b0a2a9631aa</stirng>
     <string name="click_a_logo_to_copy_address">Click logo to copy address</string>
     <string name="question_mark" translatable="false">\?</string>
     <string name="sol_address_copied">SOL address copied to clipboard</string>

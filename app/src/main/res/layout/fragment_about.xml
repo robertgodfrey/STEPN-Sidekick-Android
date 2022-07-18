@@ -303,19 +303,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/donateConstraint"
-        android:layout_width="240dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/supportTextView">
 
         <ImageView
             android:id="@+id/solanaLogo"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toStartOf="@+id/binanceLogo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -325,12 +326,48 @@
             android:id="@+id/binanceLogo"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/ethLogo"
             app:layout_constraintStart_toEndOf="@+id/solanaLogo"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_bnb" />
+
+        <ImageView
+            android:id="@+id/ethLogo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/binanceLogo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_bnb" />
+
+        <Button
+            android:id="@+id/solButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:alpha="0"
+            android:background="@null"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/solanaLogo"
+            app:layout_constraintEnd_toEndOf="@+id/solanaLogo"
+            app:layout_constraintStart_toStartOf="@+id/solanaLogo"
+            app:layout_constraintTop_toTopOf="@+id/solanaLogo" />
+
+        <Button
+            android:id="@+id/bnbButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:alpha="0"
+            android:background="@null"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/binanceLogo"
+            app:layout_constraintEnd_toEndOf="@+id/binanceLogo"
+            app:layout_constraintStart_toStartOf="@+id/binanceLogo"
+            app:layout_constraintTop_toTopOf="@+id/binanceLogo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -349,54 +386,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/donateConstraint" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="4dp"
-        android:rotation="220"
-        app:layout_constraintStart_toEndOf="@+id/clickToCopyTextView"
-        app:layout_constraintTop_toBottomOf="@+id/donateConstraint"
-        app:srcCompat="@drawable/arrow" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="4dp"
-        android:rotation="180"
-        android:scaleX="-1"
-        app:layout_constraintEnd_toStartOf="@+id/clickToCopyTextView"
-        app:layout_constraintTop_toBottomOf="@+id/donateConstraint"
-        app:srcCompat="@drawable/arrow" />
-
-    <Button
-        android:id="@+id/solButton"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="30dp"
-        android:alpha="0"
-        android:background="@null"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/donateConstraint"
-        app:layout_constraintEnd_toStartOf="@+id/bnbButton"
-        app:layout_constraintStart_toStartOf="@+id/donateConstraint"
-        app:layout_constraintTop_toTopOf="@+id/donateConstraint" />
-
-    <Button
-        android:id="@+id/bnbButton"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="16dp"
-        android:alpha="0"
-        android:background="@null"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/donateConstraint"
-        app:layout_constraintEnd_toEndOf="@+id/donateConstraint"
-        app:layout_constraintStart_toEndOf="@+id/solButton"
-        app:layout_constraintTop_toTopOf="@+id/donateConstraint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

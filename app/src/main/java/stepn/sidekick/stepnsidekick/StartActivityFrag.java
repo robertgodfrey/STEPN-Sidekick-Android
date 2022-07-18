@@ -2,6 +2,7 @@ package stepn.sidekick.stepnsidekick;
 
 import static android.content.Context.MODE_PRIVATE;
 import static stepn.sidekick.stepnsidekick.Finals.*;
+import static stepn.sidekick.stepnsidekick.MainActivity.ads;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
@@ -219,8 +220,10 @@ public class StartActivityFrag extends Fragment {
         countDownTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tenSecondTimer = !tenSecondTimer;
-                buttonClickSwitch(countDownTimerButton, countDownTimerTextView, tenSecondTimer);
+                // TODO
+                // tenSecondTimer = !tenSecondTimer;
+                ads = !ads;
+                buttonClickSwitch(countDownTimerButton, countDownTimerTextView, ads);
                 clearFocus(view);
             }
         });
