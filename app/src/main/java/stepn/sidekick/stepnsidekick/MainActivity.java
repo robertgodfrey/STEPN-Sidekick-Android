@@ -24,6 +24,7 @@ import com.android.billingclient.api.AcknowledgePurchaseParams;
 import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.ProductDetailsResponseListener;
@@ -54,14 +55,10 @@ public class MainActivity extends AppCompatActivity {
     Button goToExerciseButton, goToOptimizerButton, goToInfoButton;
     ImageView exerciseSelected, optimizerSelected, infoSelected;
     AdView bannerAd;
-    BillingClient billingClient;
     FragmentManager fragmentManager;
 
     ConstraintLayout bottomNav;
     ScrollView scrollView;
-
-    // TODO remove
-    String TAG = "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -71,19 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        billingClient = BillingClient.newBuilder(getApplicationContext()).setListener(new PurchasesUpdatedListener() {
-            @Override
-            public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
-                for (Purchase purchase : list) {
-                    verifyPayment(purchase);
-                }
-            }
-        }).enablePendingPurchases().build();
-
-        connectGooglePlayBilling();
-
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-        ads = getSharedPrefs.getBoolean(AD_PREF, false);
+        // TODO ads = getSharedPrefs.getBoolean(AD_PREF, false);
+        ads = true;
 
         buildUI();
     }
@@ -172,98 +159,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    // connect to google billing
-    private void connectGooglePlayBilling() {
-        Log.d(TAG, "connectGooglePlayBilling: ");
-        billingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingServiceDisconnected() {
-                connectGooglePlayBilling();
-            }
-
-            @Override
-            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    getProducts();
-                }
-            }
-        });
-    }
-
-    // get list of products from google play (there is only one)
-    private void getProducts() {
-        ArrayList<QueryProductDetailsParams.Product> productList = new ArrayList<>();
-
-        productList.add(QueryProductDetailsParams.Product.newBuilder().setProductId("remove_ads").setProductType(BillingClient.ProductType.INAPP).build());
-        QueryProductDetailsParams queryProductDetailsParams = QueryProductDetailsParams.newBuilder().setProductList(productList).build();
-
-        billingClient.queryProductDetailsAsync(queryProductDetailsParams, new ProductDetailsResponseListener() {
-                    public void onProductDetailsResponse(BillingResult billingResult, List<ProductDetails> productDetailsList) {
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && productDetailsList != null) {
-                            //Log.d(TAG, "onProductDetailsResponse: removeAddProductDetails.get(0).getTitle: " + productDetailsList);
-                            ProductDetails removeAdsProductDetails = productDetailsList.get(0);
-
-                            //Log.d(TAG, "onProductDetailsResponse: descr: " + removeAdsProductDetails.getDescription());
-
-                            if (productDetailsList.isEmpty()) {
-                                Toast.makeText(MainActivity.this, "empty array :(", Toast.LENGTH_SHORT).show();
-                            }
-                            for (ProductDetails productDetails : productDetailsList) {
-                                if (productDetails.getProductId().equals("remove_ads")) {
-                                    String test = productDetails.getName();
-                                    if (test.isEmpty()) {
-                                        test = "test failed";
-                                    }
-                                    Toast.makeText(MainActivity.this, test, Toast.LENGTH_SHORT).show();
-                                    //Log.d(TAG, "onProductDetailsResponse: productId equals remove_ads");
-                                }
-                            }
-                        }
-                    }
-                }
-        );
-    }
-
-    private void verifyPayment(Purchase purchase) {
-        if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
-            if (!purchase.isAcknowledged()) {
-                AcknowledgePurchaseParams acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
-                        .setPurchaseToken(purchase.getPurchaseToken())
-                        .build();
-
-                billingClient.acknowledgePurchase(acknowledgePurchaseParams, new AcknowledgePurchaseResponseListener() {
-                    @Override
-                    public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                            ads = false;
-                        } else {
-                            ads = true;
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        billingClient.queryPurchasesAsync(QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build(),
-                new PurchasesResponseListener() {
-                    @Override
-                    public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
-                        // check billingResult
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                            if (list.get(0).getPurchaseState() == Purchase.PurchaseState.PURCHASED && !list.get(0).isAcknowledged()) {
-                                verifyPayment(list.get(0));
-                            }
-                        }
-                    }
-                }
-        );
-
-        super.onResume();
     }
 
     // to save prefs
