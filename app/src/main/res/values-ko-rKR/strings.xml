@@ -46,6 +46,7 @@
     <string name="click_a_logo_to_copy_address">로고를 클릭하면 주소가 복사됩니다</string>
     <string name="sol_address_copied">SOL 주소가 클립보드에 복사되었습니다</string>
     <string name="bnb_address_copied">BNB 주소가 클립보드에 복사되었습니다</string>
+    <string name="eth_address_copied">ETH 주소가 클립보드에 복사되었습니다</string>
     <string name="instructions_1">화살표를 눌러 신발을 선택할 수 있습니다. 기본신발을 사용하거나 \"Custom\"을 선택해 당신이 원하는 속도를 입력할 수 있습니다. 당신의 운동 속도가 설정 속도를 벗어날 경우 경고음이 작동됩니다.</string>
     <string name="instructions_2">당신이 사용하고자 하는 에너지를 입력해주십시오. 입력한 에너지를 소비하기위한 시간이 자동으로 계산되어 아래쪽에 표기됩니다.</string>
     <string name="instructions_3">10초 카운트다운 기능을 사용여부를 선택해주십시오. 이 타이머는 당신의 GPS가 작동을 시작하고, 당신이 STEPN앱을 시작할 시간을 줍니다. 이 타이머 기능이 꺼져있다면, 이 앱은 시작과 동시에 작동됩니다.</string>

@@ -40,11 +40,12 @@
     <string name="support_project">If you find the app useful, please consider supporting!</string>
     <string name="solana_chain" translatable="false">FmhDh7fNLWrC5CScwcpQhquWFDv7cpQ876iwm6iZLkU1</string>
     <string name="bnb_chain" translatable="false">0x69b331406a3500d6974bce7cf0896650673e798c</string>
-    <stirng name="eth_chain" translatable="false">0x0a35f6827edf6da57096a1e9e5bf1b0a2a9631aa</stirng>
+    <string name="eth_chain" translatable="false">0x0a35f6827edf6da57096a1e9e5bf1b0a2a9631aa</string>
     <string name="click_a_logo_to_copy_address">Click logo to copy address</string>
     <string name="question_mark" translatable="false">\?</string>
     <string name="sol_address_copied">SOL address copied to clipboard</string>
     <string name="bnb_address_copied">BNB address copied to clipboard</string>
+    <string name="eth_address_copied">ETH address copied to clipboard</string>
     <string name="instructions_1">Use the arrows to select a shoe. You can use the default shoes or you can select \"Custom\" to input custom speeds.
         The app will play an warning sound if your current speed is outside of the speed range that you choose.</string>
     <string name="instructions_2">Enter the amount of energy you wish to spend. The amount of time required to spend the energy will be displayed below.</string>
@@ -80,5 +81,5 @@
     <string name="current">CURRENT</string>
     <string name="average">AVERAGE</string>
     <string name="all">ALL</string>
-    <string name="remove_ads">REMOVE ADS</string>
+    <string name="remove_ads" translatable="false">REMOVE ADS</string>
 </resources>

@@ -41,7 +41,7 @@ import com.google.android.gms.ads.MobileAds;
  * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Bob Godfrey
- * @version 1.3.2 - Updated app layout to use fragments instead of activities for menu items
+ * @version 1.3.2 Added in-app purchases, updated app layout to use fragments instead of activities for menu items
  *
  */
 
@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         ads = getSharedPrefs.getBoolean(AD_PREF, true);
-
-        Toast.makeText(MainActivity.this, ads ? "ads enabled" : "ads disabled", Toast.LENGTH_SHORT).show();
 
         buildUI();
     }

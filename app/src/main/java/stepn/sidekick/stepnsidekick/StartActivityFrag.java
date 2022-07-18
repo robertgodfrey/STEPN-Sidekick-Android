@@ -49,7 +49,7 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer. Starts the SpeedTracker activity.
  *
  * @author Bob Godfrey
- * @version 1.3.2 Updated app layout to use fragments instead of activities for menu items
+ * @version 1.3.2 Added in-app purchases, updated app layout to use fragments instead of activities for menu items
  *
  */
 
@@ -220,9 +220,7 @@ public class StartActivityFrag extends Fragment {
         countDownTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO
-                // tenSecondTimer = !tenSecondTimer;
-                ads = !ads;
+                tenSecondTimer = !tenSecondTimer;
                 buttonClickSwitch(countDownTimerButton, countDownTimerTextView, ads);
                 clearFocus(view);
             }

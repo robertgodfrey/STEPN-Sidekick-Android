@@ -365,7 +365,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        android:text="ADS"
+        android:text="@string/countdown_timer"
         android:textColor="@color/gandalf"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/countdownTimerButton"

@@ -3,18 +3,15 @@ package stepn.sidekick.stepnsidekick;
 import static stepn.sidekick.stepnsidekick.MainActivity.ads;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,16 +31,12 @@ import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.ProductDetailsResponseListener;
 import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesResponseListener;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
-import com.android.billingclient.api.QueryPurchasesParams;
 
 import com.google.common.collect.ImmutableList;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Information about the app, 'remove ads' button, option to donate
@@ -55,18 +48,15 @@ import java.util.Objects;
 
 public class AboutFrag extends Fragment {
 
-    Button emailButton, solButton, bnbButton;
+    Button emailButton, solButton, bnbButton, ethButton;
     ImageButton removeAdsButton;
-    ImageView removeAdsShadow;
+    ImageView removeAdsShadow, solLogo, bnbLogo, ethLogo;
     TextView emailTextView, removeAdsTextView, removeAdsShadowTextView;
     ClipboardManager clipboard;
 
-    private BillingClient billingClient;
+    public static BillingClient billingClient;
     private ProductDetails productDetails;
     private Purchase purchase;
-
-    // TODO remove
-    String TAG = "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 
     public AboutFrag() {
         // Required empty public constructor
@@ -92,7 +82,12 @@ public class AboutFrag extends Fragment {
         emailButton = view.findViewById(R.id.emailButton);
         solButton = view.findViewById(R.id.solButton);
         bnbButton = view.findViewById(R.id.bnbButton);
+        ethButton = view.findViewById(R.id.ethButton);
         emailTextView = view.findViewById(R.id.contactEmailTextView);
+
+        solLogo = view.findViewById(R.id.solanaLogo);
+        bnbLogo = view.findViewById(R.id.binanceLogo);
+        ethLogo = view.findViewById(R.id.ethLogo);
 
         removeAdsButton = view.findViewById(R.id.removeAdsButton);
         removeAdsTextView = view.findViewById(R.id.removeAdsTextView);
@@ -176,11 +171,11 @@ public class AboutFrag extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        solButton.setAlpha(0.5f);
+                        solLogo.setAlpha(0.5f);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
-                        solButton.setAlpha(0.0f);
+                        solLogo.setAlpha(1.0f);
                         break;
                 }
                 return false;
@@ -202,11 +197,37 @@ public class AboutFrag extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        bnbButton.setAlpha(0.5f);
+                        bnbLogo.setAlpha(0.5f);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
-                        bnbButton.setAlpha(0.0f);
+                        bnbLogo.setAlpha(1.0f);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        ethButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipData clip = ClipData.newPlainText("eth", getString(R.string.eth_chain));
+                clipboard.setPrimaryClip(clip);
+
+                Toast.makeText(getActivity(), getString(R.string.eth_address_copied), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ethButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        ethLogo.setAlpha(0.5f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        ethLogo.setAlpha(1.0f);
                         break;
                 }
                 return false;
@@ -265,6 +286,8 @@ public class AboutFrag extends Fragment {
                     .build();
 
             billingClient.launchBillingFlow(requireActivity(), billingFlowParams);
+        } else {
+            Toast.makeText(requireActivity(), "Unable to connect", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -281,7 +304,6 @@ public class AboutFrag extends Fragment {
                 ((MainActivity) requireActivity()).updateAds();
                 hideAdsButton();
             } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
-                Log.i(TAG, "onPurchasesUpdated: purchase cancelled");
                 Toast.makeText(requireActivity(), "Purchase cancelled", Toast.LENGTH_SHORT).show();
                 ads = true;
             } else {

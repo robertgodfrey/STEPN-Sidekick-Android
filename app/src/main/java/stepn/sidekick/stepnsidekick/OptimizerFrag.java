@@ -45,7 +45,7 @@ import java.util.ArrayList;
  * box chance.
  *
  * @author Bob Godfrey
- * @version 1.3.2 Updated app layout to use fragments instead of activities for menu items
+ * @version 1.3.2 Added in-app purchases, updated app layout to use fragments instead of activities for menu items
  *
  */
 

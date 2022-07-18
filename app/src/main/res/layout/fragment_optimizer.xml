@@ -1178,6 +1178,32 @@
         app:layout_constraintTop_toBottomOf="@+id/gstLimitPerDayTextView" />
 
     <TextView
+        android:id="@+id/hpLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="HP Loss:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
+
+    <TextView
+        android:id="@+id/hpLossTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="Coming soon"
+        android:textColor="@color/gandalf"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/durabilityLossTextView" />
+
+    <TextView
         android:id="@+id/repairLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -1188,7 +1214,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
 
     <TextView
         android:id="@+id/repairCostTextView"
@@ -1201,7 +1227,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/durabilityLossTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/hpLossTextView" />
 
     <TextView
         android:id="@+id/totalIncomeLabelTextView"

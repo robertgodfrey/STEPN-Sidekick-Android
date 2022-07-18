@@ -314,8 +314,9 @@
 
         <ImageView
             android:id="@+id/solanaLogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toStartOf="@+id/binanceLogo"
             app:layout_constraintStart_toStartOf="parent"
@@ -324,8 +325,8 @@
 
         <ImageView
             android:id="@+id/binanceLogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toStartOf="@+id/ethLogo"
@@ -335,13 +336,14 @@
 
         <ImageView
             android:id="@+id/ethLogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/binanceLogo"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_bnb" />
+            app:srcCompat="@drawable/logo_eth" />
 
         <Button
             android:id="@+id/solButton"
@@ -349,8 +351,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:alpha="0"
-            android:background="@null"
-            android:backgroundTint="@color/white"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/solanaLogo"
             app:layout_constraintEnd_toEndOf="@+id/solanaLogo"
             app:layout_constraintStart_toStartOf="@+id/solanaLogo"
@@ -369,6 +370,19 @@
             app:layout_constraintStart_toStartOf="@+id/binanceLogo"
             app:layout_constraintTop_toTopOf="@+id/binanceLogo" />
 
+        <Button
+            android:id="@+id/ethButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:alpha="0"
+            android:background="@null"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/ethLogo"
+            app:layout_constraintEnd_toEndOf="@+id/ethLogo"
+            app:layout_constraintStart_toStartOf="@+id/ethLogo"
+            app:layout_constraintTop_toTopOf="@+id/ethLogo" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -376,7 +390,6 @@
         style="@style/RegText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="100dp"
         android:includeFontPadding="false"
         android:text="@string/click_a_logo_to_copy_address"
