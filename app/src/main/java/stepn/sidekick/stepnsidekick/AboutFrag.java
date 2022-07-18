@@ -1,14 +1,11 @@
 package stepn.sidekick.stepnsidekick;
 
-import static stepn.sidekick.stepnsidekick.MainActivity.ads;
-
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -21,22 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.billingclient.api.AcknowledgePurchaseParams;
-import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClientStateListener;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.BillingResult;
-import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.ProductDetailsResponseListener;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.QueryProductDetailsParams;
-
-import com.google.common.collect.ImmutableList;
-
-import java.util.List;
 
 /**
  * Information about the app, 'remove ads' button, option to donate
@@ -54,10 +35,6 @@ public class AboutFrag extends Fragment {
     TextView emailTextView, removeAdsTextView, removeAdsShadowTextView;
     ClipboardManager clipboard;
 
-    public static BillingClient billingClient;
-    private ProductDetails productDetails;
-    private Purchase purchase;
-
     public AboutFrag() {
         // Required empty public constructor
     }
@@ -67,10 +44,6 @@ public class AboutFrag extends Fragment {
         super.onCreate(savedInstanceState);
 
         clipboard = (ClipboardManager) requireActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-
-        if (ads) {
-            billingSetup();
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -94,7 +67,7 @@ public class AboutFrag extends Fragment {
         removeAdsShadow = view.findViewById(R.id.removeAdsShadowButton);
         removeAdsShadowTextView = view.findViewById(R.id.removeAdsShadowTextView);
 
-        if (ads) {
+        if (((MainActivity) requireActivity()).ads) {
             removeAdsButton.setVisibility(View.VISIBLE);
             removeAdsShadow.setVisibility(View.VISIBLE);
             removeAdsTextView.setVisibility(View.VISIBLE);
@@ -126,7 +99,7 @@ public class AboutFrag extends Fragment {
         removeAdsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makePurchase(view);
+                ((MainActivity) requireActivity()).makePurchase(view);
             }
         });
 
@@ -237,107 +210,7 @@ public class AboutFrag extends Fragment {
         return view;
     }
 
-    private void billingSetup() {
-        billingClient = BillingClient.newBuilder(requireActivity())
-                .setListener(purchasesUpdatedListener).enablePendingPurchases().build();
-
-        billingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    queryProduct();
-                }
-            }
-
-            @Override
-            public void onBillingServiceDisconnected() {
-                billingSetup();
-            }
-        });
-
-    }
-
-    private void queryProduct() {
-        QueryProductDetailsParams queryProductDetailsParams =QueryProductDetailsParams.newBuilder()
-                .setProductList(ImmutableList.of(QueryProductDetailsParams.Product.newBuilder()
-                        .setProductId("remove_ads")
-                        .setProductType(BillingClient.ProductType.INAPP)
-                        .build()))
-                .build();
-
-        billingClient.queryProductDetailsAsync(queryProductDetailsParams, new ProductDetailsResponseListener() {
-                    public void onProductDetailsResponse(
-                            @NonNull BillingResult billingResult, @NonNull List<ProductDetails> productDetailsList) {
-                        if (!productDetailsList.isEmpty()) {
-                            productDetails = productDetailsList.get(0);
-                        }
-                    }
-                }
-        );
-
-
-    }
-
-    public void makePurchase(View view) {
-        if (productDetails != null) {
-            BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
-                    .setProductDetailsParamsList(ImmutableList.of(
-                            BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(productDetails).build()))
-                    .build();
-
-            billingClient.launchBillingFlow(requireActivity(), billingFlowParams);
-        } else {
-            Toast.makeText(requireActivity(), "Unable to connect", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private final PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
-        @Override
-        public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
-            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null) {
-                for (Purchase purchase : purchases) {
-                    completePurchase(purchase);
-                }
-            } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
-                ads = false;
-                Toast.makeText(requireActivity(), "Thank you! Ads are now disabled", Toast.LENGTH_SHORT).show();
-                ((MainActivity) requireActivity()).updateAds();
-                hideAdsButton();
-            } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
-                Toast.makeText(requireActivity(), "Purchase cancelled", Toast.LENGTH_SHORT).show();
-                ads = true;
-            } else {
-                ads = true;
-            }
-        }
-    };
-
-    private void completePurchase(Purchase item) {
-        purchase = item;
-
-        if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
-            if (!purchase.isAcknowledged()) {
-                AcknowledgePurchaseParams acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
-                        .setPurchaseToken(purchase.getPurchaseToken()).build();
-                billingClient.acknowledgePurchase(acknowledgePurchaseParams, new AcknowledgePurchaseResponseListener() {
-                    @Override
-                    public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                            ads = false;
-                            Toast.makeText(requireActivity(), "Thank you! Ads are now disabled", Toast.LENGTH_SHORT).show();
-                            ((MainActivity) requireActivity()).updateAds();
-                            hideAdsButton();
-                        }
-                    }
-                });
-            } else {
-                ads = false;
-                ((MainActivity) requireActivity()).updateAds();
-            }
-        } 
-    }
-
-    private void hideAdsButton() {
+    public void hideAdsButton() {
         removeAdsButton.setVisibility(View.GONE);
         removeAdsShadow.setVisibility(View.GONE);
         removeAdsTextView.setVisibility(View.GONE);

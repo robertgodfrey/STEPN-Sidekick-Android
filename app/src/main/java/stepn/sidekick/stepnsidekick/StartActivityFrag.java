@@ -2,7 +2,6 @@ package stepn.sidekick.stepnsidekick;
 
 import static android.content.Context.MODE_PRIVATE;
 import static stepn.sidekick.stepnsidekick.Finals.*;
-import static stepn.sidekick.stepnsidekick.MainActivity.ads;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
@@ -221,7 +220,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 tenSecondTimer = !tenSecondTimer;
-                buttonClickSwitch(countDownTimerButton, countDownTimerTextView, ads);
+                buttonClickSwitch(countDownTimerButton, countDownTimerTextView, tenSecondTimer);
                 clearFocus(view);
             }
         });
@@ -694,6 +693,7 @@ public class StartActivityFrag extends Fragment {
             startGPSActivity.putExtra(VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
             startGPSActivity.putExtra(VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
             startGPSActivity.putExtra(VOICE_ALERTS_TIME, voiceAlertsTime);
+            startGPSActivity.putExtra(AD_PREF, ((MainActivity) requireActivity()).ads);
 
             startActivity(startGPSActivity);
         }

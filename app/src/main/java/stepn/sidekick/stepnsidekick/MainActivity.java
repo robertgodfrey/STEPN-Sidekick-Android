@@ -36,6 +36,9 @@ import com.android.billingclient.api.QueryPurchasesParams;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.common.collect.ImmutableList;
+
+import java.util.List;
 
 /**
  * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
@@ -47,7 +50,7 @@ import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static boolean ads;
+    public boolean ads;
 
     Button goToExerciseButton, goToOptimizerButton, goToInfoButton;
     ImageView exerciseSelected, optimizerSelected, infoSelected;
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
     ConstraintLayout bottomNav;
     ScrollView scrollView;
+
+    private BillingClient billingClient;
+    private ProductDetails productDetails;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -88,12 +94,13 @@ public class MainActivity extends AppCompatActivity {
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
 
-        if (!ads) {
-            bannerAd.setVisibility(View.GONE);
-        } else {
+        if (ads) {
+            billingSetup();
             MobileAds.initialize(this);
             AdRequest adRequest = new AdRequest.Builder().build();
             bannerAd.loadAd(adRequest);
+        } else {
+            bannerAd.setVisibility(View.GONE);
         }
 
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -157,9 +164,100 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void updateAds() {
-        if (!ads) {
-            bannerAd.setVisibility(View.GONE);
+    private void billingSetup() {
+        billingClient = BillingClient.newBuilder(getApplicationContext())
+                .setListener(purchasesUpdatedListener).enablePendingPurchases().build();
+
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    queryProduct();
+                }
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+                billingSetup();
+            }
+        });
+
+    }
+
+    private void queryProduct() {
+        QueryProductDetailsParams queryProductDetailsParams =QueryProductDetailsParams.newBuilder()
+                .setProductList(ImmutableList.of(QueryProductDetailsParams.Product.newBuilder()
+                        .setProductId("remove_ads")
+                        .setProductType(BillingClient.ProductType.INAPP)
+                        .build()))
+                .build();
+
+        billingClient.queryProductDetailsAsync(queryProductDetailsParams, new ProductDetailsResponseListener() {
+                    public void onProductDetailsResponse(
+                            @NonNull BillingResult billingResult, @NonNull List<ProductDetails> productDetailsList) {
+                        if (!productDetailsList.isEmpty()) {
+                            productDetails = productDetailsList.get(0);
+                        }
+                    }
+                }
+        );
+
+
+    }
+
+    public void makePurchase(View view) {
+        if (productDetails != null) {
+            BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                    .setProductDetailsParamsList(ImmutableList.of(
+                            BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(productDetails).build()))
+                    .build();
+
+            billingClient.launchBillingFlow(MainActivity.this, billingFlowParams);
+        } else {
+            Toast.makeText(MainActivity.this, "Unable to connect", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private final PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
+        @Override
+        public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
+            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && purchases != null) {
+                for (Purchase purchase : purchases) {
+                    completePurchase(purchase);
+                }
+            } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+                ads = false;
+                Toast.makeText(MainActivity.this, "Thank you! Ads are now disabled", Toast.LENGTH_SHORT).show();
+                bannerAd.setVisibility(View.GONE);
+            } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
+                Toast.makeText(MainActivity.this, "Purchase cancelled", Toast.LENGTH_SHORT).show();
+                ads = true;
+            } else {
+                ads = true;
+            }
+        }
+    };
+
+    private void completePurchase(Purchase item) {
+
+        if (item.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
+            if (!item.isAcknowledged()) {
+                AcknowledgePurchaseParams acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(item.getPurchaseToken()).build();
+                billingClient.acknowledgePurchase(acknowledgePurchaseParams, new AcknowledgePurchaseResponseListener() {
+                    @Override
+                    public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                            ads = false;
+                            Toast.makeText(MainActivity.this, "Thank you! Ads are now disabled", Toast.LENGTH_SHORT).show();
+                            bannerAd.setVisibility(View.GONE);
+                        }
+                    }
+                });
+            } else {
+                ads = false;
+                bannerAd.setVisibility(View.GONE);
+            }
         }
     }
 

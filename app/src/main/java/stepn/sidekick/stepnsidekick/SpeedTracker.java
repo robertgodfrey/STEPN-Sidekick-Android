@@ -59,6 +59,7 @@ public class SpeedTracker extends AppCompatActivity {
     ImageView leftGps, centerGps, rightGps, footLeft, footCenter, footRight;
 
     AdView bannerAd;
+    private boolean ads;
 
     // receives broadcast from service to update UI
     private final BroadcastReceiver secondsAndSpeedReceiver = new BroadcastReceiver() {
@@ -89,6 +90,7 @@ public class SpeedTracker extends AppCompatActivity {
             voiceAlertsCurrentSpeed = extras.getBoolean(VOICE_ALERTS_CURRENT_SPEED);
             voiceAlertsAvgSpeed = extras.getBoolean(VOICE_ALERTS_AVG_SPEED);
             voiceAlertsTime = extras.getBoolean(VOICE_ALERTS_TIME);
+            ads = extras.getBoolean(AD_PREF);
         }
 
         tenSecondTimerDone = !tenSecondTimer;
@@ -325,11 +327,11 @@ public class SpeedTracker extends AppCompatActivity {
         minusTextView = findViewById(R.id.minusTextView);
         plusTextView = findViewById(R.id.plusTextView);
 
-        if (!MainActivity.ads) {
-            bannerAd.setVisibility(View.GONE);
-        } else {
+        if (ads) {
             AdRequest adRequest = new AdRequest.Builder().build();
             bannerAd.loadAd(adRequest);
+        } else {
+            bannerAd.setVisibility(View.GONE);
         }
 
 
