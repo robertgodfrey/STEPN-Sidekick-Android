@@ -1167,6 +1167,9 @@ public class StartActivityFrag extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     private void appUpdateDialog() {
+        // TODO remove in further updates...
+        ((MainActivity) requireActivity()).ads = false;
+
         Dialog updateDialog = new Dialog(getActivity());
 
         updateDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
