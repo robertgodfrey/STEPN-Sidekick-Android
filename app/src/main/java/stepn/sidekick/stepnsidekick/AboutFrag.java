@@ -100,6 +100,9 @@ public class AboutFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 ((MainActivity) requireActivity()).makePurchase(view);
+                if (!((MainActivity) requireActivity()).ads) {
+                    hideAdsButton();
+                }
             }
         });
 
