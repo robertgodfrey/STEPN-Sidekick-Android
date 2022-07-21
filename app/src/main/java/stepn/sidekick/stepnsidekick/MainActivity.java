@@ -261,6 +261,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        bannerAd.resume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        bannerAd.pause();
+        super.onPause();
+    }
+
     // to save prefs
     @Override
     protected void onStop() {
