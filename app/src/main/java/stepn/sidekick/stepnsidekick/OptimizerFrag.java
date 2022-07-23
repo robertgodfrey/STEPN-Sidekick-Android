@@ -18,7 +18,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -33,7 +32,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +74,7 @@ public class OptimizerFrag extends Fragment {
     private final String GEM_FOUR_TYPE_PREF = "gemFourType";
     private final String GEM_FOUR_RARITY_PREF = "gemFourRarity";
     private final String GEM_FOUR_MOUNTED_PREF = "gemFourGem";
+    private final String COMF_GEM_HP_REPAIR = "hpRepairGem";
 
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
@@ -89,15 +88,16 @@ public class OptimizerFrag extends Fragment {
     ImageButton shoeRarityButton, shoeTypeButton, optimizeButton, backgroundButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
-            subResButton, addResButton;
+            subResButton, addResButton, changeComfGemButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief;
 
     TextView shoeRarityTextView, shoeTypeTextView, levelTextView, effTotalTextView, luckTotalTextView,
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
-            gstLimitTextView, durabilityLossTextView, repairCostTextView, gstIncomeTextView,
+            gstLimitTextView, durabilityLossTextView, repairCostDurTextView, gstIncomeTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
-            resPlusTv, optimizeTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug;
+            resPlusTv, optimizeTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
+            hpLossTextView, repairCostHpTextView, gemMultipleTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -105,13 +105,14 @@ public class OptimizerFrag extends Fragment {
             shoeTypeImageView, shoeCircles, shoeRarityButtonShadow, shoeTypeButtonShadow, minLevelImageView,
             optimizeButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo,
-            footThree, energyBox;
+            footThree, energyBox, comfGemHpRepairImageView;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
-            addedComf, addedRes;
+            addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
-            gemRes, dpScale, energy;
+            gemRes, dpScale, energy, hpPercentRestored;
     private boolean saveNew;
+    private double hpLoss;
 
     ArrayList<Gem> gems;
     public OptimizerFrag() {
@@ -135,6 +136,7 @@ public class OptimizerFrag extends Fragment {
         addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF, 0);
         baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
         addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
+        comfGemLvlForRepair = getSharedPrefs.getInt(COMF_GEM_HP_REPAIR, 1);
 
         dpScale = getResources().getDisplayMetrics().density;
 
@@ -173,6 +175,10 @@ public class OptimizerFrag extends Fragment {
         gemSocketThreeButton = view.findViewById(R.id.gemSocketThreeButton);
         gemSocketFourButton = view.findViewById(R.id.gemSocketFourButton);
 
+        comfGemHpRepairImageView = view.findViewById(R.id.comfGemHpRepair);
+        changeComfGemButton = view.findViewById(R.id.changeComfGemButton);
+        gemMultipleTextView = view.findViewById(R.id.gemMultipleTextView);
+
         subEffButton = view.findViewById(R.id.subEffButton);
         addEffButton = view.findViewById(R.id.addEffButton);
         subLuckButton = view.findViewById(R.id.subLuckButton);
@@ -205,10 +211,12 @@ public class OptimizerFrag extends Fragment {
         gstEarnedTextView = view.findViewById(R.id.gstPerDayTextView);
         gstLimitTextView = view.findViewById(R.id.gstLimitPerDayTextView);
         durabilityLossTextView = view.findViewById(R.id.durabilityLossTextView);
-        repairCostTextView = view.findViewById(R.id.repairCostTextView);
+        repairCostDurTextView = view.findViewById(R.id.repairCostDurTextView);
         gstIncomeTextView = view.findViewById(R.id.gstIncomeTextView);
         optimizeTextView = view.findViewById(R.id.optimizeTextView);
         lvl10Shrug = view.findViewById(R.id.lvl10shrug);
+        hpLossTextView = view.findViewById(R.id.hpLossTextView);
+        repairCostHpTextView = view.findViewById(R.id.repairCostHpTextView);
 
         effMinusTv = view.findViewById(R.id.subEffTextView);
         effPlusTv = view.findViewById(R.id.addEffTextView);
@@ -818,6 +826,26 @@ public class OptimizerFrag extends Fragment {
                         break;
                 }
                 return false;
+            }
+        });
+
+        changeComfGemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (comfGemLvlForRepair == 1) {
+                    comfGemLvlForRepair = 2;
+                    comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level2);
+                    comfGemHpRepairImageView.setPadding(0, 0, 0, 0);
+                } else if (comfGemLvlForRepair == 2) {
+                    comfGemLvlForRepair = 3;
+                    comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level3);
+                    comfGemHpRepairImageView.setPadding(0, 0, 0,0);
+                } else {
+                    comfGemLvlForRepair = 1;
+                    comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level1);
+                    comfGemHpRepairImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
+                }
+                calcTotals();
             }
         });
 
@@ -1780,12 +1808,13 @@ public class OptimizerFrag extends Fragment {
 
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
-
         int durabilityLost;
-        float repairCost, gstTotal;
+        float repairCostDurability, gstTotal, gstIncome;
+        double hpRatio, repairCostHp;
+
 
         float totalEff = Float.parseFloat(effTotalTextView.getText().toString());
-        // float totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
+        float totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
         float totalRes = Float.parseFloat(resTotalTextView.getText().toString());
 
         switch (shoeType) {
@@ -1808,14 +1837,33 @@ public class OptimizerFrag extends Fragment {
             durabilityLost = 1;
         }
 
-        repairCost = getRepairCost() * durabilityLost;
+        repairCostDurability = getRepairCost() * durabilityLost;
+
+        hpCalcs(totalComf);
+
+        hpRatio = hpLoss / hpPercentRestored;
+        hpLoss = Math.round(hpLoss * 100.0) / 100.0;
+        repairCostHp = Math.round(gstCostBasedOnGem * hpRatio * 10.0) / 10.0;
+        repairCostDurability = (float) (Math.round(repairCostDurability * 10.0) / 10.0);
+        gstIncome = (float) (Math.round((gstTotal - repairCostDurability - repairCostHp) * 10.0) / 10.0);
 
         calcMbChances();
 
+        if (hpLoss == 0) {
+            hpLossTextView.setText("UNK");
+            repairCostHpTextView.setText("UNK");
+            gemMultipleTextView.setText("0  ×");
+        } else {
+            hpLossTextView.setText(String.valueOf(hpLoss));
+            repairCostHpTextView.setText(String.valueOf(repairCostHp));
+            String hpRatioString = Math.round(hpRatio * 100.0) / 100.0 + "  ×" ;
+            gemMultipleTextView.setText(hpRatioString);
+        }
+
         gstEarnedTextView.setText(String.valueOf(gstTotal));
         durabilityLossTextView.setText(String.valueOf(durabilityLost));
-        repairCostTextView.setText(String.format("%.1f", repairCost));
-        gstIncomeTextView.setText(String.format("%.1f", gstTotal - repairCost));
+        repairCostDurTextView.setText(String.valueOf(repairCostDurability));
+        gstIncomeTextView.setText(String.valueOf(gstIncome));
 
         if (gstTotal > gstLimit) {
             gstEarnedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
@@ -1829,8 +1877,12 @@ public class OptimizerFrag extends Fragment {
         float gstProfit, energyCo;
         int optimalAddedEff = 0;
         int optimalAddedRes = 0;
+        int optimalAddedComf = 0;
+        int localPoints = shoeLevel * 2 * shoeRarity;
+        int localAddedEff = 0;
         float maxProfit = 0;
-        float localTotalEff = baseEff + gemEff + (shoeLevel * 2 * shoeRarity);
+        float localTotalEff = baseEff + gemEff;
+        float localTotalComf = baseComf + gemComf;
         float localTotalRes = baseRes + gemRes;
 
         switch (shoeType) {
@@ -1847,25 +1899,90 @@ public class OptimizerFrag extends Fragment {
                 energyCo = 0.47f;
         }
 
-        while (localTotalEff > baseEff + gemEff) {
-            gstProfit = ((float) (Math.floor(energy * Math.pow(localTotalEff, energyCo) * 10) / 10)) -
-                    (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-localTotalRes / 30.9)) + (2.8 * Math.exp(-localTotalRes / 6.2)) + 0.4)));
+        /*
+        while (localAddedEff <= localPoints) {
+            for (int i = localPoints; i <= localPoints - localAddedEff; i++){
+                gstProfit = ((float) (Math.floor(energy * Math.pow(localTotalEff, energyCo) * 10) / 10))
+                        - (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-localTotalRes / 30.9)) + (2.8 * Math.exp(-localTotalRes / 6.2)) + 0.4)))
+                        - (hpCalcs(localTotalComf);)                       ;
 
-            if (gstProfit > maxProfit) {
-                optimalAddedEff = (int) Math.round(localTotalEff - baseEff - gemEff);
-                optimalAddedRes = (int) Math.round(localTotalRes - baseRes - gemRes);
-                maxProfit = gstProfit;
+                if (gstProfit > maxProfit) {
+                    optimalAddedEff = Math.round(localTotalEff - baseEff - gemEff);
+                    optimalAddedRes = Math.round(localTotalRes - baseRes - gemRes);
+                    maxProfit = gstProfit;
+                }
             }
 
-            localTotalEff--;
+
             localTotalRes++;
+            localAddedEff--;
         }
+
+         */
 
         addedEff = optimalAddedEff;
         addedRes = optimalAddedRes;
         addedLuck = 0;
-        addedComf = 0;
+        addedComf = optimalAddedComf;
         updatePoints();
+    }
+
+    private void hpCalcs(float totalComf) {
+        switch (comfGemLvlForRepair) {
+            case 2:
+                gstCostBasedOnGem = 30;
+                break;
+            case 3:
+                gstCostBasedOnGem = 100;
+                break;
+            default:
+                gstCostBasedOnGem = 10;
+        }
+
+        switch (shoeRarity) {
+            case COMMON:
+                hpLoss = energy * 0.328 * Math.pow(totalComf, -0.322);
+                switch (comfGemLvlForRepair) {
+                    case 2:
+                        hpPercentRestored = 39;
+                        break;
+                    case 3:
+                        hpPercentRestored = 100;
+                        break;
+                    default:
+                        hpPercentRestored = 3;
+                }
+                break;
+            case UNCOMMON:
+                hpLoss = energy * 0.435 * Math.pow(totalComf, -0.45);
+                switch (comfGemLvlForRepair) {
+                    case 2:
+                        hpPercentRestored = 23;
+                        break;
+                    case 3:
+                        hpPercentRestored = 100;
+                        break;
+                    default:
+                        hpPercentRestored = 1.8f;
+                }
+                break;
+            case RARE:
+                hpLoss = energy * 0.51 * Math.pow(totalComf, -0.483);
+                switch (comfGemLvlForRepair) {
+                    case 2:
+                        hpPercentRestored = 16;
+                        break;
+                    case 3:
+                        hpPercentRestored = 92;
+                        break;
+                    default:
+                        hpPercentRestored = 1.2f;
+                }
+                break;
+            default:
+                hpLoss = 0;
+                hpPercentRestored = 1;
+        }
     }
 
     // returns base repair cost in gst based on shoe rarity and level

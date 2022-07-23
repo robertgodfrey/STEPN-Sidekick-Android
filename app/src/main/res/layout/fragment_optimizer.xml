@@ -1105,7 +1105,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
-        android:text="Estimated GST / Daily Limit:"
+        android:text="Est. GST / Daily Limit:"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
@@ -1170,12 +1170,38 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:text="0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/gstLimitPerDayTextView" />
+
+    <TextView
+        android:id="@+id/repairDurLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="    Repair Cost:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
+
+    <TextView
+        android:id="@+id/repairCostDurTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/durabilityLossTextView" />
 
     <TextView
         android:id="@+id/hpLabelTextView"
@@ -1188,7 +1214,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/repairDurLabelTextView" />
 
     <TextView
         android:id="@+id/hpLossTextView"
@@ -1197,27 +1223,75 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
-        android:text="Coming soon"
-        android:textColor="@color/gandalf"
+        android:text="0"
+        android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/durabilityLossTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/repairCostDurTextView" />
 
     <TextView
-        android:id="@+id/repairLabelTextView"
+        android:id="@+id/repairHpLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
-        android:text="Repair Cost:"
+        android:text="    Restoration Cost:"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
 
     <TextView
-        android:id="@+id/repairCostTextView"
+        android:id="@+id/gemMultipleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:text="0.0 ×"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/comfGemHpRepair"
+        app:layout_constraintTop_toBottomOf="@+id/hpLossTextView" />
+
+    <ImageView
+        android:id="@+id/comfGemHpRepair"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
+        app:layout_constraintEnd_toStartOf="@+id/repairCostHpPlusTextView"
+        app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
+        app:srcCompat="@drawable/gem_comf_level1" />
+
+    <Button
+        android:id="@+id/changeComfGemButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/comfGemHpRepair"
+        app:layout_constraintEnd_toEndOf="@+id/comfGemHpRepair"
+        app:layout_constraintStart_toStartOf="@+id/comfGemHpRepair"
+        app:layout_constraintTop_toTopOf="@+id/comfGemHpRepair" />
+
+    <TextView
+        android:id="@+id/repairCostHpPlusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="+"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/repairCostHpTextView"
+        app:layout_constraintTop_toBottomOf="@+id/hpLossTextView" />
+
+    <TextView
+        android:id="@+id/repairCostHpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -1240,7 +1314,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/repairLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
 
     <TextView
         android:id="@+id/gstTextView"
@@ -1253,7 +1327,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/repairCostTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/repairCostHpTextView" />
 
     <ImageView
         android:id="@+id/gstIcon"
@@ -1277,7 +1351,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/gstIcon"
-        app:layout_constraintTop_toBottomOf="@+id/repairCostTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/repairCostHpTextView" />
 
     <TextView
         android:id="@+id/mysteryBoxChanceTextView"
