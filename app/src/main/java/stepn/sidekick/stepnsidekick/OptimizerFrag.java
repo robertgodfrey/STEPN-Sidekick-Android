@@ -21,6 +21,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -1852,11 +1853,11 @@ public class OptimizerFrag extends Fragment {
         if (hpLoss == 0) {
             hpLossTextView.setText("UNK");
             repairCostHpTextView.setText("UNK");
-            gemMultipleTextView.setText("0  ×");
+            gemMultipleTextView.setText(" × 0");
         } else {
             hpLossTextView.setText(String.valueOf(hpLoss));
             repairCostHpTextView.setText(String.valueOf(repairCostHp));
-            String hpRatioString = Math.round(hpRatio * 100.0) / 100.0 + "  ×" ;
+            String hpRatioString = " × " + Math.round(hpRatio * 100.0) / 100.0;
             gemMultipleTextView.setText(hpRatioString);
         }
 
@@ -1874,16 +1875,20 @@ public class OptimizerFrag extends Fragment {
 
     // finds the point allocation that is most profitable
     private void optimizeShoe() {
-        float gstProfit, energyCo;
+        double gstProfit, energyCo;
         int optimalAddedEff = 0;
         int optimalAddedRes = 0;
         int optimalAddedComf = 0;
-        int localPoints = shoeLevel * 2 * shoeRarity;
+
+        final int localPoints = shoeLevel * 2 * shoeRarity;
+        double maxProfit = 0;
+
+        float localEff = baseEff + gemEff;
+        float localComf = baseComf + gemComf;
+        float localRes = baseRes + gemRes;
         int localAddedEff = 0;
-        float maxProfit = 0;
-        float localTotalEff = baseEff + gemEff;
-        float localTotalComf = baseComf + gemComf;
-        float localTotalRes = baseRes + gemRes;
+        int localAddedComf = 0;
+        int localAddedRes;
 
         switch (shoeType) {
             case JOGGER:
@@ -1899,26 +1904,28 @@ public class OptimizerFrag extends Fragment {
                 energyCo = 0.47f;
         }
 
-        /*
         while (localAddedEff <= localPoints) {
-            for (int i = localPoints; i <= localPoints - localAddedEff; i++){
-                gstProfit = ((float) (Math.floor(energy * Math.pow(localTotalEff, energyCo) * 10) / 10))
-                        - (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-localTotalRes / 30.9)) + (2.8 * Math.exp(-localTotalRes / 6.2)) + 0.4)))
-                        - (hpCalcs(localTotalComf);)                       ;
+            while (localAddedComf <= localPoints - localAddedEff) {
+                localAddedRes = localPoints - localAddedComf - localAddedEff;
+
+                hpCalcs(localComf + localAddedComf);
+                hpLoss = Math.round(hpLoss * 100.0) / 100.0;
+
+                gstProfit = (Math.floor(energy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
+                        (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
+                        (Math.round(gstCostBasedOnGem * (hpLoss / hpPercentRestored) * 10.0) / 10.0);
 
                 if (gstProfit > maxProfit) {
-                    optimalAddedEff = Math.round(localTotalEff - baseEff - gemEff);
-                    optimalAddedRes = Math.round(localTotalRes - baseRes - gemRes);
+                    optimalAddedEff = localAddedEff;
+                    optimalAddedComf = localAddedComf;
+                    optimalAddedRes = localAddedRes;
                     maxProfit = gstProfit;
                 }
+                localAddedComf ++;
             }
-
-
-            localTotalRes++;
-            localAddedEff--;
+            localAddedComf = 0;
+            localAddedEff++;
         }
-
-         */
 
         addedEff = optimalAddedEff;
         addedRes = optimalAddedRes;
