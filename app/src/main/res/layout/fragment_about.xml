@@ -69,64 +69,6 @@
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/aboutTextView" />
 
-    <ImageView
-        android:id="@+id/removeAdsShadowButton"
-        android:layout_width="180dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="4dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
-        app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
-        app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
-        app:layout_constraintTop_toTopOf="@+id/removeAdsButton"
-        app:srcCompat="@drawable/start_button_shadow" />
-
-    <TextView
-        android:id="@+id/removeAdsShadowTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/remove_ads"
-        android:textAllCaps="true"
-        android:textColor="@color/almost_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/removeAdsShadowButton"
-        app:layout_constraintEnd_toEndOf="@+id/removeAdsShadowButton"
-        app:layout_constraintStart_toStartOf="@+id/removeAdsShadowButton"
-        app:layout_constraintTop_toTopOf="@+id/removeAdsShadowButton" />
-
-    <ImageButton
-        android:id="@+id/removeAdsButton"
-        android:layout_width="180dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView"
-        app:srcCompat="@drawable/start_button" />
-
-    <TextView
-        android:id="@+id/removeAdsTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/remove_ads"
-        android:textAllCaps="true"
-        android:textColor="@color/almost_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
-        app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
-        app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
-        app:layout_constraintTop_toTopOf="@+id/removeAdsButton" />
-
     <TextView
         android:id="@+id/notesTextView"
         style="@style/BoldItalicSubtitles"
@@ -238,6 +180,96 @@
         app:layout_constraintTop_toTopOf="@+id/notesThreeLabel" />
 
     <TextView
+        android:id="@+id/notesFourLabel"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="4."
+        android:textAlignment="viewStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
+
+    <TextView
+        android:id="@+id/notesDeets4TextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:text="@string/note_details4"
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/notesFourLabel"
+        app:layout_constraintTop_toTopOf="@+id/notesFourLabel" />
+
+    <ImageView
+        android:id="@+id/removeAdsShadowButton"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="4dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
+        app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
+        app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
+        app:layout_constraintTop_toTopOf="@+id/removeAdsButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <TextView
+        android:id="@+id/removeAdsShadowTextView"
+        style="@style/ButtonBoldItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="@string/remove_ads"
+        android:textAllCaps="true"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAdsShadowButton"
+        app:layout_constraintEnd_toEndOf="@+id/removeAdsShadowButton"
+        app:layout_constraintStart_toStartOf="@+id/removeAdsShadowButton"
+        app:layout_constraintTop_toTopOf="@+id/removeAdsShadowButton" />
+
+    <ImageButton
+        android:id="@+id/removeAdsButton"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets4TextView"
+        app:srcCompat="@drawable/start_button" />
+
+    <TextView
+        android:id="@+id/removeAdsTextView"
+        style="@style/ButtonBoldItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="@string/remove_ads"
+        android:textAllCaps="true"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
+        app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
+        app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
+        app:layout_constraintTop_toTopOf="@+id/removeAdsButton" />
+
+    <TextView
         android:id="@+id/contactTextView"
         style="@style/RegText"
         android:layout_width="0dp"
@@ -306,7 +338,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"

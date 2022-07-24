@@ -37,7 +37,7 @@
     <string name="notes_details3">Because mystery box chance is based on community data, it will likely not be accurate toward the edges of the available data. Anything above a level 6 MB is just the app\'s best guess.</string>
     <string name="contact">Please contact me if you find any errors or have any suggestions to improve the app:</string>
     <string name="contact_email" translatable="false">sidekickfeedback@gmail.com</string>
-    <string name="support_project">If you find the app useful, please consider supporting!</string>
+    <string name="support_project">If you enjoy the app, please consider supporting!</string>
     <string name="solana_chain" translatable="false">FmhDh7fNLWrC5CScwcpQhquWFDv7cpQ876iwm6iZLkU1</string>
     <string name="bnb_chain" translatable="false">0x69b331406a3500d6974bce7cf0896650673e798c</string>
     <string name="eth_chain" translatable="false">0x0a35f6827edf6da57096a1e9e5bf1b0a2a9631aa</string>
@@ -82,4 +82,5 @@
     <string name="average">AVERAGE</string>
     <string name="all">ALL</string>
     <string name="remove_ads" translatable="false">REMOVE ADS</string>
+    <string name="note_details4">HP is still new! The estimate will improve as we get more data from the community.</string>
 </resources>

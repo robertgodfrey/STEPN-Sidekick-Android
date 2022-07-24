@@ -1990,6 +1990,11 @@ public class OptimizerFrag extends Fragment {
                 hpLoss = 0;
                 hpPercentRestored = 1;
         }
+
+        if (totalComf == 0 || energy == 0) {
+            hpLoss = 0;
+            hpPercentRestored = 1;
+        }
     }
 
     // returns base repair cost in gst based on shoe rarity and level
