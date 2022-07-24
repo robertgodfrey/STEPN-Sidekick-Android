@@ -23,7 +23,7 @@ import android.widget.Toast;
  * Information about the app, 'remove ads' button, option to donate
  *
  * @author Bob Godfrey
- * @version 1.3.2 Updated app layout to use fragments instead of activities for menu items
+ * @version 1.3.5 Updated notes, added version number
  *
  */
 

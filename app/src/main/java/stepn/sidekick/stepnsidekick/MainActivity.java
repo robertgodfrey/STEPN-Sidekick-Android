@@ -44,7 +44,7 @@ import java.util.List;
  * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Bob Godfrey
- * @version 1.3.2 Added in-app purchases, updated app layout to use fragments instead of activities for menu items
+ * @version 1.3.5 Added in-app purchases, updated app layout to use fragments instead of activities for menu items
  *
  */
 

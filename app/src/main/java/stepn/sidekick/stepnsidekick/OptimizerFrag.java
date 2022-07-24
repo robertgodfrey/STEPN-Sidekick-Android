@@ -44,7 +44,7 @@ import java.util.ArrayList;
  * box chance.
  *
  * @author Bob Godfrey
- * @version 1.3.2 Added in-app purchases, updated app layout to use fragments instead of activities for menu items
+ * @version 1.3.5 Added HP
  *
  */
 
@@ -98,7 +98,7 @@ public class OptimizerFrag extends Fragment {
             gstLimitTextView, durabilityLossTextView, repairCostDurTextView, gstIncomeTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
             resPlusTv, optimizeTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
-            hpLossTextView, repairCostHpTextView, gemMultipleTextView;
+            hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -106,7 +106,7 @@ public class OptimizerFrag extends Fragment {
             shoeTypeImageView, shoeCircles, shoeRarityButtonShadow, shoeTypeButtonShadow, minLevelImageView,
             optimizeButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo,
-            footThree, energyBox, comfGemHpRepairImageView;
+            footThree, energyBox, comfGemHpRepairImageView, comfGemHpRepairTotalImageView;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem;
@@ -179,6 +179,8 @@ public class OptimizerFrag extends Fragment {
         comfGemHpRepairImageView = view.findViewById(R.id.comfGemHpRepair);
         changeComfGemButton = view.findViewById(R.id.changeComfGemButton);
         gemMultipleTextView = view.findViewById(R.id.gemMultipleTextView);
+        gemMultipleTotalTextView = view.findViewById(R.id.gemMultipleTotalTextView);
+        comfGemHpRepairTotalImageView = view.findViewById(R.id.comfGemHpTotalRepair);
 
         subEffButton = view.findViewById(R.id.subEffButton);
         addEffButton = view.findViewById(R.id.addEffButton);
@@ -837,14 +839,20 @@ public class OptimizerFrag extends Fragment {
                     comfGemLvlForRepair = 2;
                     comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level2);
                     comfGemHpRepairImageView.setPadding(0, 0, 0, 0);
+                    comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level2);
+                    comfGemHpRepairTotalImageView.setPadding(0, 0, 0, 0);
                 } else if (comfGemLvlForRepair == 2) {
                     comfGemLvlForRepair = 3;
                     comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level3);
                     comfGemHpRepairImageView.setPadding(0, 0, 0,0);
+                    comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level3);
+                    comfGemHpRepairTotalImageView.setPadding(0, 0, 0,0);
                 } else {
                     comfGemLvlForRepair = 1;
                     comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level1);
                     comfGemHpRepairImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
+                    comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level1);
+                    comfGemHpRepairTotalImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
                 }
                 calcTotals();
             }
@@ -1853,12 +1861,15 @@ public class OptimizerFrag extends Fragment {
         if (hpLoss == 0) {
             hpLossTextView.setText("UNK");
             repairCostHpTextView.setText("UNK");
-            gemMultipleTextView.setText(" × 0");
+            gemMultipleTextView.setText("0");
+            gemMultipleTotalTextView.setText("-  0");
         } else {
+            String multiplier = String.valueOf(Math.round(hpRatio * 100.0) / 100.0);
             hpLossTextView.setText(String.valueOf(hpLoss));
             repairCostHpTextView.setText(String.valueOf(repairCostHp));
-            String hpRatioString = " × " + Math.round(hpRatio * 100.0) / 100.0;
-            gemMultipleTextView.setText(hpRatioString);
+            gemMultipleTextView.setText(multiplier);
+            multiplier = "-  " + multiplier;
+            gemMultipleTotalTextView.setText(multiplier);
         }
 
         gstEarnedTextView.setText(String.valueOf(gstTotal));
