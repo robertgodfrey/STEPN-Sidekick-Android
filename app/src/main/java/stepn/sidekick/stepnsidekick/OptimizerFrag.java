@@ -804,7 +804,7 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 if (energy > 0) {
-                    optimizeShoe();
+                    optimizeForGst();
                 } else {
                     Toast.makeText(getContext(), "Energy must be greater than 0", Toast.LENGTH_SHORT).show();
                 }
@@ -860,11 +860,9 @@ public class OptimizerFrag extends Fragment {
 
         levelSeekbar.setProgress(shoeLevel - 1);
 
-        updateRarity();
-        updateType();
-        updateLevel();
         loadPoints();
-        calcTotals();
+        updateType();
+        updateRarity();
 
         return view;
     }
@@ -1817,6 +1815,8 @@ public class OptimizerFrag extends Fragment {
 
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
+
+        Log.d("TESTES", "calcTotals: calcin!");
         int durabilityLost;
         float repairCostDurability, gstTotal, gstIncome;
         double hpRatio, repairCostHp;
@@ -1885,7 +1885,7 @@ public class OptimizerFrag extends Fragment {
     }
 
     // finds the point allocation that is most profitable
-    private void optimizeShoe() {
+    private void optimizeForGst() {
         double gstProfit, energyCo;
         int optimalAddedEff = 0;
         int optimalAddedRes = 0;
@@ -1915,6 +1915,7 @@ public class OptimizerFrag extends Fragment {
                 energyCo = 0.47f;
         }
 
+        // trash algo, O(n^2) w/ max 45,150 calcs
         while (localAddedEff <= localPoints) {
             while (localAddedComf <= localPoints - localAddedEff) {
                 localAddedRes = localPoints - localAddedComf - localAddedEff;
@@ -1932,6 +1933,7 @@ public class OptimizerFrag extends Fragment {
                     optimalAddedRes = localAddedRes;
                     maxProfit = gstProfit;
                 }
+
                 localAddedComf ++;
             }
             localAddedComf = 0;
@@ -1945,6 +1947,12 @@ public class OptimizerFrag extends Fragment {
         updatePoints();
     }
 
+    // 'optimizes' for luck with no GST loss
+    private void optimizeForLuck() {
+
+    }
+
+    // sets up HP calcs based on gem level and shoe rarity
     private void hpCalcs(float totalComf) {
         switch (comfGemLvlForRepair) {
             case 2:
@@ -2309,118 +2317,145 @@ public class OptimizerFrag extends Fragment {
     private void calcMbChances() {
         float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
 
+        Log.d("BALLZ", "calcMbChances: totalLuck: " + totalLuck);
+
         if (energy <= -0.04 * totalLuck + 6 && energy >= -0.05263 * totalLuck + 2 && energy >= 1) {
+            // lvl 1 high chance range
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
             mysteryBox1.setAlpha(1.0f);
         } else if (energy > -0.04 * totalLuck + 6 && energy < -0.02 * totalLuck + 8 && totalLuck < 110) {
+            // lvl 1 low chance range
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
             mysteryBox1.setAlpha(0.5f);
         } else {
+            // outside lvl 1 range
             mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox1.setAlpha(0.5f);
         }
 
         if (energy <= -0.06897 * totalLuck + 10 && energy >= -1.3333 * totalLuck + 6 && energy >= 2) {
+            // lvl 2 high chance range
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
             mysteryBox2.setAlpha(1.0f);
         } else if (energy > -0.068966 * totalLuck + 10 && energy < -0.04 * totalLuck + 13) {
+            // lvl 2 low chance range
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
             mysteryBox2.setAlpha(0.5f);
         } else {
+            // outside lvl 2 range
             mysteryBox2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox2.setAlpha(0.5f);
         }
 
         if (energy <= -0.09091 * totalLuck + 16 && energy >= 70 * Math.pow((totalLuck + 8), -1) + 2 && energy >= 3.1) {
+            // lvl 3 high chance range
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(1.0f);
-        } else if ((energy > -0.09091 * totalLuck + 16 && energy < -0.08333 * totalLuck + 21) || (energy > 3.5 && energy < 12 && totalLuck > 100 && totalLuck < 500)) {
+        } else if ((energy > -0.09091 * totalLuck + 16 && energy < -0.08333 * totalLuck + 22) || (energy > 3.5 && energy < 12 && totalLuck > 100 && totalLuck < 500)) {
+            // lvl 3 low chance range
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(0.5f);
         } else {
+            // outside lvl 3 range
             mysteryBox3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox3.setAlpha(0.5f);
         }
 
         if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && energy >= 70 * Math.pow((totalLuck + 1), -1) + 3) {
             if (energy <= -0.0001 * Math.pow((totalLuck + 40), 2) + 17 && energy >= 50 * Math.pow((totalLuck + 30), -0.2) - 13.5) {
+                // lvl 4 high chance range
                 mysteryBox4.clearColorFilter();
                 mysteryBox4.setImageTintMode(null);
                 mysteryBox4.setAlpha(1.0f);
             } else {
+                // lvl 4 low chance range
                 mysteryBox4.clearColorFilter();
                 mysteryBox4.setImageTintMode(null);
                 mysteryBox4.setAlpha(0.5f);
             }
         } else {
+            // outside lvl 4 range
             mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox4.setAlpha(0.5f);
         }
 
         if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 25.5 && energy >= 50 * Math.pow((totalLuck - 2), -1) + 7) {
             if (energy <= -0.0001 * Math.pow(totalLuck, 2) + 25.5 && energy >= 70 * Math.pow((totalLuck - 10), -0.1) - 32) {
+                // lvl 5 high chance range
                 mysteryBox5.clearColorFilter();
                 mysteryBox5.setImageTintMode(null);
                 mysteryBox5.setAlpha(1.0f);
-            } else if (energy > 0 && totalLuck > 50){
+            } else {
+                // lvl 5 low chance range
                 mysteryBox5.clearColorFilter();
                 mysteryBox5.setImageTintMode(null);
                 mysteryBox5.setAlpha(0.5f);
             }
         } else {
+            // outside lvl 5 range
             mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox5.setAlpha(0.5f);
         }
 
         if (energy >= 70 * Math.pow((totalLuck + 20), -0.5) + 7) {
             if (energy <= -0.00002 * Math.pow((totalLuck - 150), 2) + 25.5 && energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28) {
+                // lvl 6 high chance range
                 mysteryBox6.clearColorFilter();
                 mysteryBox6.setImageTintMode(null);
                 mysteryBox6.setAlpha(1.0f);
             } else {
+                // lvl 6 low chance range
                 mysteryBox6.clearColorFilter();
                 mysteryBox6.setImageTintMode(null);
                 mysteryBox6.setAlpha(0.5f);
             }
         } else if (energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28) {
+            // more lvl 6 low chance
             mysteryBox6.clearColorFilter();
             mysteryBox6.setImageTintMode(null);
             mysteryBox6.setAlpha(0.5f);
         } else {
+            // outside lvl 6 range
             mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox6.setAlpha(0.5f);
         }
 
-        if (energy >= -2 * Math.log(totalLuck - 100) + 30.2 && totalLuck > 150) {
+        if (energy >= -2 * Math.log(totalLuck - 100) + 30.2 && totalLuck > 140) {
+            // lvl 7 range
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
             mysteryBox7.setAlpha(1.0f);
         } else {
+            // outside lvl 7 range
             mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox7.setAlpha(0.5f);
         }
 
         if (energy >= -totalLuck / 150 + 32) {
+            // lvl 8 range
             mysteryBox8.clearColorFilter();
             mysteryBox8.setImageTintMode(null);
             mysteryBox8.setAlpha(1.0f);
         } else {
+            // outside lvl 8 range
             mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox8.setAlpha(0.5f);
         }
 
         if (energy >= 24 && totalLuck > 1600) {
+            // lvl 9/10 range
             mysteryBox9.clearColorFilter();
             mysteryBox9.setImageTintMode(null);
             mysteryBox9.setAlpha(1.0f);
             lvl10Shrug.setVisibility(View.VISIBLE);
         } else {
+            // outside lvl 9/10 range
             mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox9.setAlpha(0.5f);
             lvl10Shrug.setVisibility(View.INVISIBLE);
