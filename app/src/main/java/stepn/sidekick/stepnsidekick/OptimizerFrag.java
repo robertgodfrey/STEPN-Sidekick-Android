@@ -39,8 +39,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * Shoe optimizer fragment. Uses community data to determine best points for GST earning and mystery
- * box chance.
+ * Shoe optimizer fragment. Uses community data to determine best points allocation for GST earning
+ * and mystery box chance.
  *
  * @author Bob Godfrey
  * @version 1.3.6 Added luck optimizer, mb fixes, other bug fixes
