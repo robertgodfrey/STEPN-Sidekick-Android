@@ -2614,7 +2614,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox8.setAlpha(0.5f);
         }
 
-        if (energy >= 24 && totalLuck > 1600) {
+        if (energy >= -totalLuck / 300 + 29) {
             // lvl 9/10 range
             mysteryBox9.clearColorFilter();
             mysteryBox9.setImageTintMode(null);
