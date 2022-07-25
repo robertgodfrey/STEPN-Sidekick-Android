@@ -75,6 +75,7 @@ public class OptimizerFrag extends Fragment {
     private final String GEM_FOUR_RARITY_PREF = "gemFourRarity";
     private final String GEM_FOUR_MOUNTED_PREF = "gemFourGem";
     private final String COMF_GEM_HP_REPAIR = "hpRepairGem";
+    private final String UPDATE_PREF = "optimizerUpdate";
 
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
@@ -112,7 +113,7 @@ public class OptimizerFrag extends Fragment {
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored;
-    private boolean saveNew;
+    private boolean saveNewGem, update;
     private double hpLoss;
 
     ArrayList<Gem> gems;
@@ -138,6 +139,7 @@ public class OptimizerFrag extends Fragment {
         baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
         addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
         comfGemLvlForRepair = getSharedPrefs.getInt(COMF_GEM_HP_REPAIR, 1);
+        update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
 
         dpScale = getResources().getDisplayMetrics().density;
 
@@ -903,6 +905,29 @@ public class OptimizerFrag extends Fragment {
         updateType();
         updateRarity();
 
+        if (update) {
+            update = false;
+
+            Dialog updateDialog = new Dialog(getActivity());
+
+            updateDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            updateDialog.setCancelable(true);
+            updateDialog.setContentView(R.layout.update_dialog_optimizer);
+            updateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            updateDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT);
+
+            ImageButton nextButton = updateDialog.findViewById(R.id.nextButton);
+
+            updateDialog.show();
+
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updateDialog.dismiss();
+                }
+            });
+        }
         return view;
     }
 
@@ -1131,7 +1156,7 @@ public class OptimizerFrag extends Fragment {
         final int tempSocketType, tempSocketRarity, tempGemMounted;
         final float tempBasePoints;
 
-        saveNew = false;
+        saveNewGem = false;
 
         tempSocketType = gems.get(socketNum).getSocketType();
         tempSocketRarity = gems.get(socketNum).getSocketRarity();
@@ -1150,7 +1175,7 @@ public class OptimizerFrag extends Fragment {
         choseGem.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                if (!saveNew) {
+                if (!saveNewGem) {
                     gems.get(socketNum).setSocketType(tempSocketType);
                     gems.get(socketNum).setSocketRarity(tempSocketRarity);
                     gems.get(socketNum).setMountedGem(tempGemMounted);
@@ -1559,7 +1584,7 @@ public class OptimizerFrag extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveNew = true;
+                saveNewGem = true;
                 choseGem.dismiss();
                 updateLevel();
             }
@@ -2764,6 +2789,8 @@ public class OptimizerFrag extends Fragment {
         editor.putInt(ADDED_COMF_PREF, addedComf);
         editor.putFloat(BASE_RES_PREF, baseRes);
         editor.putInt(ADDED_RES_PREF, addedRes);
+        editor.putInt(COMF_GEM_HP_REPAIR, comfGemLvlForRepair);
+        editor.putBoolean(UPDATE_PREF, false);
 
         editor.putInt(GEM_ONE_TYPE_PREF, gems.get(0).getSocketType());
         editor.putInt(GEM_ONE_RARITY_PREF, gems.get(0).getSocketRarity());
