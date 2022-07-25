@@ -14,7 +14,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/effTextView" />
 
     <ImageView
         android:id="@+id/backgroundThingShadow"
@@ -1051,54 +1051,107 @@
         app:layout_constraintTop_toBottomOf="@+id/resTextView" />
 
     <ImageView
-        android:id="@+id/optimizeButtonShadow"
+        android:id="@+id/optimizeLuckButtonShadow"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="-2dp"
-        app:layout_constraintEnd_toEndOf="@+id/optimizeButton"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/optimizeButton"
-        app:layout_constraintTop_toTopOf="@+id/optimizeButton"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeLuckButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeLuckButton"
         app:srcCompat="@drawable/start_button_shadow" />
 
     <TextView
-        android:id="@+id/optimizeTextViewShadow"
+        android:id="@+id/optimizeLuckTextViewShadow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:text="OPTIMIZE"
+        android:text="OPTIMIZE LUCK"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/optimizeButtonShadow"
-        app:layout_constraintEnd_toEndOf="@+id/optimizeButtonShadow"
-        app:layout_constraintStart_toStartOf="@+id/optimizeButtonShadow"
-        app:layout_constraintTop_toTopOf="@+id/optimizeButtonShadow" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeLuckButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/optimizeLuckButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/optimizeLuckButtonShadow" />
 
     <ImageButton
-        android:id="@+id/optimizeButton"
+        android:id="@+id/optimizeLuckButton"
         android:layout_width="140dp"
         android:layout_height="40dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/optimizeGstButton"
+        app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
+        app:srcCompat="@drawable/start_button" />
+
+    <TextView
+        android:id="@+id/optimizeLuckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="OPTIMIZE LUCK"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeLuckButton"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeLuckButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeLuckButton" />
+
+
+    <ImageView
+        android:id="@+id/optimizeGstButtonShadow"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeGstButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeGstButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeGstButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <TextView
+        android:id="@+id/optimizeGstTextViewShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="OPTIMIZE GST"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeGstButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeGstButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/optimizeGstButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/optimizeGstButtonShadow" />
+
+    <ImageButton
+        android:id="@+id/optimizeGstButton"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:background="@null"
+        app:layout_constraintEnd_toStartOf="@+id/optimizeLuckButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
         app:srcCompat="@drawable/start_button" />
 
     <TextView
-        android:id="@+id/optimizeTextView"
+        android:id="@+id/optimizeGstTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:text="OPTIMIZE"
+        android:text="OPTIMIZE GST"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/optimizeButton"
-        app:layout_constraintEnd_toEndOf="@+id/optimizeButton"
-        app:layout_constraintStart_toStartOf="@+id/optimizeButton"
-        app:layout_constraintTop_toTopOf="@+id/optimizeButton" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeGstButton"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeGstButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeGstButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeGstButton" />
 
     <TextView
         android:id="@+id/gstPerDayLabelTextView"
@@ -1111,7 +1164,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
 
     <ImageView
         android:id="@+id/gstIconLimit"
@@ -1136,7 +1189,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDaySlashTextView"
-        app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
 
     <TextView
         android:id="@+id/gstLimitPerDayTextView"
@@ -1149,7 +1202,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/gstIconLimit"
-        app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
 
     <TextView
         android:id="@+id/gstLimitPerDaySlashTextView"
@@ -1162,7 +1215,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDayTextView"
-        app:layout_constraintTop_toBottomOf="@+id/optimizeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
 
     <TextView
         android:id="@+id/durabilityLabelTextView"

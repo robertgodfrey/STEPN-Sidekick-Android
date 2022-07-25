@@ -3,7 +3,6 @@ package stepn.sidekick.stepnsidekick;
 import static stepn.sidekick.stepnsidekick.Finals.*;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
@@ -11,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -29,10 +28,8 @@ import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.ProductDetailsResponseListener;
 import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesResponseListener;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
-import com.android.billingclient.api.QueryPurchasesParams;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -41,10 +38,10 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 
 /**
- * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
+ * Main activity - Container for useolr to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Bob Godfrey
- * @version 1.3.5 Added in-app purchases, updated app layout to use fragments instead of activities for menu items
+ * @version 1.3.6 Added luck optimizer, mb fixes, other bug fixes
  *
  */
 
@@ -178,7 +175,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onBillingServiceDisconnected() {
-                billingSetup();
+                if (billingClient != null && billingClient.isReady()) {
+                    try {
+                        new Handler().postDelayed(() -> billingSetup(),1000);
+                    } catch (IllegalStateException e) {
+                        Toast.makeText(MainActivity.this, "Can't connect to the Play Store", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 

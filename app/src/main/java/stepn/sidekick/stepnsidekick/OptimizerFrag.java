@@ -21,7 +21,6 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,7 +43,7 @@ import java.util.ArrayList;
  * box chance.
  *
  * @author Bob Godfrey
- * @version 1.3.5 Added HP
+ * @version 1.3.6 Added luck optimizer, mb fixes, other bug fixes
  *
  */
 
@@ -86,7 +85,7 @@ public class OptimizerFrag extends Fragment {
     private final int RUNNER = 2;
     private final int TRAINER = 3;
 
-    ImageButton shoeRarityButton, shoeTypeButton, optimizeButton, backgroundButton;
+    ImageButton shoeRarityButton, shoeTypeButton, optimizeGstButton, optimizeLuckButton, backgroundButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
             subResButton, addResButton, changeComfGemButton;
@@ -97,16 +96,17 @@ public class OptimizerFrag extends Fragment {
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
             gstLimitTextView, durabilityLossTextView, repairCostDurTextView, gstIncomeTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
-            resPlusTv, optimizeTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
-            hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView;
+            resPlusTv, optimizeGstTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
+            hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
+            optimizeLuckTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
             gemSocketThreeLockPlus, gemSocketFour, gemSocketFourShadow, gemSocketFourLockPlus,
             shoeTypeImageView, shoeCircles, shoeRarityButtonShadow, shoeTypeButtonShadow, minLevelImageView,
-            optimizeButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
-            mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo,
-            footThree, energyBox, comfGemHpRepairImageView, comfGemHpRepairTotalImageView;
+            optimizeGstButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
+            mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
+            comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem;
@@ -169,7 +169,8 @@ public class OptimizerFrag extends Fragment {
 
         shoeRarityButton = view.findViewById(R.id.shoeRarityButton);
         shoeTypeButton = view.findViewById(R.id.shoeTypeButton);
-        optimizeButton = view.findViewById(R.id.optimizeButton);
+        optimizeGstButton = view.findViewById(R.id.optimizeGstButton);
+        optimizeLuckButton = view.findViewById(R.id.optimizeLuckButton);
 
         gemSocketOneButton = view.findViewById(R.id.gemSocketOneButton);
         gemSocketTwoButton = view.findViewById(R.id.gemSocketTwoButton);
@@ -216,7 +217,8 @@ public class OptimizerFrag extends Fragment {
         durabilityLossTextView = view.findViewById(R.id.durabilityLossTextView);
         repairCostDurTextView = view.findViewById(R.id.repairCostDurTextView);
         gstIncomeTextView = view.findViewById(R.id.gstIncomeTextView);
-        optimizeTextView = view.findViewById(R.id.optimizeTextView);
+        optimizeGstTextView = view.findViewById(R.id.optimizeGstTextView);
+        optimizeLuckTextView = view.findViewById(R.id.optimizeLuckTextView);
         lvl10Shrug = view.findViewById(R.id.lvl10shrug);
         hpLossTextView = view.findViewById(R.id.hpLossTextView);
         repairCostHpTextView = view.findViewById(R.id.repairCostHpTextView);
@@ -249,7 +251,8 @@ public class OptimizerFrag extends Fragment {
         shoeTypeButtonShadow = view.findViewById(R.id.shoeTypeBoxShadow);
         energyBox = view.findViewById(R.id.energyBoxOptimizer);
         minLevelImageView = view.findViewById(R.id.seekbarMinLevel);
-        optimizeButtonShadow = view.findViewById(R.id.optimizeButtonShadow);
+        optimizeGstButtonShadow = view.findViewById(R.id.optimizeGstButtonShadow);
+        optimizeLuckButtonShadow = view.findViewById(R.id.optimizeLuckButtonShadow);
 
         mysteryBox1 = view.findViewById(R.id.mysteryBoxLvl1);
         mysteryBox2 = view.findViewById(R.id.mysteryBoxLvl2);
@@ -800,11 +803,13 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        optimizeButton.setOnClickListener(new View.OnClickListener() {
+        optimizeGstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (energy > 0) {
                     optimizeForGst();
+                } else if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
+                    Toast.makeText(getContext(), "Base values must be greater than 0", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Energy must be greater than 0", Toast.LENGTH_SHORT).show();
                 }
@@ -812,20 +817,54 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        optimizeButton.setOnTouchListener(new View.OnTouchListener() {
+        optimizeGstButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        optimizeButton.setVisibility(View.INVISIBLE);
-                        optimizeTextView.setVisibility(View.INVISIBLE);
-                        optimizeButtonShadow.setImageResource(R.drawable.start_button);
+                        optimizeGstButton.setVisibility(View.INVISIBLE);
+                        optimizeGstTextView.setVisibility(View.INVISIBLE);
+                        optimizeGstButtonShadow.setImageResource(R.drawable.start_button);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
-                        optimizeButton.setVisibility(View.VISIBLE);
-                        optimizeTextView.setVisibility(View.VISIBLE);
-                        optimizeButtonShadow.setImageResource(R.drawable.start_button_shadow);
+                        optimizeGstButton.setVisibility(View.VISIBLE);
+                        optimizeGstTextView.setVisibility(View.VISIBLE);
+                        optimizeGstButtonShadow.setImageResource(R.drawable.start_button_shadow);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        optimizeLuckButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (energy > 0) {
+                    optimizeForLuck();
+                } else if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
+                    Toast.makeText(getContext(), "Base values must be greater than 0", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Energy must be greater than 0", Toast.LENGTH_SHORT).show();
+                }
+                clearFocus(view);
+            }
+        });
+
+        optimizeLuckButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        optimizeLuckButton.setVisibility(View.INVISIBLE);
+                        optimizeLuckTextView.setVisibility(View.INVISIBLE);
+                        optimizeLuckButtonShadow.setImageResource(R.drawable.start_button);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        optimizeLuckButton.setVisibility(View.VISIBLE);
+                        optimizeLuckTextView.setVisibility(View.VISIBLE);
+                        optimizeLuckButtonShadow.setImageResource(R.drawable.start_button_shadow);
                         break;
                 }
                 return false;
@@ -1686,7 +1725,7 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 if (gems.get(socketNum).getMountedGem() == 0) {
-                    Toast.makeText(getContext(), "Choose a gem to mount", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Select a gem to mount", Toast.LENGTH_SHORT).show();
                 } else {
                     gems.get(socketNum).setMountedGem(0);
                     gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
@@ -1816,7 +1855,10 @@ public class OptimizerFrag extends Fragment {
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
 
-        Log.d("TESTES", "calcTotals: calcin!");
+        if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
+            return;
+        }
+
         int durabilityLost;
         float repairCostDurability, gstTotal, gstIncome;
         double hpRatio, repairCostHp;
@@ -1915,7 +1957,7 @@ public class OptimizerFrag extends Fragment {
                 energyCo = 0.47f;
         }
 
-        // trash algo, O(n^2) w/ max 45,150 calcs
+        // O(n^2) w/ max 45,150 calcs... yikes
         while (localAddedEff <= localPoints) {
             while (localAddedComf <= localPoints - localAddedEff) {
                 localAddedRes = localPoints - localAddedComf - localAddedEff;
@@ -1947,9 +1989,110 @@ public class OptimizerFrag extends Fragment {
         updatePoints();
     }
 
-    // 'optimizes' for luck with no GST loss
+    // optimizes for most luck with no GST loss
     private void optimizeForLuck() {
+        final int localPoints = shoeLevel * 2 * shoeRarity;
 
+        double energyCo, gstProfit;
+        int localAddedEff, localAddedComf, localAddedRes;
+
+        int optimalAddedEff = 0;
+        int optimalAddedRes = 0;
+        int optimalAddedComf = 0;
+        int pointsSpent = 0;
+
+        float localEff = baseEff + gemEff;
+        float localComf = baseComf + gemComf;
+        float localRes = baseRes + gemRes;
+
+        switch (shoeType) {
+            case JOGGER:
+                energyCo = 0.48f;
+                break;
+            case RUNNER:
+                energyCo = 0.49f;
+                break;
+            case TRAINER:
+                energyCo = 0.492f;
+                break;
+            default:
+                energyCo = 0.47f;
+        }
+
+        hpCalcs(localComf);
+        gstProfit = (Math.floor(energy * Math.pow(localEff, energyCo) * 10) / 10) -
+                (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-localRes / 30.9)) + (2.8 * Math.exp(-localRes / 6.2)) + 0.4))) -
+                (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
+
+        // favors eff, but is efficient (see what i did there)
+        while (gstProfit <= 0 && pointsSpent < localPoints) {
+            pointsSpent++;
+            localAddedEff = pointsSpent;
+            localAddedComf = 0;
+            localAddedRes = 0;
+
+            hpCalcs(localComf + localAddedComf);
+            gstProfit = (Math.floor(energy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
+                    (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
+                    (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
+
+            if (gstProfit > 0) {
+                optimalAddedEff = localAddedEff;
+                optimalAddedComf = localAddedComf;
+                optimalAddedRes = localAddedRes;
+                break;
+            }
+
+            while (localAddedEff > 0) {
+                localAddedEff--;
+                localAddedComf++;
+
+                hpCalcs(localComf + localAddedComf);
+                gstProfit = (Math.floor(energy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
+                        (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
+                        (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
+
+                if (gstProfit > 0) {
+                    optimalAddedEff = localAddedEff;
+                    optimalAddedComf = localAddedComf;
+                    optimalAddedRes = localAddedRes;
+                    break;
+                }
+
+                while (localAddedComf > 0) {
+                    localAddedComf--;
+                    localAddedRes++;
+
+                    hpCalcs(localComf + localAddedComf);
+                    gstProfit = (Math.floor(energy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
+                            (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
+                            (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
+
+                    if (gstProfit > 0) {
+                        optimalAddedEff = localAddedEff;
+                        optimalAddedComf = localAddedComf;
+                        optimalAddedRes = localAddedRes;
+                        break;
+                    }
+                }
+
+                if (gstProfit > 0) {
+                    optimalAddedEff = localAddedEff;
+                    optimalAddedComf = localAddedComf;
+                    optimalAddedRes = localAddedRes;
+                    break;
+                }
+
+                localAddedComf += localAddedRes;
+                localAddedRes = 0;
+            }
+        }
+
+        addedEff = optimalAddedEff;
+        addedRes = optimalAddedRes;
+        addedLuck = localPoints - pointsSpent;
+        addedComf = optimalAddedComf;
+        updatePoints();
     }
 
     // sets up HP calcs based on gem level and shoe rarity
@@ -2317,14 +2460,12 @@ public class OptimizerFrag extends Fragment {
     private void calcMbChances() {
         float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
 
-        Log.d("BALLZ", "calcMbChances: totalLuck: " + totalLuck);
-
-        if (energy <= -0.04 * totalLuck + 6 && energy >= -0.05263 * totalLuck + 2 && energy >= 1) {
+        if (energy <= -0.04 * totalLuck + 6 && energy >= -0.05263 * totalLuck + 2 && energy >= 1 && totalLuck > 1) {
             // lvl 1 high chance range
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
             mysteryBox1.setAlpha(1.0f);
-        } else if (energy > -0.04 * totalLuck + 6 && energy < -0.02 * totalLuck + 8 && totalLuck < 110) {
+        } else if (energy > -0.04 * totalLuck + 6 && energy < -0.02 * totalLuck + 8 && totalLuck < 110 && totalLuck > 1) {
             // lvl 1 low chance range
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
@@ -2335,12 +2476,12 @@ public class OptimizerFrag extends Fragment {
             mysteryBox1.setAlpha(0.5f);
         }
 
-        if (energy <= -0.06897 * totalLuck + 10 && energy >= -1.3333 * totalLuck + 6 && energy >= 2) {
+        if (energy <= -0.06897 * totalLuck + 10 && energy >= -1.3333 * totalLuck + 6 && energy >= 2 && totalLuck > 2) {
             // lvl 2 high chance range
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
             mysteryBox2.setAlpha(1.0f);
-        } else if (energy > -0.068966 * totalLuck + 10 && energy < -0.04 * totalLuck + 13) {
+        } else if (energy > -0.068966 * totalLuck + 10 && energy < -0.04 * totalLuck + 13 && totalLuck > 2) {
             // lvl 2 low chance range
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
@@ -2351,7 +2492,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox2.setAlpha(0.5f);
         }
 
-        if (energy <= -0.09091 * totalLuck + 16 && energy >= 70 * Math.pow((totalLuck + 8), -1) + 2 && energy >= 3.1) {
+        if (energy <= -0.09091 * totalLuck + 16 && energy >= 70 * Math.pow((totalLuck + 8), -1) + 2 && energy >= 3.1 && totalLuck > 3) {
             // lvl 3 high chance range
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
@@ -2367,7 +2508,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox3.setAlpha(0.5f);
         }
 
-        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && energy >= 70 * Math.pow((totalLuck + 1), -1) + 3) {
+        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && energy >= 70 * Math.pow((totalLuck + 1), -1) + 3 && totalLuck > 4) {
             if (energy <= -0.0001 * Math.pow((totalLuck + 40), 2) + 17 && energy >= 50 * Math.pow((totalLuck + 30), -0.2) - 13.5) {
                 // lvl 4 high chance range
                 mysteryBox4.clearColorFilter();
@@ -2385,8 +2526,8 @@ public class OptimizerFrag extends Fragment {
             mysteryBox4.setAlpha(0.5f);
         }
 
-        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 25.5 && energy >= 50 * Math.pow((totalLuck - 2), -1) + 7) {
-            if (energy <= -0.0001 * Math.pow(totalLuck, 2) + 25.5 && energy >= 70 * Math.pow((totalLuck - 10), -0.1) - 32) {
+        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 25.5 && energy >= 50 * Math.pow((totalLuck - 2), -1) + 7 && totalLuck > 5) {
+            if (energy <= -0.00005 * Math.pow(totalLuck, 2) + 26.5 && energy >= 70 * Math.pow((totalLuck - 10), -0.1) - 32) {
                 // lvl 5 high chance range
                 mysteryBox5.clearColorFilter();
                 mysteryBox5.setImageTintMode(null);
@@ -2403,7 +2544,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox5.setAlpha(0.5f);
         }
 
-        if (energy >= 70 * Math.pow((totalLuck + 20), -0.5) + 7) {
+        if (energy >= 70 * Math.pow((totalLuck + 20), -0.5) + 7 && totalLuck > 6) {
             if (energy <= -0.00002 * Math.pow((totalLuck - 150), 2) + 25.5 && energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28) {
                 // lvl 6 high chance range
                 mysteryBox6.clearColorFilter();
@@ -2415,7 +2556,7 @@ public class OptimizerFrag extends Fragment {
                 mysteryBox6.setImageTintMode(null);
                 mysteryBox6.setAlpha(0.5f);
             }
-        } else if (energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28) {
+        } else if (energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28 && totalLuck > 6) {
             // more lvl 6 low chance
             mysteryBox6.clearColorFilter();
             mysteryBox6.setImageTintMode(null);

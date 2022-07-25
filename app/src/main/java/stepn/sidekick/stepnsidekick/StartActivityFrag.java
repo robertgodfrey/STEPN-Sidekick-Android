@@ -196,7 +196,6 @@ public class StartActivityFrag extends Fragment {
             updateUI();
         } else {
             updateUI();
-            checkForLocationPermissions();
         }
 
         helpButton.setOnClickListener(new View.OnClickListener() {
@@ -1167,7 +1166,7 @@ public class StartActivityFrag extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     private void appUpdateDialog() {
-        // TODO remove in further updates...
+        // TODO remove in further major updates...
         ((MainActivity) requireActivity()).ads = false;
 
         Dialog updateDialog = new Dialog(getActivity());
