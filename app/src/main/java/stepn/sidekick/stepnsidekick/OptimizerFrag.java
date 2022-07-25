@@ -125,42 +125,48 @@ public class OptimizerFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-        energy = getSharedPrefs.getFloat(OPT_ENERGY_PERF, 0);
-        shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, 0);
-        shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
-        shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 1);
-        baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF, 0);
-        addedEff = getSharedPrefs.getInt(ADDED_EFF_PREF, 0);
-        baseLuck = getSharedPrefs.getFloat(BASE_LUCK_PREF, 0);
-        addedLuck = getSharedPrefs.getInt(ADDED_LUCK_PREF, 0);
-        baseComf = getSharedPrefs.getFloat(BASE_COMF_PREF, 0);
-        addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF, 0);
-        baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
-        addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
-        comfGemLvlForRepair = getSharedPrefs.getInt(COMF_GEM_HP_REPAIR, 1);
-        update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+                energy = getSharedPrefs.getFloat(OPT_ENERGY_PERF, 0);
+                shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, 0);
+                shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
+                shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 1);
+                baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF, 0);
+                addedEff = getSharedPrefs.getInt(ADDED_EFF_PREF, 0);
+                baseLuck = getSharedPrefs.getFloat(BASE_LUCK_PREF, 0);
+                addedLuck = getSharedPrefs.getInt(ADDED_LUCK_PREF, 0);
+                baseComf = getSharedPrefs.getFloat(BASE_COMF_PREF, 0);
+                addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF, 0);
+                baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
+                addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
+                comfGemLvlForRepair = getSharedPrefs.getInt(COMF_GEM_HP_REPAIR, 1);
+                update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
 
-        dpScale = getResources().getDisplayMetrics().density;
+                dpScale = getResources().getDisplayMetrics().density;
 
-        gems = new ArrayList<>();
+                gems = new ArrayList<>();
 
-        gems.add(new Gem(
-                getSharedPrefs.getInt(GEM_ONE_TYPE_PREF, -1),
-                getSharedPrefs.getInt(GEM_ONE_RARITY_PREF, 0),
-                getSharedPrefs.getInt(GEM_ONE_MOUNTED_PREF, 0)));
-        gems.add(new Gem(
-                getSharedPrefs.getInt(GEM_TWO_TYPE_PREF, -1),
-                getSharedPrefs.getInt(GEM_TWO_RARITY_PREF, 0),
-                getSharedPrefs.getInt(GEM_TWO_MOUNTED_PREF, 0)));
-        gems.add(new Gem(
-                getSharedPrefs.getInt(GEM_THREE_TYPE_PREF, -1),
-                getSharedPrefs.getInt(GEM_THREE_RARITY_PREF, 0),
-                getSharedPrefs.getInt(GEM_THREE_MOUNTED_PREF, 0)));
-        gems.add(new Gem(
-                getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF, -1),
-                getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF, 0),
-                getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF, 0)));
+                gems.add(new Gem(
+                        getSharedPrefs.getInt(GEM_ONE_TYPE_PREF, -1),
+                        getSharedPrefs.getInt(GEM_ONE_RARITY_PREF, 0),
+                        getSharedPrefs.getInt(GEM_ONE_MOUNTED_PREF, 0)));
+                gems.add(new Gem(
+                        getSharedPrefs.getInt(GEM_TWO_TYPE_PREF, -1),
+                        getSharedPrefs.getInt(GEM_TWO_RARITY_PREF, 0),
+                        getSharedPrefs.getInt(GEM_TWO_MOUNTED_PREF, 0)));
+                gems.add(new Gem(
+                        getSharedPrefs.getInt(GEM_THREE_TYPE_PREF, -1),
+                        getSharedPrefs.getInt(GEM_THREE_RARITY_PREF, 0),
+                        getSharedPrefs.getInt(GEM_THREE_MOUNTED_PREF, 0)));
+                gems.add(new Gem(
+                        getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF, -1),
+                        getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF, 0),
+                        getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF, 0)));
+            }
+        }).start();
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -2018,17 +2024,63 @@ public class OptimizerFrag extends Fragment {
     private void optimizeForLuck() {
         final int localPoints = shoeLevel * 2 * shoeRarity;
 
-        double energyCo, gstProfit;
-        int localAddedEff, localAddedComf, localAddedRes;
-
-        int optimalAddedEff = 0;
-        int optimalAddedRes = 0;
-        int optimalAddedComf = 0;
+        int localAddedEff = 0;
+        int localAddedComf = 0;
+        int localAddedRes = 0;
         int pointsSpent = 0;
 
+        // favors eff, but is efficient (see what i did there)
+        while (!breakEvenGst(localAddedEff, localAddedComf, localAddedRes) && pointsSpent < localPoints) {
+            pointsSpent++;
+            localAddedEff = pointsSpent;
+            localAddedComf = 0;
+            localAddedRes = 0;
+
+            if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
+                break;
+            }
+
+            while (localAddedEff > 0) {
+                localAddedEff--;
+                localAddedComf++;
+
+                if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
+                    break;
+                }
+
+                while (localAddedComf > 0) {
+                    localAddedComf--;
+                    localAddedRes++;
+
+                    if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
+                        break;
+                    }
+                }
+
+                if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
+                    break;
+                }
+
+                localAddedComf += localAddedRes;
+                localAddedRes = 0;
+            }
+        }
+
+        addedEff = localAddedEff;
+        addedRes = localAddedRes;
+        addedLuck = localPoints - pointsSpent;
+        addedComf = localAddedComf;
+        updatePoints();
+    }
+
+    // check GST profit, returns true if greater than 0
+    private boolean breakEvenGst(int localAddedEff, int localAddedComf, int localAddedRes) {
         float localEff = baseEff + gemEff;
         float localComf = baseComf + gemComf;
         float localRes = baseRes + gemRes;
+        float energyCo;
+        double gstProfit;
+        boolean breakEven;
 
         switch (shoeType) {
             case JOGGER:
@@ -2044,80 +2096,19 @@ public class OptimizerFrag extends Fragment {
                 energyCo = 0.47f;
         }
 
-        hpCalcs(localComf);
-        gstProfit = (Math.floor(energy * Math.pow(localEff, energyCo) * 10) / 10) -
-                (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-localRes / 30.9)) + (2.8 * Math.exp(-localRes / 6.2)) + 0.4))) -
+        hpCalcs(localComf + localAddedComf);
+        gstProfit = (Math.floor(energy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
+                (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
                 (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
 
-        // favors eff, but is efficient (see what i did there)
-        while (gstProfit <= 0 && pointsSpent < localPoints) {
-            pointsSpent++;
-            localAddedEff = pointsSpent;
-            localAddedComf = 0;
-            localAddedRes = 0;
-
-            hpCalcs(localComf + localAddedComf);
-            gstProfit = (Math.floor(energy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
-                    (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
-                    (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
-
-            if (gstProfit > 0) {
-                optimalAddedEff = localAddedEff;
-                optimalAddedComf = localAddedComf;
-                optimalAddedRes = localAddedRes;
-                break;
-            }
-
-            while (localAddedEff > 0) {
-                localAddedEff--;
-                localAddedComf++;
-
-                hpCalcs(localComf + localAddedComf);
-                gstProfit = (Math.floor(energy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
-                        (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
-                        (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
-
-                if (gstProfit > 0) {
-                    optimalAddedEff = localAddedEff;
-                    optimalAddedComf = localAddedComf;
-                    optimalAddedRes = localAddedRes;
-                    break;
-                }
-
-                while (localAddedComf > 0) {
-                    localAddedComf--;
-                    localAddedRes++;
-
-                    hpCalcs(localComf + localAddedComf);
-                    gstProfit = (Math.floor(energy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
-                            (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
-                            (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
-
-                    if (gstProfit > 0) {
-                        optimalAddedEff = localAddedEff;
-                        optimalAddedComf = localAddedComf;
-                        optimalAddedRes = localAddedRes;
-                        break;
-                    }
-                }
-
-                if (gstProfit > 0) {
-                    optimalAddedEff = localAddedEff;
-                    optimalAddedComf = localAddedComf;
-                    optimalAddedRes = localAddedRes;
-                    break;
-                }
-
-                localAddedComf += localAddedRes;
-                localAddedRes = 0;
-            }
+        if (gstProfit > 0) {
+            breakEven = true;
+        } else {
+            breakEven = false;
         }
 
-        addedEff = optimalAddedEff;
-        addedRes = optimalAddedRes;
-        addedLuck = localPoints - pointsSpent;
-        addedComf = optimalAddedComf;
-        updatePoints();
+        return breakEven;
+
     }
 
     // sets up HP calcs based on gem level and shoe rarity

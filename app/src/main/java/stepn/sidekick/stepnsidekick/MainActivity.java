@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -63,13 +64,22 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
 
-        SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-        ads = getSharedPrefs.getBoolean(AD_PREF, true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+                ads = getSharedPrefs.getBoolean(AD_PREF, true);
+            }
+        }).start();
 
         buildUI();
     }
@@ -238,6 +248,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 ads = true;
             }
+
+
         }
     };
 
@@ -261,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
                 ads = false;
                 bannerAd.setVisibility(View.GONE);
             }
+
         }
     }
 
@@ -284,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
 
         editor.putBoolean(AD_PREF, ads);
         editor.apply();
+
 
         super.onStop();
     }

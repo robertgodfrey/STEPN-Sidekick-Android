@@ -100,26 +100,31 @@ public class StartActivityFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
 
-        tenSecondTimer = getSharedPrefs.getBoolean(TEN_SECOND_TIMER_PREF, true);
-        voiceAlertsSpeedType = getSharedPrefs.getInt(VOICE_ALERTS_SPEED_PREF, 3);
-        voiceAlertsTime = getSharedPrefs.getBoolean(VOICE_ALERTS_TIME_PREF, true);
-        voiceCountdownAlerts = getSharedPrefs.getBoolean(VOICE_ALERTS_CD_PREF, true);
-        energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
-        shoeTypeIterator = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
-        float customMinSpeed = getSharedPrefs.getFloat(CUSTOM_MIN_SPEED_PREF, 0);
-        float customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
-        firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
-        savedAppVersion = getSharedPrefs.getFloat(APP_VERSION_PREF, 1f);
+                tenSecondTimer = getSharedPrefs.getBoolean(TEN_SECOND_TIMER_PREF, true);
+                voiceAlertsSpeedType = getSharedPrefs.getInt(VOICE_ALERTS_SPEED_PREF, 3);
+                voiceAlertsTime = getSharedPrefs.getBoolean(VOICE_ALERTS_TIME_PREF, true);
+                voiceCountdownAlerts = getSharedPrefs.getBoolean(VOICE_ALERTS_CD_PREF, true);
+                energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
+                shoeTypeIterator = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
+                float customMinSpeed = getSharedPrefs.getFloat(CUSTOM_MIN_SPEED_PREF, 0);
+                float customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
+                firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
+                savedAppVersion = getSharedPrefs.getFloat(APP_VERSION_PREF, 1f);
 
-        shoes = new ArrayList<>();
+                shoes = new ArrayList<>();
 
-        shoes.add(new Shoe("Walker", R.drawable.shoe_walker, 1.0f, 6.0f, 1));
-        shoes.add(new Shoe("Jogger", R.drawable.shoe_jogger, 4.0f, 10.0f, 2));
-        shoes.add(new Shoe("Runner", R.drawable.shoe_runner, 8.0f, 20.0f, 3));
-        shoes.add(new Shoe("Trainer", R.drawable.shoe_trainer, 1.0f, 20.0f, 4));
-        shoes.add(new Shoe(getString(R.string.custom), R.drawable.shoe_custom, customMinSpeed, customMaxSpeed, 0));
+                shoes.add(new Shoe("Walker", R.drawable.shoe_walker, 1.0f, 6.0f, 1));
+                shoes.add(new Shoe("Jogger", R.drawable.shoe_jogger, 4.0f, 10.0f, 2));
+                shoes.add(new Shoe("Runner", R.drawable.shoe_runner, 8.0f, 20.0f, 3));
+                shoes.add(new Shoe("Trainer", R.drawable.shoe_trainer, 1.0f, 20.0f, 4));
+                shoes.add(new Shoe(getString(R.string.custom), R.drawable.shoe_custom, customMinSpeed, customMaxSpeed, 0));
+            }
+        }).start();
 
     }
 
