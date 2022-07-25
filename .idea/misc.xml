@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable-nodpi/gem_eff_level4.xml" value="0.4035" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable-nodpi/main_box.xml" value="0.4035" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable-nodpi/shoe_walker.xml" value="0.4035" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable-nodpi/stopwatch.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/arrow.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/background_thing.xml" value="0.4095" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/bolt.xml" value="0.4035" />
