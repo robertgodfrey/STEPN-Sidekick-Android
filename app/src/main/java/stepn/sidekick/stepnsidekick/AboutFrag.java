@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -29,9 +31,9 @@ import android.widget.Toast;
 
 public class AboutFrag extends Fragment {
 
-    Button emailButton, solButton, bnbButton, ethButton;
+    Button emailButton, solButton, bnbButton, ethButton, buyCoffeeButton;
     ImageButton removeAdsButton;
-    ImageView removeAdsShadow, solLogo, bnbLogo, ethLogo;
+    ImageView removeAdsShadow, solLogo, bnbLogo, ethLogo, buyCoffeeLogo;
     TextView emailTextView, removeAdsTextView, removeAdsShadowTextView;
     ClipboardManager clipboard;
 
@@ -57,10 +59,12 @@ public class AboutFrag extends Fragment {
         bnbButton = view.findViewById(R.id.bnbButton);
         ethButton = view.findViewById(R.id.ethButton);
         emailTextView = view.findViewById(R.id.contactEmailTextView);
+        buyCoffeeButton = view.findViewById(R.id.buyCoffeeButton);
 
         solLogo = view.findViewById(R.id.solanaLogo);
         bnbLogo = view.findViewById(R.id.binanceLogo);
         ethLogo = view.findViewById(R.id.ethLogo);
+        buyCoffeeLogo = view.findViewById(R.id.buyCoffeeLogo);
 
         removeAdsButton = view.findViewById(R.id.removeAdsButton);
         removeAdsTextView = view.findViewById(R.id.removeAdsTextView);
@@ -204,6 +208,31 @@ public class AboutFrag extends Fragment {
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         ethLogo.setAlpha(1.0f);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        buyCoffeeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://www.buymeacoffee.com/robgodfrey");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        buyCoffeeButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        buyCoffeeLogo.setAlpha(0.5f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        buyCoffeeLogo.setAlpha(1.0f);
                         break;
                 }
                 return false;
