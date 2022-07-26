@@ -42,7 +42,7 @@ import java.util.List;
  * Main activity - Container for useolr to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Bob Godfrey
- * @version 1.3.6 Added luck optimizer, mb fixes, other bug fixes
+ * @version 1.3.7 Added multiple shoes, mb fixes, small bug fixes
  *
  */
 

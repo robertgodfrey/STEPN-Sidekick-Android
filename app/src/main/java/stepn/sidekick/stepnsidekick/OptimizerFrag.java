@@ -15,10 +15,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -43,7 +45,7 @@ import java.util.ArrayList;
  * and mystery box chance.
  *
  * @author Bob Godfrey
- * @version 1.3.6 Added luck optimizer, mb fixes, other bug fixes
+ * @version 1.3.7 Added multiple shoes, mb fixes, small bug fixes
  *
  */
 
@@ -51,7 +53,8 @@ public class OptimizerFrag extends Fragment {
 
     // holy preferences batman
     private final String OPT_SHOE_TYPE_PREF = "optShoe";
-    private final String OPT_ENERGY_PERF = "optEnergy";
+    private final String OPT_ENERGY_PREF = "optEnergy";
+    private final String SHOE_NAME = "shoeName";
     private final String SHOE_RARITY_PREF = "shoeRarity";
     private final String SHOE_LEVEL_PREF = "shoeLevel";
     private final String BASE_EFF_PREF = "baseEff";
@@ -89,9 +92,10 @@ public class OptimizerFrag extends Fragment {
     ImageButton shoeRarityButton, shoeTypeButton, optimizeGstButton, optimizeLuckButton, backgroundButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
-            subResButton, addResButton, changeComfGemButton;
+            subResButton, addResButton, changeComfGemButton, leftButton, rightButton;
     SeekBar levelSeekbar;
-    EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief;
+    EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief,
+            shoeNameEditText;
 
     TextView shoeRarityTextView, shoeTypeTextView, levelTextView, effTotalTextView, luckTotalTextView,
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
@@ -99,7 +103,7 @@ public class OptimizerFrag extends Fragment {
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
             resPlusTv, optimizeGstTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
-            optimizeLuckTextView;
+            optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -107,16 +111,19 @@ public class OptimizerFrag extends Fragment {
             shoeTypeImageView, shoeCircles, shoeRarityButtonShadow, shoeTypeButtonShadow, minLevelImageView,
             optimizeGstButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
-            comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow;
+            comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
+            shoeNameBoxImageView;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
-            addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem;
+            addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored;
     private boolean saveNewGem, update;
     private double hpLoss;
+    private String shoeName;
 
     ArrayList<Gem> gems;
+
     public OptimizerFrag() {
         // Required empty public constructor
     }
@@ -129,7 +136,7 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void run() {
                 SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-                energy = getSharedPrefs.getFloat(OPT_ENERGY_PERF, 0);
+                energy = getSharedPrefs.getFloat(OPT_ENERGY_PREF, 0);
                 shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, 0);
                 shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
                 shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 1);
@@ -143,6 +150,7 @@ public class OptimizerFrag extends Fragment {
                 addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
                 comfGemLvlForRepair = getSharedPrefs.getInt(COMF_GEM_HP_REPAIR, 1);
                 update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
+                shoeName = getSharedPrefs.getString(SHOE_NAME, "");
 
                 dpScale = getResources().getDisplayMetrics().density;
 
@@ -179,12 +187,15 @@ public class OptimizerFrag extends Fragment {
         shoeTypeButton = view.findViewById(R.id.shoeTypeButton);
         optimizeGstButton = view.findViewById(R.id.optimizeGstButton);
         optimizeLuckButton = view.findViewById(R.id.optimizeLuckButton);
+        leftButton = view.findViewById(R.id.leftArrowButton);
+        rightButton = view.findViewById(R.id.rightArrowButton);
 
         gemSocketOneButton = view.findViewById(R.id.gemSocketOneButton);
         gemSocketTwoButton = view.findViewById(R.id.gemSocketTwoButton);
         gemSocketThreeButton = view.findViewById(R.id.gemSocketThreeButton);
         gemSocketFourButton = view.findViewById(R.id.gemSocketFourButton);
 
+        shoeNameBoxImageView = view.findViewById(R.id.shoeNameImageView);
         comfGemHpRepairImageView = view.findViewById(R.id.comfGemHpRepair);
         changeComfGemButton = view.findViewById(R.id.changeComfGemButton);
         gemMultipleTextView = view.findViewById(R.id.gemMultipleTextView);
@@ -203,6 +214,7 @@ public class OptimizerFrag extends Fragment {
         backgroundButton = view.findViewById(R.id.backgroundThingButton);
         levelSeekbar = view.findViewById(R.id.levelSeekBar);
 
+        shoeNameEditText = view.findViewById(R.id.shoeNameEditText);
         energyEditText = view.findViewById(R.id.energyToSpendOptimizerEditText);
         effEditText = view.findViewById(R.id.baseEffEditText);
         luckEditText = view.findViewById(R.id.baseLuckEditText);
@@ -210,6 +222,9 @@ public class OptimizerFrag extends Fragment {
         resEditText = view.findViewById(R.id.baseResEditText);
         focusThief = view.findViewById(R.id.focusThief);
 
+        shoeOneTextView = view.findViewById(R.id.shoeOneTextView);
+        shoeTwoTextView = view.findViewById(R.id.shoeTwoTextView);
+        shoeThreeTextView = view.findViewById(R.id.shoeThreeTextView);
         shoeRarityTextView = view.findViewById(R.id.shoeRarityTextView);
         shoeRarityShadowTextView = view.findViewById(R.id.shoeRarityShadowTextView);
         shoeTypeTextView = view.findViewById(R.id.shoeTypeTextView);
@@ -331,6 +346,56 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int oldShoeNum = shoeNum;
+
+                if (shoeNum == 0) {
+                    shoeNum = 2;
+                } else {
+                    shoeNum--;
+                }
+
+                shoeTypeImageView.setScaleX(1.1f);
+                shoeTypeImageView.setScaleY(1.1f);
+                ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                        shoeTypeImageView,
+                        PropertyValuesHolder.ofFloat("scaleX", 1f),
+                        PropertyValuesHolder.ofFloat("scaleY", 1f));
+                scaler.setDuration(1000);
+                scaler.start();
+
+                clearFocus(view);
+                updatePageNewShoe(oldShoeNum);
+            }
+        });
+
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int oldShoeNum = shoeNum;
+
+                if (shoeNum == 2) {
+                    shoeNum = 0;
+                } else {
+                    shoeNum++;
+                }
+
+                shoeTypeImageView.setScaleX(1.1f);
+                shoeTypeImageView.setScaleY(1.1f);
+                ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                        shoeTypeImageView,
+                        PropertyValuesHolder.ofFloat("scaleX", 1f),
+                        PropertyValuesHolder.ofFloat("scaleY", 1f));
+                scaler.setDuration(1000);
+                scaler.start();
+
+                clearFocus(view);
+                updatePageNewShoe(oldShoeNum);
+            }
+        });
+
         shoeRarityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -444,6 +509,15 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
+        shoeNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    shoeName = shoeNameEditText.getText().toString();
+                }
+            }
+        });
+
         energyEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -465,8 +539,6 @@ public class OptimizerFrag extends Fragment {
                 }
             }
         });
-
-        energyEditText.setText(String.valueOf(energy));
 
         levelSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -905,7 +977,7 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        levelSeekbar.setProgress(shoeLevel - 1);
+        shoeNum = 0;
 
         loadPoints();
         updateType();
@@ -943,21 +1015,29 @@ public class OptimizerFrag extends Fragment {
             case UNCOMMON:
                 shoeCircles.setImageResource(R.drawable.circles_uncommon);
                 shoeRarityTextView.setText("Uncommon");
+
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_uncommon);
+
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_uncommon);
+
+                shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeNameBoxImageView.setImageResource(R.drawable.name_box_uncommon);
+
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+
                 effEditText.setHint("8 - 21.6");
                 luckEditText.setHint("8 - 21.6");
                 comfortEditText.setHint("8 - 21.6");
                 resEditText.setHint("8 - 21.6");
                 baseMin = 8;
                 baseMax = 21.6f;
+
                 for (int i = 0; i < 4; i++) {
                     if (gems.get(i).getSocketRarity() > 2) {
                         gems.get(i).setSocketRarity(2);
@@ -967,21 +1047,29 @@ public class OptimizerFrag extends Fragment {
             case RARE:
                 shoeCircles.setImageResource(R.drawable.circles_rare);
                 shoeRarityTextView.setText("Rare");
+
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_rare);
+
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_rare);
+
+                shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeNameBoxImageView.setImageResource(R.drawable.name_box_rare);
+
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+
                 effEditText.setHint("15 - 42");
                 luckEditText.setHint("15 - 42");
                 comfortEditText.setHint("15 - 42");
                 resEditText.setHint("15 - 42");
                 baseMin = 15;
                 baseMax = 42f;
+
                 for (int i = 0; i < 4; i++) {
                     if (gems.get(i).getSocketRarity() > 3) {
                         gems.get(i).setSocketRarity(3);
@@ -991,15 +1079,22 @@ public class OptimizerFrag extends Fragment {
             case EPIC:
                 shoeCircles.setImageResource(R.drawable.circles_epic);
                 shoeRarityTextView.setText("Epic");
+
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityButton.setImageResource(R.drawable.box_epic);
+
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeButton.setImageResource(R.drawable.box_epic);
+
+                shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeNameBoxImageView.setImageResource(R.drawable.name_box_epic);
+
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+
                 effEditText.setHint("28 - 75.6");
                 luckEditText.setHint("28 - 75.6");
                 comfortEditText.setHint("28 - 75.6");
@@ -1010,21 +1105,29 @@ public class OptimizerFrag extends Fragment {
             default:
                 shoeCircles.setImageResource(R.drawable.circles_common);
                 shoeRarityTextView.setText("Common");
+
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeRarityButton.setImageResource(R.drawable.box_common);
+
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeTypeButton.setImageResource(R.drawable.box_common);
+
+                shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeNameBoxImageView.setImageResource(R.drawable.name_box_common);
+
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
+
                 effEditText.setHint("1 - 10");
                 luckEditText.setHint("1 - 10");
                 comfortEditText.setHint("1 - 10");
                 resEditText.setHint("1 - 10");
                 baseMin = 1;
                 baseMax = 10;
+
                 for (int i = 0; i < 4; i++) {
                     if (gems.get(i).getSocketRarity() > 1) {
                         gems.get(i).setSocketRarity(1);
@@ -1784,7 +1887,7 @@ public class OptimizerFrag extends Fragment {
     }
 
     // shows detailed gem calculations
-    private void showGemCalcs(int socketNum) {
+    private void showGemCalcs(final int socketNum) {
         int points, percent;
         String socketRarity;
 
@@ -2074,7 +2177,7 @@ public class OptimizerFrag extends Fragment {
     }
 
     // check GST profit, returns true if greater than 0
-    private boolean breakEvenGst(int localAddedEff, int localAddedComf, int localAddedRes) {
+    private boolean breakEvenGst(final int localAddedEff, final int localAddedComf, final int localAddedRes) {
         float localEff = baseEff + gemEff;
         float localComf = baseComf + gemComf;
         float localRes = baseRes + gemRes;
@@ -2112,7 +2215,7 @@ public class OptimizerFrag extends Fragment {
     }
 
     // sets up HP calcs based on gem level and shoe rarity
-    private void hpCalcs(float totalComf) {
+    private void hpCalcs(final float totalComf) {
         switch (comfGemLvlForRepair) {
             case 2:
                 gstCostBasedOnGem = 30;
@@ -2733,22 +2836,181 @@ public class OptimizerFrag extends Fragment {
 
     // load initial point values
     private void loadPoints() {
+        levelSeekbar.setProgress(shoeLevel - 1);
+        energyEditText.setText(String.valueOf(energy));
+        shoeNameEditText.setText(shoeName);
+
         if (baseEff != 0) {
             effEditText.setText(String.valueOf(baseEff));
+        } else {
+            effEditText.setText("");
         }
         if (baseLuck != 0) {
             luckEditText.setText(String.valueOf(baseLuck));
+        } else {
+            luckEditText.setText("");
         }
         if (baseComf != 0) {
             comfortEditText.setText(String.valueOf(baseComf));
+        } else {
+            comfortEditText.setText("");
         }
         if (baseRes != 0) {
             resEditText.setText(String.valueOf(baseRes));
+        } else {
+            resEditText.setText("");
         }
+
+        calcMbChances();
+    }
+
+    // updates entire page with new shoe values
+    private void updatePageNewShoe(final int oldShoeNum) {
+        final String saveSuffix;
+        final String loadSuffix;
+
+        Typeface bold = ResourcesCompat.getFont(getContext(), R.font.roboto_condensed_bold_italic);
+        Typeface reg = ResourcesCompat.getFont(getContext(), R.font.roboto_condensed_regular_italic);
+
+        switch (shoeNum) {
+            case 1:
+                // shoe 2
+                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeOneTextView.setTypeface(reg);
+                shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeTwoTextView.setTypeface(bold);
+                shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeThreeTextView.setTypeface(reg);
+                break;
+            case 2:
+                // shoe 3
+                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeOneTextView.setTypeface(reg);
+                shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeTwoTextView.setTypeface(reg);
+                shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeThreeTextView.setTypeface(bold);
+                break;
+            default:
+                // shoe 1
+                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeOneTextView.setTypeface(bold);
+                shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeTwoTextView.setTypeface(reg);
+                shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeThreeTextView.setTypeface(reg);
+                break;
+        }
+
+        switch (oldShoeNum) {
+            case 1:
+                saveSuffix = "1";
+                break;
+            case 2:
+                saveSuffix = "2";
+                break;
+            default:
+                saveSuffix = "";
+                break;
+        }
+
+        switch (shoeNum) {
+            case 1:
+                loadSuffix = "1";
+                break;
+            case 2:
+                loadSuffix = "2";
+                break;
+            default:
+                loadSuffix = "";
+                break;
+        }
+
+        Thread saveEmLoadEm = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putInt(OPT_SHOE_TYPE_PREF + saveSuffix, shoeType);
+                editor.putInt(SHOE_RARITY_PREF + saveSuffix, shoeRarity);
+                editor.putInt(SHOE_LEVEL_PREF + saveSuffix, shoeLevel);
+                editor.putFloat(OPT_ENERGY_PREF + saveSuffix, energy);
+                editor.putFloat(BASE_EFF_PREF + saveSuffix, baseEff);
+                editor.putInt(ADDED_EFF_PREF + saveSuffix, addedEff);
+                editor.putFloat(BASE_LUCK_PREF + saveSuffix, baseLuck);
+                editor.putInt(ADDED_LUCK_PREF + saveSuffix, addedLuck);
+                editor.putFloat(BASE_COMF_PREF + saveSuffix, baseComf);
+                editor.putInt(ADDED_COMF_PREF + saveSuffix, addedComf);
+                editor.putFloat(BASE_RES_PREF + saveSuffix, baseRes);
+                editor.putInt(ADDED_RES_PREF + saveSuffix, addedRes);
+                editor.putString(SHOE_NAME + saveSuffix, shoeName);
+
+                editor.putInt(GEM_ONE_TYPE_PREF + saveSuffix, gems.get(0).getSocketType());
+                editor.putInt(GEM_ONE_RARITY_PREF + saveSuffix, gems.get(0).getSocketRarity());
+                editor.putInt(GEM_ONE_MOUNTED_PREF + saveSuffix, gems.get(0).getMountedGem());
+                editor.putInt(GEM_TWO_TYPE_PREF + saveSuffix, gems.get(1).getSocketType());
+                editor.putInt(GEM_TWO_RARITY_PREF + saveSuffix, gems.get(1).getSocketRarity());
+                editor.putInt(GEM_TWO_MOUNTED_PREF + saveSuffix, gems.get(1).getMountedGem());
+                editor.putInt(GEM_THREE_TYPE_PREF + saveSuffix, gems.get(2).getSocketType());
+                editor.putInt(GEM_THREE_RARITY_PREF + saveSuffix, gems.get(2).getSocketRarity());
+                editor.putInt(GEM_THREE_MOUNTED_PREF + saveSuffix, gems.get(2).getMountedGem());
+                editor.putInt(GEM_FOUR_TYPE_PREF + saveSuffix, gems.get(3).getSocketType());
+                editor.putInt(GEM_FOUR_RARITY_PREF + saveSuffix, gems.get(3).getSocketRarity());
+                editor.putInt(GEM_FOUR_MOUNTED_PREF + saveSuffix, gems.get(3).getMountedGem());
+
+                editor.apply();
+
+                shoeType = sharedPreferences.getInt(OPT_SHOE_TYPE_PREF + loadSuffix, 0);
+                shoeRarity = sharedPreferences.getInt(SHOE_RARITY_PREF + loadSuffix, COMMON);
+                shoeLevel = sharedPreferences.getInt(SHOE_LEVEL_PREF + loadSuffix, 1);
+                energy = sharedPreferences.getFloat(OPT_ENERGY_PREF + loadSuffix, 0);
+                baseEff = sharedPreferences.getFloat(BASE_EFF_PREF + loadSuffix, 0);
+                addedEff = sharedPreferences.getInt(ADDED_EFF_PREF + loadSuffix, 0);
+                baseLuck = sharedPreferences.getFloat(BASE_LUCK_PREF + loadSuffix, 0);
+                addedLuck = sharedPreferences.getInt(ADDED_LUCK_PREF + loadSuffix, 0);
+                baseComf = sharedPreferences.getFloat(BASE_COMF_PREF + loadSuffix, 0);
+                addedComf = sharedPreferences.getInt(ADDED_COMF_PREF + loadSuffix, 0);
+                baseRes = sharedPreferences.getFloat(BASE_RES_PREF + loadSuffix, 0);
+                addedRes = sharedPreferences.getInt(ADDED_RES_PREF + loadSuffix, 0);
+                shoeName = sharedPreferences.getString(SHOE_NAME + loadSuffix, "");
+
+                gems.clear();
+
+                gems.add(new Gem(
+                        sharedPreferences.getInt(GEM_ONE_TYPE_PREF + loadSuffix, -1),
+                        sharedPreferences.getInt(GEM_ONE_RARITY_PREF + loadSuffix, 0),
+                        sharedPreferences.getInt(GEM_ONE_MOUNTED_PREF + loadSuffix, 0)));
+                gems.add(new Gem(
+                        sharedPreferences.getInt(GEM_TWO_TYPE_PREF + loadSuffix, -1),
+                        sharedPreferences.getInt(GEM_TWO_RARITY_PREF + loadSuffix, 0),
+                        sharedPreferences.getInt(GEM_TWO_MOUNTED_PREF + loadSuffix, 0)));
+                gems.add(new Gem(
+                        sharedPreferences.getInt(GEM_THREE_TYPE_PREF + loadSuffix, -1),
+                        sharedPreferences.getInt(GEM_THREE_RARITY_PREF + loadSuffix, 0),
+                        sharedPreferences.getInt(GEM_THREE_MOUNTED_PREF + loadSuffix, 0)));
+                gems.add(new Gem(
+                        sharedPreferences.getInt(GEM_FOUR_TYPE_PREF + loadSuffix, -1),
+                        sharedPreferences.getInt(GEM_FOUR_RARITY_PREF + loadSuffix, 0),
+                        sharedPreferences.getInt(GEM_FOUR_MOUNTED_PREF + loadSuffix, 0)));
+            }
+        });
+        saveEmLoadEm.start();
+        try {
+            saveEmLoadEm.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        loadPoints();
+        updateType();
+        updateRarity();
     }
 
     // clears focus from the input boxes by focusing on another hidden edittext
     private void clearFocus(View view) {
+        shoeNameEditText.clearFocus();
         energyEditText.clearFocus();
         effEditText.clearFocus();
         luckEditText.clearFocus();
@@ -2765,36 +3027,50 @@ public class OptimizerFrag extends Fragment {
     // to save prefs
     @Override
     public void onStop() {
+        final String saveSuffix;
+
+        switch (shoeNum) {
+            case 1:
+                saveSuffix = "1";
+                break;
+            case 2:
+                saveSuffix = "2";
+                break;
+            default:
+                saveSuffix = "";
+                break;
+        }
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt(OPT_SHOE_TYPE_PREF, shoeType);
-        editor.putFloat(OPT_ENERGY_PERF, energy);
-        editor.putInt(SHOE_RARITY_PREF, shoeRarity);
-        editor.putInt(SHOE_LEVEL_PREF, shoeLevel);
-        editor.putFloat(BASE_EFF_PREF, baseEff);
-        editor.putInt(ADDED_EFF_PREF, addedEff);
-        editor.putFloat(BASE_LUCK_PREF, baseLuck);
-        editor.putInt(ADDED_LUCK_PREF, addedLuck);
-        editor.putFloat(BASE_COMF_PREF, baseComf);
-        editor.putInt(ADDED_COMF_PREF, addedComf);
-        editor.putFloat(BASE_RES_PREF, baseRes);
-        editor.putInt(ADDED_RES_PREF, addedRes);
+        editor.putInt(OPT_SHOE_TYPE_PREF + saveSuffix, shoeType);
+        editor.putFloat(OPT_ENERGY_PREF + saveSuffix, energy);
+        editor.putInt(SHOE_RARITY_PREF + saveSuffix, shoeRarity);
+        editor.putInt(SHOE_LEVEL_PREF + saveSuffix, shoeLevel);
+        editor.putFloat(BASE_EFF_PREF + saveSuffix, baseEff);
+        editor.putInt(ADDED_EFF_PREF + saveSuffix, addedEff);
+        editor.putFloat(BASE_LUCK_PREF + saveSuffix, baseLuck);
+        editor.putInt(ADDED_LUCK_PREF + saveSuffix, addedLuck);
+        editor.putFloat(BASE_COMF_PREF + saveSuffix, baseComf);
+        editor.putInt(ADDED_COMF_PREF + saveSuffix, addedComf);
+        editor.putFloat(BASE_RES_PREF + saveSuffix, baseRes);
+        editor.putInt(ADDED_RES_PREF + saveSuffix, addedRes);
         editor.putInt(COMF_GEM_HP_REPAIR, comfGemLvlForRepair);
         editor.putBoolean(UPDATE_PREF, false);
+        editor.putString(SHOE_NAME + saveSuffix, shoeName);
 
-        editor.putInt(GEM_ONE_TYPE_PREF, gems.get(0).getSocketType());
-        editor.putInt(GEM_ONE_RARITY_PREF, gems.get(0).getSocketRarity());
-        editor.putInt(GEM_ONE_MOUNTED_PREF, gems.get(0).getMountedGem());
-        editor.putInt(GEM_TWO_TYPE_PREF, gems.get(1).getSocketType());
-        editor.putInt(GEM_TWO_RARITY_PREF, gems.get(1).getSocketRarity());
-        editor.putInt(GEM_TWO_MOUNTED_PREF, gems.get(1).getMountedGem());
-        editor.putInt(GEM_THREE_TYPE_PREF, gems.get(2).getSocketType());
-        editor.putInt(GEM_THREE_RARITY_PREF, gems.get(2).getSocketRarity());
-        editor.putInt(GEM_THREE_MOUNTED_PREF, gems.get(2).getMountedGem());
-        editor.putInt(GEM_FOUR_TYPE_PREF, gems.get(3).getSocketType());
-        editor.putInt(GEM_FOUR_RARITY_PREF, gems.get(3).getSocketRarity());
-        editor.putInt(GEM_FOUR_MOUNTED_PREF, gems.get(3).getMountedGem());
+        editor.putInt(GEM_ONE_TYPE_PREF + saveSuffix, gems.get(0).getSocketType());
+        editor.putInt(GEM_ONE_RARITY_PREF + saveSuffix, gems.get(0).getSocketRarity());
+        editor.putInt(GEM_ONE_MOUNTED_PREF + saveSuffix, gems.get(0).getMountedGem());
+        editor.putInt(GEM_TWO_TYPE_PREF + saveSuffix, gems.get(1).getSocketType());
+        editor.putInt(GEM_TWO_RARITY_PREF + saveSuffix, gems.get(1).getSocketRarity());
+        editor.putInt(GEM_TWO_MOUNTED_PREF + saveSuffix, gems.get(1).getMountedGem());
+        editor.putInt(GEM_THREE_TYPE_PREF + saveSuffix, gems.get(2).getSocketType());
+        editor.putInt(GEM_THREE_RARITY_PREF + saveSuffix, gems.get(2).getSocketRarity());
+        editor.putInt(GEM_THREE_MOUNTED_PREF + saveSuffix, gems.get(2).getMountedGem());
+        editor.putInt(GEM_FOUR_TYPE_PREF + saveSuffix, gems.get(3).getSocketType());
+        editor.putInt(GEM_FOUR_RARITY_PREF + saveSuffix, gems.get(3).getSocketRarity());
+        editor.putInt(GEM_FOUR_MOUNTED_PREF + saveSuffix, gems.get(3).getMountedGem());
 
         editor.apply();
 
