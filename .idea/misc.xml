@@ -8,6 +8,8 @@
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable-nodpi/shoe_walker.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable-nodpi/stopwatch.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/arrow.xml" value="0.4035" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/arrow_left.xml" value="0.4" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/arrow_right.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/background_thing.xml" value="0.4095" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/bolt.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.4025" />
@@ -101,6 +103,10 @@
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_button_shadow.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_buttons.xml" value="0.375" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_buttons_disabled.xml" value="0.4035" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/name_box_common.xml" value="0.4025" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/name_box_epic.xml" value="0.4035" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/name_box_rare.xml" value="0.4025" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/name_box_uncommon.xml" value="0.4015" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/nav_bar_back.xml" value="0.4025" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/res.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/roundy_button.xml" value="0.375" />

@@ -262,6 +262,96 @@
         app:layout_constraintTop_toTopOf="@+id/gemSocketFour" />
 
     <ImageView
+        android:id="@+id/shoeNameButtonShadow"
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="@+id/shoeNameImageView"
+        app:layout_constraintStart_toStartOf="@+id/shoeNameImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeNameImageView"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <ImageView
+        android:id="@+id/shoeNameImageView"
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/gemSocketFour"
+        app:srcCompat="@drawable/name_box_common" />
+
+    <ImageView
+        android:id="@+id/leftArrowImageView"
+        android:layout_width="8dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeNameImageView"
+        app:layout_constraintEnd_toStartOf="@+id/shoeNameImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeNameImageView"
+        app:srcCompat="@drawable/arrow_left" />
+
+    <ImageView
+        android:id="@+id/rightArrowImageView"
+        android:layout_width="8dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeNameImageView"
+        app:layout_constraintStart_toEndOf="@+id/shoeNameImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeNameImageView"
+        app:srcCompat="@drawable/arrow_right" />
+
+    <Button
+        android:id="@+id/leftArrowButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/leftArrowImageView"
+        app:layout_constraintEnd_toEndOf="@+id/leftArrowImageView"
+        app:layout_constraintStart_toStartOf="@+id/leftArrowImageView"
+        app:layout_constraintTop_toTopOf="@+id/leftArrowImageView" />
+
+    <Button
+        android:id="@+id/rightArrowButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/rightArrowImageView"
+        app:layout_constraintEnd_toEndOf="@+id/rightArrowImageView"
+        app:layout_constraintStart_toStartOf="@+id/rightArrowImageView"
+        app:layout_constraintTop_toTopOf="@+id/rightArrowImageView" />
+
+    <EditText
+        android:id="@+id/shoeNameEditText"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-4dp"
+        android:layout_marginEnd="-4dp"
+        android:background="@null"
+        android:hint="Shoe Name"
+        android:inputType="text"
+        android:maxLength="15"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="8dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeNameImageView"
+        app:layout_constraintEnd_toEndOf="@+id/shoeNameImageView"
+        app:layout_constraintStart_toStartOf="@+id/shoeNameImageView"
+        app:layout_constraintTop_toTopOf="@+id/shoeNameImageView" />
+
+    <ImageView
         android:id="@+id/shoeRarityBoxShadow"
         android:layout_width="94dp"
         android:layout_height="34dp"
@@ -460,11 +550,11 @@
         android:layout_width="94dp"
         android:layout_height="34dp"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toEndOf="@+id/shoeTypeButton"
-        app:layout_constraintTop_toBottomOf="@+id/gemSocketFour"
+        app:layout_constraintTop_toBottomOf="@+id/shoeNameImageView"
         app:srcCompat="@drawable/energy_input_box" />
 
     <EditText
