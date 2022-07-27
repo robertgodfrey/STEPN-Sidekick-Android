@@ -179,38 +179,6 @@
         app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
         app:layout_constraintTop_toTopOf="@+id/notesThreeLabel" />
 
-    <TextView
-        android:id="@+id/notesFourLabel"
-        style="@style/RegText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:includeFontPadding="false"
-        android:text="4."
-        android:textAlignment="viewStart"
-        android:textColor="@color/almost_black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/backgroundThing"
-        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
-
-    <TextView
-        android:id="@+id/notesDeets4TextView"
-        style="@style/RegText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto"
-        android:includeFontPadding="false"
-        android:text="@string/note_details4"
-        android:textAlignment="textStart"
-        android:textColor="@color/almost_black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
-        app:layout_constraintStart_toEndOf="@+id/notesFourLabel"
-        app:layout_constraintTop_toTopOf="@+id/notesFourLabel" />
-
     <ImageView
         android:id="@+id/removeAdsShadowButton"
         android:layout_width="180dp"
@@ -228,7 +196,7 @@
 
     <TextView
         android:id="@+id/removeAdsShadowTextView"
-        style="@style/ButtonBoldItalic"
+        style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -251,12 +219,12 @@
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notesDeets4TextView"
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView"
         app:srcCompat="@drawable/start_button" />
 
     <TextView
         android:id="@+id/removeAdsTextView"
-        style="@style/ButtonBoldItalic"
+        style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -463,7 +431,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="100dp"
         android:includeFontPadding="false"
-        android:text="v 1.3.7"
+        android:text="v 1.3.8"
         android:textColor="@color/gandalf"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

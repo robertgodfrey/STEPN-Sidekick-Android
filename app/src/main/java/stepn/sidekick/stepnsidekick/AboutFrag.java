@@ -25,7 +25,7 @@ import android.widget.Toast;
  * Information about the app, 'remove ads' button, option to donate
  *
  * @author Bob Godfrey
- * @version 1.3.7 Added multiple shoes, mb fixes, small bug fixes
+ * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
  *
  */
 

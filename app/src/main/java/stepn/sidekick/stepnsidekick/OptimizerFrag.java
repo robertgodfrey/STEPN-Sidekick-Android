@@ -45,7 +45,7 @@ import java.util.ArrayList;
  * and mystery box chance.
  *
  * @author Bob Godfrey
- * @version 1.3.7 Added multiple shoes, mb fixes, small bug fixes
+ * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
  *
  */
 
@@ -954,25 +954,12 @@ public class OptimizerFrag extends Fragment {
         changeComfGemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (comfGemLvlForRepair == 1) {
-                    comfGemLvlForRepair = 2;
-                    comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level2);
-                    comfGemHpRepairImageView.setPadding(0, 0, 0, 0);
-                    comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level2);
-                    comfGemHpRepairTotalImageView.setPadding(0, 0, 0, 0);
-                } else if (comfGemLvlForRepair == 2) {
-                    comfGemLvlForRepair = 3;
-                    comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level3);
-                    comfGemHpRepairImageView.setPadding(0, 0, 0,0);
-                    comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level3);
-                    comfGemHpRepairTotalImageView.setPadding(0, 0, 0,0);
+                if (comfGemLvlForRepair < 3) {
+                    comfGemLvlForRepair++;
                 } else {
-                    comfGemLvlForRepair = 1;
-                    comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level1);
-                    comfGemHpRepairImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
-                    comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level1);
-                    comfGemHpRepairTotalImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
+                    comfGemLvlForRepair = 0;
                 }
+                updateHpRepairComfGem();
                 calcTotals();
             }
         });
@@ -2229,7 +2216,7 @@ public class OptimizerFrag extends Fragment {
 
         switch (shoeRarity) {
             case COMMON:
-                hpLoss = energy * 0.328 * Math.pow(totalComf, -0.322);
+                hpLoss = energy * 0.372 * Math.pow(totalComf, -0.388);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 39;
@@ -2242,7 +2229,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case UNCOMMON:
-                hpLoss = energy * 0.435 * Math.pow(totalComf, -0.45);
+                hpLoss = energy * 0.356 * Math.pow(totalComf, -0.393);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 23;
@@ -2255,7 +2242,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case RARE:
-                hpLoss = energy * 0.51 * Math.pow(totalComf, -0.483);
+                hpLoss = energy * 0.477 * Math.pow(totalComf, -0.469);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 16;
@@ -2265,6 +2252,19 @@ public class OptimizerFrag extends Fragment {
                         break;
                     default:
                         hpPercentRestored = 1.2f;
+                }
+                break;
+            case EPIC:
+                hpLoss = energy * 0.477 * Math.pow(totalComf, -0.469);
+                switch (comfGemLvlForRepair) {
+                    case 2:
+                        hpPercentRestored = 11;
+                        break;
+                    case 3:
+                        hpPercentRestored = 67;
+                        break;
+                    default:
+                        hpPercentRestored = 0.88f;
                 }
                 break;
             default:
@@ -2839,6 +2839,7 @@ public class OptimizerFrag extends Fragment {
         levelSeekbar.setProgress(shoeLevel - 1);
         energyEditText.setText(String.valueOf(energy));
         shoeNameEditText.setText(shoeName);
+        updateHpRepairComfGem();
 
         if (baseEff != 0) {
             effEditText.setText(String.valueOf(baseEff));
@@ -2862,6 +2863,26 @@ public class OptimizerFrag extends Fragment {
         }
 
         calcMbChances();
+    }
+
+    // updates comf gem for HP repair
+    private void updateHpRepairComfGem() {
+        if (comfGemLvlForRepair == 2) {
+            comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level2);
+            comfGemHpRepairImageView.setPadding(0, 0, 0, 0);
+            comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level2);
+            comfGemHpRepairTotalImageView.setPadding(0, 0, 0, 0);
+        } else if (comfGemLvlForRepair == 3) {
+            comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level3);
+            comfGemHpRepairImageView.setPadding(0, 0, 0,0);
+            comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level3);
+            comfGemHpRepairTotalImageView.setPadding(0, 0, 0,0);
+        } else {
+            comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level1);
+            comfGemHpRepairImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
+            comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level1);
+            comfGemHpRepairTotalImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
+        }
     }
 
     // updates entire page with new shoe values

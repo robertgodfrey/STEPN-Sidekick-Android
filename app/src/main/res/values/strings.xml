@@ -34,7 +34,7 @@
     <string name="notes">Notes</string>
     <string name="notes_details1">It is best to use this app on the same device that is running STEPN so that both apps are using the same location data.</string>
     <string name="notes_details2">STEPN adds a 30-second buffer to every activity. This app\'s timer accounts for this extra time, but it may not match STEPN\'s timer exactly.</string>
-    <string name="notes_details3">Because mystery box chance is based on community data, it will likely not be accurate toward the edges of the available data. Anything above a level 6 MB is just the app\'s best guess.</string>
+    <string name="notes_details3">Mystery box chance may not be accurate toward the edges of the available community data (above level 6, very high luck w/low energy, low luck/high energy, etc).</string>
     <string name="contact">Please contact me if you find any errors or have any suggestions to improve the app:</string>
     <string name="contact_email" translatable="false">sidekickfeedback@gmail.com</string>
     <string name="support_project">If you enjoy the app, please consider supporting!</string>
@@ -81,6 +81,20 @@
     <string name="current">CURRENT</string>
     <string name="average">AVERAGE</string>
     <string name="all">ALL</string>
-    <string name="remove_ads" translatable="false">REMOVE ADS</string>
-    <string name="note_details4">HP is still new and may change. The HP estimate will improve as we get more data from the community. You can help! Share your results on Twitter with @Krit_STEPN and/or @Karl_Khader</string>
+    <string name="remove_ads">REMOVE ADS</string>
+    <string name="rarity">Rarity</string>
+    <string name="shoe_name">Shoe Name</string>
+    <string name="type">Type</string>
+    <string name="level">Level</string>
+    <string name="points_available">Points Available:</string>
+    <string name="optimize_gst">OPTIMIZE GST</string>
+    <string name="optimize_luck">OPTIMIZE LUCK</string>
+    <string name="est_gst_daily_limit">Est. GST / Daily Limit:</string>
+    <string name="durability_loss">Durability Loss:</string>
+    <string name="repair_cost">Repair Cost:</string>
+    <string name="hp_loss">HP Loss:</string>
+    <string name="restoration_cost">Restoration Cost:</string>
+    <string name="total_income">Total Income:</string>
+    <string name="disclaimer">Based on unofficial STEPN community data.\nActual results may vary.</string>
+    <string name="energy">Energy</string>
 </resources>

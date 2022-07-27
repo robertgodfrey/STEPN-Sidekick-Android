@@ -4,9 +4,7 @@
 
     <solid android:color="@color/button_green" />
 
-    <padding
-        android:bottom="2dp"
-        android:left="2dp" />
+    <size android:height="16dp" />
 
     <corners android:radius="24dp" />
 

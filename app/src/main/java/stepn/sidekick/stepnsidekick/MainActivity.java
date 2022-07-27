@@ -39,10 +39,10 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 
 /**
- * Main activity - Container for useolr to select which fragment to view (exercise, optimizer, or about)
+ * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Bob Godfrey
- * @version 1.3.7 Added multiple shoes, mb fixes, small bug fixes
+ * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
  *
  */
 
@@ -64,19 +64,12 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-                ads = getSharedPrefs.getBoolean(AD_PREF, true);
-            }
-        }).start();
+        SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+        ads = getSharedPrefs.getBoolean(AD_PREF, true);
 
         buildUI();
     }
@@ -289,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
     // to save prefs
     @Override
     protected void onStop() {
+        bannerAd.pause();
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 

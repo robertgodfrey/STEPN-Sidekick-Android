@@ -29,10 +29,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Activity displaying current speed, time remaining, GPS signal strength. Receives all info from
- * the GpsWatchService class.
+ * the GpsAndClockService class.
  *
  * @author Bob Godfrey
- * @version 1.3.0 - Added shoe optimizer, changed layout, added ads
+ * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
  */
 
 public class SpeedTracker extends AppCompatActivity {
@@ -240,7 +240,7 @@ public class SpeedTracker extends AppCompatActivity {
 
     // sends initial data to service
     public void startService() {
-        Intent serviceIntent = new Intent(this, GpsWatchService.class);
+        Intent serviceIntent = new Intent(this, GpsAndClockService.class);
 
         serviceIntent.putExtra(MIN_SPEED, speedLowerLimit);
         serviceIntent.putExtra(MAX_SPEED, speedUpperLimit);
@@ -255,7 +255,7 @@ public class SpeedTracker extends AppCompatActivity {
     }
 
     public void stopService() {
-        Intent serviceIntent = new Intent(this, GpsWatchService.class);
+        Intent serviceIntent = new Intent(this, GpsAndClockService.class);
         stopService(serviceIntent);
     }
 
@@ -386,7 +386,7 @@ public class SpeedTracker extends AppCompatActivity {
         stopImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SpeedTracker.this, "STOPN", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "STOPN", Toast.LENGTH_LONG).show();
                 onBackPressed();
             }
         });
@@ -440,7 +440,7 @@ public class SpeedTracker extends AppCompatActivity {
     }
 
     /**
-     * Broadcast to change the timer in GpsWatchService.
+     * Broadcast to change the timer in GpsAndClockService.
      *
      * @param option defines whether to pause/play, subtract, or add five seconds to the timer
      *               (uses Finals.class for options)

@@ -48,13 +48,12 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer. Starts the SpeedTracker activity.
  *
  * @author Bob Godfrey
- * @version 1.3.2 Added in-app purchases, updated app layout to use fragments instead of activities for menu items
+ * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
  *
  */
 
 public class StartActivityFrag extends Fragment {
-
-    private static final int PERMISSIONS_FINE_LOCATION = 99;
+    private final int PERMISSIONS_FINE_LOCATION = 99;
 
     // only use major version changes, eg 1.1, 1.2, not 1.1.2
     private final float CURRENT_APP_VERSION = 1.3f;
@@ -825,7 +824,6 @@ public class StartActivityFrag extends Fragment {
 
     // updates number of footprints depending on the type of shoe selected
     private void updateFeet(int numFeet) {
-
         switch (numFeet) {
             case 1:
                 footOne.setImageResource(R.drawable.footprint);
