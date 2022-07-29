@@ -1593,11 +1593,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:text="More"
+        android:text="More Details"
         android:textColor="@color/gandalf"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
+
+    <Button
+        android:id="@+id/moreButton"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/moreTextView"
+        app:layout_constraintEnd_toEndOf="@+id/moreTextView"
+        app:layout_constraintStart_toStartOf="@+id/moreTextView"
+        app:layout_constraintTop_toTopOf="@+id/moreTextView" />
 
     <TextView
         android:id="@+id/mysteryBoxChanceTextView"

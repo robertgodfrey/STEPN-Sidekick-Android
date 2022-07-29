@@ -92,7 +92,8 @@ public class OptimizerFrag extends Fragment {
     ImageButton shoeRarityButton, shoeTypeButton, optimizeGstButton, optimizeLuckButton, backgroundButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
-            subResButton, addResButton, changeComfGemButton, leftButton, rightButton, resetButton;
+            subResButton, addResButton, changeComfGemButton, leftButton, rightButton, resetButton,
+            moreButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief,
             shoeNameEditText;
@@ -190,6 +191,7 @@ public class OptimizerFrag extends Fragment {
         leftButton = view.findViewById(R.id.leftArrowButton);
         rightButton = view.findViewById(R.id.rightArrowButton);
         resetButton = view.findViewById(R.id.resetPageButton);
+        moreButton = view.findViewById(R.id.moreButton);
 
         gemSocketOneButton = view.findViewById(R.id.gemSocketOneButton);
         gemSocketTwoButton = view.findViewById(R.id.gemSocketTwoButton);
@@ -960,8 +962,16 @@ public class OptimizerFrag extends Fragment {
                 } else {
                     comfGemLvlForRepair = 0;
                 }
-                updateHpRepairComfGem();
+                updateHpRepairComfGem(comfGemHpRepairImageView);
+                updateHpRepairComfGem(comfGemHpRepairTotalImageView);
                 calcTotals();
+            }
+        });
+
+        moreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                incomeMoreDetails();
             }
         });
 
@@ -2847,7 +2857,8 @@ public class OptimizerFrag extends Fragment {
         levelSeekbar.setProgress(shoeLevel - 1);
         energyEditText.setText(String.valueOf(energy));
         shoeNameEditText.setText(shoeName);
-        updateHpRepairComfGem();
+        updateHpRepairComfGem(comfGemHpRepairImageView);
+        updateHpRepairComfGem(comfGemHpRepairTotalImageView);
 
         if (baseEff != 0) {
             effEditText.setText(String.valueOf(baseEff));
@@ -2874,22 +2885,16 @@ public class OptimizerFrag extends Fragment {
     }
 
     // updates comf gem for HP repair
-    private void updateHpRepairComfGem() {
+    private void updateHpRepairComfGem(ImageView gemView) {
         if (comfGemLvlForRepair == 2) {
-            comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level2);
-            comfGemHpRepairImageView.setPadding(0, 0, 0, 0);
-            comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level2);
-            comfGemHpRepairTotalImageView.setPadding(0, 0, 0, 0);
+            gemView.setImageResource(R.drawable.gem_comf_level2);
+            gemView.setPadding(0, 0, 0, 0);
         } else if (comfGemLvlForRepair == 3) {
-            comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level3);
-            comfGemHpRepairImageView.setPadding(0, 0, 0,0);
-            comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level3);
-            comfGemHpRepairTotalImageView.setPadding(0, 0, 0,0);
+            gemView.setImageResource(R.drawable.gem_comf_level3);
+            gemView.setPadding(0, 0, 0,0);
         } else {
-            comfGemHpRepairImageView.setImageResource(R.drawable.gem_comf_level1);
-            comfGemHpRepairImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
-            comfGemHpRepairTotalImageView.setImageResource(R.drawable.gem_comf_level1);
-            comfGemHpRepairTotalImageView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
+            gemView.setImageResource(R.drawable.gem_comf_level1);
+            gemView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
         }
     }
 
@@ -3051,6 +3056,107 @@ public class OptimizerFrag extends Fragment {
         InputMethodManager imm = (InputMethodManager) view.getContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    // dialog with more details for income
+    @SuppressLint("ClickableViewAccessibility")
+    private void incomeMoreDetails() {
+        Dialog incomeMoreDetails = new Dialog(requireActivity());
+
+        incomeMoreDetails.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        incomeMoreDetails.setCancelable(true);
+        incomeMoreDetails.setContentView(R.layout.advanced_income_dialog);
+        incomeMoreDetails.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        incomeMoreDetails.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        ImageButton solButton = incomeMoreDetails.findViewById(R.id.solChainButton);
+        ImageButton bscButton = incomeMoreDetails.findViewById(R.id.bscChainButton);
+        ImageButton ethButton = incomeMoreDetails.findViewById(R.id.ethChainButton);
+
+        ImageView solSelected = incomeMoreDetails.findViewById(R.id.solChainSelected);
+        ImageView bscSelected = incomeMoreDetails.findViewById(R.id.bscChainSelected);
+        ImageView ethSelected = incomeMoreDetails.findViewById(R.id.ethChainSelected);
+
+        EditText solGstEditText = incomeMoreDetails.findViewById(R.id.solGstCurrentPrice);
+        EditText bscGstEditText = incomeMoreDetails.findViewById(R.id.bscGstCurrentPrice);
+        EditText ethGstEditText = incomeMoreDetails.findViewById(R.id.ethGstCurrentPrice);
+
+        ImageView refreshPricesButtonShadow = incomeMoreDetails.findViewById(R.id.refreshPricesShadowImageView);
+        TextView refreshPricesTextView = incomeMoreDetails.findViewById(R.id.refreshPricesTextView);
+        ImageButton refreshPricesButton = incomeMoreDetails.findViewById(R.id.refreshPricesButton);
+
+        TextView calculatedIncomeTextView = incomeMoreDetails.findViewById(R.id.gstIncomeTextView);
+        TextView gemMultiplierIncomeTextView = incomeMoreDetails.findViewById(R.id.gemMultipleDeetsTextView);
+        ImageView gemType = incomeMoreDetails.findViewById(R.id.comfGemHpTotalRepair);
+
+        EditText gemChainPriceEditText = incomeMoreDetails.findViewById(R.id.gemPriceEditText);
+        ImageView activeChainIcon = incomeMoreDetails.findViewById(R.id.chainIcon);
+
+        TextView gemMutliplierGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceGstTextView);
+        TextView totalIncomeGstTextView = incomeMoreDetails.findViewById(R.id.totalIncomeGstTextView);
+        TextView totalIncomeUsdTextView = incomeMoreDetails.findViewById(R.id.totalIncomeUsdTextView);
+
+        incomeMoreDetails.show();
+
+        updateHpRepairComfGem(gemType);
+
+        solButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solSelected.setVisibility(View.VISIBLE);
+                bscSelected.setVisibility(View.INVISIBLE);
+                ethSelected.setVisibility(View.INVISIBLE);
+                activeChainIcon.setImageResource(R.drawable.logo_solana);
+            }
+        });
+
+        bscButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solSelected.setVisibility(View.INVISIBLE);
+                bscSelected.setVisibility(View.VISIBLE);
+                ethSelected.setVisibility(View.INVISIBLE);
+                activeChainIcon.setImageResource(R.drawable.logo_bnb);
+            }
+        });
+
+        ethButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solSelected.setVisibility(View.INVISIBLE);
+                bscSelected.setVisibility(View.INVISIBLE);
+                ethSelected.setVisibility(View.VISIBLE);
+                activeChainIcon.setImageResource(R.drawable.logo_eth);
+            }
+        });
+
+        refreshPricesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // refresh stuff goes here :O
+            }
+        });
+
+        refreshPricesButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        refreshPricesButton.setVisibility(View.INVISIBLE);
+                        refreshPricesTextView.setVisibility(View.INVISIBLE);
+                        refreshPricesButtonShadow.setImageResource(R.drawable.start_button);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        refreshPricesButton.setVisibility(View.VISIBLE);
+                        refreshPricesTextView.setVisibility(View.VISIBLE);
+                        refreshPricesButtonShadow.setImageResource(R.drawable.start_button_shadow);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     // resets all values on page
