@@ -92,7 +92,7 @@ public class OptimizerFrag extends Fragment {
     ImageButton shoeRarityButton, shoeTypeButton, optimizeGstButton, optimizeLuckButton, backgroundButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
-            subResButton, addResButton, changeComfGemButton, leftButton, rightButton;
+            subResButton, addResButton, changeComfGemButton, leftButton, rightButton, resetButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief,
             shoeNameEditText;
@@ -137,7 +137,7 @@ public class OptimizerFrag extends Fragment {
             public void run() {
                 SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
                 energy = getSharedPrefs.getFloat(OPT_ENERGY_PREF, 0);
-                shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, 0);
+                shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, WALKER);
                 shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
                 shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 1);
                 baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF, 0);
@@ -189,6 +189,7 @@ public class OptimizerFrag extends Fragment {
         optimizeLuckButton = view.findViewById(R.id.optimizeLuckButton);
         leftButton = view.findViewById(R.id.leftArrowButton);
         rightButton = view.findViewById(R.id.rightArrowButton);
+        resetButton = view.findViewById(R.id.resetPageButton);
 
         gemSocketOneButton = view.findViewById(R.id.gemSocketOneButton);
         gemSocketTwoButton = view.findViewById(R.id.gemSocketTwoButton);
@@ -961,6 +962,13 @@ public class OptimizerFrag extends Fragment {
                 }
                 updateHpRepairComfGem();
                 calcTotals();
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetPage();
             }
         });
 
@@ -3043,6 +3051,51 @@ public class OptimizerFrag extends Fragment {
         InputMethodManager imm = (InputMethodManager) view.getContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    // resets all values on page
+    private void resetPage() {
+        shoeType = WALKER;
+        shoeRarity = COMMON;
+        shoeLevel = 1;
+        energy = 0;
+        baseEff = 0;
+        addedEff = 0;
+        baseLuck = 0;
+        addedLuck = 0;
+        baseComf = 0;
+        addedComf = 0;
+        baseRes = 0;
+        addedRes = 0;
+        shoeName = "";
+        gemLuck = 0;
+        gemComf = 0;
+        gemRes = 0;
+
+        gems.clear();
+
+        gems.add(new Gem(-1, 0,0));
+        gems.add(new Gem(-1, 0,0));
+        gems.add(new Gem(-1, 0,0));
+        gems.add(new Gem(-1, 0,0));
+
+        shoeNum = 0;
+
+        updateType();
+        updateRarity();
+        loadPoints();
+
+        hpLossTextView.setText("0");
+        repairCostHpTextView.setText("0");
+        gemMultipleTextView.setText("0");
+        gemMultipleTotalTextView.setText("-  0");
+        gstEarnedTextView.setText("0");
+        durabilityLossTextView.setText("0");
+        repairCostDurTextView.setText("0");
+        gstIncomeTextView.setText("0");
+
+        Toast.makeText(requireActivity(), "Values Reset", Toast.LENGTH_SHORT).show();
+
     }
 
     // to save prefs

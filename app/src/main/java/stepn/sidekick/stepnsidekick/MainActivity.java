@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     private BillingClient billingClient;
     private ProductDetails productDetails;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -282,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
     // to save prefs
     @Override
     protected void onStop() {
-        bannerAd.pause();
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 

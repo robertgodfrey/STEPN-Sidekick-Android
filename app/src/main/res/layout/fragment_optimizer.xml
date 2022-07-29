@@ -39,12 +39,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="-30dp"
         android:background="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/mysteryBoxLvl8"
+        app:layout_constraintBottom_toBottomOf="@+id/resetTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/background_thing" />
 
     <ImageView
@@ -633,70 +631,70 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/seekbarBackground"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/threeBoxConstraint"
-            app:srcCompat="@drawable/seekbar_background" />
+    <ImageView
+        android:id="@+id/seekbarBackground"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/threeBoxConstraint"
+        app:srcCompat="@drawable/seekbar_background" />
 
-        <ImageView
-            android:id="@+id/seekbarMinLevel"
-            android:layout_width="25dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="4dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
-            app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
-            app:layout_constraintTop_toTopOf="@+id/seekbarBackground"
-            app:srcCompat="@drawable/seekbar_progress" />
+    <ImageView
+        android:id="@+id/seekbarMinLevel"
+        android:layout_width="25dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground"
+        app:srcCompat="@drawable/seekbar_progress" />
 
-        <SeekBar
-            android:id="@+id/levelSeekBar"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="-2dp"
-            android:layout_marginEnd="-2dp"
-            android:max="29"
-            android:progress="0"
-            android:progressDrawable="@drawable/level_seekbar"
-            android:splitTrack="false"
-            android:thumb="@drawable/thumb"
-            app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
-            app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
-            app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
-            app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+    <SeekBar
+        android:id="@+id/levelSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="-2dp"
+        android:layout_marginEnd="-2dp"
+        android:max="29"
+        android:progress="0"
+        android:progressDrawable="@drawable/level_seekbar"
+        android:splitTrack="false"
+        android:thumb="@drawable/thumb"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
 
-        <TextView
-            android:id="@+id/levelLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            style="@style/BoldItalicSubtitles"
-            android:text="@string/level"
-            android:textColor="@color/almost_black"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
-            app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
-            app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+    <TextView
+        android:id="@+id/levelLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        style="@style/BoldItalicSubtitles"
+        android:text="@string/level"
+        android:textColor="@color/almost_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
 
-        <TextView
-            android:id="@+id/levelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            style="@style/BoldItalicSubtitles"
-            android:text="1"
-            android:textColor="@color/almost_black"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
-            app:layout_constraintStart_toEndOf="@+id/levelLabelTextView"
-            app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+    <TextView
+        android:id="@+id/levelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        style="@style/BoldItalicSubtitles"
+        android:text="1"
+        android:textColor="@color/almost_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toEndOf="@+id/levelLabelTextView"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
 
     <TextView
         android:id="@+id/attributesTextView"
@@ -726,1048 +724,1085 @@
         app:layout_constraintTop_toTopOf="@+id/totalTextView" />
 
 
-        <TextView
-            android:id="@+id/totalTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Total"
-            android:textColor="@color/almost_black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/attributesTextView"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton" />
-
-        <ImageView
-            android:id="@+id/effIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/attributesTextView"
-            app:srcCompat="@drawable/gem_symbol_efficiency" />
-
-        <TextView
-            android:id="@+id/effTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Efficiency"
-            android:textColor="@color/almost_black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/effIcon"
-            app:layout_constraintStart_toEndOf="@+id/effIcon"
-            app:layout_constraintTop_toTopOf="@+id/effIcon" />
-
-        <ImageView
-            android:id="@+id/luckIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/effIcon"
-            app:srcCompat="@drawable/gem_symbol_luck" />
-
-
-        <TextView
-            android:id="@+id/luckTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Luck"
-            android:textColor="@color/almost_black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/luckIcon"
-            app:layout_constraintStart_toEndOf="@+id/luckIcon"
-            app:layout_constraintTop_toTopOf="@+id/luckIcon" />
-
-        <ImageView
-            android:id="@+id/comfIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/luckIcon"
-            app:srcCompat="@drawable/gem_symbol_comfort" />
-
-        <TextView
-            android:id="@+id/comfortTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Comfort"
-            android:textColor="@color/almost_black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/comfIcon"
-            app:layout_constraintStart_toEndOf="@+id/comfIcon"
-            app:layout_constraintTop_toTopOf="@+id/comfIcon" />
-
-        <ImageView
-            android:id="@+id/resIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/comfIcon"
-            app:srcCompat="@drawable/gem_symbol_res" />
-
-        <TextView
-            android:id="@+id/resTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Resilience"
-            android:textColor="@color/almost_black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/resIcon"
-            app:layout_constraintStart_toEndOf="@+id/resIcon"
-            app:layout_constraintTop_toTopOf="@+id/resIcon" />
-
-        <EditText
-            android:id="@+id/baseEffEditText"
-            android:layout_width="60dp"
-            android:layout_height="36dp"
-            android:background="@null"
-            android:fontFamily="@font/roboto_condensed_regular_italic"
-            android:hint="1-10"
-            android:inputType="number|numberDecimal"
-            android:maxLength="5"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/effTextView"
-            app:layout_constraintEnd_toEndOf="@+id/baseTextView"
-            app:layout_constraintStart_toStartOf="@+id/baseTextView"
-            app:layout_constraintTop_toTopOf="@+id/effTextView" />
-
-        <TextView
-            android:id="@+id/subEffTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/gem_socket_shadow"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="@+id/effTextView"
-            app:layout_constraintEnd_toStartOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/effTextView" />
-
-        <Button
-            android:id="@+id/subEffButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/subEffTextView"
-            app:layout_constraintEnd_toEndOf="@+id/subEffTextView"
-            app:layout_constraintStart_toStartOf="@+id/subEffTextView"
-            app:layout_constraintTop_toTopOf="@+id/subEffTextView" />
-
-        <TextView
-            android:id="@+id/totalEffTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="@color/almost_black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/effTextView"
-            app:layout_constraintEnd_toEndOf="@+id/totalTextView"
-            app:layout_constraintStart_toStartOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/effTextView" />
-
-        <TextView
-            android:id="@+id/addEffTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:text="+"
-            android:textAlignment="center"
-            android:textColor="@color/gem_socket_shadow"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/effTextView"
-            app:layout_constraintStart_toEndOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/effTextView" />
-
-        <Button
-            android:id="@+id/addEffButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/addEffTextView"
-            app:layout_constraintEnd_toEndOf="@+id/addEffTextView"
-            app:layout_constraintStart_toStartOf="@+id/addEffTextView"
-            app:layout_constraintTop_toTopOf="@+id/addEffTextView" />
-
-        <EditText
-            android:id="@+id/baseLuckEditText"
-            android:layout_width="60dp"
-            android:layout_height="36dp"
-            android:background="@null"
-            android:fontFamily="@font/roboto_condensed_regular_italic"
-            android:hint="1-10"
-            android:inputType="number|numberDecimal"
-            android:maxLength="5"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
-            app:layout_constraintEnd_toEndOf="@+id/baseTextView"
-            app:layout_constraintStart_toStartOf="@+id/baseTextView"
-            app:layout_constraintTop_toTopOf="@+id/luckTextView" />
-
-        <TextView
-            android:id="@+id/subLuckTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/gem_socket_shadow"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
-            app:layout_constraintEnd_toStartOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/luckTextView" />
-
-        <Button
-            android:id="@+id/subLuckButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/subLuckTextView"
-            app:layout_constraintEnd_toEndOf="@+id/subLuckTextView"
-            app:layout_constraintStart_toStartOf="@+id/subLuckTextView"
-            app:layout_constraintTop_toTopOf="@+id/subLuckTextView" />
-
-        <TextView
-            android:id="@+id/totalLuckTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="@color/almost_black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
-            app:layout_constraintEnd_toEndOf="@+id/totalTextView"
-            app:layout_constraintStart_toStartOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/luckTextView" />
-
-        <TextView
-            android:id="@+id/addLuckTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:text="+"
-            android:textAlignment="center"
-            android:textColor="@color/gem_socket_shadow"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
-            app:layout_constraintStart_toEndOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/luckTextView" />
-
-        <Button
-            android:id="@+id/addLuckButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/addLuckTextView"
-            app:layout_constraintEnd_toEndOf="@+id/addLuckTextView"
-            app:layout_constraintStart_toStartOf="@+id/addLuckTextView"
-            app:layout_constraintTop_toTopOf="@+id/addLuckTextView" />
-
-        <EditText
-            android:id="@+id/baseComfortEditText"
-            android:layout_width="60dp"
-            android:layout_height="36dp"
-            android:background="@null"
-            android:fontFamily="@font/roboto_condensed_regular_italic"
-            android:hint="1-10"
-            android:inputType="number|numberDecimal"
-            android:maxLength="5"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
-            app:layout_constraintEnd_toEndOf="@+id/baseTextView"
-            app:layout_constraintStart_toStartOf="@+id/baseTextView"
-            app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
-
-        <TextView
-            android:id="@+id/subComfTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/gem_socket_shadow"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
-            app:layout_constraintEnd_toStartOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
-
-        <Button
-            android:id="@+id/subComfButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/subComfTextView"
-            app:layout_constraintEnd_toEndOf="@+id/subComfTextView"
-            app:layout_constraintStart_toStartOf="@+id/subComfTextView"
-            app:layout_constraintTop_toTopOf="@+id/subComfTextView" />
-
-        <TextView
-            android:id="@+id/totalComfTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="@color/almost_black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
-            app:layout_constraintEnd_toEndOf="@+id/totalTextView"
-            app:layout_constraintStart_toStartOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
-
-        <TextView
-            android:id="@+id/addComfTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:text="+"
-            android:textAlignment="center"
-            android:textColor="@color/gem_socket_shadow"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
-            app:layout_constraintStart_toEndOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
-
-        <Button
-            android:id="@+id/addComfButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/addComfTextView"
-            app:layout_constraintEnd_toEndOf="@+id/addComfTextView"
-            app:layout_constraintStart_toStartOf="@+id/addComfTextView"
-            app:layout_constraintTop_toTopOf="@+id/addComfTextView" />
-
-        <EditText
-            android:id="@+id/baseResEditText"
-            android:layout_width="60dp"
-            android:layout_height="36dp"
-            android:background="@null"
-            android:fontFamily="@font/roboto_condensed_regular_italic"
-            android:hint="1-10"
-            android:inputType="number|numberDecimal"
-            android:maxLength="5"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/resTextView"
-            app:layout_constraintEnd_toEndOf="@+id/baseTextView"
-            app:layout_constraintStart_toStartOf="@+id/baseTextView"
-            app:layout_constraintTop_toTopOf="@+id/resTextView" />
-
-        <TextView
-            android:id="@+id/subResTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/gem_socket_shadow"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="@+id/resTextView"
-            app:layout_constraintEnd_toStartOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/resTextView" />
-
-        <Button
-            android:id="@+id/subResButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/subResTextView"
-            app:layout_constraintEnd_toEndOf="@+id/subResTextView"
-            app:layout_constraintStart_toStartOf="@+id/subResTextView"
-            app:layout_constraintTop_toTopOf="@+id/subResTextView" />
-
-        <TextView
-            android:id="@+id/totalResTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="@color/almost_black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/resTextView"
-            app:layout_constraintEnd_toEndOf="@+id/totalTextView"
-            app:layout_constraintStart_toStartOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/resTextView" />
-
-        <TextView
-            android:id="@+id/addResTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/roboto_condensed_bold"
-            android:text="+"
-            android:textAlignment="center"
-            android:textColor="@color/gem_socket_shadow"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/resTextView"
-            app:layout_constraintStart_toEndOf="@+id/totalTextView"
-            app:layout_constraintTop_toTopOf="@+id/resTextView" />
-
-        <Button
-            android:id="@+id/addResButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/addResTextView"
-            app:layout_constraintEnd_toEndOf="@+id/addResTextView"
-            app:layout_constraintStart_toStartOf="@+id/addResTextView"
-            app:layout_constraintTop_toTopOf="@+id/addResTextView" />
-
-        <TextView
-            android:id="@+id/pointsLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="5dp"
-            style="@style/RegItalic"
-            android:text="@string/points_available"
-            android:textColor="@color/gandalf"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/pointsTextView"
-            app:layout_constraintTop_toBottomOf="@+id/resTextView" />
-
-        <TextView
-            android:id="@+id/pointsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            style="@style/BoldItalicSubtitles"
-            android:text="0"
-            android:textColor="@color/gandalf"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/resTextView" />
-
-        <ImageView
-            android:id="@+id/optimizeLuckButtonShadow"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="-2dp"
-            app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButton"
-            app:layout_constraintStart_toStartOf="@+id/optimizeLuckButton"
-            app:layout_constraintTop_toTopOf="@+id/optimizeLuckButton"
-            app:srcCompat="@drawable/start_button_shadow" />
-
-        <TextView
-            android:id="@+id/optimizeLuckTextViewShadow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/BoldItalicSubtitles"
-            android:text="@string/optimize_luck"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/optimizeLuckButtonShadow"
-            app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButtonShadow"
-            app:layout_constraintStart_toStartOf="@+id/optimizeLuckButtonShadow"
-            app:layout_constraintTop_toTopOf="@+id/optimizeLuckButtonShadow" />
-
-        <ImageButton
-            android:id="@+id/optimizeLuckButton"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:background="@null"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintStart_toEndOf="@+id/optimizeGstButton"
-            app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
-            app:srcCompat="@drawable/start_button" />
-
-        <TextView
-            android:id="@+id/optimizeLuckTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/BoldItalicSubtitles"
-            android:text="@string/optimize_luck"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/optimizeLuckButton"
-            app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButton"
-            app:layout_constraintStart_toStartOf="@+id/optimizeLuckButton"
-            app:layout_constraintTop_toTopOf="@+id/optimizeLuckButton" />
-
-
-        <ImageView
-            android:id="@+id/optimizeGstButtonShadow"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="-2dp"
-            app:layout_constraintEnd_toEndOf="@+id/optimizeGstButton"
-            app:layout_constraintStart_toStartOf="@+id/optimizeGstButton"
-            app:layout_constraintTop_toTopOf="@+id/optimizeGstButton"
-            app:srcCompat="@drawable/start_button_shadow" />
-
-        <TextView
-            android:id="@+id/optimizeGstTextViewShadow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/BoldItalicSubtitles"
-            android:text="@string/optimize_gst"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/optimizeGstButtonShadow"
-            app:layout_constraintEnd_toEndOf="@+id/optimizeGstButtonShadow"
-            app:layout_constraintStart_toStartOf="@+id/optimizeGstButtonShadow"
-            app:layout_constraintTop_toTopOf="@+id/optimizeGstButtonShadow" />
-
-        <ImageButton
-            android:id="@+id/optimizeGstButton"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:background="@null"
-            app:layout_constraintEnd_toStartOf="@+id/optimizeLuckButton"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
-            app:srcCompat="@drawable/start_button" />
-
-        <TextView
-            android:id="@+id/optimizeGstTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/BoldItalicSubtitles"
-            android:text="@string/optimize_gst"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/optimizeGstButton"
-            app:layout_constraintEnd_toEndOf="@+id/optimizeGstButton"
-            app:layout_constraintStart_toStartOf="@+id/optimizeGstButton"
-            app:layout_constraintTop_toTopOf="@+id/optimizeGstButton" />
-
-        <TextView
-            android:id="@+id/gstPerDayLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            style="@style/RegItalic"
-            android:text="@string/est_gst_daily_limit"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
-
-        <ImageView
-            android:id="@+id/gstIconLimit"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/gstPerDayTextView"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView"
-            app:srcCompat="@drawable/logo_gst" />
-
-        <TextView
-            android:id="@+id/gstPerDayTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0.0"
-            android:textAlignment="textEnd"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDaySlashTextView"
-            app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
-
-        <TextView
-            android:id="@+id/gstLimitPerDayTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/gstIconLimit"
-            app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
-
-        <TextView
-            android:id="@+id/gstLimitPerDaySlashTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="/"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDayTextView"
-            app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
-
-        <TextView
-            android:id="@+id/durabilityLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            style="@style/RegItalic"
-            android:text="@string/durability_loss"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/gstPerDayLabelTextView" />
-
-        <TextView
-            android:id="@+id/durabilityLossTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/gstPerDayLabelTextView" />
-
-        <TextView
-            android:id="@+id/repairDurLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            style="@style/RegItalic"
-            android:text="@string/repair_cost"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
-
-        <ImageView
-            android:id="@+id/gstIconRepair"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/repairCostDurTextView"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toTopOf="@+id/repairCostDurTextView"
-            app:srcCompat="@drawable/logo_gst" />
-
-        <TextView
-            android:id="@+id/repairCostDurTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/gstIconRepair"
-            app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
-
-        <TextView
-            android:id="@+id/hpLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            style="@style/RegItalic"
-            android:text="@string/hp_loss"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/repairDurLabelTextView" />
-
-        <TextView
-            android:id="@+id/hpLossTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/repairDurLabelTextView" />
-
-        <TextView
-            android:id="@+id/repairHpLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            style="@style/RegItalic"
-            android:text="@string/restoration_cost"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
-
-        <TextView
-            android:id="@+id/gemMultipleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="2dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0.0"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/comfGemHpRepair"
-            app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
-
-        <ImageView
-            android:id="@+id/comfGemHpRepair"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
-            android:paddingTop="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
-            app:layout_constraintEnd_toStartOf="@+id/repairCostHpPlusTextView"
-            app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
-            app:srcCompat="@drawable/gem_comf_level1" />
-
-        <Button
-            android:id="@+id/changeComfGemButton"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/comfGemHpRepair"
-            app:layout_constraintEnd_toEndOf="@+id/comfGemHpRepair"
-            app:layout_constraintStart_toStartOf="@+id/comfGemHpRepair"
-            app:layout_constraintTop_toTopOf="@+id/comfGemHpRepair" />
-
-        <TextView
-            android:id="@+id/repairCostHpPlusTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="+"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/repairCostHpTextView"
-            app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
-
-
-        <TextView
-            android:id="@+id/repairCostHpTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/gstIconRestore"
-            app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
-
-        <ImageView
-            android:id="@+id/gstIconRestore"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
-            app:srcCompat="@drawable/logo_gst" />
-
-        <TextView
-            android:id="@+id/totalIncomeLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            style="@style/BoldItalicSubtitles"
-            android:text="@string/total_income"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
-
-        <ImageView
-            android:id="@+id/gstIconTotal"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
-            app:layout_constraintEnd_toStartOf="@+id/gemMultipleTotalTextView"
-            app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
-            app:srcCompat="@drawable/logo_gst" />
-
-        <TextView
-            android:id="@+id/gstIncomeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="0"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/gstIconTotal"
-            app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
-
-        <TextView
-            android:id="@+id/gemMultipleTotalTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="2dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="-  0.0"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/comfGemHpTotalRepair"
-            app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
-
-        <ImageView
-            android:id="@+id/comfGemHpTotalRepair"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="24dp"
-            android:paddingTop="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
-            app:srcCompat="@drawable/gem_comf_level1" />
-
-        <TextView
-            android:id="@+id/mysteryBoxChanceTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Mystery Box Chance"
-            android:textColor="@color/almost_black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/gemMultipleTotalTextView" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl2"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-            app:srcCompat="@mipmap/mb1"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl3"
-            app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl1"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-            app:srcCompat="@mipmap/mb2"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl4"
-            app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl2"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-            app:srcCompat="@mipmap/mb3"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl5"
-            app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl3"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-            app:srcCompat="@mipmap/mb4"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl5"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl4"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-            app:srcCompat="@mipmap/mb5"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl6"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl7"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
-            app:srcCompat="@mipmap/mb6"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl7"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl8"
-            app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl6"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
-            app:srcCompat="@mipmap/mb7"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl8"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl9"
-            app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl7"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
-            app:srcCompat="@mipmap/mb8"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl9"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl10"
-            app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl8"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
-            app:srcCompat="@mipmap/mb9"
-            app:tint="@color/gandalf" />
-
-        <ImageView
-            android:id="@+id/mysteryBoxLvl10"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:alpha="0.5"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl9"
-            app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
-            app:srcCompat="@mipmap/mb10"
-            app:tint="@color/gandalf" />
-
-        <TextView
-            android:id="@+id/lvl10shrug"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¯\\_(ツ)_/¯"
-            android:textColor="@color/almost_black"
-            android:textSize="9sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/mysteryBoxLvl10"
-            app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl10"
-            app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl10"
-            app:layout_constraintTop_toTopOf="@+id/mysteryBoxLvl10" />
-
-        <TextView
-            android:id="@+id/communityDataTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="80dp"
-            style="@style/RegItalic"
-            android:text="@string/disclaimer"
-            android:textAlignment="center"
-            android:textColor="@color/gandalf"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-            app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-            app:layout_constraintTop_toBottomOf="@+id/backgroundThingButton" />
+    <TextView
+        android:id="@+id/totalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Total"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/attributesTextView"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton" />
+
+    <ImageView
+        android:id="@+id/effIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/attributesTextView"
+        app:srcCompat="@drawable/gem_symbol_efficiency" />
+
+    <TextView
+        android:id="@+id/effTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Efficiency"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effIcon"
+        app:layout_constraintStart_toEndOf="@+id/effIcon"
+        app:layout_constraintTop_toTopOf="@+id/effIcon" />
+
+    <ImageView
+        android:id="@+id/luckIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/effIcon"
+        app:srcCompat="@drawable/gem_symbol_luck" />
+
+
+    <TextView
+        android:id="@+id/luckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Luck"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckIcon"
+        app:layout_constraintStart_toEndOf="@+id/luckIcon"
+        app:layout_constraintTop_toTopOf="@+id/luckIcon" />
+
+    <ImageView
+        android:id="@+id/comfIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/luckIcon"
+        app:srcCompat="@drawable/gem_symbol_comfort" />
+
+    <TextView
+        android:id="@+id/comfortTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Comfort"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfIcon"
+        app:layout_constraintStart_toEndOf="@+id/comfIcon"
+        app:layout_constraintTop_toTopOf="@+id/comfIcon" />
+
+    <ImageView
+        android:id="@+id/resIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/comfIcon"
+        app:srcCompat="@drawable/gem_symbol_res" />
+
+    <TextView
+        android:id="@+id/resTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Resilience"
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resIcon"
+        app:layout_constraintStart_toEndOf="@+id/resIcon"
+        app:layout_constraintTop_toTopOf="@+id/resIcon" />
+
+    <EditText
+        android:id="@+id/baseEffEditText"
+        android:layout_width="60dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:hint="1-10"
+        android:inputType="number|numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effTextView"
+        app:layout_constraintEnd_toEndOf="@+id/baseTextView"
+        app:layout_constraintStart_toStartOf="@+id/baseTextView"
+        app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+    <TextView
+        android:id="@+id/subEffTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+    <Button
+        android:id="@+id/subEffButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/subEffTextView"
+        app:layout_constraintEnd_toEndOf="@+id/subEffTextView"
+        app:layout_constraintStart_toStartOf="@+id/subEffTextView"
+        app:layout_constraintTop_toTopOf="@+id/subEffTextView" />
+
+    <TextView
+        android:id="@+id/totalEffTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effTextView"
+        app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+    <TextView
+        android:id="@+id/addEffTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/effTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/effTextView" />
+
+    <Button
+        android:id="@+id/addEffButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/addEffTextView"
+        app:layout_constraintEnd_toEndOf="@+id/addEffTextView"
+        app:layout_constraintStart_toStartOf="@+id/addEffTextView"
+        app:layout_constraintTop_toTopOf="@+id/addEffTextView" />
+
+    <EditText
+        android:id="@+id/baseLuckEditText"
+        android:layout_width="60dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:hint="1-10"
+        android:inputType="number|numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
+        app:layout_constraintEnd_toEndOf="@+id/baseTextView"
+        app:layout_constraintStart_toStartOf="@+id/baseTextView"
+        app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+    <TextView
+        android:id="@+id/subLuckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+    <Button
+        android:id="@+id/subLuckButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/subLuckTextView"
+        app:layout_constraintEnd_toEndOf="@+id/subLuckTextView"
+        app:layout_constraintStart_toStartOf="@+id/subLuckTextView"
+        app:layout_constraintTop_toTopOf="@+id/subLuckTextView" />
+
+    <TextView
+        android:id="@+id/totalLuckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
+        app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+    <TextView
+        android:id="@+id/addLuckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/luckTextView" />
+
+    <Button
+        android:id="@+id/addLuckButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/addLuckTextView"
+        app:layout_constraintEnd_toEndOf="@+id/addLuckTextView"
+        app:layout_constraintStart_toStartOf="@+id/addLuckTextView"
+        app:layout_constraintTop_toTopOf="@+id/addLuckTextView" />
+
+    <EditText
+        android:id="@+id/baseComfortEditText"
+        android:layout_width="60dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:hint="1-10"
+        android:inputType="number|numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
+        app:layout_constraintEnd_toEndOf="@+id/baseTextView"
+        app:layout_constraintStart_toStartOf="@+id/baseTextView"
+        app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+    <TextView
+        android:id="@+id/subComfTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+    <Button
+        android:id="@+id/subComfButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/subComfTextView"
+        app:layout_constraintEnd_toEndOf="@+id/subComfTextView"
+        app:layout_constraintStart_toStartOf="@+id/subComfTextView"
+        app:layout_constraintTop_toTopOf="@+id/subComfTextView" />
+
+    <TextView
+        android:id="@+id/totalComfTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
+        app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+    <TextView
+        android:id="@+id/addComfTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
+
+    <Button
+        android:id="@+id/addComfButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/addComfTextView"
+        app:layout_constraintEnd_toEndOf="@+id/addComfTextView"
+        app:layout_constraintStart_toStartOf="@+id/addComfTextView"
+        app:layout_constraintTop_toTopOf="@+id/addComfTextView" />
+
+    <EditText
+        android:id="@+id/baseResEditText"
+        android:layout_width="60dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:hint="1-10"
+        android:inputType="number|numberDecimal"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resTextView"
+        app:layout_constraintEnd_toEndOf="@+id/baseTextView"
+        app:layout_constraintStart_toStartOf="@+id/baseTextView"
+        app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+    <TextView
+        android:id="@+id/subResTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+    <Button
+        android:id="@+id/subResButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/subResTextView"
+        app:layout_constraintEnd_toEndOf="@+id/subResTextView"
+        app:layout_constraintStart_toStartOf="@+id/subResTextView"
+        app:layout_constraintTop_toTopOf="@+id/subResTextView" />
+
+    <TextView
+        android:id="@+id/totalResTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resTextView"
+        app:layout_constraintEnd_toEndOf="@+id/totalTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+    <TextView
+        android:id="@+id/addResTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/gem_socket_shadow"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalTextView"
+        app:layout_constraintTop_toTopOf="@+id/resTextView" />
+
+    <Button
+        android:id="@+id/addResButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/addResTextView"
+        app:layout_constraintEnd_toEndOf="@+id/addResTextView"
+        app:layout_constraintStart_toStartOf="@+id/addResTextView"
+        app:layout_constraintTop_toTopOf="@+id/addResTextView" />
+
+    <TextView
+        android:id="@+id/pointsLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        style="@style/RegItalic"
+        android:text="@string/points_available"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/pointsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/resTextView" />
+
+    <TextView
+        android:id="@+id/pointsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        style="@style/BoldItalicSubtitles"
+        android:text="0"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/resTextView" />
+
+    <ImageView
+        android:id="@+id/optimizeLuckButtonShadow"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeLuckButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeLuckButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <TextView
+        android:id="@+id/optimizeLuckTextViewShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BoldItalicSubtitles"
+        android:text="@string/optimize_luck"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeLuckButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/optimizeLuckButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/optimizeLuckButtonShadow" />
+
+    <ImageButton
+        android:id="@+id/optimizeLuckButton"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toEndOf="@+id/optimizeGstButton"
+        app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
+        app:srcCompat="@drawable/start_button" />
+
+    <TextView
+        android:id="@+id/optimizeLuckTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BoldItalicSubtitles"
+        android:text="@string/optimize_luck"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeLuckButton"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeLuckButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeLuckButton" />
+
+
+    <ImageView
+        android:id="@+id/optimizeGstButtonShadow"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeGstButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeGstButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeGstButton"
+        app:srcCompat="@drawable/start_button_shadow" />
+
+    <TextView
+        android:id="@+id/optimizeGstTextViewShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BoldItalicSubtitles"
+        android:text="@string/optimize_gst"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeGstButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeGstButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/optimizeGstButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/optimizeGstButtonShadow" />
+
+    <ImageButton
+        android:id="@+id/optimizeGstButton"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:background="@null"
+        app:layout_constraintEnd_toStartOf="@+id/optimizeLuckButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
+        app:srcCompat="@drawable/start_button" />
+
+    <TextView
+        android:id="@+id/optimizeGstTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BoldItalicSubtitles"
+        android:text="@string/optimize_gst"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeGstButton"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeGstButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeGstButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeGstButton" />
+
+    <TextView
+        android:id="@+id/gstPerDayLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        style="@style/RegItalic"
+        android:text="@string/est_gst_daily_limit"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
+
+    <ImageView
+        android:id="@+id/gstIconLimit"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gstPerDayTextView"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView"
+        app:srcCompat="@drawable/logo_gst" />
+
+    <TextView
+        android:id="@+id/gstPerDayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0.0"
+        android:textAlignment="textEnd"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDaySlashTextView"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
+
+    <TextView
+        android:id="@+id/gstLimitPerDayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstIconLimit"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
+
+    <TextView
+        android:id="@+id/gstLimitPerDaySlashTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="/"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDayTextView"
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
+
+    <TextView
+        android:id="@+id/durabilityLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        style="@style/RegItalic"
+        android:text="@string/durability_loss"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/gstPerDayLabelTextView" />
+
+    <TextView
+        android:id="@+id/durabilityLossTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/gstPerDayLabelTextView" />
+
+    <TextView
+        android:id="@+id/repairDurLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        style="@style/RegItalic"
+        android:text="@string/repair_cost"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
+
+    <ImageView
+        android:id="@+id/gstIconRepair"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/repairCostDurTextView"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toTopOf="@+id/repairCostDurTextView"
+        app:srcCompat="@drawable/logo_gst" />
+
+    <TextView
+        android:id="@+id/repairCostDurTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstIconRepair"
+        app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
+
+    <TextView
+        android:id="@+id/hpLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        style="@style/RegItalic"
+        android:text="@string/hp_loss"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/repairDurLabelTextView" />
+
+    <TextView
+        android:id="@+id/hpLossTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/repairDurLabelTextView" />
+
+    <TextView
+        android:id="@+id/repairHpLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        style="@style/RegItalic"
+        android:text="@string/restoration_cost"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
+
+    <TextView
+        android:id="@+id/gemMultipleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="2dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0.0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/comfGemHpRepair"
+        app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
+
+    <ImageView
+        android:id="@+id/comfGemHpRepair"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
+        app:layout_constraintEnd_toStartOf="@+id/repairCostHpPlusTextView"
+        app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
+        app:srcCompat="@drawable/gem_comf_level1" />
+
+    <Button
+        android:id="@+id/changeComfGemButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/comfGemHpRepair"
+        app:layout_constraintEnd_toEndOf="@+id/comfGemHpRepair"
+        app:layout_constraintStart_toStartOf="@+id/comfGemHpRepair"
+        app:layout_constraintTop_toTopOf="@+id/comfGemHpRepair" />
+
+    <TextView
+        android:id="@+id/repairCostHpPlusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="+"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/repairCostHpTextView"
+        app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
+
+
+    <TextView
+        android:id="@+id/repairCostHpTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstIconRestore"
+        app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
+
+    <ImageView
+        android:id="@+id/gstIconRestore"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
+        app:srcCompat="@drawable/logo_gst" />
+
+    <TextView
+        android:id="@+id/totalIncomeLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        style="@style/BoldItalicSubtitles"
+        android:text="@string/total_income"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
+
+    <ImageView
+        android:id="@+id/gstIconTotal"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
+        app:layout_constraintEnd_toStartOf="@+id/gemMultipleTotalTextView"
+        app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
+        app:srcCompat="@drawable/logo_gst" />
+
+    <TextView
+        android:id="@+id/gstIncomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/gstIconTotal"
+        app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
+
+    <TextView
+        android:id="@+id/gemMultipleTotalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="2dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="-  0.0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/comfGemHpTotalRepair"
+        app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
+
+    <ImageView
+        android:id="@+id/comfGemHpTotalRepair"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="24dp"
+        android:paddingTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
+        app:srcCompat="@drawable/gem_comf_level1" />
+
+    <TextView
+        android:id="@+id/moreTextView"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="More"
+        android:textColor="@color/gandalf"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
+
+    <TextView
+        android:id="@+id/mysteryBoxChanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="Mystery Box Chance"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/moreTextView" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb1"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl3"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb2"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl4"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl2"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb3"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl5"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl3"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb4"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl4"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
+        app:srcCompat="@mipmap/mb5"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl7"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb6"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl8"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl6"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb7"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl9"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl7"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb8"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl9"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl10"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl8"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb9"
+        app:tint="@color/gandalf" />
+
+    <ImageView
+        android:id="@+id/mysteryBoxLvl10"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:alpha="0.5"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl9"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:srcCompat="@mipmap/mb10"
+        app:tint="@color/gandalf" />
+
+    <TextView
+        android:id="@+id/lvl10shrug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¯\\_(ツ)_/¯"
+        android:textColor="@color/almost_black"
+        android:textSize="9sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintTop_toTopOf="@+id/mysteryBoxLvl10" />
+
+    <TextView
+        android:id="@+id/resetTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BoldItalicSubtitles"
+        android:layout_marginTop="24dp"
+        android:text="Reset Page"
+        android:textColor="@color/gandalf"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl10" />
+
+    <Button
+        android:id="@+id/resetPageButton"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/resetTextView"
+        app:layout_constraintEnd_toEndOf="@+id/resetTextView"
+        app:layout_constraintStart_toStartOf="@+id/resetTextView"
+        app:layout_constraintTop_toTopOf="@+id/resetTextView" />
+
+    <TextView
+        android:id="@+id/communityDataTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        style="@style/RegItalic"
+        android:text="@string/disclaimer"
+        android:textAlignment="center"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundThingButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
