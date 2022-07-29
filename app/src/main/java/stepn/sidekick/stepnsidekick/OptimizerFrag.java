@@ -4,8 +4,8 @@ import static android.content.Context.MODE_PRIVATE;
 import static stepn.sidekick.stepnsidekick.Finals.COMF;
 import static stepn.sidekick.stepnsidekick.Finals.EFF;
 import static stepn.sidekick.stepnsidekick.Finals.LUCK;
-import static stepn.sidekick.stepnsidekick.Finals.PREFERENCES_ID;
 import static stepn.sidekick.stepnsidekick.Finals.RES;
+import static stepn.sidekick.stepnsidekick.Finals.PREFERENCES_ID;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -2234,7 +2234,7 @@ public class OptimizerFrag extends Fragment {
 
         switch (shoeRarity) {
             case COMMON:
-                hpLoss = energy * 0.372 * Math.pow(totalComf, -0.388);
+                hpLoss = energy * 0.37 * Math.pow(totalComf, -0.387);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 39;
@@ -2247,7 +2247,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case UNCOMMON:
-                hpLoss = energy * 0.356 * Math.pow(totalComf, -0.393);
+                hpLoss = energy * 0.372 * Math.pow(totalComf, -0.4);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 23;
@@ -2260,7 +2260,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case RARE:
-                hpLoss = energy * 0.477 * Math.pow(totalComf, -0.469);
+                hpLoss = energy * 0.471 * Math.pow(totalComf, -0.467);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 16;
@@ -2273,7 +2273,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case EPIC:
-                hpLoss = energy * 0.477 * Math.pow(totalComf, -0.469);
+                hpLoss = energy * 0.471 * Math.pow(totalComf, -0.467);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 11;
@@ -2682,7 +2682,7 @@ public class OptimizerFrag extends Fragment {
         }
 
         if (energy >= 70 * Math.pow((totalLuck + 20), -0.5) + 7 && totalLuck > 6) {
-            if (energy <= -0.00002 * Math.pow((totalLuck - 150), 2) + 25.5 && energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28) {
+            if (energy <= -0.00002 * Math.pow((totalLuck - 150), 2) + 25.5 && energy >= 70 * Math.pow((totalLuck - 70), -0.1) - 25.5) {
                 // lvl 6 high chance range
                 mysteryBox6.clearColorFilter();
                 mysteryBox6.setImageTintMode(null);
@@ -2693,7 +2693,7 @@ public class OptimizerFrag extends Fragment {
                 mysteryBox6.setImageTintMode(null);
                 mysteryBox6.setAlpha(0.5f);
             }
-        } else if (energy >= 70 * Math.pow((totalLuck - 50), -0.1) - 28 && totalLuck > 6) {
+        } else if (energy >= 70 * Math.pow((totalLuck - 70), -0.1) - 25.5 && totalLuck > 6) {
             // more lvl 6 low chance
             mysteryBox6.clearColorFilter();
             mysteryBox6.setImageTintMode(null);
@@ -2704,7 +2704,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox6.setAlpha(0.5f);
         }
 
-        if (energy >= -2 * Math.log(totalLuck - 100) + 30.2 && totalLuck > 140) {
+        if (energy >= -2 * Math.log(totalLuck - 140) + 30) {
             // lvl 7 range
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
