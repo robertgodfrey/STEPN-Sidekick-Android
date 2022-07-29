@@ -1596,6 +1596,7 @@
         android:text="More Details"
         android:textColor="@color/gandalf"
         android:textSize="16sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
 
@@ -1605,6 +1606,7 @@
         android:layout_height="40dp"
         android:backgroundTint="#00FFFFFF"
         android:stateListAnimator="@null"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/moreTextView"
         app:layout_constraintEnd_toEndOf="@+id/moreTextView"
         app:layout_constraintStart_toStartOf="@+id/moreTextView"

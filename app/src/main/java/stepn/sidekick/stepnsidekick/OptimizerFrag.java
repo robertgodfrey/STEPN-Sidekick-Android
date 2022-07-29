@@ -2234,7 +2234,7 @@ public class OptimizerFrag extends Fragment {
 
         switch (shoeRarity) {
             case COMMON:
-                hpLoss = energy * 0.37 * Math.pow(totalComf, -0.387);
+                hpLoss = energy * 0.356 * Math.pow(totalComf, -0.388);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 39;
@@ -2247,7 +2247,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case UNCOMMON:
-                hpLoss = energy * 0.372 * Math.pow(totalComf, -0.4);
+                hpLoss = energy * 0.425 * Math.pow(totalComf, -0.452);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 23;
@@ -2260,7 +2260,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case RARE:
-                hpLoss = energy * 0.471 * Math.pow(totalComf, -0.467);
+                hpLoss = energy * 0.456 * Math.pow(totalComf, -0.459);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 16;
@@ -2273,7 +2273,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case EPIC:
-                hpLoss = energy * 0.471 * Math.pow(totalComf, -0.467);
+                hpLoss = energy * 0.456 * Math.pow(totalComf, -0.459);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 11;
@@ -3184,8 +3184,6 @@ public class OptimizerFrag extends Fragment {
         gems.add(new Gem(-1, 0,0));
         gems.add(new Gem(-1, 0,0));
         gems.add(new Gem(-1, 0,0));
-
-        shoeNum = 0;
 
         updateType();
         updateRarity();
