@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,7 +39,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Shoe optimizer fragment. Uses community data to determine best points allocation for GST earning
@@ -3061,6 +3071,34 @@ public class OptimizerFrag extends Fragment {
     // dialog with more details for income
     @SuppressLint("ClickableViewAccessibility")
     private void incomeMoreDetails() {
+        final String SOL_URL = "https://jsonplaceholder.typicode.com/";
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(SOL_URL)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        GeckoAPI geckoAPI = retrofit.create(GeckoAPI.class);
+
+        Call<List> call = geckoAPI.getPosts();
+
+        call.enqueue(new Callback<List>() {
+            @Override
+            public void onResponse(Call<List> call, Response<List> response) {
+
+                if (response.isSuccessful()) {
+                    List posts = response.body();
+                    Log.d("UHHH", "onResponse: posts: " + posts);
+                } else {
+                    Log.d("Yo", "Boo!");
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List> call, Throwable t) {
+                Log.d("Yo", "Error!");
+            }
+
+        });
+
         Dialog incomeMoreDetails = new Dialog(requireActivity());
 
         incomeMoreDetails.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -3078,13 +3116,9 @@ public class OptimizerFrag extends Fragment {
         ImageView bscSelected = incomeMoreDetails.findViewById(R.id.bscChainSelected);
         ImageView ethSelected = incomeMoreDetails.findViewById(R.id.ethChainSelected);
 
-        EditText solGstEditText = incomeMoreDetails.findViewById(R.id.solGstCurrentPrice);
-        EditText bscGstEditText = incomeMoreDetails.findViewById(R.id.bscGstCurrentPrice);
-        EditText ethGstEditText = incomeMoreDetails.findViewById(R.id.ethGstCurrentPrice);
-
-        ImageView refreshPricesButtonShadow = incomeMoreDetails.findViewById(R.id.refreshPricesShadowImageView);
-        TextView refreshPricesTextView = incomeMoreDetails.findViewById(R.id.refreshPricesTextView);
-        ImageButton refreshPricesButton = incomeMoreDetails.findViewById(R.id.refreshPricesButton);
+        EditText gstPriceEditText = incomeMoreDetails.findViewById(R.id.gstCurrentPrice);
+        EditText chainCoinPriceEditText = incomeMoreDetails.findViewById(R.id.chainCoinCurrentPrice);
+        TextView chainCoinLabelTextView = incomeMoreDetails.findViewById(R.id.chainCoinLabelTextView);
 
         TextView calculatedIncomeTextView = incomeMoreDetails.findViewById(R.id.gstIncomeTextView);
         TextView gemMultiplierIncomeTextView = incomeMoreDetails.findViewById(R.id.gemMultipleDeetsTextView);
@@ -3107,6 +3141,7 @@ public class OptimizerFrag extends Fragment {
                 solSelected.setVisibility(View.VISIBLE);
                 bscSelected.setVisibility(View.INVISIBLE);
                 ethSelected.setVisibility(View.INVISIBLE);
+                chainCoinLabelTextView.setText("SOL");
                 activeChainIcon.setImageResource(R.drawable.logo_solana);
             }
         });
@@ -3117,6 +3152,7 @@ public class OptimizerFrag extends Fragment {
                 solSelected.setVisibility(View.INVISIBLE);
                 bscSelected.setVisibility(View.VISIBLE);
                 ethSelected.setVisibility(View.INVISIBLE);
+                chainCoinLabelTextView.setText("BNB");
                 activeChainIcon.setImageResource(R.drawable.logo_bnb);
             }
         });
@@ -3127,36 +3163,11 @@ public class OptimizerFrag extends Fragment {
                 solSelected.setVisibility(View.INVISIBLE);
                 bscSelected.setVisibility(View.INVISIBLE);
                 ethSelected.setVisibility(View.VISIBLE);
+                chainCoinLabelTextView.setText("ETH");
                 activeChainIcon.setImageResource(R.drawable.logo_eth);
             }
         });
 
-        refreshPricesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // refresh stuff goes here :O
-            }
-        });
-
-        refreshPricesButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        refreshPricesButton.setVisibility(View.INVISIBLE);
-                        refreshPricesTextView.setVisibility(View.INVISIBLE);
-                        refreshPricesButtonShadow.setImageResource(R.drawable.start_button);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        refreshPricesButton.setVisibility(View.VISIBLE);
-                        refreshPricesTextView.setVisibility(View.VISIBLE);
-                        refreshPricesButtonShadow.setImageResource(R.drawable.start_button_shadow);
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
     // resets all values on page

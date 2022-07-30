@@ -1782,7 +1782,7 @@
         android:layout_height="wrap_content"
         style="@style/BoldItalicSubtitles"
         android:layout_marginTop="24dp"
-        android:text="Reset Page"
+        android:text="Reset All Values"
         android:textColor="@color/gandalf"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
