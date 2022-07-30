@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="500dp">
+    android:layout_height="550dp">
 
     <ImageView
         android:id="@+id/alertBoxBackground"
@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="-28dp"
-        app:layout_constraintBottom_toBottomOf="@id/refreshPricesNoteTextView"
+        app:layout_constraintBottom_toBottomOf="@id/coinGeckoLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -152,8 +152,35 @@
         app:layout_constraintTop_toBottomOf="@+id/ethChainButton" />
 
     <TextView
-        android:id="@+id/gstDollarTextView"
+        android:id="@+id/currentPricesTextView"
         style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Current Prices"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/bscLabel" />
+
+    <TextView
+        android:id="@+id/gstLabelTextView"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="GST"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/chainCoinLabelTextView"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/currentPricesTextView" />
+
+    <TextView
+        android:id="@+id/gstDollarTextView"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$"
@@ -168,12 +195,11 @@
         style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:background="@null"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:hint="0.00"
         android:inputType="numberDecimal"
-        android:maxLength="6"
+        android:maxLength="7"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
@@ -181,24 +207,25 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/gstLabelTextView"
         app:layout_constraintStart_toStartOf="@+id/gstLabelTextView"
+        app:layout_constraintTop_toBottomOf="@+id/gstLabelTextView" />
+
+    <TextView
+        android:id="@+id/chainCoinLabelTextView"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="SOL"
+        android:textColor="@color/gandalf"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@+id/gstLabelTextView"
         app:layout_constraintTop_toBottomOf="@+id/currentPricesTextView" />
 
     <TextView
-        android:id="@+id/gstLabelTextView"
-        style="@style/BoldItalicSubtitles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="GST"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@id/chainCoinLabelTextView"
-        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gstCurrentPrice" />
-
-    <TextView
         android:id="@+id/chainCoinDollarTextView"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$"
@@ -213,12 +240,11 @@
         style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:background="@null"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:hint="0.00"
         android:inputType="numberDecimal"
-        android:maxLength="6"
+        android:maxLength="7"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
@@ -227,58 +253,7 @@
         app:layout_constraintEnd_toEndOf="@+id/chainCoinLabelTextView"
         app:layout_constraintStart_toEndOf="@+id/gstCurrentPrice"
         app:layout_constraintStart_toStartOf="@+id/chainCoinLabelTextView"
-        app:layout_constraintTop_toBottomOf="@+id/currentPricesTextView" />
-
-
-    <TextView
-        android:id="@+id/chainCoinLabelTextView"
-        style="@style/BoldItalicSubtitles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="SOL"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
-        app:layout_constraintStart_toEndOf="@+id/gstLabelTextView"
-        app:layout_constraintTop_toBottomOf="@+id/chainCoinCurrentPrice" />
-
-    <TextView
-        android:id="@+id/currentPricesTextView"
-        style="@style/BoldItalicSubtitles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Current Prices"
-        android:textColor="@color/almost_black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
-        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/bscLabel" />
-
-    <ImageView
-        android:id="@+id/coinGeckoLogo"
-        android:layout_width="80dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintStart_toStartOf="@id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/totalIncomeUsdTextView"
-        app:srcCompat="@mipmap/coin_gecko" />
-
-    <TextView
-        android:id="@+id/refreshPricesNoteTextView"
-        style="@style/RegItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Price data provided by CoinGecko.\nClick prices to edit manually."
-        android:textAlignment="center"
-        android:textColor="@color/gandalf"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/coinGeckoLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/chainCoinLabelTextView" />
 
     <TextView
         android:id="@+id/calculatedIncomeLabelTextView"
@@ -287,11 +262,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="Calculated Income:"
+        android:text="Income GST/Gem:"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gstLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/gstCurrentPrice" />
 
     <ImageView
         android:id="@+id/gstIconTotal"
@@ -313,6 +288,7 @@
         android:text="0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/calculatedIncomeLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstIconTotal"
         app:layout_constraintTop_toTopOf="@+id/calculatedIncomeLabelTextView" />
 
@@ -326,16 +302,16 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/comfGemHpTotalRepair"
-        app:layout_constraintTop_toTopOf="@+id/calculatedIncomeLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/gstIncomeTextView" />
 
     <ImageView
         android:id="@+id/comfGemHpTotalRepair"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="24dp"
         android:paddingTop="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/gemMultipleDeetsTextView"
-        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintEnd_toEndOf="@+id/chainIcon"
+        app:layout_constraintStart_toStartOf="@+id/chainIcon"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleDeetsTextView"
         app:srcCompat="@drawable/gem_comf_level1" />
 
@@ -367,7 +343,7 @@
 
     <TextView
         android:id="@+id/gemPriceMultiplierTextView"
-        style="@style/RegItalic"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -393,20 +369,20 @@
         style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:background="@null"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:hint="0.000"
         android:inputType="numberDecimal"
-        android:maxLength="5"
+        android:maxLength="7"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemPriceLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/chainIcon"
-        app:layout_constraintTop_toBottomOf="@+id/calculatedIncomeLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/gemPriceLabelTextView" />
 
     <TextView
         android:id="@+id/gemPriceGstTextView"
@@ -417,8 +393,9 @@
         android:text="0.0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemPriceMultiplierTextView"
         app:layout_constraintEnd_toStartOf="@+id/comfGemHpTotalRepair"
-        app:layout_constraintTop_toTopOf="@+id/gemPriceGstLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/gemPriceMultiplierTextView" />
 
     <ImageView
         android:id="@+id/gstLogoGemPrice"
@@ -431,13 +408,13 @@
         app:srcCompat="@drawable/logo_gst" />
 
     <TextView
-        android:id="@+id/totalIncomeLabelTextView"
+        android:id="@+id/totalIncomeGstLabelTextView"
         style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Total Income:"
+        android:text="Total Income GST:"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
@@ -452,8 +429,9 @@
         android:text="0.0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalIncomeGstLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/comfGemHpTotalRepair"
-        app:layout_constraintTop_toTopOf="@+id/totalIncomeLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/totalIncomeGstLabelTextView" />
 
     <ImageView
         android:id="@+id/totalIncomeGstLogo"
@@ -466,16 +444,71 @@
         app:srcCompat="@drawable/logo_gst" />
 
     <TextView
+        android:id="@+id/totalIncomeUsdLabelTextView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Total Income USD:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/totalIncomeGstLabelTextView" />
+
+
+    <TextView
         android:id="@+id/totalIncomeUsdTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="$0.00"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/totalIncomeGstTextView"
+        app:layout_constraintTop_toBottomOf="@+id/totalIncomeGstLabelTextView" />
+
+    <TextView
+        android:id="@+id/refreshPricesNoteTextView"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Select a price to edit."
+        android:textAlignment="center"
+        android:textColor="@color/gandalf"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/totalIncomeUsdTextView" />
+
+    <TextView
+        android:id="@+id/pricesDataNoteTextView"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:text="Price data provided by"
+        android:textAlignment="center"
+        android:textColor="@color/gandalf"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/coinGeckoLogo"
+        app:layout_constraintEnd_toStartOf="@+id/coinGeckoLogo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toTopOf="@+id/coinGeckoLogo" />
+
+    <ImageView
+        android:id="@+id/coinGeckoLogo"
+        android:layout_width="80dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@+id/pricesDataNoteTextView"
+        app:layout_constraintTop_toBottomOf="@+id/refreshPricesNoteTextView"
+        app:srcCompat="@mipmap/coin_gecko" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1288,11 +1288,11 @@
 
     <TextView
         android:id="@+id/gstPerDayLabelTextView"
+        style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        style="@style/RegItalic"
         android:text="@string/est_gst_daily_limit"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
@@ -1314,49 +1314,47 @@
         android:id="@+id/gstPerDayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0.0"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gstPerDayLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDaySlashTextView"
-        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
+        app:layout_constraintTop_toTopOf="@+id/gstPerDayLabelTextView" />
 
     <TextView
         android:id="@+id/gstLimitPerDayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/gstIconLimit"
-        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
+        app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView" />
 
     <TextView
         android:id="@+id/gstLimitPerDaySlashTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="/"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDayTextView"
-        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
+        app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView" />
 
     <TextView
         android:id="@+id/durabilityLabelTextView"
+        style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        style="@style/RegItalic"
         android:text="@string/durability_loss"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
@@ -1367,22 +1365,23 @@
         android:id="@+id/durabilityLossTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="3dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/durabilityLabelTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/gstPerDayLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/durabilityLabelTextView" />
 
     <TextView
         android:id="@+id/repairDurLabelTextView"
+        style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        style="@style/RegItalic"
         android:text="@string/repair_cost"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
@@ -1404,22 +1403,22 @@
         android:id="@+id/repairCostDurTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/repairDurLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstIconRepair"
-        app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/repairDurLabelTextView" />
 
     <TextView
         android:id="@+id/hpLabelTextView"
+        style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        style="@style/RegItalic"
         android:text="@string/hp_loss"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
@@ -1430,22 +1429,22 @@
         android:id="@+id/hpLossTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hpLabelTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/repairDurLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/hpLabelTextView" />
 
     <TextView
         android:id="@+id/repairHpLabelTextView"
+        style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        style="@style/RegItalic"
         android:text="@string/restoration_cost"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
@@ -1456,14 +1455,14 @@
         android:id="@+id/gemMultipleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="2dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0.0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/repairHpLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/comfGemHpRepair"
-        app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/repairHpLabelTextView" />
 
     <ImageView
         android:id="@+id/comfGemHpRepair"
@@ -1491,28 +1490,26 @@
         android:id="@+id/repairCostHpPlusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="+"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/repairCostHpTextView"
-        app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/gemMultipleTextView" />
 
 
     <TextView
         android:id="@+id/repairCostHpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/gstIconRestore"
-        app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/gemMultipleTextView" />
 
     <ImageView
         android:id="@+id/gstIconRestore"
@@ -1527,11 +1524,11 @@
 
     <TextView
         android:id="@+id/totalIncomeLabelTextView"
+        style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        style="@style/BoldItalicSubtitles"
         android:text="@string/total_income"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
@@ -1553,36 +1550,37 @@
         android:id="@+id/gstIncomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="3dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalIncomeLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstIconTotal"
-        app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/totalIncomeLabelTextView" />
 
     <TextView
         android:id="@+id/gemMultipleTotalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="2dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="-  0.0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gstIncomeTextView"
         app:layout_constraintEnd_toStartOf="@+id/comfGemHpTotalRepair"
-        app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
+        app:layout_constraintTop_toTopOf="@+id/gstIncomeTextView" />
 
     <ImageView
         android:id="@+id/comfGemHpTotalRepair"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="24dp"
         android:paddingTop="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintEnd_toEndOf="@+id/gstIconRestore"
+        app:layout_constraintStart_toStartOf="@+id/gstIconRestore"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
         app:srcCompat="@drawable/gem_comf_level1" />
 
@@ -1595,8 +1593,7 @@
         android:layout_marginEnd="24dp"
         android:text="More Details"
         android:textColor="@color/gandalf"
-        android:textSize="16sp"
-        android:visibility="invisible"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
 
@@ -1606,7 +1603,6 @@
         android:layout_height="40dp"
         android:backgroundTint="#00FFFFFF"
         android:stateListAnimator="@null"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/moreTextView"
         app:layout_constraintEnd_toEndOf="@+id/moreTextView"
         app:layout_constraintStart_toStartOf="@+id/moreTextView"

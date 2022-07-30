@@ -39,8 +39,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,7 +126,7 @@ public class OptimizerFrag extends Fragment {
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
-            gemRes, dpScale, energy, hpPercentRestored;
+            gemRes, dpScale, energy, hpPercentRestored, gstProfitBeforeGem, comfGemMultiplier;
     private boolean saveNewGem, update;
     private double hpLoss;
     private String shoeName;
@@ -2009,9 +2007,8 @@ public class OptimizerFrag extends Fragment {
         }
 
         int durabilityLost;
-        float repairCostDurability, gstTotal, gstIncome;
+        float repairCostDurability, gstTotal;
         double hpRatio, repairCostHp;
-
 
         float totalEff = Float.parseFloat(effTotalTextView.getText().toString());
         float totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
@@ -2045,7 +2042,7 @@ public class OptimizerFrag extends Fragment {
         hpLoss = Math.round(hpLoss * 100.0) / 100.0;
         repairCostHp = Math.round(gstCostBasedOnGem * hpRatio * 10.0) / 10.0;
         repairCostDurability = (float) (Math.round(repairCostDurability * 10.0) / 10.0);
-        gstIncome = (float) (Math.round((gstTotal - repairCostDurability - repairCostHp) * 10.0) / 10.0);
+        gstProfitBeforeGem = (float) (Math.round((gstTotal - repairCostDurability - repairCostHp) * 10.0) / 10.0);
 
         calcMbChances();
 
@@ -2055,18 +2052,18 @@ public class OptimizerFrag extends Fragment {
             gemMultipleTextView.setText("0");
             gemMultipleTotalTextView.setText("-  0");
         } else {
-            String multiplier = String.valueOf(Math.round(hpRatio * 100.0) / 100.0);
+            comfGemMultiplier = (float) (Math.round(hpRatio * 100.0) / 100.0);
             hpLossTextView.setText(String.valueOf(hpLoss));
             repairCostHpTextView.setText(String.valueOf(repairCostHp));
-            gemMultipleTextView.setText(multiplier);
-            multiplier = "-  " + multiplier;
+            gemMultipleTextView.setText(String.valueOf(comfGemMultiplier));
+            String multiplier = "-  " + comfGemMultiplier;
             gemMultipleTotalTextView.setText(multiplier);
         }
 
         gstEarnedTextView.setText(String.valueOf(gstTotal));
         durabilityLossTextView.setText(String.valueOf(durabilityLost));
         repairCostDurTextView.setText(String.valueOf(repairCostDurability));
-        gstIncomeTextView.setText(String.valueOf(gstIncome));
+        gstIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
 
         if (gstTotal > gstLimit) {
             gstEarnedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
@@ -3071,33 +3068,33 @@ public class OptimizerFrag extends Fragment {
     // dialog with more details for income
     @SuppressLint("ClickableViewAccessibility")
     private void incomeMoreDetails() {
-        final String SOL_URL = "https://jsonplaceholder.typicode.com/";
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(SOL_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
+        final String TAG = "fuck u";
+        final double[] PRICES = new double[6];
 
-        GeckoAPI geckoAPI = retrofit.create(GeckoAPI.class);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Api myApi = retrofit.create(Api.class);
 
-        Call<List> call = geckoAPI.getPosts();
+        Call<List<Prices>> call = myApi.getPosts();
 
-        call.enqueue(new Callback<List>() {
-            @Override
-            public void onResponse(Call<List> call, Response<List> response) {
+        call.enqueue(new Callback<List<Prices>>() {
+                         @Override
+                         public void onResponse(Call<List<Prices>> call, Response<List<Prices>> response) {
+                             List<Prices> priceList = response.body();
 
-                if (response.isSuccessful()) {
-                    List posts = response.body();
-                    Log.d("UHHH", "onResponse: posts: " + posts);
-                } else {
-                    Log.d("Yo", "Boo!");
-                    return;
-                }
-            }
+                             for (int i = 0; i < 6; i++) {
+                                 PRICES[i] = priceList.get(i).getGstSol();
+                                 Log.d(TAG, "onResponse: prices[" + i +"]: " + PRICES[i]);
+                             }
+                         }
 
-            @Override
-            public void onFailure(Call<List> call, Throwable t) {
-                Log.d("Yo", "Error!");
-            }
+                         @Override
+                         public void onFailure(Call<List<Prices>> call, Throwable t) {
+                             Log.d("UHH", "onFailure: yikes");
 
-        });
+                         }
+                     });
 
         Dialog incomeMoreDetails = new Dialog(requireActivity());
 
@@ -3127,12 +3124,17 @@ public class OptimizerFrag extends Fragment {
         EditText gemChainPriceEditText = incomeMoreDetails.findViewById(R.id.gemPriceEditText);
         ImageView activeChainIcon = incomeMoreDetails.findViewById(R.id.chainIcon);
 
-        TextView gemMutliplierGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceGstTextView);
+        TextView gemMultiplierGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceMultiplierTextView);
+        TextView gemPriceGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceGstTextView);
         TextView totalIncomeGstTextView = incomeMoreDetails.findViewById(R.id.totalIncomeGstTextView);
         TextView totalIncomeUsdTextView = incomeMoreDetails.findViewById(R.id.totalIncomeUsdTextView);
 
         incomeMoreDetails.show();
 
+        calculatedIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
+        String multiplier = "- " + comfGemMultiplier;
+        gemMultiplierIncomeTextView.setText(multiplier);
+        gemMultiplierGstTextView.setText(String.valueOf(comfGemMultiplier));
         updateHpRepairComfGem(gemType);
 
         solButton.setOnClickListener(new View.OnClickListener() {
