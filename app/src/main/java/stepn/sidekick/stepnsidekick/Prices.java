@@ -1,5 +1,7 @@
 package stepn.sidekick.stepnsidekick;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Prices {
@@ -13,6 +15,7 @@ public class Prices {
     @SerializedName("green-satoshi-token-on-eth")
     private NestedPrice gstEth;
 
+
     public Prices(NestedPrice solana, NestedPrice gstSol, NestedPrice binancecoin, NestedPrice gstBsc, NestedPrice ethereum, NestedPrice gstEth) {
         this.solana = solana;
         this.gstSol = gstSol;
@@ -22,7 +25,7 @@ public class Prices {
         this.gstEth = gstEth;
     }
 
-    public double getSolana() {
+    public double getSolanaPrice() {
         return solana.getPrice();
     }
 
@@ -45,4 +48,5 @@ public class Prices {
     public double getGstEth() {
         return gstEth.getPrice();
     }
+
 }

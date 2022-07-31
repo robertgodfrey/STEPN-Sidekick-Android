@@ -1616,7 +1616,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="Mystery Box Chance"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/moreTextView" />

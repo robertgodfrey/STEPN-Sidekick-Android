@@ -23,7 +23,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,7 +41,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,7 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Bob Godfrey
- * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
+ * @version 1.3.9 Added 'more details' dialog, added reset button
  *
  */
 
@@ -104,7 +104,7 @@ public class OptimizerFrag extends Fragment {
             moreButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief,
-            shoeNameEditText;
+            shoeNameEditText, gstPriceEditText, chainCoinPriceEditText;
 
     TextView shoeRarityTextView, shoeTypeTextView, levelTextView, effTotalTextView, luckTotalTextView,
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
@@ -112,7 +112,8 @@ public class OptimizerFrag extends Fragment {
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
             resPlusTv, optimizeGstTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
-            optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView;
+            optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
+            gemPriceGstTextView, totalIncomeGstTextView, totalIncomeUsdTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -2670,7 +2671,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox4.setAlpha(0.5f);
         }
 
-        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 25.5 && energy >= 50 * Math.pow((totalLuck - 2), -1) + 7 && totalLuck > 5) {
+        if (energy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 26.05 && energy >= 50 * Math.pow((totalLuck - 2), -1) + 7 && totalLuck > 5) {
             if (energy <= -0.00005 * Math.pow(totalLuck, 2) + 26.5 && energy >= 70 * Math.pow((totalLuck - 10), -0.1) - 32) {
                 // lvl 5 high chance range
                 mysteryBox5.clearColorFilter();
@@ -3068,33 +3069,42 @@ public class OptimizerFrag extends Fragment {
     // dialog with more details for income
     @SuppressLint("ClickableViewAccessibility")
     private void incomeMoreDetails() {
-        final String TAG = "fuck u";
-        final double[] PRICES = new double[6];
+        final String BASE_URL = "https://api.coingecko.com/";
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
+        // from 0 - 5: SOL, GST-SOL, BNB, GST-BNB, ETH, GST-ETH
+        double[] PRICES = new double[] {0,0,0,0,0,0};
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api myApi = retrofit.create(Api.class);
 
-        Call<List<Prices>> call = myApi.getPosts();
+        Call<Prices> call = myApi.getPosts();
 
-        call.enqueue(new Callback<List<Prices>>() {
-                         @Override
-                         public void onResponse(Call<List<Prices>> call, Response<List<Prices>> response) {
-                             List<Prices> priceList = response.body();
+        call.enqueue(new Callback<Prices>() {
+            @Override
+            public void onResponse(Call<Prices> call, Response<Prices> response) {
 
-                             for (int i = 0; i < 6; i++) {
-                                 PRICES[i] = priceList.get(i).getGstSol();
-                                 Log.d(TAG, "onResponse: prices[" + i +"]: " + PRICES[i]);
-                             }
-                         }
+                try {
+                    Prices priceList = response.body();
+                    PRICES[0] = priceList.getSolanaPrice();
+                    PRICES[1] = priceList.getGstSol();
+                    PRICES[2] = priceList.getBinancecoin();
+                    PRICES[3] = priceList.getGstBsc();
+                    PRICES[4] = priceList.getEthereum();
+                    PRICES[5] = priceList.getGstEth();
+                    updateCurrentPriceViews(PRICES[0], PRICES[1]);
 
-                         @Override
-                         public void onFailure(Call<List<Prices>> call, Throwable t) {
-                             Log.d("UHH", "onFailure: yikes");
+                } catch (NullPointerException e) {
+                    Toast.makeText(requireActivity(), "Unable to connect. Try again in one minute", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-                         }
-                     });
+            @Override
+            public void onFailure(Call<Prices> call, Throwable t) {
+                Toast.makeText(requireActivity(), "Unable to connect. Try again in one minute", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Dialog incomeMoreDetails = new Dialog(requireActivity());
 
@@ -3105,17 +3115,21 @@ public class OptimizerFrag extends Fragment {
         incomeMoreDetails.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
 
+        EditText incomeFocusThief = incomeMoreDetails.findViewById(R.id.incomeFocusThief);
+        ImageButton incomeBackgroundButton = incomeMoreDetails.findViewById(R.id.alertBoxBackgroundButton);
+
         ImageButton solButton = incomeMoreDetails.findViewById(R.id.solChainButton);
         ImageButton bscButton = incomeMoreDetails.findViewById(R.id.bscChainButton);
         ImageButton ethButton = incomeMoreDetails.findViewById(R.id.ethChainButton);
+        Button changeGem = incomeMoreDetails.findViewById(R.id.incomeDetailsChangeComfGemButton);
 
         ImageView solSelected = incomeMoreDetails.findViewById(R.id.solChainSelected);
         ImageView bscSelected = incomeMoreDetails.findViewById(R.id.bscChainSelected);
         ImageView ethSelected = incomeMoreDetails.findViewById(R.id.ethChainSelected);
 
-        EditText gstPriceEditText = incomeMoreDetails.findViewById(R.id.gstCurrentPrice);
-        EditText chainCoinPriceEditText = incomeMoreDetails.findViewById(R.id.chainCoinCurrentPrice);
         TextView chainCoinLabelTextView = incomeMoreDetails.findViewById(R.id.chainCoinLabelTextView);
+        gstPriceEditText = incomeMoreDetails.findViewById(R.id.gstCurrentPrice);
+        chainCoinPriceEditText = incomeMoreDetails.findViewById(R.id.chainCoinCurrentPrice);
 
         TextView calculatedIncomeTextView = incomeMoreDetails.findViewById(R.id.gstIncomeTextView);
         TextView gemMultiplierIncomeTextView = incomeMoreDetails.findViewById(R.id.gemMultipleDeetsTextView);
@@ -3125,9 +3139,9 @@ public class OptimizerFrag extends Fragment {
         ImageView activeChainIcon = incomeMoreDetails.findViewById(R.id.chainIcon);
 
         TextView gemMultiplierGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceMultiplierTextView);
-        TextView gemPriceGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceGstTextView);
-        TextView totalIncomeGstTextView = incomeMoreDetails.findViewById(R.id.totalIncomeGstTextView);
-        TextView totalIncomeUsdTextView = incomeMoreDetails.findViewById(R.id.totalIncomeUsdTextView);
+        gemPriceGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceGstTextView);
+        totalIncomeGstTextView = incomeMoreDetails.findViewById(R.id.totalIncomeGstTextView);
+        totalIncomeUsdTextView = incomeMoreDetails.findViewById(R.id.totalIncomeUsdTextView);
 
         incomeMoreDetails.show();
 
@@ -3137,6 +3151,21 @@ public class OptimizerFrag extends Fragment {
         gemMultiplierGstTextView.setText(String.valueOf(comfGemMultiplier));
         updateHpRepairComfGem(gemType);
 
+        incomeBackgroundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gstPriceEditText.clearFocus();
+                chainCoinPriceEditText.clearFocus();
+                gemChainPriceEditText.clearFocus();
+
+                incomeFocusThief.requestFocus();
+
+                InputMethodManager imm = (InputMethodManager) view.getContext()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        });
+
         solButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -3145,6 +3174,9 @@ public class OptimizerFrag extends Fragment {
                 ethSelected.setVisibility(View.INVISIBLE);
                 chainCoinLabelTextView.setText("SOL");
                 activeChainIcon.setImageResource(R.drawable.logo_solana);
+                gemChainPriceEditText.setText("");
+                chainCoinPriceEditText.setText(String.valueOf(PRICES[0]));
+                gstPriceEditText.setText(String.valueOf(PRICES[1]));
             }
         });
 
@@ -3156,6 +3188,9 @@ public class OptimizerFrag extends Fragment {
                 ethSelected.setVisibility(View.INVISIBLE);
                 chainCoinLabelTextView.setText("BNB");
                 activeChainIcon.setImageResource(R.drawable.logo_bnb);
+                gemChainPriceEditText.setText("");
+                chainCoinPriceEditText.setText(String.valueOf(PRICES[2]));
+                gstPriceEditText.setText(String.valueOf(PRICES[3]));
             }
         });
 
@@ -3167,9 +3202,119 @@ public class OptimizerFrag extends Fragment {
                 ethSelected.setVisibility(View.VISIBLE);
                 chainCoinLabelTextView.setText("ETH");
                 activeChainIcon.setImageResource(R.drawable.logo_eth);
+                gemChainPriceEditText.setText("");
+                chainCoinPriceEditText.setText(String.valueOf(PRICES[4]));
+                gstPriceEditText.setText(String.valueOf(PRICES[5]));
             }
         });
 
+        changeGem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (comfGemLvlForRepair < 3) {
+                    comfGemLvlForRepair++;
+                } else {
+                    comfGemLvlForRepair = 0;
+                }
+                updateHpRepairComfGem(gemType);
+                updateHpRepairComfGem(comfGemHpRepairImageView);
+                updateHpRepairComfGem(comfGemHpRepairTotalImageView);
+                calcTotals();
+                calculatedIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
+                String multiplier = "- " + comfGemMultiplier;
+                gemMultiplierIncomeTextView.setText(multiplier);
+                gemMultiplierGstTextView.setText(String.valueOf(comfGemMultiplier));
+                gemChainPriceEditText.setText("");
+            }
+        });
+
+        gstPriceEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!chainCoinPriceEditText.getText().toString().isEmpty()
+                        && !gstPriceEditText.getText().toString().isEmpty()
+                        && !gemChainPriceEditText.getText().toString().isEmpty()) {
+                    incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
+                            Double.parseDouble(gstPriceEditText.getText().toString()),
+                            Double.parseDouble(gemChainPriceEditText.getText().toString()));
+                }
+            }
+        });
+
+        chainCoinPriceEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!chainCoinPriceEditText.getText().toString().isEmpty()
+                        && !gstPriceEditText.getText().toString().isEmpty()
+                        && !gemChainPriceEditText.getText().toString().isEmpty()) {
+                    incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
+                            Double.parseDouble(gstPriceEditText.getText().toString()),
+                            Double.parseDouble(gemChainPriceEditText.getText().toString()));
+                }
+            }
+        });
+
+        gemChainPriceEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!chainCoinPriceEditText.getText().toString().isEmpty()
+                        && !gstPriceEditText.getText().toString().isEmpty()
+                        && !gemChainPriceEditText.getText().toString().isEmpty()) {
+                    incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
+                            Double.parseDouble(gstPriceEditText.getText().toString()),
+                            Double.parseDouble(gemChainPriceEditText.getText().toString()));
+
+                }
+            }
+        });
+
+    }
+
+    // calcs for total income
+    private void incomeDetailsCalcs(double chainCoinPrice, double gstPrice, double gemPrice) {
+        // gem price in chain coin * USD price chain coin / USD price gst * gem multiplier
+        double gemCostGst = Math.round(gemPrice * chainCoinPrice / gstPrice * comfGemMultiplier * 100.0) / 100.0;
+        double totalIncomeGst = Math.round((gstProfitBeforeGem - gemCostGst) * 100.0) / 100.0;
+
+        gemPriceGstTextView.setText(String.valueOf(gemCostGst));
+        totalIncomeGstTextView.setText(String.valueOf(totalIncomeGst));
+        totalIncomeUsdTextView.setText(String.valueOf(Math.round(totalIncomeGst * gstPrice * 100.0) / 100.0));
+    }
+
+    // updates views with current prices from coingecko
+    private void updateCurrentPriceViews(double sol, double gst) {
+        gstPriceEditText.setText(String.valueOf(gst));
+        chainCoinPriceEditText.setText(String.valueOf(sol));
     }
 
     // resets all values on page
