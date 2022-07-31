@@ -87,5 +87,33 @@
     <string name="total_income">총 소득:</string>
     <string name="disclaimer">모든 계산은 비공식적인 STEPN 커뮤니티 데이터를 기반으로 하기때문에\n실제 결과는 예상치와 다를 수 있습니다.</string>
     <string name="energy">에너지</string>
-
+    <string name="more_details">더 보기</string>
+    <string name="mystery_box_chance">미스터리박스 확률</string>
+    <string name="total_income_gst">총 소득 GST:</string>
+    <string name="total_income_usd">총 소득 USD:</string>
+    <string name="gem">" 젬"</string>
+    <string name="gem_points">"젬 포인트 "</string>
+    <string name="total_points">총 포인트:</string>
+    <string name="gem_">젬:</string>
+    <string name="reset_values">설정 초기화</string>
+    <string name="select_socket_type">소켓 타입 선택</string>
+    <string name="select_chain">체인 선택</string>
+    <string name="current_prices">현재가격</string>
+    <string name="income_gst_gem">소득 (GST - 젬):</string>
+    <string name="gem_price">젬 가격:</string>
+    <string name="gem_price_in_gst">"젬 가격 (GST) × "</string>
+    <string name="select_a_price_to_edit">"가격값을 클릭하면 수정할 수 있습니다 "</string>
+    <string name="price_data_provided_by">가격 데이터 제공</string>
+    <string name="points">" 포인트"</string>
+    <string name="select_gem">젬 선택</string>
+    <string name="socket">소켓:</string>
+    <string name="see_details">더 보기</string>
+    <string name="uncommon_socket">"언커먼 소켓 "</string>
+    <string name="rare_socket">레어 소켓</string>
+    <string name="epic_socket">에픽 소켓</string>
+    <string name="legendary_socket">레전드 소켓</string>
+    <string name="common_socket">커먼 소켓</string>
+    <string name="base">기본값</string>
+    <string name="base_percent">"% 기본값\n+ "</string>
+    <string name="are_you_sure_you_want_to_reset_all_values">정말 초기화 하시겠습니까?</string>
 </resources>

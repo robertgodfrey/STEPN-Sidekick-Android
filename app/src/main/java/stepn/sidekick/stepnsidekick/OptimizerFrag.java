@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -23,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -987,7 +989,31 @@ public class OptimizerFrag extends Fragment {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetPage();
+
+                Dialog dialog = new Dialog(requireActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.reset_alert_dialog);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                ImageButton noButton = dialog.findViewById(R.id.noButton);
+                ImageButton yesButton = dialog.findViewById(R.id.yesButton);
+
+                yesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        resetPage();
+                        dialog.dismiss();
+                    }
+                });
+                noButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
             }
         });
 
@@ -1961,26 +1987,26 @@ public class OptimizerFrag extends Fragment {
 
         switch (gems.get(socketNum).getSocketRarity()) {
             case 1:
-                socketRarity = "Uncommon Socket";
+                socketRarity = getString(R.string.uncommon_socket);
                 break;
             case 2:
-                socketRarity = "Rare Socket";
+                socketRarity = getString(R.string.rare_socket);
                 break;
             case 3:
-                socketRarity = "Epic Socket";
+                socketRarity = getString(R.string.epic_socket);
                 break;
             case 4:
-                socketRarity = "Legendary Socket";
+                socketRarity = getString(R.string.legendary_socket);
                 break;
             default:
-                socketRarity = "Common Socket";
+                socketRarity = getString(R.string.common_socket);
         }
 
-        String gemLevel = "Level " + gems.get(socketNum).getMountedGem() + " Gem";
-        String gemInfo = "+ " + percent + "% base\n+ " + points + " points";
+        String gemLevel = getString(R.string.level) + " " + gems.get(socketNum).getMountedGem() + getString(R.string.gem);
+        String gemInfo = "+ " + percent + getString(R.string.base_percent) + points + getString(R.string.points);
         String gemCalcs = "(" + gems.get(socketNum).getBasePoints() + " × " + percent + "%) + "
                 + points + " = " + gems.get(socketNum).getGemParams();
-        String socketInfo = "Gem points " + gems.get(socketNum).getSocketParamsString();
+        String socketInfo = getString(R.string.gem_points) + gems.get(socketNum).getSocketParamsString();
         String socketCalcs = gems.get(socketNum).getGemParams() + " × " + gems.get(socketNum).getSocketParams()
                 + " = " + gems.get(socketNum).getTotalPoints();
 
