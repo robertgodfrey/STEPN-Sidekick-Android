@@ -971,7 +971,7 @@ public class OptimizerFrag extends Fragment {
                 if (comfGemLvlForRepair < 3) {
                     comfGemLvlForRepair++;
                 } else {
-                    comfGemLvlForRepair = 0;
+                    comfGemLvlForRepair = 1;
                 }
                 updateHpRepairComfGem(comfGemHpRepairImageView);
                 updateHpRepairComfGem(comfGemHpRepairTotalImageView);
@@ -3122,13 +3122,13 @@ public class OptimizerFrag extends Fragment {
                     updateCurrentPriceViews(PRICES[0], PRICES[1]);
 
                 } catch (NullPointerException e) {
-                    Toast.makeText(requireActivity(), "Unable to connect. Try again in one minute", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "Unable to connect. Try again in a few moments", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Prices> call, Throwable t) {
-                Toast.makeText(requireActivity(), "Unable to connect. Try again in one minute", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), "Too many requests. Try again in a few moments", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -3240,7 +3240,7 @@ public class OptimizerFrag extends Fragment {
                 if (comfGemLvlForRepair < 3) {
                     comfGemLvlForRepair++;
                 } else {
-                    comfGemLvlForRepair = 0;
+                    comfGemLvlForRepair = 1;
                 }
                 updateHpRepairComfGem(gemType);
                 updateHpRepairComfGem(comfGemHpRepairImageView);
@@ -3270,9 +3270,13 @@ public class OptimizerFrag extends Fragment {
                 if (!chainCoinPriceEditText.getText().toString().isEmpty()
                         && !gstPriceEditText.getText().toString().isEmpty()
                         && !gemChainPriceEditText.getText().toString().isEmpty()) {
-                    incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
-                            Double.parseDouble(gstPriceEditText.getText().toString()),
-                            Double.parseDouble(gemChainPriceEditText.getText().toString()));
+                    try {
+                        incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
+                                Double.parseDouble(gstPriceEditText.getText().toString()),
+                                Double.parseDouble(gemChainPriceEditText.getText().toString()));
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(requireActivity(), "Error. Please double-check your input values", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -3293,9 +3297,13 @@ public class OptimizerFrag extends Fragment {
                 if (!chainCoinPriceEditText.getText().toString().isEmpty()
                         && !gstPriceEditText.getText().toString().isEmpty()
                         && !gemChainPriceEditText.getText().toString().isEmpty()) {
-                    incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
-                            Double.parseDouble(gstPriceEditText.getText().toString()),
-                            Double.parseDouble(gemChainPriceEditText.getText().toString()));
+                    try {
+                        incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
+                                Double.parseDouble(gstPriceEditText.getText().toString()),
+                                Double.parseDouble(gemChainPriceEditText.getText().toString()));
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(requireActivity(), "Error. Please double-check your input values", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -3316,9 +3324,13 @@ public class OptimizerFrag extends Fragment {
                 if (!chainCoinPriceEditText.getText().toString().isEmpty()
                         && !gstPriceEditText.getText().toString().isEmpty()
                         && !gemChainPriceEditText.getText().toString().isEmpty()) {
-                    incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
-                            Double.parseDouble(gstPriceEditText.getText().toString()),
-                            Double.parseDouble(gemChainPriceEditText.getText().toString()));
+                    try {
+                        incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
+                                Double.parseDouble(gstPriceEditText.getText().toString()),
+                                Double.parseDouble(gemChainPriceEditText.getText().toString()));
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(requireActivity(), "Error. Please double-check your input values", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }
@@ -3329,6 +3341,9 @@ public class OptimizerFrag extends Fragment {
     // calcs for total income
     private void incomeDetailsCalcs(double chainCoinPrice, double gstPrice, double gemPrice) {
         // gem price in chain coin * USD price chain coin / USD price gst * gem multiplier
+        if (chainCoinPrice == 0 || gstPrice == 0 || gemPrice == 0) {
+            return;
+        }
         double gemCostGst = Math.round(gemPrice * chainCoinPrice / gstPrice * comfGemMultiplier * 100.0) / 100.0;
         double totalIncomeGst = Math.round((gstProfitBeforeGem - gemCostGst) * 100.0) / 100.0;
 
