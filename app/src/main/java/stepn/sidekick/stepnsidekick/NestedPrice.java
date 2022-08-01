@@ -1,7 +1,13 @@
 package stepn.sidekick.stepnsidekick;
 
+import androidx.annotation.Keep;
+
+import com.google.gson.annotations.SerializedName;
+
+@Keep
 public class NestedPrice {
-    private double usd;
+    @SerializedName("usd")
+    private final double usd;
 
     public double getPrice() {
         return usd;

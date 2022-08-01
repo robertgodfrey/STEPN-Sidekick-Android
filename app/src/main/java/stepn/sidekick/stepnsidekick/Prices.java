@@ -1,19 +1,23 @@
 package stepn.sidekick.stepnsidekick;
 
-import android.util.Log;
+import androidx.annotation.Keep;
 
 import com.google.gson.annotations.SerializedName;
 
+@Keep
 public class Prices {
-    private NestedPrice solana;
+    @SerializedName("solana")
+    private final NestedPrice solana;
     @SerializedName("green-satoshi-token")
-    private NestedPrice gstSol;
-    private NestedPrice binancecoin;
+    private final NestedPrice gstSol;
+    @SerializedName("binancecoin")
+    private final NestedPrice binancecoin;
     @SerializedName("green-satoshi-token-bsc")
-    private NestedPrice gstBsc;
-    private NestedPrice ethereum;
+    private final NestedPrice gstBsc;
+    @SerializedName("ethereum")
+    private final NestedPrice ethereum;
     @SerializedName("green-satoshi-token-on-eth")
-    private NestedPrice gstEth;
+    private final NestedPrice gstEth;
 
 
     public Prices(NestedPrice solana, NestedPrice gstSol, NestedPrice binancecoin, NestedPrice gstBsc, NestedPrice ethereum, NestedPrice gstEth) {
