@@ -18,6 +18,8 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -345,6 +347,9 @@ public class GpsAndClockService extends Service {
                     }
                     try {
                         Thread.sleep(1000);
+                        if (killThread) {
+                            return;
+                        }
                         alertSoundPool.play(softAlert, 1, 1, 0, 0, 1);
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
@@ -356,6 +361,9 @@ public class GpsAndClockService extends Service {
                     Thread.currentThread().interrupt();
                 }
                 if (playStartSound) {
+                    if (killThread) {
+                        return;
+                    }
                     alertSoundPool.play(startSound, 1, 1, 0, 0, 1);
                 }
             }
