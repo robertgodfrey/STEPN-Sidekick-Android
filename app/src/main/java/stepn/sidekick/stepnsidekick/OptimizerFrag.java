@@ -13,7 +13,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -24,7 +23,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -144,6 +142,13 @@ public class OptimizerFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // inits gem array first so no null pointer if loading from disk slow
+        gems = new ArrayList<>();
+        gems.add(new Gem(-1,0,0));
+        gems.add(new Gem(-1,0,0));
+        gems.add(new Gem(-1,0,0));
+        gems.add(new Gem(-1,0,0));
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -166,24 +171,21 @@ public class OptimizerFrag extends Fragment {
 
                 dpScale = getResources().getDisplayMetrics().density;
 
-                gems = new ArrayList<>();
+                gems.get(0).setSocketType(getSharedPrefs.getInt(GEM_ONE_TYPE_PREF, -1));
+                gems.get(0).setSocketRarity(getSharedPrefs.getInt(GEM_ONE_RARITY_PREF, 0));
+                gems.get(0).setMountedGem(getSharedPrefs.getInt(GEM_ONE_MOUNTED_PREF, 0));
 
-                gems.add(new Gem(
-                        getSharedPrefs.getInt(GEM_ONE_TYPE_PREF, -1),
-                        getSharedPrefs.getInt(GEM_ONE_RARITY_PREF, 0),
-                        getSharedPrefs.getInt(GEM_ONE_MOUNTED_PREF, 0)));
-                gems.add(new Gem(
-                        getSharedPrefs.getInt(GEM_TWO_TYPE_PREF, -1),
-                        getSharedPrefs.getInt(GEM_TWO_RARITY_PREF, 0),
-                        getSharedPrefs.getInt(GEM_TWO_MOUNTED_PREF, 0)));
-                gems.add(new Gem(
-                        getSharedPrefs.getInt(GEM_THREE_TYPE_PREF, -1),
-                        getSharedPrefs.getInt(GEM_THREE_RARITY_PREF, 0),
-                        getSharedPrefs.getInt(GEM_THREE_MOUNTED_PREF, 0)));
-                gems.add(new Gem(
-                        getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF, -1),
-                        getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF, 0),
-                        getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF, 0)));
+                gems.get(1).setSocketType(getSharedPrefs.getInt(GEM_TWO_TYPE_PREF, -1));
+                gems.get(1).setSocketRarity(getSharedPrefs.getInt(GEM_TWO_RARITY_PREF, 0));
+                gems.get(1).setMountedGem(getSharedPrefs.getInt(GEM_TWO_MOUNTED_PREF, 0));
+
+                gems.get(2).setSocketType(getSharedPrefs.getInt(GEM_THREE_TYPE_PREF, -1));
+                gems.get(2).setSocketRarity(getSharedPrefs.getInt(GEM_THREE_RARITY_PREF, 0));
+                gems.get(2).setMountedGem(getSharedPrefs.getInt(GEM_THREE_MOUNTED_PREF, 0));
+
+                gems.get(3).setSocketType(getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF, -1));
+                gems.get(3).setSocketRarity(getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF, 0));
+                gems.get(3).setMountedGem(getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF, 0));
             }
         }).start();
 
@@ -2055,7 +2057,7 @@ public class OptimizerFrag extends Fragment {
                 gstTotal = (float) (Math.floor(energy * Math.pow(totalEff, 0.47) * 10) / 10);
         }
 
-        durabilityLost = (int) Math.round(energy * ((2.22 * Math.exp(-totalRes / 30.9)) + (2.8 * Math.exp(-totalRes / 6.2)) + 0.4));
+        durabilityLost = (int) Math.round(energy * ((2.944 * Math.exp(-totalRes / 6.763)) + (2.119 * Math.exp(-totalRes / 36.817)) + 0.294));
 
         if (durabilityLost < 1) {
             durabilityLost = 1;
@@ -2268,7 +2270,7 @@ public class OptimizerFrag extends Fragment {
 
         switch (shoeRarity) {
             case COMMON:
-                hpLoss = energy * 0.356 * Math.pow(totalComf, -0.388);
+                hpLoss = energy * 0.378 * Math.pow(totalComf, -0.42);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 39;
@@ -2281,7 +2283,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case UNCOMMON:
-                hpLoss = energy * 0.425 * Math.pow(totalComf, -0.452);
+                hpLoss = energy * 0.424 * Math.pow(totalComf, -0.446);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 23;
@@ -2294,7 +2296,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case RARE:
-                hpLoss = energy * 0.456 * Math.pow(totalComf, -0.459);
+                hpLoss = energy * 0.47 * Math.pow(totalComf, -0.467);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 16;
@@ -2307,7 +2309,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case EPIC:
-                hpLoss = energy * 0.456 * Math.pow(totalComf, -0.459);
+                hpLoss = energy * 0.47 * Math.pow(totalComf, -0.467);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 11;
@@ -3176,6 +3178,10 @@ public class OptimizerFrag extends Fragment {
         gemMultiplierIncomeTextView.setText(multiplier);
         gemMultiplierGstTextView.setText(String.valueOf(comfGemMultiplier));
         updateHpRepairComfGem(gemType);
+
+        gemChainPriceEditText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(gemChainPriceEditText, InputMethodManager.SHOW_IMPLICIT);
 
         incomeBackgroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
