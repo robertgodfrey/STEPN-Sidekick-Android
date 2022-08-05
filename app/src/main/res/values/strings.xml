@@ -111,9 +111,9 @@
     <string name="total_income_usd">Total Income USD:</string>
     <string name="select_a_price_to_edit">Select a price to edit.</string>
     <string name="price_data_provided_by">Price data provided by</string>
-    <string name="gem">\" Gem\"</string>
-    <string name="points">\" points\"</string>
-    <string name="gem_points">\"Gem points \"</string>
+    <string name="gem">" Gem"</string>
+    <string name="points">" points"</string>
+    <string name="gem_points">"Gem points "</string>
     <string name="total_points">Total Points:</string>
     <string name="select_gem">SELECT GEM</string>
     <string name="gem_">Gem:</string>
