@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
  * sound if the speed is outside the specified range. Broadcasts info back to the SpeedTracker class.
  *
  *
- * @author Bob Godfrey
+ * @author Rob Godfrey
  * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
  */
 

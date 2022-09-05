@@ -47,7 +47,7 @@ import java.util.ArrayList;
  * stats. User enters energy they want to spend and whether or not they want to enable voice
  * updates and the ten-second countdown timer. Starts the SpeedTracker activity.
  *
- * @author Bob Godfrey
+ * @author Rob Godfrey
  * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
  *
  */

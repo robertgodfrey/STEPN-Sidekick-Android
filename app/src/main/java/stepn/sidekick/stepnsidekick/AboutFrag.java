@@ -25,7 +25,7 @@ import android.widget.Toast;
 /**
  * Information about the app, 'remove ads' button, option to donate.
  *
- * @author Bob Godfrey
+ * @author Rob Godfrey
  * @version 1.3.13 Removed crypto address donations, added thank-you message for those who removed ads
  *
  */

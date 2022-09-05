@@ -4,7 +4,7 @@ package stepn.sidekick.stepnsidekick;
  * Shoe class for iterating through the different types of shoes on the main menu and saving
  * custom speed values.
  *
- * @author Bob Godfrey
+ * @author Rob Godfrey
  * @version 1.0.6
  */
 

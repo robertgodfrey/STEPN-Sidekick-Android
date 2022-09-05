@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  * Activity displaying current speed, time remaining, GPS signal strength. Receives all info from
  * the GpsAndClockService class.
  *
- * @author Bob Godfrey
+ * @author Rob Godfrey
  * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
  */
 

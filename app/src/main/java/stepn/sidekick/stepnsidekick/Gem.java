@@ -5,7 +5,7 @@ import static stepn.sidekick.stepnsidekick.Finals.*;
 /**
  * Gem class for creating gem object
  *
- * @author Bob Godfrey
+ * @author Rob Godfrey
  * @version 1.3.0
  */
 

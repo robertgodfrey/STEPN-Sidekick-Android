@@ -52,8 +52,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Shoe optimizer fragment. Uses community data to determine best points allocation for GST earning
  * and mystery box chance.
  *
- * @author Bob Godfrey
- * @version 1.3.12 Bug fixes, adjusted formulas
+ * @author Rob Godfrey
+ * @version 1.3.13 Bug fixes, adjusted formulas, added 125% button, added moar shoes
  *
  */
 
@@ -158,42 +158,43 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void run() {
                 SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-                energy = getSharedPrefs.getFloat(OPT_ENERGY_PREF, 0);
-                oneTwentyFiveEnergy = getSharedPrefs.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF, 0);
-                shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF, WALKER);
-                shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF, COMMON);
-                shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF, 1);
-                baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF, 0);
-                addedEff = getSharedPrefs.getInt(ADDED_EFF_PREF, 0);
-                baseLuck = getSharedPrefs.getFloat(BASE_LUCK_PREF, 0);
-                addedLuck = getSharedPrefs.getInt(ADDED_LUCK_PREF, 0);
-                baseComf = getSharedPrefs.getFloat(BASE_COMF_PREF, 0);
-                addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF, 0);
-                baseRes = getSharedPrefs.getFloat(BASE_RES_PREF, 0);
-                addedRes = getSharedPrefs.getInt(ADDED_RES_PREF, 0);
+                shoeNum = getSharedPrefs.getInt(SHOE_NUM_PREF, 0);
+
+                energy = getSharedPrefs.getFloat(OPT_ENERGY_PREF + shoeNum, 0);
+                oneTwentyFiveEnergy = getSharedPrefs.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNum, 0);
+                shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF + shoeNum, WALKER);
+                shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF + shoeNum, COMMON);
+                shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF + shoeNum, 1);
+                baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF + shoeNum, 0);
+                addedEff = getSharedPrefs.getInt(ADDED_EFF_PREF + shoeNum, 0);
+                baseLuck = getSharedPrefs.getFloat(BASE_LUCK_PREF + shoeNum, 0);
+                addedLuck = getSharedPrefs.getInt(ADDED_LUCK_PREF + shoeNum, 0);
+                baseComf = getSharedPrefs.getFloat(BASE_COMF_PREF + shoeNum, 0);
+                addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF + shoeNum, 0);
+                baseRes = getSharedPrefs.getFloat(BASE_RES_PREF + shoeNum, 0);
+                addedRes = getSharedPrefs.getInt(ADDED_RES_PREF + shoeNum, 0);
                 comfGemLvlForRepair = getSharedPrefs.getInt(COMF_GEM_HP_REPAIR, 1);
                 update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
-                shoeName = getSharedPrefs.getString(SHOE_NAME, "");
-                oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF, false);
-                shoeNum = getSharedPrefs.getInt(SHOE_NUM_PREF, 0);
+                shoeName = getSharedPrefs.getString(SHOE_NAME + shoeNum, "");
+                oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNum, false);
 
                 dpScale = getResources().getDisplayMetrics().density;
 
-                gems.get(0).setSocketType(getSharedPrefs.getInt(GEM_ONE_TYPE_PREF, -1));
-                gems.get(0).setSocketRarity(getSharedPrefs.getInt(GEM_ONE_RARITY_PREF, 0));
-                gems.get(0).setMountedGem(getSharedPrefs.getInt(GEM_ONE_MOUNTED_PREF, 0));
+                gems.get(0).setSocketType(getSharedPrefs.getInt(GEM_ONE_TYPE_PREF + shoeNum, -1));
+                gems.get(0).setSocketRarity(getSharedPrefs.getInt(GEM_ONE_RARITY_PREF + shoeNum, 0));
+                gems.get(0).setMountedGem(getSharedPrefs.getInt(GEM_ONE_MOUNTED_PREF + shoeNum, 0));
 
-                gems.get(1).setSocketType(getSharedPrefs.getInt(GEM_TWO_TYPE_PREF, -1));
-                gems.get(1).setSocketRarity(getSharedPrefs.getInt(GEM_TWO_RARITY_PREF, 0));
-                gems.get(1).setMountedGem(getSharedPrefs.getInt(GEM_TWO_MOUNTED_PREF, 0));
+                gems.get(1).setSocketType(getSharedPrefs.getInt(GEM_TWO_TYPE_PREF + shoeNum, -1));
+                gems.get(1).setSocketRarity(getSharedPrefs.getInt(GEM_TWO_RARITY_PREF + shoeNum, 0));
+                gems.get(1).setMountedGem(getSharedPrefs.getInt(GEM_TWO_MOUNTED_PREF + shoeNum, 0));
 
-                gems.get(2).setSocketType(getSharedPrefs.getInt(GEM_THREE_TYPE_PREF, -1));
-                gems.get(2).setSocketRarity(getSharedPrefs.getInt(GEM_THREE_RARITY_PREF, 0));
-                gems.get(2).setMountedGem(getSharedPrefs.getInt(GEM_THREE_MOUNTED_PREF, 0));
+                gems.get(2).setSocketType(getSharedPrefs.getInt(GEM_THREE_TYPE_PREF + shoeNum, -1));
+                gems.get(2).setSocketRarity(getSharedPrefs.getInt(GEM_THREE_RARITY_PREF + shoeNum, 0));
+                gems.get(2).setMountedGem(getSharedPrefs.getInt(GEM_THREE_MOUNTED_PREF + shoeNum, 0));
 
-                gems.get(3).setSocketType(getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF, -1));
-                gems.get(3).setSocketRarity(getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF, 0));
-                gems.get(3).setMountedGem(getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF, 0));
+                gems.get(3).setSocketType(getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF + shoeNum, -1));
+                gems.get(3).setSocketRarity(getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF + shoeNum, 0));
+                gems.get(3).setMountedGem(getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF + shoeNum, 0));
             }
         }).start();
 
@@ -2316,7 +2317,7 @@ public class OptimizerFrag extends Fragment {
 
         switch (shoeRarity) {
             case COMMON:
-                hpLoss = localEnergy * 0.378 * Math.pow(totalComf, -0.42);
+                hpLoss = localEnergy * 0.386 * Math.pow(totalComf, -0.421);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 39;
@@ -2329,7 +2330,7 @@ public class OptimizerFrag extends Fragment {
                 }
                 break;
             case UNCOMMON:
-                hpLoss = localEnergy * 0.424 * Math.pow(totalComf, -0.446);
+                hpLoss = localEnergy * 0.424 * Math.pow(totalComf, -0.456);
                 switch (comfGemLvlForRepair) {
                     case 2:
                         hpPercentRestored = 23;

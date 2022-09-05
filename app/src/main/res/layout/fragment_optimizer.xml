@@ -435,11 +435,11 @@
         app:layout_constraintTop_toTopOf="@+id/shoeNameImageView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/threeBoxConstraint"
+        android:id="@+id/rarityConstraint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
+        app:layout_constraintEnd_toStartOf="@+id/shoeTypeConstraint"
         app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
         app:layout_constraintTop_toBottomOf="@+id/shoeNameImageView">
 
@@ -450,10 +450,10 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
-            app:layout_constraintEnd_toStartOf="@+id/shoeTypeBoxShadow"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/shoeRarityButton"
+            app:layout_constraintTop_toBottomOf="@id/rarityLabelTextView"
             app:srcCompat="@drawable/main_button_shadow" />
 
         <TextView
@@ -476,9 +476,10 @@
             android:layout_marginStart="-2dp"
             android:layout_marginEnd="2dp"
             android:background="@null"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintEnd_toEndOf="@id/shoeRarityBoxShadow"
             app:layout_constraintStart_toStartOf="@id/shoeRarityBoxShadow"
-            app:layout_constraintTop_toTopOf="@id/energyBoxOptimizer"
+            app:layout_constraintTop_toBottomOf="@id/rarityLabelTextView"
             app:srcCompat="@drawable/box_common" />
 
         <TextView
@@ -502,9 +503,20 @@
             android:text="@string/rarity"
             android:textColor="@color/gandalf"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/shoeRarityButton"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/shoeRarityButton"
             app:layout_constraintStart_toStartOf="@+id/shoeRarityButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shoeTypeConstraint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/energyConstraint"
+        app:layout_constraintStart_toEndOf="@+id/rarityConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/shoeNameImageView">
 
         <ImageView
             android:id="@+id/shoeTypeBoxShadow"
@@ -513,9 +525,9 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
-            app:layout_constraintEnd_toStartOf="@+id/energyBoxOptimizerShadow"
-            app:layout_constraintStart_toEndOf="@+id/shoeRarityBoxShadow"
-            app:layout_constraintTop_toTopOf="@+id/shoeTypeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shoeTypeLabelTextView"
             app:srcCompat="@drawable/main_button_shadow" />
 
         <TextView
@@ -540,7 +552,7 @@
             android:background="@null"
             app:layout_constraintEnd_toEndOf="@id/shoeTypeBoxShadow"
             app:layout_constraintStart_toStartOf="@+id/shoeTypeBoxShadow"
-            app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
+            app:layout_constraintTop_toBottomOf="@+id/shoeTypeLabelTextView"
             app:srcCompat="@drawable/box_common" />
 
         <TextView
@@ -603,9 +615,20 @@
             android:text="@string/type"
             android:textColor="@color/gandalf"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/energyBoxOptimizer"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/shoeTypeButton"
             app:layout_constraintStart_toStartOf="@+id/shoeTypeButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/energyConstraint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toEndOf="@+id/shoeTypeConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/shoeNameImageView">
 
         <ImageView
             android:id="@+id/energyBoxOptimizerShadow"
@@ -614,8 +637,8 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/shoeTypeBoxShadow"
-            app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/energyLabelTextView"
             app:srcCompat="@drawable/energy_input_box"
             app:tint="@color/energy_blue_border" />
 
@@ -659,28 +682,6 @@
             app:layout_constraintTop_toBottomOf="@+id/energyLabelTextView"
             app:srcCompat="@drawable/energy_input_box" />
 
-        <EditText
-            android:id="@+id/energyToSpendOptimizerEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="2dp"
-            android:background="@null"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:hint="0.0"
-            android:inputType="number|numberDecimal"
-            android:maxLength="4"
-            android:paddingHorizontal="36dp"
-            android:paddingVertical="8dp"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/energyBoxOptimizer"
-            app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
-            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
-            app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer" />
-
         <ImageView
             android:id="@+id/energyBolt"
             android:layout_width="wrap_content"
@@ -705,8 +706,27 @@
             app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
             app:layout_constraintTop_toTopOf="@+id/oneTwentyFiveTextView" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/energyToSpendOptimizerEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:hint="0.0"
+        android:inputType="number|numberDecimal"
+        android:maxLength="4"
+        android:paddingHorizontal="36dp"
+        android:paddingVertical="8dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/energyConstraint"
+        app:layout_constraintEnd_toEndOf="@+id/energyConstraint"
+        app:layout_constraintStart_toStartOf="@+id/energyConstraint" />
 
     <ImageView
         android:id="@+id/seekbarBackground"
@@ -717,7 +737,7 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/threeBoxConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/rarityConstraint"
         app:srcCompat="@drawable/seekbar_background" />
 
     <ImageView
