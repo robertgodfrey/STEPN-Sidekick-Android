@@ -89,6 +89,7 @@ public class OptimizerFrag extends Fragment {
     private final String UPDATE_PREF = "optimizerUpdate";
     private final String ONE_TWENTY_FIVE_BOOL_PREF = "oneTwentyFiveBool";
     private final String ONE_TWENTY_FIVE_ENERGY_PREF = "oneTwentyFiveEnergy";
+    private final String SHOE_NUM_PREF = "shoeNum";
 
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
@@ -114,8 +115,9 @@ public class OptimizerFrag extends Fragment {
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
             resPlusTv, optimizeGstTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
-            optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
-            gemPriceGstTextView, totalIncomeGstTextView, totalIncomeUsdTextView, oneTwentyFiveTextView;
+            optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView, shoeFourTextView,
+            shoeFiveTextView, shoeSixTextView, gemPriceGstTextView, totalIncomeGstTextView,
+            totalIncomeUsdTextView, oneTwentyFiveTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -173,6 +175,7 @@ public class OptimizerFrag extends Fragment {
                 update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
                 shoeName = getSharedPrefs.getString(SHOE_NAME, "");
                 oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF, false);
+                shoeNum = getSharedPrefs.getInt(SHOE_NUM_PREF, 0);
 
                 dpScale = getResources().getDisplayMetrics().density;
 
@@ -247,6 +250,9 @@ public class OptimizerFrag extends Fragment {
         shoeOneTextView = view.findViewById(R.id.shoeOneTextView);
         shoeTwoTextView = view.findViewById(R.id.shoeTwoTextView);
         shoeThreeTextView = view.findViewById(R.id.shoeThreeTextView);
+        shoeFourTextView = view.findViewById(R.id.shoeFourTextView);
+        shoeFiveTextView = view.findViewById(R.id.shoeFiveTextView);
+        shoeSixTextView = view.findViewById(R.id.shoeSixTextView);
         shoeRarityTextView = view.findViewById(R.id.shoeRarityTextView);
         shoeRarityShadowTextView = view.findViewById(R.id.shoeRarityShadowTextView);
         shoeTypeTextView = view.findViewById(R.id.shoeTypeTextView);
@@ -375,7 +381,7 @@ public class OptimizerFrag extends Fragment {
                 int oldShoeNum = shoeNum;
 
                 if (shoeNum == 0) {
-                    shoeNum = 2;
+                    shoeNum = 5;
                 } else {
                     shoeNum--;
                 }
@@ -399,7 +405,7 @@ public class OptimizerFrag extends Fragment {
             public void onClick(View view) {
                 int oldShoeNum = shoeNum;
 
-                if (shoeNum == 2) {
+                if (shoeNum == 5) {
                     shoeNum = 0;
                 } else {
                     shoeNum++;
@@ -1054,11 +1060,10 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        shoeNum = 0;
-
         loadPoints();
         updateType();
         updateRarity();
+        updateShoeNums();
 
         if (update) {
             update = false;
@@ -2983,67 +2988,73 @@ public class OptimizerFrag extends Fragment {
         }
     }
 
-    // updates entire page with new shoe values
-    private void updatePageNewShoe(final int oldShoeNum) {
-        final String saveSuffix;
-        final String loadSuffix;
-
+    // updates shoe nums
+    private void updateShoeNums() {
         Typeface bold = ResourcesCompat.getFont(getContext(), R.font.roboto_condensed_bold_italic);
         Typeface reg = ResourcesCompat.getFont(getContext(), R.font.roboto_condensed_regular_italic);
 
         switch (shoeNum) {
             case 1:
-                // shoe 2
-                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeOneTextView.setTypeface(reg);
+                // labeled shoe 2
                 shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeTwoTextView.setTypeface(bold);
+                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeOneTextView.setTypeface(reg);
                 shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
                 shoeThreeTextView.setTypeface(reg);
                 break;
             case 2:
-                // shoe 3
-                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeOneTextView.setTypeface(reg);
-                shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeTwoTextView.setTypeface(reg);
+                // labeled shoe 3
                 shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeThreeTextView.setTypeface(bold);
+                shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeTwoTextView.setTypeface(reg);
+                shoeFourTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeFourTextView.setTypeface(reg);
+                break;
+            case 3:
+                // labeled shoe 4
+                shoeFourTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeFourTextView.setTypeface(bold);
+                shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeThreeTextView.setTypeface(reg);
+                shoeFiveTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeFiveTextView.setTypeface(reg);
+                break;
+            case 4:
+                // labeled shoe 5
+                shoeFiveTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeFiveTextView.setTypeface(bold);
+                shoeFourTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeFourTextView.setTypeface(reg);
+                shoeSixTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeSixTextView.setTypeface(reg);
+                break;
+            case 5:
+                // labeled shoe 6
+                shoeSixTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeSixTextView.setTypeface(bold);
+                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeOneTextView.setTypeface(reg);
+                shoeFiveTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeFiveTextView.setTypeface(reg);
                 break;
             default:
-                // shoe 1
+                // labeled shoe 1
                 shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeOneTextView.setTypeface(bold);
                 shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
                 shoeTwoTextView.setTypeface(reg);
-                shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeThreeTextView.setTypeface(reg);
+                shoeSixTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                shoeSixTextView.setTypeface(reg);
+                shoeNum = 0;
                 break;
         }
+    }
 
-        switch (oldShoeNum) {
-            case 1:
-                saveSuffix = "1";
-                break;
-            case 2:
-                saveSuffix = "2";
-                break;
-            default:
-                saveSuffix = "";
-                break;
-        }
-
-        switch (shoeNum) {
-            case 1:
-                loadSuffix = "1";
-                break;
-            case 2:
-                loadSuffix = "2";
-                break;
-            default:
-                loadSuffix = "";
-                break;
-        }
+    // updates entire page with new shoe values
+    private void updatePageNewShoe(final int oldShoeNum) {
+        updateShoeNums();
 
         Thread saveEmLoadEm = new Thread(new Runnable() {
             @Override
@@ -3052,71 +3063,71 @@ public class OptimizerFrag extends Fragment {
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                editor.putInt(OPT_SHOE_TYPE_PREF + saveSuffix, shoeType);
-                editor.putInt(SHOE_RARITY_PREF + saveSuffix, shoeRarity);
-                editor.putInt(SHOE_LEVEL_PREF + saveSuffix, shoeLevel);
-                editor.putFloat(OPT_ENERGY_PREF + saveSuffix, energy);
-                editor.putFloat(ONE_TWENTY_FIVE_ENERGY_PREF + saveSuffix, oneTwentyFiveEnergy);
-                editor.putFloat(BASE_EFF_PREF + saveSuffix, baseEff);
-                editor.putInt(ADDED_EFF_PREF + saveSuffix, addedEff);
-                editor.putFloat(BASE_LUCK_PREF + saveSuffix, baseLuck);
-                editor.putInt(ADDED_LUCK_PREF + saveSuffix, addedLuck);
-                editor.putFloat(BASE_COMF_PREF + saveSuffix, baseComf);
-                editor.putInt(ADDED_COMF_PREF + saveSuffix, addedComf);
-                editor.putFloat(BASE_RES_PREF + saveSuffix, baseRes);
-                editor.putInt(ADDED_RES_PREF + saveSuffix, addedRes);
-                editor.putString(SHOE_NAME + saveSuffix, shoeName);
-                editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + saveSuffix, oneTwentyFive);
+                editor.putInt(OPT_SHOE_TYPE_PREF + oldShoeNum, shoeType);
+                editor.putInt(SHOE_RARITY_PREF + oldShoeNum, shoeRarity);
+                editor.putInt(SHOE_LEVEL_PREF + oldShoeNum, shoeLevel);
+                editor.putFloat(OPT_ENERGY_PREF + oldShoeNum, energy);
+                editor.putFloat(ONE_TWENTY_FIVE_ENERGY_PREF + oldShoeNum, oneTwentyFiveEnergy);
+                editor.putFloat(BASE_EFF_PREF + oldShoeNum, baseEff);
+                editor.putInt(ADDED_EFF_PREF + oldShoeNum, addedEff);
+                editor.putFloat(BASE_LUCK_PREF + oldShoeNum, baseLuck);
+                editor.putInt(ADDED_LUCK_PREF + oldShoeNum, addedLuck);
+                editor.putFloat(BASE_COMF_PREF + oldShoeNum, baseComf);
+                editor.putInt(ADDED_COMF_PREF + oldShoeNum, addedComf);
+                editor.putFloat(BASE_RES_PREF + oldShoeNum, baseRes);
+                editor.putInt(ADDED_RES_PREF + oldShoeNum, addedRes);
+                editor.putString(SHOE_NAME + oldShoeNum, shoeName);
+                editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + oldShoeNum, oneTwentyFive);
 
-                editor.putInt(GEM_ONE_TYPE_PREF + saveSuffix, gems.get(0).getSocketType());
-                editor.putInt(GEM_ONE_RARITY_PREF + saveSuffix, gems.get(0).getSocketRarity());
-                editor.putInt(GEM_ONE_MOUNTED_PREF + saveSuffix, gems.get(0).getMountedGem());
-                editor.putInt(GEM_TWO_TYPE_PREF + saveSuffix, gems.get(1).getSocketType());
-                editor.putInt(GEM_TWO_RARITY_PREF + saveSuffix, gems.get(1).getSocketRarity());
-                editor.putInt(GEM_TWO_MOUNTED_PREF + saveSuffix, gems.get(1).getMountedGem());
-                editor.putInt(GEM_THREE_TYPE_PREF + saveSuffix, gems.get(2).getSocketType());
-                editor.putInt(GEM_THREE_RARITY_PREF + saveSuffix, gems.get(2).getSocketRarity());
-                editor.putInt(GEM_THREE_MOUNTED_PREF + saveSuffix, gems.get(2).getMountedGem());
-                editor.putInt(GEM_FOUR_TYPE_PREF + saveSuffix, gems.get(3).getSocketType());
-                editor.putInt(GEM_FOUR_RARITY_PREF + saveSuffix, gems.get(3).getSocketRarity());
-                editor.putInt(GEM_FOUR_MOUNTED_PREF + saveSuffix, gems.get(3).getMountedGem());
+                editor.putInt(GEM_ONE_TYPE_PREF + oldShoeNum, gems.get(0).getSocketType());
+                editor.putInt(GEM_ONE_RARITY_PREF + oldShoeNum, gems.get(0).getSocketRarity());
+                editor.putInt(GEM_ONE_MOUNTED_PREF + oldShoeNum, gems.get(0).getMountedGem());
+                editor.putInt(GEM_TWO_TYPE_PREF + oldShoeNum, gems.get(1).getSocketType());
+                editor.putInt(GEM_TWO_RARITY_PREF + oldShoeNum, gems.get(1).getSocketRarity());
+                editor.putInt(GEM_TWO_MOUNTED_PREF + oldShoeNum, gems.get(1).getMountedGem());
+                editor.putInt(GEM_THREE_TYPE_PREF + oldShoeNum, gems.get(2).getSocketType());
+                editor.putInt(GEM_THREE_RARITY_PREF + oldShoeNum, gems.get(2).getSocketRarity());
+                editor.putInt(GEM_THREE_MOUNTED_PREF + oldShoeNum, gems.get(2).getMountedGem());
+                editor.putInt(GEM_FOUR_TYPE_PREF + oldShoeNum, gems.get(3).getSocketType());
+                editor.putInt(GEM_FOUR_RARITY_PREF + oldShoeNum, gems.get(3).getSocketRarity());
+                editor.putInt(GEM_FOUR_MOUNTED_PREF + oldShoeNum, gems.get(3).getMountedGem());
 
                 editor.apply();
 
-                shoeType = sharedPreferences.getInt(OPT_SHOE_TYPE_PREF + loadSuffix, 0);
-                shoeRarity = sharedPreferences.getInt(SHOE_RARITY_PREF + loadSuffix, COMMON);
-                shoeLevel = sharedPreferences.getInt(SHOE_LEVEL_PREF + loadSuffix, 1);
-                energy = sharedPreferences.getFloat(OPT_ENERGY_PREF + loadSuffix, 0);
-                oneTwentyFiveEnergy = sharedPreferences.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF + loadSuffix, 0);
-                baseEff = sharedPreferences.getFloat(BASE_EFF_PREF + loadSuffix, 0);
-                addedEff = sharedPreferences.getInt(ADDED_EFF_PREF + loadSuffix, 0);
-                baseLuck = sharedPreferences.getFloat(BASE_LUCK_PREF + loadSuffix, 0);
-                addedLuck = sharedPreferences.getInt(ADDED_LUCK_PREF + loadSuffix, 0);
-                baseComf = sharedPreferences.getFloat(BASE_COMF_PREF + loadSuffix, 0);
-                addedComf = sharedPreferences.getInt(ADDED_COMF_PREF + loadSuffix, 0);
-                baseRes = sharedPreferences.getFloat(BASE_RES_PREF + loadSuffix, 0);
-                addedRes = sharedPreferences.getInt(ADDED_RES_PREF + loadSuffix, 0);
-                shoeName = sharedPreferences.getString(SHOE_NAME + loadSuffix, "");
-                oneTwentyFive = sharedPreferences.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + loadSuffix, false);
+                shoeType = sharedPreferences.getInt(OPT_SHOE_TYPE_PREF + shoeNum, 0);
+                shoeRarity = sharedPreferences.getInt(SHOE_RARITY_PREF + shoeNum, COMMON);
+                shoeLevel = sharedPreferences.getInt(SHOE_LEVEL_PREF + shoeNum, 1);
+                energy = sharedPreferences.getFloat(OPT_ENERGY_PREF + shoeNum, 0);
+                oneTwentyFiveEnergy = sharedPreferences.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNum, 0);
+                baseEff = sharedPreferences.getFloat(BASE_EFF_PREF + shoeNum, 0);
+                addedEff = sharedPreferences.getInt(ADDED_EFF_PREF + shoeNum, 0);
+                baseLuck = sharedPreferences.getFloat(BASE_LUCK_PREF + shoeNum, 0);
+                addedLuck = sharedPreferences.getInt(ADDED_LUCK_PREF + shoeNum, 0);
+                baseComf = sharedPreferences.getFloat(BASE_COMF_PREF + shoeNum, 0);
+                addedComf = sharedPreferences.getInt(ADDED_COMF_PREF + shoeNum, 0);
+                baseRes = sharedPreferences.getFloat(BASE_RES_PREF + shoeNum, 0);
+                addedRes = sharedPreferences.getInt(ADDED_RES_PREF + shoeNum, 0);
+                shoeName = sharedPreferences.getString(SHOE_NAME + shoeNum, "");
+                oneTwentyFive = sharedPreferences.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNum, false);
 
                 gems.clear();
 
                 gems.add(new Gem(
-                        sharedPreferences.getInt(GEM_ONE_TYPE_PREF + loadSuffix, -1),
-                        sharedPreferences.getInt(GEM_ONE_RARITY_PREF + loadSuffix, 0),
-                        sharedPreferences.getInt(GEM_ONE_MOUNTED_PREF + loadSuffix, 0)));
+                        sharedPreferences.getInt(GEM_ONE_TYPE_PREF + shoeNum, -1),
+                        sharedPreferences.getInt(GEM_ONE_RARITY_PREF + shoeNum, 0),
+                        sharedPreferences.getInt(GEM_ONE_MOUNTED_PREF + shoeNum, 0)));
                 gems.add(new Gem(
-                        sharedPreferences.getInt(GEM_TWO_TYPE_PREF + loadSuffix, -1),
-                        sharedPreferences.getInt(GEM_TWO_RARITY_PREF + loadSuffix, 0),
-                        sharedPreferences.getInt(GEM_TWO_MOUNTED_PREF + loadSuffix, 0)));
+                        sharedPreferences.getInt(GEM_TWO_TYPE_PREF + shoeNum, -1),
+                        sharedPreferences.getInt(GEM_TWO_RARITY_PREF + shoeNum, 0),
+                        sharedPreferences.getInt(GEM_TWO_MOUNTED_PREF + shoeNum, 0)));
                 gems.add(new Gem(
-                        sharedPreferences.getInt(GEM_THREE_TYPE_PREF + loadSuffix, -1),
-                        sharedPreferences.getInt(GEM_THREE_RARITY_PREF + loadSuffix, 0),
-                        sharedPreferences.getInt(GEM_THREE_MOUNTED_PREF + loadSuffix, 0)));
+                        sharedPreferences.getInt(GEM_THREE_TYPE_PREF + shoeNum, -1),
+                        sharedPreferences.getInt(GEM_THREE_RARITY_PREF + shoeNum, 0),
+                        sharedPreferences.getInt(GEM_THREE_MOUNTED_PREF + shoeNum, 0)));
                 gems.add(new Gem(
-                        sharedPreferences.getInt(GEM_FOUR_TYPE_PREF + loadSuffix, -1),
-                        sharedPreferences.getInt(GEM_FOUR_RARITY_PREF + loadSuffix, 0),
-                        sharedPreferences.getInt(GEM_FOUR_MOUNTED_PREF + loadSuffix, 0)));
+                        sharedPreferences.getInt(GEM_FOUR_TYPE_PREF + shoeNum, -1),
+                        sharedPreferences.getInt(GEM_FOUR_RARITY_PREF + shoeNum, 0),
+                        sharedPreferences.getInt(GEM_FOUR_MOUNTED_PREF + shoeNum, 0)));
             }
         });
         saveEmLoadEm.start();
@@ -3464,52 +3475,40 @@ public class OptimizerFrag extends Fragment {
     // to save prefs
     @Override
     public void onStop() {
-        final String saveSuffix;
-
-        switch (shoeNum) {
-            case 1:
-                saveSuffix = "1";
-                break;
-            case 2:
-                saveSuffix = "2";
-                break;
-            default:
-                saveSuffix = "";
-                break;
-        }
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt(OPT_SHOE_TYPE_PREF + saveSuffix, shoeType);
-        editor.putFloat(OPT_ENERGY_PREF + saveSuffix, energy);
-        editor.putFloat(ONE_TWENTY_FIVE_ENERGY_PREF + saveSuffix, oneTwentyFiveEnergy);
-        editor.putInt(SHOE_RARITY_PREF + saveSuffix, shoeRarity);
-        editor.putInt(SHOE_LEVEL_PREF + saveSuffix, shoeLevel);
-        editor.putFloat(BASE_EFF_PREF + saveSuffix, baseEff);
-        editor.putInt(ADDED_EFF_PREF + saveSuffix, addedEff);
-        editor.putFloat(BASE_LUCK_PREF + saveSuffix, baseLuck);
-        editor.putInt(ADDED_LUCK_PREF + saveSuffix, addedLuck);
-        editor.putFloat(BASE_COMF_PREF + saveSuffix, baseComf);
-        editor.putInt(ADDED_COMF_PREF + saveSuffix, addedComf);
-        editor.putFloat(BASE_RES_PREF + saveSuffix, baseRes);
-        editor.putInt(ADDED_RES_PREF + saveSuffix, addedRes);
+        editor.putInt(OPT_SHOE_TYPE_PREF + shoeNum, shoeType);
+        editor.putFloat(OPT_ENERGY_PREF + shoeNum, energy);
+        editor.putFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNum, oneTwentyFiveEnergy);
+        editor.putInt(SHOE_RARITY_PREF + shoeNum, shoeRarity);
+        editor.putInt(SHOE_LEVEL_PREF + shoeNum, shoeLevel);
+        editor.putFloat(BASE_EFF_PREF + shoeNum, baseEff);
+        editor.putInt(ADDED_EFF_PREF + shoeNum, addedEff);
+        editor.putFloat(BASE_LUCK_PREF + shoeNum, baseLuck);
+        editor.putInt(ADDED_LUCK_PREF + shoeNum, addedLuck);
+        editor.putFloat(BASE_COMF_PREF + shoeNum, baseComf);
+        editor.putInt(ADDED_COMF_PREF + shoeNum, addedComf);
+        editor.putFloat(BASE_RES_PREF + shoeNum, baseRes);
+        editor.putInt(ADDED_RES_PREF + shoeNum, addedRes);
         editor.putInt(COMF_GEM_HP_REPAIR, comfGemLvlForRepair);
         editor.putBoolean(UPDATE_PREF, false);
-        editor.putString(SHOE_NAME + saveSuffix, shoeName);
-        editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + saveSuffix, oneTwentyFive);
+        editor.putString(SHOE_NAME + shoeNum, shoeName);
+        editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNum, oneTwentyFive);
+        editor.putInt(SHOE_NUM_PREF, shoeNum);
 
-        editor.putInt(GEM_ONE_TYPE_PREF + saveSuffix, gems.get(0).getSocketType());
-        editor.putInt(GEM_ONE_RARITY_PREF + saveSuffix, gems.get(0).getSocketRarity());
-        editor.putInt(GEM_ONE_MOUNTED_PREF + saveSuffix, gems.get(0).getMountedGem());
-        editor.putInt(GEM_TWO_TYPE_PREF + saveSuffix, gems.get(1).getSocketType());
-        editor.putInt(GEM_TWO_RARITY_PREF + saveSuffix, gems.get(1).getSocketRarity());
-        editor.putInt(GEM_TWO_MOUNTED_PREF + saveSuffix, gems.get(1).getMountedGem());
-        editor.putInt(GEM_THREE_TYPE_PREF + saveSuffix, gems.get(2).getSocketType());
-        editor.putInt(GEM_THREE_RARITY_PREF + saveSuffix, gems.get(2).getSocketRarity());
-        editor.putInt(GEM_THREE_MOUNTED_PREF + saveSuffix, gems.get(2).getMountedGem());
-        editor.putInt(GEM_FOUR_TYPE_PREF + saveSuffix, gems.get(3).getSocketType());
-        editor.putInt(GEM_FOUR_RARITY_PREF + saveSuffix, gems.get(3).getSocketRarity());
-        editor.putInt(GEM_FOUR_MOUNTED_PREF + saveSuffix, gems.get(3).getMountedGem());
+        editor.putInt(GEM_ONE_TYPE_PREF + shoeNum, gems.get(0).getSocketType());
+        editor.putInt(GEM_ONE_RARITY_PREF + shoeNum, gems.get(0).getSocketRarity());
+        editor.putInt(GEM_ONE_MOUNTED_PREF + shoeNum, gems.get(0).getMountedGem());
+        editor.putInt(GEM_TWO_TYPE_PREF + shoeNum, gems.get(1).getSocketType());
+        editor.putInt(GEM_TWO_RARITY_PREF + shoeNum, gems.get(1).getSocketRarity());
+        editor.putInt(GEM_TWO_MOUNTED_PREF + shoeNum, gems.get(1).getMountedGem());
+        editor.putInt(GEM_THREE_TYPE_PREF + shoeNum, gems.get(2).getSocketType());
+        editor.putInt(GEM_THREE_RARITY_PREF + shoeNum, gems.get(2).getSocketRarity());
+        editor.putInt(GEM_THREE_MOUNTED_PREF + shoeNum, gems.get(2).getMountedGem());
+        editor.putInt(GEM_FOUR_TYPE_PREF + shoeNum, gems.get(3).getSocketType());
+        editor.putInt(GEM_FOUR_RARITY_PREF + shoeNum, gems.get(3).getSocketRarity());
+        editor.putInt(GEM_FOUR_MOUNTED_PREF + shoeNum, gems.get(3).getMountedGem());
 
         editor.apply();
 

@@ -68,7 +68,7 @@ public class StartActivityFrag extends Fragment {
     private final String CUSTOM_MAX_SPEED_PREF = "customMaxSpeed";
     private final String FIRST_TIME_PREF = "firstTime";
 
-    Button leftButton, rightButton;
+    Button leftButton, rightButton, backgroundButton;
     ImageButton startButton, countDownTimerButton, voiceAlertSpeedButton, voiceAlertTimeButton,
             voiceAlertCountdownButton, helpButton;
     ImageView countDownTimerButtonShadow, voiceAlertSpeedButtonShadow, voiceAlertTimeButtonShadow,
@@ -141,6 +141,7 @@ public class StartActivityFrag extends Fragment {
 
         leftButton = (Button) view.findViewById(R.id.leftArrowButton);
         rightButton = (Button) view.findViewById(R.id.rightArrowButton);
+        backgroundButton = (Button) view.findViewById(R.id.backgroundButton);
         shoeTypeImage = (ImageView) view.findViewById(R.id.shoeTypeImageView);
         shoeTypeTextView = (TextView) view.findViewById(R.id.shoeTypeTextView);
 
@@ -201,6 +202,13 @@ public class StartActivityFrag extends Fragment {
         } else {
             updateUI();
         }
+
+        backgroundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearFocus(view);
+            }
+        });
 
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -709,8 +717,8 @@ public class StartActivityFrag extends Fragment {
             countDownTimerTextView.setText(R.string.disabled);
         }
         if (!voiceAlertsTime) {
-            //voiceAlertTimeButton.setImageResource(R.drawable.main_buttons_disabled);
-            //voiceAlertTimeTextView.setText(R.string.disabled);
+            voiceAlertTimeButton.setImageResource(R.drawable.main_buttons_disabled);
+            voiceAlertTimeTextView.setText(R.string.disabled);
         }
         if (!voiceCountdownAlerts) {
             voiceAlertCountdownButton.setImageResource(R.drawable.main_buttons_disabled);
