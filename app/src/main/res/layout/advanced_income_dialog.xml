@@ -106,7 +106,7 @@
         app:layout_constraintEnd_toStartOf="@+id/ethChainButton"
         app:layout_constraintStart_toEndOf="@+id/solChainButton"
         app:layout_constraintTop_toBottomOf="@+id/selectChainTextView"
-        app:srcCompat="@drawable/logo_bnb" />
+        app:srcCompat="@mipmap/logo_bnb" />
 
     <TextView
         android:id="@+id/bscLabel"
@@ -146,7 +146,7 @@
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackgroundButton"
         app:layout_constraintStart_toEndOf="@+id/bscChainButton"
         app:layout_constraintTop_toBottomOf="@+id/selectChainTextView"
-        app:srcCompat="@drawable/logo_eth" />
+        app:srcCompat="@mipmap/logo_eth" />
 
     <TextView
         android:id="@+id/ethLabel"
@@ -288,7 +288,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gemMultipleDeetsTextView"
         app:layout_constraintEnd_toStartOf="@+id/gemMultipleDeetsTextView"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleDeetsTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@mipmap/logo_gst" />
 
     <TextView
         android:id="@+id/gstIncomeTextView"
@@ -324,7 +324,7 @@
         app:layout_constraintEnd_toEndOf="@+id/chainIcon"
         app:layout_constraintStart_toStartOf="@+id/chainIcon"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleDeetsTextView"
-        app:srcCompat="@drawable/gem_comf_level1" />
+        app:srcCompat="@mipmap/gem_comf_level1" />
 
     <Button
         android:id="@+id/incomeDetailsChangeComfGemButton"
@@ -427,7 +427,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gemPriceGstTextView"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackgroundButton"
         app:layout_constraintTop_toTopOf="@+id/gemPriceGstTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@mipmap/logo_gst" />
 
     <TextView
         android:id="@+id/totalIncomeGstLabelTextView"
@@ -463,7 +463,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/totalIncomeGstTextView"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackgroundButton"
         app:layout_constraintTop_toTopOf="@+id/totalIncomeGstTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@mipmap/logo_gst" />
 
     <TextView
         android:id="@+id/totalIncomeUsdLabelTextView"

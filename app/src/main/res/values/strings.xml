@@ -48,7 +48,7 @@
     <string name="bnb_address_copied">BNB address copied to clipboard</string>
     <string name="eth_address_copied">ETH address copied to clipboard</string>
     <string name="instructions_1">Use the arrows to select a shoe. You can use the default shoes or you can select \"Custom\" to input custom speeds.
-        The app will play an warning sound if your current speed is outside of the speed range that you choose.</string>
+        The app will play a warning sound if your current speed is outside of the speed range that you choose.</string>
     <string name="instructions_2">Enter the amount of energy you wish to spend. The amount of time required to spend the energy will be displayed below.</string>
     <string name="instructions_3">Select whether or not the ten-second countdown timer is enabled. If enabled, this timer
         gives your GPS time to sync and gives you time to switch to the STEPN app to start your activity. If disabled, the app will start the activity timer immediately.</string>

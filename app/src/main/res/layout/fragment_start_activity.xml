@@ -40,7 +40,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/main_box" />
+        app:srcCompat="@mipmap/main_box" />
 
         <ImageView
         android:id="@+id/helpButtonShadow"
@@ -122,7 +122,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/footprint2ImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@mipmap/footprint" />
 
         <ImageView
         android:id="@+id/footprint2ImageView"
@@ -135,7 +135,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/footprint3ImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@mipmap/footprint" />
 
         <ImageView
         android:id="@+id/footprint3ImageView"
@@ -148,7 +148,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/bigOlBox"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-        app:srcCompat="@drawable/footprint" />
+        app:srcCompat="@mipmap/footprint" />
 
         <ImageView
         android:id="@+id/shoeTypeImageView"
@@ -162,7 +162,7 @@
         app:layout_constraintEnd_toEndOf="@+id/bigOlBox"
         app:layout_constraintStart_toStartOf="@+id/bigOlBox"
         app:layout_constraintTop_toTopOf="@+id/bigOlBox"
-        app:srcCompat="@drawable/shoe_walker" />
+        app:srcCompat="@mipmap/shoe_walker" />
 
         <Button
         android:id="@+id/leftArrowButton"
@@ -499,7 +499,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/energyBox"
         app:layout_constraintEnd_toEndOf="@+id/energyBox"
         app:layout_constraintTop_toTopOf="@+id/energyBox"
-        app:srcCompat="@drawable/energy_bolt" />
+        app:srcCompat="@mipmap/energy_bolt" />
 
         <TextView
         android:id="@+id/energyInMinsTextView"

@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-        app:srcCompat="@drawable/shoe_walker" />
+        app:srcCompat="@mipmap/shoe_walker" />
 
     <ImageView
         android:id="@+id/gemSocketOneShadow"
@@ -78,7 +78,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
         app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
-        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:srcCompat="@mipmap/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -90,7 +90,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-        app:srcCompat="@drawable/gem_socket_gray_0" />
+        app:srcCompat="@mipmap/gem_socket_gray_0" />
 
     <ImageView
         android:id="@+id/gemSocketOneLockPlus"
@@ -125,7 +125,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
         app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
-        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:srcCompat="@mipmap/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -137,7 +137,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="@id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-        app:srcCompat="@drawable/gem_socket_gray_0" />
+        app:srcCompat="@mipmap/gem_socket_gray_0" />
 
     <ImageView
         android:id="@+id/gemSocketTwoLockPlus"
@@ -172,7 +172,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
         app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
-        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:srcCompat="@mipmap/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -184,7 +184,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
-        app:srcCompat="@drawable/gem_socket_gray_0" />
+        app:srcCompat="@mipmap/gem_socket_gray_0" />
 
     <ImageView
         android:id="@+id/gemSocketThreeLockPlus"
@@ -219,7 +219,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
         app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
-        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:srcCompat="@mipmap/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -231,7 +231,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="@id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
-        app:srcCompat="@drawable/gem_socket_gray_0" />
+        app:srcCompat="@mipmap/gem_socket_gray_0" />
 
     <ImageView
         android:id="@+id/gemSocketFourLockPlus"
@@ -330,7 +330,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/shoeNameImageView"
         app:layout_constraintEnd_toStartOf="@+id/shoeNameImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeNameImageView"
-        app:srcCompat="@drawable/arrow_left" />
+        app:srcCompat="@mipmap/arrow_left" />
 
     <ImageView
         android:id="@+id/rightArrowImageView"
@@ -342,7 +342,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/shoeNameImageView"
         app:layout_constraintStart_toEndOf="@+id/shoeNameImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeNameImageView"
-        app:srcCompat="@drawable/arrow_right" />
+        app:srcCompat="@mipmap/arrow_right" />
 
     <Button
         android:id="@+id/leftArrowButton"
@@ -520,7 +520,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/footprint2ImageView"
             app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-            app:srcCompat="@drawable/footprint" />
+            app:srcCompat="@mipmap/footprint" />
 
         <ImageView
             android:id="@+id/footprint2ImageView"
@@ -533,7 +533,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/footprint3ImageView"
             app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-            app:srcCompat="@drawable/footprint" />
+            app:srcCompat="@mipmap/footprint" />
 
         <ImageView
             android:id="@+id/footprint3ImageView"
@@ -546,7 +546,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/shoeTypeButton"
             app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-            app:srcCompat="@drawable/footprint" />
+            app:srcCompat="@mipmap/footprint" />
 
         <TextView
             android:id="@+id/shoeTypeLabelTextView"
@@ -564,7 +564,7 @@
             android:id="@+id/energyBoxOptimizerShadow"
             android:layout_width="0dp"
             android:layout_height="34dp"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/shoeTypeButton"
@@ -588,10 +588,11 @@
             android:id="@+id/energyBoxOptimizer"
             android:layout_width="0dp"
             android:layout_height="34dp"
+            android:layout_marginStart="-2dp"
             android:layout_marginEnd="2dp"
-            app:layout_constraintTop_toBottomOf="@+id/energyLabelTextView"
             app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizerShadow"
             app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizerShadow"
+            app:layout_constraintTop_toBottomOf="@+id/energyLabelTextView"
             app:srcCompat="@drawable/energy_input_box" />
 
         <EditText
@@ -627,7 +628,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/energyBoxOptimizer"
             app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
             app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
-            app:srcCompat="@drawable/energy_bolt" />
+            app:srcCompat="@mipmap/energy_bolt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -744,7 +745,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/attributesTextView"
-        app:srcCompat="@drawable/gem_symbol_efficiency" />
+        app:srcCompat="@mipmap/gem_symbol_efficiency" />
 
     <TextView
         android:id="@+id/effTextView"
@@ -767,7 +768,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/effIcon"
-        app:srcCompat="@drawable/gem_symbol_luck" />
+        app:srcCompat="@mipmap/gem_symbol_luck" />
 
 
     <TextView
@@ -791,7 +792,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/luckIcon"
-        app:srcCompat="@drawable/gem_symbol_comfort" />
+        app:srcCompat="@mipmap/gem_symbol_comfort" />
 
     <TextView
         android:id="@+id/comfortTextView"
@@ -814,7 +815,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/comfIcon"
-        app:srcCompat="@drawable/gem_symbol_res" />
+        app:srcCompat="@mipmap/gem_symbol_res" />
 
     <TextView
         android:id="@+id/resTextView"
@@ -1308,7 +1309,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gstPerDayTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@mipmap/logo_gst" />
 
     <TextView
         android:id="@+id/gstPerDayTextView"
@@ -1397,7 +1398,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/repairCostDurTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/repairCostDurTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@mipmap/logo_gst" />
 
     <TextView
         android:id="@+id/repairCostDurTextView"
@@ -1473,7 +1474,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
         app:layout_constraintEnd_toStartOf="@+id/repairCostHpPlusTextView"
         app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
-        app:srcCompat="@drawable/gem_comf_level1" />
+        app:srcCompat="@mipmap/gem_comf_level1" />
 
     <Button
         android:id="@+id/changeComfGemButton"
@@ -1520,7 +1521,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@mipmap/logo_gst" />
 
     <TextView
         android:id="@+id/totalIncomeLabelTextView"
@@ -1544,7 +1545,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
         app:layout_constraintEnd_toStartOf="@+id/gemMultipleTotalTextView"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@mipmap/logo_gst" />
 
     <TextView
         android:id="@+id/gstIncomeTextView"
@@ -1582,7 +1583,7 @@
         app:layout_constraintEnd_toEndOf="@+id/gstIconRestore"
         app:layout_constraintStart_toStartOf="@+id/gstIconRestore"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
-        app:srcCompat="@drawable/gem_comf_level1" />
+        app:srcCompat="@mipmap/gem_comf_level1" />
 
     <TextView
         android:id="@+id/moreTextView"

@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="@id/seeCalcsSocketImageView"
         app:layout_constraintStart_toStartOf="@id/seeCalcsSocketImageView"
         app:layout_constraintTop_toTopOf="@+id/seeCalcsSocketImageView"
-        app:srcCompat="@drawable/gem_socket_gray_0"
+        app:srcCompat="@mipmap/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="@+id/seeCalcsSocketTextView"
         app:layout_constraintStart_toStartOf="@+id/seeCalcsSocketTextView"
         app:layout_constraintTop_toTopOf="@+id/alertBoxBackground"
-        app:srcCompat="@drawable/gem_socket_eff_0" />
+        app:srcCompat="@mipmap/gem_socket_eff_0" />
 
     <ImageView
         android:id="@+id/seeCalcsSocketPlus"
@@ -61,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="@+id/seeCalcsTitleGemTextView"
         app:layout_constraintStart_toStartOf="@+id/seeCalcsTitleGemTextView"
         app:layout_constraintTop_toTopOf="@+id/seeCalcsSocketImageView"
-        app:srcCompat="@drawable/gem_eff_level1" />
+        app:srcCompat="@mipmap/gem_eff_level1" />
 
     <TextView
         android:id="@+id/seeCalcsTitleGemTextView"

@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -22,19 +23,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Information about the app, 'remove ads' button, option to donate
+ * Information about the app, 'remove ads' button, option to donate.
  *
  * @author Bob Godfrey
- * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
+ * @version 1.3.13 Removed crypto address donations, added thank-you message for those who removed ads
  *
  */
 
 public class AboutFrag extends Fragment {
 
-    Button emailButton, solButton, bnbButton, ethButton, buyCoffeeButton;
+    Button emailButton, buyCoffeeButton;
     ImageButton removeAdsButton;
-    ImageView removeAdsShadow, solLogo, bnbLogo, ethLogo, buyCoffeeLogo;
-    TextView emailTextView, removeAdsTextView, removeAdsShadowTextView;
+    ImageView removeAdsShadow, buyCoffeeLogo;
+    TextView emailTextView, removeAdsTextView, removeAdsShadowTextView, plzSupportTextView, orTv;
     ClipboardManager clipboard;
 
     public AboutFrag() {
@@ -55,16 +56,11 @@ public class AboutFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 
         emailButton = view.findViewById(R.id.emailButton);
-        solButton = view.findViewById(R.id.solButton);
-        bnbButton = view.findViewById(R.id.bnbButton);
-        ethButton = view.findViewById(R.id.ethButton);
         emailTextView = view.findViewById(R.id.contactEmailTextView);
-        buyCoffeeButton = view.findViewById(R.id.buyCoffeeButton);
-
-        solLogo = view.findViewById(R.id.solanaLogo);
-        bnbLogo = view.findViewById(R.id.binanceLogo);
-        ethLogo = view.findViewById(R.id.ethLogo);
-        buyCoffeeLogo = view.findViewById(R.id.buyCoffeeLogo);
+        plzSupportTextView = view.findViewById(R.id.supportTextView);
+        orTv = view.findViewById(R.id.orTv);
+        buyCoffeeButton = view.findViewById(R.id.buyBeerButton);
+        buyCoffeeLogo = view.findViewById(R.id.buyBeerLogo);
 
         removeAdsButton = view.findViewById(R.id.removeAdsButton);
         removeAdsTextView = view.findViewById(R.id.removeAdsTextView);
@@ -136,84 +132,6 @@ public class AboutFrag extends Fragment {
             }
         });
 
-        solButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClipData clip = ClipData.newPlainText("sol", getString(R.string.solana_chain));
-                clipboard.setPrimaryClip(clip);
-
-                Toast.makeText(getContext(), getString(R.string.sol_address_copied), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        solButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        solLogo.setAlpha(0.5f);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        solLogo.setAlpha(1.0f);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        bnbButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClipData clip = ClipData.newPlainText("bnb", getString(R.string.bnb_chain));
-                clipboard.setPrimaryClip(clip);
-
-                Toast.makeText(getActivity(), getString(R.string.bnb_address_copied), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        bnbButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        bnbLogo.setAlpha(0.5f);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        bnbLogo.setAlpha(1.0f);
-                        break;
-                }
-                return false;
-            }
-        });
-
-        ethButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClipData clip = ClipData.newPlainText("eth", getString(R.string.eth_chain));
-                clipboard.setPrimaryClip(clip);
-
-                Toast.makeText(getActivity(), getString(R.string.eth_address_copied), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        ethButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ethLogo.setAlpha(0.5f);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        ethLogo.setAlpha(1.0f);
-                        break;
-                }
-                return false;
-            }
-        });
-
         buyCoffeeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -247,6 +165,8 @@ public class AboutFrag extends Fragment {
         removeAdsShadow.setVisibility(View.GONE);
         removeAdsTextView.setVisibility(View.GONE);
         removeAdsShadowTextView.setVisibility(View.GONE);
+        orTv.setTextColor(Color.WHITE);
+        plzSupportTextView.setText("Thank you for removing ads! ❤");
     }
 
 }
