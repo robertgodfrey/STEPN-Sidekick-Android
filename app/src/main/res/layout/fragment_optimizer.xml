@@ -574,15 +574,32 @@
 
         <TextView
             android:id="@+id/energyLabelTextView"
+            style="@style/RegItalic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/RegItalic"
+            android:layout_marginStart="2dp"
             android:text="@string/energy"
             android:textColor="@color/gandalf"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
-            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/oneTwentyFiveTextView"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/oneTwentyFiveTextView"
+            style="@style/RegItalic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="100%"
+            android:textColor="@color/gandalf"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
+            app:layout_constraintEnd_toStartOf="@+id/energyLabelTextView"
+            app:layout_constraintBottom_toTopOf="@+id/energyBoxOptimizer" />
+
 
         <ImageView
             android:id="@+id/energyBoxOptimizer"
@@ -629,6 +646,18 @@
             app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
             app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
             app:srcCompat="@mipmap/energy_bolt" />
+
+        <Button
+            android:id="@+id/oneTwentyFiveButton"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:backgroundTint="#00FFFFFF"
+            android:stateListAnimator="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/oneTwentyFiveTextView"
+            app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
+            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
+            app:layout_constraintTop_toTopOf="@+id/oneTwentyFiveTextView" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
