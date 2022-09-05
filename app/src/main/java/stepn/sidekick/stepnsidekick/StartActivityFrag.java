@@ -117,11 +117,11 @@ public class StartActivityFrag extends Fragment {
 
                 shoes = new ArrayList<>();
 
-                shoes.add(new Shoe("Walker", R.drawable.shoe_walker, 1.0f, 6.0f, 1));
-                shoes.add(new Shoe("Jogger", R.drawable.shoe_jogger, 4.0f, 10.0f, 2));
-                shoes.add(new Shoe("Runner", R.drawable.shoe_runner, 8.0f, 20.0f, 3));
-                shoes.add(new Shoe("Trainer", R.drawable.shoe_trainer, 1.0f, 20.0f, 4));
-                shoes.add(new Shoe(getString(R.string.custom), R.drawable.shoe_custom, customMinSpeed, customMaxSpeed, 0));
+                shoes.add(new Shoe("Walker", R.mipmap.shoe_walker, 1.0f, 6.0f, 1));
+                shoes.add(new Shoe("Jogger", R.mipmap.shoe_jogger, 4.0f, 10.0f, 2));
+                shoes.add(new Shoe("Runner", R.mipmap.shoe_runner, 8.0f, 20.0f, 3));
+                shoes.add(new Shoe("Trainer", R.mipmap.shoe_trainer, 1.0f, 20.0f, 4));
+                shoes.add(new Shoe(getString(R.string.custom), R.mipmap.shoe_custom, customMinSpeed, customMaxSpeed, 0));
             }
         }).start();
 
@@ -826,7 +826,7 @@ public class StartActivityFrag extends Fragment {
     private void updateFeet(int numFeet) {
         switch (numFeet) {
             case 1:
-                footOne.setImageResource(R.drawable.footprint);
+                footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.GONE);
                 break;
             case 2:
@@ -834,7 +834,7 @@ public class StartActivityFrag extends Fragment {
                 footThree.setVisibility(View.GONE);
                 break;
             case 3:
-                footOne.setImageResource(R.drawable.footprint);
+                footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.VISIBLE);
                 break;
@@ -844,7 +844,7 @@ public class StartActivityFrag extends Fragment {
                 footThree.setVisibility(View.GONE);
                 break;
             default:
-                footOne.setImageResource(R.drawable.bolt);
+                footOne.setImageResource(R.mipmap.bolt);
         }
     }
 
