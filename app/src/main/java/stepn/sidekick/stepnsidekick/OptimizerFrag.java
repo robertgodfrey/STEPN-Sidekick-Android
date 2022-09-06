@@ -156,10 +156,10 @@ public class OptimizerFrag extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final String shoeNumString = (shoeNum == 0 ? "" : String.valueOf(shoeNum));
-
                 SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
                 shoeNum = getSharedPrefs.getInt(SHOE_NUM_PREF, 0);
+
+                final String shoeNumString = (shoeNum == 0 ? "" : String.valueOf(shoeNum));
 
                 energy = getSharedPrefs.getFloat(OPT_ENERGY_PREF + shoeNumString, 0);
                 oneTwentyFiveEnergy = getSharedPrefs.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNumString, 0);
@@ -2781,7 +2781,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox6.setAlpha(0.5f);
         }
 
-        if (localEnergy >= -totalLuck / 100 + 21 && localEnergy > 7) {
+        if (localEnergy >= -totalLuck / 45 + 26.9 && localEnergy > 7) {
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
             if (localEnergy >= -totalLuck / 100 + 26.5) {

@@ -36,7 +36,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="14dp"
         android:adjustViewBounds="true"
-        app:layout_constraintWidth_max="500dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
