@@ -2674,7 +2674,7 @@ public class OptimizerFrag extends Fragment {
 
     // calculates mb chances
     private void calcMbChances() {
-        float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
+        final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
         if (localEnergy <= -0.04 * totalLuck + 6 && localEnergy >= -0.05263 * totalLuck + 2 && localEnergy >= 1 && totalLuck > 1) {
@@ -2725,7 +2725,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox3.setAlpha(0.5f);
         }
 
-        if (localEnergy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && localEnergy >= 70 * Math.pow((totalLuck + 1), -1) + 3 && totalLuck > 4) {
+        if (localEnergy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && localEnergy >= 70 * Math.pow((totalLuck + 5), -1) + 3 && totalLuck > 4) {
             if (localEnergy <= -0.0001 * Math.pow((totalLuck + 40), 2) + 18 && localEnergy >= 50 * Math.pow((totalLuck + 30), -0.2) - 13.5) {
                 // lvl 4 high chance range
                 mysteryBox4.clearColorFilter();
@@ -2761,7 +2761,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox5.setAlpha(0.5f);
         }
 
-        if (localEnergy >= 140 * Math.pow((totalLuck - 20), -0.5) + 2 && totalLuck > 6) {
+        if (localEnergy >= 140 * Math.pow((totalLuck - 20), -0.5) + 1 && totalLuck > 6) {
             if (localEnergy >= 70 * Math.pow((totalLuck - 70), -0.1) - 25.5) {
                 // lvl 6 high chance range
                 mysteryBox6.clearColorFilter();
@@ -2779,12 +2779,18 @@ public class OptimizerFrag extends Fragment {
             mysteryBox6.setAlpha(0.5f);
         }
 
-        if (localEnergy >= -totalLuck / 100 + 26.5 && localEnergy > 7) {
-            // lvl 7 range
-            mysteryBox7.clearColorFilter();
-            mysteryBox7.setImageTintMode(null);
-            mysteryBox7.setAlpha(1.0f);
-        } else {
+        if (localEnergy >= -totalLuck / 100 + 21 && localEnergy > 7) {
+            if (localEnergy >= -totalLuck / 100 + 26.5) {
+                // lvl 7 high chance range
+                mysteryBox7.clearColorFilter();
+                mysteryBox7.setImageTintMode(null);
+                mysteryBox7.setAlpha(1.0f);
+            } else {
+                // lvl 7 low chance range
+                mysteryBox7.clearColorFilter();
+                mysteryBox7.setImageTintMode(null);
+                mysteryBox7.setAlpha(0.5f);
+            }
             // outside lvl 7 range
             mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox7.setAlpha(0.5f);
@@ -3016,11 +3022,11 @@ public class OptimizerFrag extends Fragment {
                 // labeled shoe 6
                 shoeOneTextView.setText("5");
                 shoeTwoTextView.setText("6");
-                shoeThreeTextView.setText("1");
+                shoeThreeTextView.setText("");
                 break;
             default:
                 // labeled shoe 1
-                shoeOneTextView.setText("6");
+                shoeOneTextView.setText("");
                 shoeTwoTextView.setText("1");
                 shoeThreeTextView.setText("2");
                 shoeNum = 0;

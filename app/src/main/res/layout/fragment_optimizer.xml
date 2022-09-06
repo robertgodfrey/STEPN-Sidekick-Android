@@ -274,53 +274,45 @@
         android:id="@+id/shoeOneTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
-        android:text="6"
+        android:text=""
         android:textColor="@color/gandalf"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/shoeTwoTextView"
-        app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView"
         app:layout_constraintEnd_toStartOf="@+id/shoeTwoTextView"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/shoeNameImageView" />
+        app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView" />
 
     <TextView
         android:id="@+id/shoeTwoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="1"
         android:textColor="@color/almost_black"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/shoeThreeTextView"
-        app:layout_constraintStart_toEndOf="@+id/shoeOneTextView"
+        app:layout_constraintEnd_toEndOf="@+id/shoeNameImageView"
+        app:layout_constraintStart_toStartOf="@+id/shoeNameImageView"
         app:layout_constraintTop_toBottomOf="@+id/shoeNameImageView" />
 
     <TextView
         android:id="@+id/shoeThreeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
         android:text="2"
         android:textColor="@color/gandalf"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/shoeTwoTextView"
-        app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView"
-        app:layout_constraintEnd_toEndOf="@+id/shoeNameImageView"
-        app:layout_constraintStart_toEndOf="@+id/shoeTwoTextView" />
+        app:layout_constraintStart_toEndOf="@+id/shoeTwoTextView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView" />
 
     <ImageView
         android:id="@+id/shoeNameImageView"
         android:layout_width="130dp"
         android:layout_height="34dp"
-        android:layout_marginTop="-12dp"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@id/backgroundThingButton"
@@ -332,23 +324,23 @@
         android:layout_width="12dp"
         android:layout_height="16dp"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="40dp"
         android:background="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/shoeOneTextView"
-        app:layout_constraintEnd_toStartOf="@+id/shoeOneTextView"
-        app:layout_constraintTop_toTopOf="@+id/shoeOneTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTwoTextView"
+        app:layout_constraintEnd_toStartOf="@+id/shoeTwoTextView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView"
         app:srcCompat="@mipmap/arrow_left" />
 
     <ImageView
         android:id="@+id/rightArrowImageView"
         android:layout_width="12dp"
         android:layout_height="16dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="1dp"
         android:background="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/shoeThreeTextView"
-        app:layout_constraintStart_toEndOf="@+id/shoeThreeTextView"
-        app:layout_constraintTop_toTopOf="@+id/shoeThreeTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeTwoTextView"
+        app:layout_constraintStart_toEndOf="@+id/shoeTwoTextView"
+        app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView"
         app:srcCompat="@mipmap/arrow_right" />
 
     <Button
