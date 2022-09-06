@@ -156,44 +156,46 @@ public class OptimizerFrag extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                final String shoeNumString = (shoeNum == 0 ? "" : String.valueOf(shoeNum));
+
                 SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
                 shoeNum = getSharedPrefs.getInt(SHOE_NUM_PREF, 0);
 
-                energy = getSharedPrefs.getFloat(OPT_ENERGY_PREF + shoeNum, 0);
-                oneTwentyFiveEnergy = getSharedPrefs.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNum, 0);
-                shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF + shoeNum, WALKER);
-                shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF + shoeNum, COMMON);
-                shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF + shoeNum, 1);
-                baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF + shoeNum, 0);
-                addedEff = getSharedPrefs.getInt(ADDED_EFF_PREF + shoeNum, 0);
-                baseLuck = getSharedPrefs.getFloat(BASE_LUCK_PREF + shoeNum, 0);
-                addedLuck = getSharedPrefs.getInt(ADDED_LUCK_PREF + shoeNum, 0);
-                baseComf = getSharedPrefs.getFloat(BASE_COMF_PREF + shoeNum, 0);
-                addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF + shoeNum, 0);
-                baseRes = getSharedPrefs.getFloat(BASE_RES_PREF + shoeNum, 0);
-                addedRes = getSharedPrefs.getInt(ADDED_RES_PREF + shoeNum, 0);
+                energy = getSharedPrefs.getFloat(OPT_ENERGY_PREF + shoeNumString, 0);
+                oneTwentyFiveEnergy = getSharedPrefs.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNumString, 0);
+                shoeType = getSharedPrefs.getInt(OPT_SHOE_TYPE_PREF + shoeNumString, WALKER);
+                shoeRarity = getSharedPrefs.getInt(SHOE_RARITY_PREF + shoeNumString, COMMON);
+                shoeLevel = getSharedPrefs.getInt(SHOE_LEVEL_PREF + shoeNumString, 1);
+                baseEff = getSharedPrefs.getFloat(BASE_EFF_PREF + shoeNumString, 0);
+                addedEff = getSharedPrefs.getInt(ADDED_EFF_PREF + shoeNumString, 0);
+                baseLuck = getSharedPrefs.getFloat(BASE_LUCK_PREF + shoeNumString, 0);
+                addedLuck = getSharedPrefs.getInt(ADDED_LUCK_PREF + shoeNumString, 0);
+                baseComf = getSharedPrefs.getFloat(BASE_COMF_PREF + shoeNumString, 0);
+                addedComf = getSharedPrefs.getInt(ADDED_COMF_PREF + shoeNumString, 0);
+                baseRes = getSharedPrefs.getFloat(BASE_RES_PREF + shoeNumString, 0);
+                addedRes = getSharedPrefs.getInt(ADDED_RES_PREF + shoeNumString, 0);
                 comfGemLvlForRepair = getSharedPrefs.getInt(COMF_GEM_HP_REPAIR, 1);
                 update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
-                shoeName = getSharedPrefs.getString(SHOE_NAME + shoeNum, "");
-                oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNum, false);
+                shoeName = getSharedPrefs.getString(SHOE_NAME + shoeNumString, "");
+                oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
 
                 dpScale = getResources().getDisplayMetrics().density;
 
-                gems.get(0).setSocketType(getSharedPrefs.getInt(GEM_ONE_TYPE_PREF + shoeNum, -1));
-                gems.get(0).setSocketRarity(getSharedPrefs.getInt(GEM_ONE_RARITY_PREF + shoeNum, 0));
-                gems.get(0).setMountedGem(getSharedPrefs.getInt(GEM_ONE_MOUNTED_PREF + shoeNum, 0));
+                gems.get(0).setSocketType(getSharedPrefs.getInt(GEM_ONE_TYPE_PREF + shoeNumString, -1));
+                gems.get(0).setSocketRarity(getSharedPrefs.getInt(GEM_ONE_RARITY_PREF + shoeNumString, 0));
+                gems.get(0).setMountedGem(getSharedPrefs.getInt(GEM_ONE_MOUNTED_PREF + shoeNumString, 0));
 
-                gems.get(1).setSocketType(getSharedPrefs.getInt(GEM_TWO_TYPE_PREF + shoeNum, -1));
-                gems.get(1).setSocketRarity(getSharedPrefs.getInt(GEM_TWO_RARITY_PREF + shoeNum, 0));
-                gems.get(1).setMountedGem(getSharedPrefs.getInt(GEM_TWO_MOUNTED_PREF + shoeNum, 0));
+                gems.get(1).setSocketType(getSharedPrefs.getInt(GEM_TWO_TYPE_PREF + shoeNumString, -1));
+                gems.get(1).setSocketRarity(getSharedPrefs.getInt(GEM_TWO_RARITY_PREF + shoeNumString, 0));
+                gems.get(1).setMountedGem(getSharedPrefs.getInt(GEM_TWO_MOUNTED_PREF + shoeNumString, 0));
 
-                gems.get(2).setSocketType(getSharedPrefs.getInt(GEM_THREE_TYPE_PREF + shoeNum, -1));
-                gems.get(2).setSocketRarity(getSharedPrefs.getInt(GEM_THREE_RARITY_PREF + shoeNum, 0));
-                gems.get(2).setMountedGem(getSharedPrefs.getInt(GEM_THREE_MOUNTED_PREF + shoeNum, 0));
+                gems.get(2).setSocketType(getSharedPrefs.getInt(GEM_THREE_TYPE_PREF + shoeNumString, -1));
+                gems.get(2).setSocketRarity(getSharedPrefs.getInt(GEM_THREE_RARITY_PREF + shoeNumString, 0));
+                gems.get(2).setMountedGem(getSharedPrefs.getInt(GEM_THREE_MOUNTED_PREF + shoeNumString, 0));
 
-                gems.get(3).setSocketType(getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF + shoeNum, -1));
-                gems.get(3).setSocketRarity(getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF + shoeNum, 0));
-                gems.get(3).setMountedGem(getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF + shoeNum, 0));
+                gems.get(3).setSocketType(getSharedPrefs.getInt(GEM_FOUR_TYPE_PREF + shoeNumString, -1));
+                gems.get(3).setSocketRarity(getSharedPrefs.getInt(GEM_FOUR_RARITY_PREF + shoeNumString, 0));
+                gems.get(3).setMountedGem(getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF + shoeNumString, 0));
             }
         }).start();
 
@@ -2780,17 +2782,16 @@ public class OptimizerFrag extends Fragment {
         }
 
         if (localEnergy >= -totalLuck / 100 + 21 && localEnergy > 7) {
+            mysteryBox7.clearColorFilter();
+            mysteryBox7.setImageTintMode(null);
             if (localEnergy >= -totalLuck / 100 + 26.5) {
                 // lvl 7 high chance range
-                mysteryBox7.clearColorFilter();
-                mysteryBox7.setImageTintMode(null);
                 mysteryBox7.setAlpha(1.0f);
             } else {
                 // lvl 7 low chance range
-                mysteryBox7.clearColorFilter();
-                mysteryBox7.setImageTintMode(null);
                 mysteryBox7.setAlpha(0.5f);
             }
+        } else {
             // outside lvl 7 range
             mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox7.setAlpha(0.5f);
@@ -3037,6 +3038,8 @@ public class OptimizerFrag extends Fragment {
     // updates entire page with new shoe values
     private void updatePageNewShoe(final int oldShoeNum) {
         updateShoeNums();
+        final String oldShoeNumString = (oldShoeNum == 0) ? "" : String.valueOf(oldShoeNum);
+        final String shoeNumString = (shoeNum == 0) ? "" : String.valueOf(shoeNum);
 
         Thread saveEmLoadEm = new Thread(new Runnable() {
             @Override
@@ -3045,71 +3048,71 @@ public class OptimizerFrag extends Fragment {
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                editor.putInt(OPT_SHOE_TYPE_PREF + oldShoeNum, shoeType);
-                editor.putInt(SHOE_RARITY_PREF + oldShoeNum, shoeRarity);
-                editor.putInt(SHOE_LEVEL_PREF + oldShoeNum, shoeLevel);
-                editor.putFloat(OPT_ENERGY_PREF + oldShoeNum, energy);
-                editor.putFloat(ONE_TWENTY_FIVE_ENERGY_PREF + oldShoeNum, oneTwentyFiveEnergy);
-                editor.putFloat(BASE_EFF_PREF + oldShoeNum, baseEff);
-                editor.putInt(ADDED_EFF_PREF + oldShoeNum, addedEff);
-                editor.putFloat(BASE_LUCK_PREF + oldShoeNum, baseLuck);
-                editor.putInt(ADDED_LUCK_PREF + oldShoeNum, addedLuck);
-                editor.putFloat(BASE_COMF_PREF + oldShoeNum, baseComf);
-                editor.putInt(ADDED_COMF_PREF + oldShoeNum, addedComf);
-                editor.putFloat(BASE_RES_PREF + oldShoeNum, baseRes);
-                editor.putInt(ADDED_RES_PREF + oldShoeNum, addedRes);
-                editor.putString(SHOE_NAME + oldShoeNum, shoeName);
-                editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + oldShoeNum, oneTwentyFive);
+                editor.putInt(OPT_SHOE_TYPE_PREF + oldShoeNumString, shoeType);
+                editor.putInt(SHOE_RARITY_PREF + oldShoeNumString, shoeRarity);
+                editor.putInt(SHOE_LEVEL_PREF + oldShoeNumString, shoeLevel);
+                editor.putFloat(OPT_ENERGY_PREF + oldShoeNumString, energy);
+                editor.putFloat(ONE_TWENTY_FIVE_ENERGY_PREF + oldShoeNumString, oneTwentyFiveEnergy);
+                editor.putFloat(BASE_EFF_PREF + oldShoeNumString, baseEff);
+                editor.putInt(ADDED_EFF_PREF + oldShoeNumString, addedEff);
+                editor.putFloat(BASE_LUCK_PREF + oldShoeNumString, baseLuck);
+                editor.putInt(ADDED_LUCK_PREF + oldShoeNumString, addedLuck);
+                editor.putFloat(BASE_COMF_PREF + oldShoeNumString, baseComf);
+                editor.putInt(ADDED_COMF_PREF + oldShoeNumString, addedComf);
+                editor.putFloat(BASE_RES_PREF + oldShoeNumString, baseRes);
+                editor.putInt(ADDED_RES_PREF + oldShoeNumString, addedRes);
+                editor.putString(SHOE_NAME + oldShoeNumString, shoeName);
+                editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + oldShoeNumString, oneTwentyFive);
 
-                editor.putInt(GEM_ONE_TYPE_PREF + oldShoeNum, gems.get(0).getSocketType());
-                editor.putInt(GEM_ONE_RARITY_PREF + oldShoeNum, gems.get(0).getSocketRarity());
-                editor.putInt(GEM_ONE_MOUNTED_PREF + oldShoeNum, gems.get(0).getMountedGem());
-                editor.putInt(GEM_TWO_TYPE_PREF + oldShoeNum, gems.get(1).getSocketType());
-                editor.putInt(GEM_TWO_RARITY_PREF + oldShoeNum, gems.get(1).getSocketRarity());
-                editor.putInt(GEM_TWO_MOUNTED_PREF + oldShoeNum, gems.get(1).getMountedGem());
-                editor.putInt(GEM_THREE_TYPE_PREF + oldShoeNum, gems.get(2).getSocketType());
-                editor.putInt(GEM_THREE_RARITY_PREF + oldShoeNum, gems.get(2).getSocketRarity());
-                editor.putInt(GEM_THREE_MOUNTED_PREF + oldShoeNum, gems.get(2).getMountedGem());
-                editor.putInt(GEM_FOUR_TYPE_PREF + oldShoeNum, gems.get(3).getSocketType());
-                editor.putInt(GEM_FOUR_RARITY_PREF + oldShoeNum, gems.get(3).getSocketRarity());
-                editor.putInt(GEM_FOUR_MOUNTED_PREF + oldShoeNum, gems.get(3).getMountedGem());
+                editor.putInt(GEM_ONE_TYPE_PREF + oldShoeNumString, gems.get(0).getSocketType());
+                editor.putInt(GEM_ONE_RARITY_PREF + oldShoeNumString, gems.get(0).getSocketRarity());
+                editor.putInt(GEM_ONE_MOUNTED_PREF + oldShoeNumString, gems.get(0).getMountedGem());
+                editor.putInt(GEM_TWO_TYPE_PREF + oldShoeNumString, gems.get(1).getSocketType());
+                editor.putInt(GEM_TWO_RARITY_PREF + oldShoeNumString, gems.get(1).getSocketRarity());
+                editor.putInt(GEM_TWO_MOUNTED_PREF + oldShoeNumString, gems.get(1).getMountedGem());
+                editor.putInt(GEM_THREE_TYPE_PREF + oldShoeNumString, gems.get(2).getSocketType());
+                editor.putInt(GEM_THREE_RARITY_PREF + oldShoeNumString, gems.get(2).getSocketRarity());
+                editor.putInt(GEM_THREE_MOUNTED_PREF + oldShoeNumString, gems.get(2).getMountedGem());
+                editor.putInt(GEM_FOUR_TYPE_PREF + oldShoeNumString, gems.get(3).getSocketType());
+                editor.putInt(GEM_FOUR_RARITY_PREF + oldShoeNumString, gems.get(3).getSocketRarity());
+                editor.putInt(GEM_FOUR_MOUNTED_PREF + oldShoeNumString, gems.get(3).getMountedGem());
 
                 editor.apply();
 
-                shoeType = sharedPreferences.getInt(OPT_SHOE_TYPE_PREF + shoeNum, 0);
-                shoeRarity = sharedPreferences.getInt(SHOE_RARITY_PREF + shoeNum, COMMON);
-                shoeLevel = sharedPreferences.getInt(SHOE_LEVEL_PREF + shoeNum, 1);
-                energy = sharedPreferences.getFloat(OPT_ENERGY_PREF + shoeNum, 0);
-                oneTwentyFiveEnergy = sharedPreferences.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNum, 0);
-                baseEff = sharedPreferences.getFloat(BASE_EFF_PREF + shoeNum, 0);
-                addedEff = sharedPreferences.getInt(ADDED_EFF_PREF + shoeNum, 0);
-                baseLuck = sharedPreferences.getFloat(BASE_LUCK_PREF + shoeNum, 0);
-                addedLuck = sharedPreferences.getInt(ADDED_LUCK_PREF + shoeNum, 0);
-                baseComf = sharedPreferences.getFloat(BASE_COMF_PREF + shoeNum, 0);
-                addedComf = sharedPreferences.getInt(ADDED_COMF_PREF + shoeNum, 0);
-                baseRes = sharedPreferences.getFloat(BASE_RES_PREF + shoeNum, 0);
-                addedRes = sharedPreferences.getInt(ADDED_RES_PREF + shoeNum, 0);
-                shoeName = sharedPreferences.getString(SHOE_NAME + shoeNum, "");
-                oneTwentyFive = sharedPreferences.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNum, false);
+                shoeType = sharedPreferences.getInt(OPT_SHOE_TYPE_PREF + shoeNumString, 0);
+                shoeRarity = sharedPreferences.getInt(SHOE_RARITY_PREF + shoeNumString, COMMON);
+                shoeLevel = sharedPreferences.getInt(SHOE_LEVEL_PREF + shoeNumString, 1);
+                energy = sharedPreferences.getFloat(OPT_ENERGY_PREF + shoeNumString, 0);
+                oneTwentyFiveEnergy = sharedPreferences.getFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNumString, 0);
+                baseEff = sharedPreferences.getFloat(BASE_EFF_PREF + shoeNumString, 0);
+                addedEff = sharedPreferences.getInt(ADDED_EFF_PREF + shoeNumString, 0);
+                baseLuck = sharedPreferences.getFloat(BASE_LUCK_PREF + shoeNumString, 0);
+                addedLuck = sharedPreferences.getInt(ADDED_LUCK_PREF + shoeNumString, 0);
+                baseComf = sharedPreferences.getFloat(BASE_COMF_PREF + shoeNumString, 0);
+                addedComf = sharedPreferences.getInt(ADDED_COMF_PREF + shoeNumString, 0);
+                baseRes = sharedPreferences.getFloat(BASE_RES_PREF + shoeNumString, 0);
+                addedRes = sharedPreferences.getInt(ADDED_RES_PREF + shoeNumString, 0);
+                shoeName = sharedPreferences.getString(SHOE_NAME + shoeNumString, "");
+                oneTwentyFive = sharedPreferences.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
 
                 gems.clear();
 
                 gems.add(new Gem(
-                        sharedPreferences.getInt(GEM_ONE_TYPE_PREF + shoeNum, -1),
-                        sharedPreferences.getInt(GEM_ONE_RARITY_PREF + shoeNum, 0),
-                        sharedPreferences.getInt(GEM_ONE_MOUNTED_PREF + shoeNum, 0)));
+                        sharedPreferences.getInt(GEM_ONE_TYPE_PREF + shoeNumString, -1),
+                        sharedPreferences.getInt(GEM_ONE_RARITY_PREF + shoeNumString, 0),
+                        sharedPreferences.getInt(GEM_ONE_MOUNTED_PREF + shoeNumString, 0)));
                 gems.add(new Gem(
-                        sharedPreferences.getInt(GEM_TWO_TYPE_PREF + shoeNum, -1),
-                        sharedPreferences.getInt(GEM_TWO_RARITY_PREF + shoeNum, 0),
-                        sharedPreferences.getInt(GEM_TWO_MOUNTED_PREF + shoeNum, 0)));
+                        sharedPreferences.getInt(GEM_TWO_TYPE_PREF + shoeNumString, -1),
+                        sharedPreferences.getInt(GEM_TWO_RARITY_PREF + shoeNumString, 0),
+                        sharedPreferences.getInt(GEM_TWO_MOUNTED_PREF + shoeNumString, 0)));
                 gems.add(new Gem(
-                        sharedPreferences.getInt(GEM_THREE_TYPE_PREF + shoeNum, -1),
-                        sharedPreferences.getInt(GEM_THREE_RARITY_PREF + shoeNum, 0),
-                        sharedPreferences.getInt(GEM_THREE_MOUNTED_PREF + shoeNum, 0)));
+                        sharedPreferences.getInt(GEM_THREE_TYPE_PREF + shoeNumString, -1),
+                        sharedPreferences.getInt(GEM_THREE_RARITY_PREF + shoeNumString, 0),
+                        sharedPreferences.getInt(GEM_THREE_MOUNTED_PREF + shoeNumString, 0)));
                 gems.add(new Gem(
-                        sharedPreferences.getInt(GEM_FOUR_TYPE_PREF + shoeNum, -1),
-                        sharedPreferences.getInt(GEM_FOUR_RARITY_PREF + shoeNum, 0),
-                        sharedPreferences.getInt(GEM_FOUR_MOUNTED_PREF + shoeNum, 0)));
+                        sharedPreferences.getInt(GEM_FOUR_TYPE_PREF + shoeNumString, -1),
+                        sharedPreferences.getInt(GEM_FOUR_RARITY_PREF + shoeNumString, 0),
+                        sharedPreferences.getInt(GEM_FOUR_MOUNTED_PREF + shoeNumString, 0)));
             }
         });
         saveEmLoadEm.start();
@@ -3460,37 +3463,39 @@ public class OptimizerFrag extends Fragment {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt(OPT_SHOE_TYPE_PREF + shoeNum, shoeType);
-        editor.putFloat(OPT_ENERGY_PREF + shoeNum, energy);
-        editor.putFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNum, oneTwentyFiveEnergy);
-        editor.putInt(SHOE_RARITY_PREF + shoeNum, shoeRarity);
-        editor.putInt(SHOE_LEVEL_PREF + shoeNum, shoeLevel);
-        editor.putFloat(BASE_EFF_PREF + shoeNum, baseEff);
-        editor.putInt(ADDED_EFF_PREF + shoeNum, addedEff);
-        editor.putFloat(BASE_LUCK_PREF + shoeNum, baseLuck);
-        editor.putInt(ADDED_LUCK_PREF + shoeNum, addedLuck);
-        editor.putFloat(BASE_COMF_PREF + shoeNum, baseComf);
-        editor.putInt(ADDED_COMF_PREF + shoeNum, addedComf);
-        editor.putFloat(BASE_RES_PREF + shoeNum, baseRes);
-        editor.putInt(ADDED_RES_PREF + shoeNum, addedRes);
+        final String shoeNumString = (shoeNum == 0) ? "" : String.valueOf(shoeNum);
+
+        editor.putInt(OPT_SHOE_TYPE_PREF + shoeNumString, shoeType);
+        editor.putFloat(OPT_ENERGY_PREF + shoeNumString, energy);
+        editor.putFloat(ONE_TWENTY_FIVE_ENERGY_PREF + shoeNumString, oneTwentyFiveEnergy);
+        editor.putInt(SHOE_RARITY_PREF + shoeNumString, shoeRarity);
+        editor.putInt(SHOE_LEVEL_PREF + shoeNumString, shoeLevel);
+        editor.putFloat(BASE_EFF_PREF + shoeNumString, baseEff);
+        editor.putInt(ADDED_EFF_PREF + shoeNumString, addedEff);
+        editor.putFloat(BASE_LUCK_PREF + shoeNumString, baseLuck);
+        editor.putInt(ADDED_LUCK_PREF + shoeNumString, addedLuck);
+        editor.putFloat(BASE_COMF_PREF + shoeNumString, baseComf);
+        editor.putInt(ADDED_COMF_PREF + shoeNumString, addedComf);
+        editor.putFloat(BASE_RES_PREF + shoeNumString, baseRes);
+        editor.putInt(ADDED_RES_PREF + shoeNumString, addedRes);
         editor.putInt(COMF_GEM_HP_REPAIR, comfGemLvlForRepair);
         editor.putBoolean(UPDATE_PREF, false);
-        editor.putString(SHOE_NAME + shoeNum, shoeName);
-        editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNum, oneTwentyFive);
+        editor.putString(SHOE_NAME + shoeNumString, shoeName);
+        editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, oneTwentyFive);
         editor.putInt(SHOE_NUM_PREF, shoeNum);
 
-        editor.putInt(GEM_ONE_TYPE_PREF + shoeNum, gems.get(0).getSocketType());
-        editor.putInt(GEM_ONE_RARITY_PREF + shoeNum, gems.get(0).getSocketRarity());
-        editor.putInt(GEM_ONE_MOUNTED_PREF + shoeNum, gems.get(0).getMountedGem());
-        editor.putInt(GEM_TWO_TYPE_PREF + shoeNum, gems.get(1).getSocketType());
-        editor.putInt(GEM_TWO_RARITY_PREF + shoeNum, gems.get(1).getSocketRarity());
-        editor.putInt(GEM_TWO_MOUNTED_PREF + shoeNum, gems.get(1).getMountedGem());
-        editor.putInt(GEM_THREE_TYPE_PREF + shoeNum, gems.get(2).getSocketType());
-        editor.putInt(GEM_THREE_RARITY_PREF + shoeNum, gems.get(2).getSocketRarity());
-        editor.putInt(GEM_THREE_MOUNTED_PREF + shoeNum, gems.get(2).getMountedGem());
-        editor.putInt(GEM_FOUR_TYPE_PREF + shoeNum, gems.get(3).getSocketType());
-        editor.putInt(GEM_FOUR_RARITY_PREF + shoeNum, gems.get(3).getSocketRarity());
-        editor.putInt(GEM_FOUR_MOUNTED_PREF + shoeNum, gems.get(3).getMountedGem());
+        editor.putInt(GEM_ONE_TYPE_PREF + shoeNumString, gems.get(0).getSocketType());
+        editor.putInt(GEM_ONE_RARITY_PREF + shoeNumString, gems.get(0).getSocketRarity());
+        editor.putInt(GEM_ONE_MOUNTED_PREF + shoeNumString, gems.get(0).getMountedGem());
+        editor.putInt(GEM_TWO_TYPE_PREF + shoeNumString, gems.get(1).getSocketType());
+        editor.putInt(GEM_TWO_RARITY_PREF + shoeNumString, gems.get(1).getSocketRarity());
+        editor.putInt(GEM_TWO_MOUNTED_PREF + shoeNumString, gems.get(1).getMountedGem());
+        editor.putInt(GEM_THREE_TYPE_PREF + shoeNumString, gems.get(2).getSocketType());
+        editor.putInt(GEM_THREE_RARITY_PREF + shoeNumString, gems.get(2).getSocketRarity());
+        editor.putInt(GEM_THREE_MOUNTED_PREF + shoeNumString, gems.get(2).getMountedGem());
+        editor.putInt(GEM_FOUR_TYPE_PREF + shoeNumString, gems.get(3).getSocketType());
+        editor.putInt(GEM_FOUR_RARITY_PREF + shoeNumString, gems.get(3).getSocketRarity());
+        editor.putInt(GEM_FOUR_MOUNTED_PREF + shoeNumString, gems.get(3).getMountedGem());
 
         editor.apply();
 
