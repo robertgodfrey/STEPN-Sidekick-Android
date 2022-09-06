@@ -115,9 +115,8 @@ public class OptimizerFrag extends Fragment {
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
             resPlusTv, optimizeGstTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
-            optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView, shoeFourTextView,
-            shoeFiveTextView, shoeSixTextView, gemPriceGstTextView, totalIncomeGstTextView,
-            totalIncomeUsdTextView, oneTwentyFiveTextView;
+            optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
+            gemPriceGstTextView, totalIncomeGstTextView, totalIncomeUsdTextView, oneTwentyFiveTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -251,9 +250,6 @@ public class OptimizerFrag extends Fragment {
         shoeOneTextView = view.findViewById(R.id.shoeOneTextView);
         shoeTwoTextView = view.findViewById(R.id.shoeTwoTextView);
         shoeThreeTextView = view.findViewById(R.id.shoeThreeTextView);
-        shoeFourTextView = view.findViewById(R.id.shoeFourTextView);
-        shoeFiveTextView = view.findViewById(R.id.shoeFiveTextView);
-        shoeSixTextView = view.findViewById(R.id.shoeSixTextView);
         shoeRarityTextView = view.findViewById(R.id.shoeRarityTextView);
         shoeRarityShadowTextView = view.findViewById(R.id.shoeRarityShadowTextView);
         shoeTypeTextView = view.findViewById(R.id.shoeTypeTextView);
@@ -2991,63 +2987,42 @@ public class OptimizerFrag extends Fragment {
 
     // updates shoe nums
     private void updateShoeNums() {
-        Typeface bold = ResourcesCompat.getFont(getContext(), R.font.roboto_condensed_bold_italic);
-        Typeface reg = ResourcesCompat.getFont(getContext(), R.font.roboto_condensed_regular_italic);
-
         switch (shoeNum) {
             case 1:
                 // labeled shoe 2
-                shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeTwoTextView.setTypeface(bold);
-                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeOneTextView.setTypeface(reg);
-                shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeThreeTextView.setTypeface(reg);
+                shoeOneTextView.setText("1");
+                shoeTwoTextView.setText("2");
+                shoeThreeTextView.setText("3");
                 break;
             case 2:
                 // labeled shoe 3
-                shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeThreeTextView.setTypeface(bold);
-                shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeTwoTextView.setTypeface(reg);
-                shoeFourTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeFourTextView.setTypeface(reg);
+                shoeOneTextView.setText("2");
+                shoeTwoTextView.setText("3");
+                shoeThreeTextView.setText("4");
                 break;
             case 3:
                 // labeled shoe 4
-                shoeFourTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeFourTextView.setTypeface(bold);
-                shoeThreeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeThreeTextView.setTypeface(reg);
-                shoeFiveTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeFiveTextView.setTypeface(reg);
+                shoeOneTextView.setText("3");
+                shoeTwoTextView.setText("4");
+                shoeThreeTextView.setText("5");
                 break;
             case 4:
                 // labeled shoe 5
-                shoeFiveTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeFiveTextView.setTypeface(bold);
-                shoeFourTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeFourTextView.setTypeface(reg);
-                shoeSixTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeSixTextView.setTypeface(reg);
+                shoeOneTextView.setText("4");
+                shoeTwoTextView.setText("5");
+                shoeThreeTextView.setText("6");
                 break;
             case 5:
                 // labeled shoe 6
-                shoeSixTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeSixTextView.setTypeface(bold);
-                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeOneTextView.setTypeface(reg);
-                shoeFiveTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeFiveTextView.setTypeface(reg);
+                shoeOneTextView.setText("5");
+                shoeTwoTextView.setText("6");
+                shoeThreeTextView.setText("1");
                 break;
             default:
                 // labeled shoe 1
-                shoeOneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeOneTextView.setTypeface(bold);
-                shoeTwoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeTwoTextView.setTypeface(reg);
-                shoeSixTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
-                shoeSixTextView.setTypeface(reg);
+                shoeOneTextView.setText("6");
+                shoeTwoTextView.setText("1");
+                shoeThreeTextView.setText("2");
                 shoeNum = 0;
                 break;
         }
