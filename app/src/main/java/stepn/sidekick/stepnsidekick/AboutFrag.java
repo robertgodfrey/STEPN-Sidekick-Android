@@ -32,10 +32,17 @@ import android.widget.Toast;
 
 public class AboutFrag extends Fragment {
 
-    Button emailButton, buyCoffeeButton;
+    Button emailButton, buyCoffeeButton, kritButton, karlButton, stepnGuideButton,  stepnGuideAuthorButton,
+            stepnWikiButton, stepnWikiAuthorButton, stepnAssistButton, stepnAssistAuthorButton,
+            stepnFpButton, stepnFpAuthorButton, stepnEnhancedFilterButton, stepnEnhancedFilterAuthorButton,
+            stepnStatsButton, stepnStatsAuthorOneButton, stepnStatsAuthorTwoButton, stepnMarketGuideButton,
+            stepnMarketGuideAuthorButton;
     ImageButton removeAdsButton;
-    ImageView removeAdsShadow, buyCoffeeLogo;
-    TextView emailTextView, removeAdsTextView, removeAdsShadowTextView, plzSupportTextView, orTv;
+    ImageView removeAdsShadow, buyCoffeeLogo, stepnGuideIv, stepnWikiIv, stepnAssistIv, stepnFpIv,
+            stepnEfIv, stepnStatsIv, stepnMarketIv;
+    TextView emailTextView, removeAdsTextView, removeAdsShadowTextView, plzSupportTextView, orTv, kritTv,
+            karlTv, stepnGuideAuthorTv, stepnWikiAuthorTv, stepnAssistAuthorTv, stepnFpAuthorTv,
+            stepnEnhancedAuthorTv, stepnStatsAuthorOneTv, stepnStatsAuthorTwoTv, stepnMarketGuideAuthorTv;
     ClipboardManager clipboard;
 
     public AboutFrag() {
@@ -61,6 +68,43 @@ public class AboutFrag extends Fragment {
         orTv = view.findViewById(R.id.orTv);
         buyCoffeeButton = view.findViewById(R.id.buyBeerButton);
         buyCoffeeLogo = view.findViewById(R.id.buyBeerLogo);
+
+        kritButton = view.findViewById(R.id.kritButton);
+        karlButton = view.findViewById(R.id.karlButton);
+        stepnGuideButton = view.findViewById(R.id.stepnGuideButton);
+        stepnGuideAuthorButton = view.findViewById(R.id.stepnGuideAuthorButton);
+        stepnWikiButton = view.findViewById(R.id.stepnWikiButton);
+        stepnWikiAuthorButton = view.findViewById(R.id.stepnWikiAuthorButton);
+        stepnAssistButton = view.findViewById(R.id.stepnAssistButton);
+        stepnAssistAuthorButton = view.findViewById(R.id.stepnAssistAuthorButton);
+        stepnFpButton = view.findViewById(R.id.stepnFpButton);
+        stepnFpAuthorButton = view.findViewById(R.id.stepnFpAuthorButton);
+        stepnEnhancedFilterButton = view.findViewById(R.id.stepnEnhancedFilterButton);
+        stepnEnhancedFilterAuthorButton = view.findViewById(R.id.stepnEnhancedFilterAuthorButton);
+        stepnStatsButton = view.findViewById(R.id.stepnStatsButton);
+        stepnStatsAuthorOneButton = view.findViewById(R.id.stepnStatsAuthor1Button);
+        stepnStatsAuthorTwoButton = view.findViewById(R.id.stepnStatsAuthor2Button);
+        stepnMarketGuideButton = view.findViewById(R.id.stepnMarketGuideButton);
+        stepnMarketGuideAuthorButton = view.findViewById(R.id.stepnMarketGuideAuthorButton);
+
+        kritTv = view.findViewById(R.id.kritThanksTextView);
+        karlTv = view.findViewById(R.id.karlThanksTextView);
+        stepnGuideAuthorTv = view.findViewById(R.id.stepnGuideAuthor);
+        stepnWikiAuthorTv = view.findViewById(R.id.stepnWikiAuthor);
+        stepnAssistAuthorTv = view.findViewById(R.id.stepnAssistAuthor);
+        stepnFpAuthorTv = view.findViewById(R.id.stepnFpAuthor);
+        stepnEnhancedAuthorTv = view.findViewById(R.id.stepnEnhancedFilterAuthor);
+        stepnStatsAuthorOneTv = view.findViewById(R.id.stepnStatsAuthor1);
+        stepnStatsAuthorTwoTv = view.findViewById(R.id.stepnStatsAuthor2);
+        stepnMarketGuideAuthorTv = view.findViewById(R.id.stepnMarketGuideAuthor);
+
+        stepnGuideIv = view.findViewById(R.id.stepnGuide);
+        stepnWikiIv = view.findViewById(R.id.stepnWiki);
+        stepnAssistIv = view.findViewById(R.id.stepnAssist);
+        stepnFpIv = view.findViewById(R.id.stepnFp);
+        stepnEfIv = view.findViewById(R.id.stepnEnhancedFilter);
+        stepnStatsIv = view.findViewById(R.id.stepnStats);
+        stepnMarketIv = view.findViewById(R.id.stepnMarketGuide);
 
         removeAdsButton = view.findViewById(R.id.removeAdsButton);
         removeAdsTextView = view.findViewById(R.id.removeAdsTextView);
@@ -116,21 +160,7 @@ public class AboutFrag extends Fragment {
             }
         });
 
-        emailButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        emailTextView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.energy_blue_darker));
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        emailTextView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.luck_socket_border));
-                        break;
-                }
-                return false;
-            }
-        });
+        textTouchies(emailButton, emailTextView);
 
         buyCoffeeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,23 +171,234 @@ public class AboutFrag extends Fragment {
             }
         });
 
-        buyCoffeeButton.setOnTouchListener(new View.OnTouchListener() {
+        imageTouchies(buyCoffeeButton, buyCoffeeLogo);
+
+        kritButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/Krit_STEPNstats");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(kritButton, kritTv);
+
+        karlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/Karl_Khader");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(karlButton, karlTv);
+
+        stepnGuideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://stepn.guide/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        imageTouchies(stepnGuideButton, stepnGuideIv);
+
+        stepnGuideAuthorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/StepNGuide_");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(stepnGuideAuthorButton, stepnGuideAuthorTv);
+
+        stepnWikiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://stepn.wiki/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        imageTouchies(stepnWikiButton, stepnWikiIv);
+
+        stepnWikiAuthorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/STEPNwiki");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(stepnWikiAuthorButton, stepnWikiAuthorTv);
+
+        stepnAssistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://stepn.vanxh.dev/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        imageTouchies(stepnAssistButton, stepnAssistIv);
+
+        stepnAssistAuthorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/Vanxhh");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(stepnAssistAuthorButton, stepnAssistAuthorTv);
+
+        stepnFpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://stepnfp.com/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        imageTouchies(stepnFpButton, stepnFpIv);
+
+        stepnFpAuthorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/StepnFP");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(stepnFpAuthorButton, stepnFpAuthorTv);
+
+        stepnEnhancedFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://chrome.google.com/webstore/detail/enhanced-filter-for-stepn/amibnhkklghdncklemlohpglbbbnpjhe");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        imageTouchies(stepnEnhancedFilterButton, stepnEfIv);
+
+        stepnEnhancedFilterAuthorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/1napolsky");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(stepnEnhancedFilterAuthorButton, stepnEnhancedAuthorTv);
+
+        stepnStatsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(requireActivity(),"Coming soon! Follow Krit on Twitter for more info", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        imageTouchies(stepnStatsButton, stepnStatsIv);
+
+        stepnStatsAuthorOneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/Krit_STEPNstats");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(stepnStatsAuthorOneButton, stepnStatsAuthorOneTv);
+
+        stepnStatsAuthorTwoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/lyesbcb");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(stepnStatsAuthorTwoButton, stepnStatsAuthorTwoTv);
+
+        stepnMarketGuideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("http://stepn-market.guide/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        imageTouchies(stepnMarketGuideButton, stepnMarketIv);
+
+        stepnMarketGuideAuthorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/t2_stepn");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(stepnMarketGuideAuthorButton, stepnMarketGuideAuthorTv);
+
+        return view;
+    }
+
+    // changes text color on touch (for clickable links)
+    @SuppressLint("ClickableViewAccessibility")
+    private void textTouchies(Button button, TextView text) {
+        button.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        buyCoffeeLogo.setAlpha(0.5f);
+                        text.setTextColor(ContextCompat.getColor(requireActivity(), R.color.energy_blue_lighter));
                         break;
-                    case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
-                        buyCoffeeLogo.setAlpha(1.0f);
+                    case MotionEvent.ACTION_UP:
+                        text.setTextColor(ContextCompat.getColor(requireActivity(), R.color.luck_socket_border));
                         break;
                 }
                 return false;
             }
         });
+    }
 
-        return view;
+    // changes image color on touch (for clickable links)
+    @SuppressLint("ClickableViewAccessibility")
+    private void imageTouchies(Button button, ImageView image) {
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        image.setAlpha(0.5f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        image.setAlpha(1.0f);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     public void hideAdsButton() {

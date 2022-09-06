@@ -519,20 +519,37 @@
 
     <TextView
         android:id="@+id/otherProjectsTextView"
-        style="@style/RegText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:includeFontPadding="false"
-        android:text="Other community projects to check out\n(in no particular order):"
+        android:text="OTHER PROJECTS FROM THE STEPN COMMUNITY"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toTopOf="@+id/lowerBackgroundThing" />
+
+    <TextView
+        android:id="@+id/otherProjectsDeetsTextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:includeFontPadding="false"
+        android:text="(in no particular order)"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/otherProjectsTextView" />
 
     <ImageView
         android:id="@+id/stepnGuide"
@@ -543,7 +560,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otherProjectsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/otherProjectsDeetsTextView"
         app:srcCompat="@mipmap/stepn_guide" />
 
     <Button
@@ -632,7 +649,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:includeFontPadding="false"
-        android:text="GST, ROI, and Gems Simulator by "
+        android:text="GST, ROI, and gems simulator by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="12sp"
@@ -766,12 +783,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:includeFontPadding="false"
-        android:text="Tool to track floorprices by "
+        android:text="Shoe, gem, and scroll floorprice tracker by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/stepnFpAuthor"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/stepnFp" />
 
@@ -779,7 +795,7 @@
         android:id="@+id/stepnFpAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/roboto_medium"
         android:includeFontPadding="false"
         android:text="\@StepnFP"
@@ -787,8 +803,8 @@
         android:textColor="@color/luck_socket_border"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-        app:layout_constraintStart_toEndOf="@+id/stepnFpDeets"
-        app:layout_constraintTop_toBottomOf="@+id/stepnFp" />
+        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/stepnFpDeets" />
 
     <Button
         android:id="@+id/stepnFpAuthorButton"
@@ -807,11 +823,11 @@
         android:layout_width="240dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnFpDeets"
+        app:layout_constraintTop_toBottomOf="@+id/stepnFpAuthor"
         app:srcCompat="@mipmap/stepn_enhanced_filter" />
 
     <Button
@@ -832,13 +848,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        android:text="Marketplace filter by "
+        android:text="Browser extension with marketplace filter by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/stepnEnhancedFilterAuthor"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepnEnhancedFilter" />
 
     <TextView
@@ -846,14 +861,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
+        android:layout_marginTop="4dp"
         android:includeFontPadding="false"
         android:text="\@1napolsky"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-        app:layout_constraintStart_toEndOf="@+id/stepnEnhancedFilterDeets"
-        app:layout_constraintTop_toBottomOf="@+id/stepnEnhancedFilter" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stepnEnhancedFilterDeets" />
 
     <Button
         android:id="@+id/stepnEnhancedFilterAuthorButton"
@@ -867,17 +883,111 @@
         app:layout_constraintStart_toStartOf="@+id/stepnEnhancedFilterAuthor"
         app:layout_constraintTop_toTopOf="@+id/stepnEnhancedFilterAuthor" />
 
-
     <ImageView
-        android:id="@+id/stepnMarketGuide"
-        android:layout_width="260dp"
+        android:id="@+id/stepnStats"
+        android:layout_width="240dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnEnhancedFilterDeets"
+        app:layout_constraintTop_toBottomOf="@+id/stepnEnhancedFilterAuthor"
+        app:srcCompat="@mipmap/stepn_stats" />
+
+    <Button
+        android:id="@+id/stepnStatsButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:alpha="0"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/stepnStats"
+        app:layout_constraintEnd_toEndOf="@+id/stepnStats"
+        app:layout_constraintStart_toStartOf="@+id/stepnStats"
+        app:layout_constraintTop_toTopOf="@+id/stepnStats" />
+
+    <TextView
+        android:id="@+id/stepnStatsDeets"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:layout_marginTop="4dp"
+        android:text="Upcoming app for gathering stats and more by"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/stepnStats" />
+
+    <TextView
+        android:id="@+id/stepnStatsAuthor1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:includeFontPadding="false"
+        android:layout_marginTop="4dp"
+        android:text="\@Krit_STEPNstats "
+        android:textAlignment="center"
+        android:textColor="@color/luck_socket_border"
+        android:textSize="12sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toStartOf="@+id/stepnStatsAuthor2"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/stepnStatsDeets" />
+
+    <Button
+        android:id="@+id/stepnStatsAuthor1Button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:alpha="0"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/stepnStatsAuthor1"
+        app:layout_constraintEnd_toEndOf="@+id/stepnStatsAuthor1"
+        app:layout_constraintStart_toStartOf="@+id/stepnStatsAuthor1"
+        app:layout_constraintTop_toTopOf="@+id/stepnStatsAuthor1" />
+
+    <TextView
+        android:id="@+id/stepnStatsAuthor2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:includeFontPadding="false"
+        android:layout_marginTop="4dp"
+        android:text=" \@lyesbcb"
+        android:textAlignment="center"
+        android:textColor="@color/luck_socket_border"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/stepnStatsAuthor1"
+        app:layout_constraintTop_toBottomOf="@+id/stepnStatsDeets" />
+
+    <Button
+        android:id="@+id/stepnStatsAuthor2Button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:alpha="0"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/stepnStatsAuthor2"
+        app:layout_constraintEnd_toEndOf="@+id/stepnStatsAuthor2"
+        app:layout_constraintStart_toStartOf="@+id/stepnStatsAuthor2"
+        app:layout_constraintTop_toTopOf="@+id/stepnStatsAuthor2" />
+
+    <ImageView
+        android:id="@+id/stepnMarketGuide"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stepnStatsAuthor2"
         app:srcCompat="@mipmap/stepn_market_guide" />
 
     <Button
@@ -899,7 +1009,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:includeFontPadding="false"
-        android:text="Tool to browse the marketplace by "
+        android:text="Website marketplace filter by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="12sp"
