@@ -651,13 +651,13 @@
         <Button
             android:id="@+id/oneTwentyFiveButton"
             android:layout_width="0dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
             android:backgroundTint="#00FFFFFF"
             android:stateListAnimator="@null"
             app:layout_constraintBottom_toBottomOf="@+id/oneTwentyFiveTextView"
             app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
-            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
-            app:layout_constraintTop_toTopOf="@+id/oneTwentyFiveTextView" />
+            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

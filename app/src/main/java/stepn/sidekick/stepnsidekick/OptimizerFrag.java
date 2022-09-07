@@ -553,6 +553,11 @@ public class OptimizerFrag extends Fragment {
                     energyBox.setImageResource(R.drawable.energy_box_active);
                     oneTwentyFive = false;
                     oneTwentyFiveTextView.setText("100%");
+                    energyEditText.setText(String.valueOf(energy));
+                    energyEditText.selectAll();
+                    InputMethodManager imm = (InputMethodManager) view.getContext()
+                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(view, 0);
                 } else {
                     energyBox.setImageResource(R.drawable.energy_input_box);
                     if (!energyEditText.getText().toString().isEmpty() && !energyEditText.getText().toString().equals(".")) {
@@ -2070,6 +2075,14 @@ public class OptimizerFrag extends Fragment {
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
         if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
+            gstEarnedTextView.setText("0");
+            durabilityLossTextView.setText("0");
+            repairCostDurTextView.setText("0");
+            hpLossTextView.setText("0");
+            repairCostHpTextView.setText("0");
+            gemMultipleTextView.setText("0");
+            gemMultipleTotalTextView.setText("-  0");
+            gstIncomeTextView.setText("0");
             return;
         }
 
