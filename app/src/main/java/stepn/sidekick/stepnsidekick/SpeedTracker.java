@@ -63,6 +63,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
     ImageButton pauseImageButton, minusFiveImageButton, plusFiveImageButton, startImageButton,
             stopImageButton;
     ImageView leftGps, centerGps, rightGps, footLeft, footCenter, footRight;
+    View bannerAdSpace;
 
     private MaxAdView bannerAd;
     private boolean ads;
@@ -297,6 +298,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
     @SuppressLint("ClickableViewAccessibility")
     private void buildUI() {
         energyAmountTextView = findViewById(R.id.energyAmountTextView);
+        bannerAdSpace = findViewById(R.id.bottomAdView);
 
         shoeTypeTextView = findViewById(R.id.shoeTypeOnGpsTextView);
         shoeSpeedTextView = findViewById(R.id.shoeSpeedTextView);
@@ -353,7 +355,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
             // Load the ad
             bannerAd.loadAd();
         } else {
-            bannerAd.setVisibility(View.GONE);
+            bannerAdSpace.setVisibility(View.GONE);
         }
 
 

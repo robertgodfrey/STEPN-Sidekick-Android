@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
     // inits UI
     @SuppressLint("ClickableViewAccessibility")
     private void buildUI() {
-        //bannerAd = findViewById(R.id.bannerAd);
         scrollView = findViewById(R.id.scrollView);
+        bannerAdSpace = findViewById(R.id.bannerAdSpace);
 
         bottomNav = findViewById(R.id.navigationBar);
         goToExerciseButton = findViewById(R.id.goToExerciseButton);
@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
             } );
 
         } else {
-            bannerAd.setVisibility(View.GONE);
             bannerAdSpace.setVisibility(View.GONE);
         }
 
@@ -266,7 +265,10 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
             } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
                 ads = false;
                 Toast.makeText(MainActivity.this, "Thank you! Ads are now disabled", Toast.LENGTH_SHORT).show();
-                bannerAd.setVisibility(View.GONE);
+                bannerAdSpace.setVisibility(View.GONE);
+                if (bannerAd != null) {
+                    bannerAd.setVisibility(View.GONE);
+                }
             } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.USER_CANCELED) {
                 Toast.makeText(MainActivity.this, "Purchase cancelled", Toast.LENGTH_SHORT).show();
                 ads = true;
@@ -288,13 +290,19 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
                         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                             ads = false;
                             Toast.makeText(MainActivity.this, "Thank you! Ads are now disabled", Toast.LENGTH_SHORT).show();
-                            bannerAd.setVisibility(View.GONE);
+                            bannerAdSpace.setVisibility(View.GONE);
+                            if (bannerAd != null) {
+                                bannerAd.setVisibility(View.GONE);
+                            }
                         }
                     }
                 });
             } else {
                 ads = false;
-                bannerAd.setVisibility(View.GONE);
+                bannerAdSpace.setVisibility(View.GONE);
+                if (bannerAd != null) {
+                    bannerAd.setVisibility(View.GONE);
+                }
             }
 
         }
@@ -336,8 +344,10 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
     @Override
     protected void onPause() {
         // Set this extra parameter to work around SDK bug that ignores calls to stopAutoRefresh()
-        bannerAd.setExtraParameter( "allow_pause_auto_refresh_immediately", "true" );
-        bannerAd.stopAutoRefresh();
+        if (bannerAd != null) {
+            bannerAd.setExtraParameter("allow_pause_auto_refresh_immediately", "true");
+            bannerAd.stopAutoRefresh();
+        }
         super.onPause();
     }
 
