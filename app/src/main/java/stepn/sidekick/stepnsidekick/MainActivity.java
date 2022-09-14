@@ -5,17 +5,20 @@ import static stepn.sidekick.stepnsidekick.Finals.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -31,9 +34,12 @@ import com.android.billingclient.api.ProductDetailsResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdViewAdListener;
+import com.applovin.mediation.MaxError;
+import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.google.common.collect.ImmutableList;
 
 import java.util.List;
@@ -42,17 +48,18 @@ import java.util.List;
  * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Rob Godfrey
- * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
+ * @version 1.3.15 Fixed ads
  *
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MaxAdViewAdListener {
 
     public boolean ads;
+    private MaxAdView bannerAd;
+    private View bannerAdSpace;
 
     Button goToExerciseButton, goToOptimizerButton, goToInfoButton;
     ImageView exerciseSelected, optimizerSelected, infoSelected;
-    AdView bannerAd;
     FragmentManager fragmentManager;
 
     ConstraintLayout bottomNav;
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     // inits UI
     @SuppressLint("ClickableViewAccessibility")
     private void buildUI() {
-        bannerAd = findViewById(R.id.bannerAd);
+        //bannerAd = findViewById(R.id.bannerAd);
         scrollView = findViewById(R.id.scrollView);
 
         bottomNav = findViewById(R.id.navigationBar);
@@ -92,11 +99,40 @@ public class MainActivity extends AppCompatActivity {
 
         if (ads) {
             billingSetup();
-            MobileAds.initialize(this);
-            AdRequest adRequest = new AdRequest.Builder().build();
-            bannerAd.loadAd(adRequest);
+
+            // Make sure to set the mediation provider value to "max" to ensure proper functionality
+            AppLovinSdk.getInstance(this).setMediationProvider("max");
+            AppLovinSdk.initializeSdk(this, new AppLovinSdk.SdkInitializationListener() {
+                @Override
+                public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+                {
+                    // AppLovin SDK is initialized, start loading ads
+                    bannerAd = new MaxAdView(getString(R.string.main_ad_banner_id), MainActivity.this);
+                    bannerAd.setListener(MainActivity.this);
+
+                    // Stretch to the width of the screen for banners to be fully functional
+                    int width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+
+                    // Banner height on phones and tablets is 50 and 90, respectively
+                    int heightPx = getResources().getDimensionPixelSize( R.dimen.banner_height );
+
+                    bannerAd.setLayoutParams( new FrameLayout.LayoutParams( width, heightPx ) );
+
+                    // Set background or background color for banners to be fully functional
+                    bannerAd.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.light_green));
+
+                    ViewGroup rootView = findViewById( android.R.id.content );
+                    rootView.addView( bannerAd );
+
+                    // Load the ad
+                    bannerAd.loadAd();
+                }
+            } );
+
         } else {
             bannerAd.setVisibility(View.GONE);
+            bannerAdSpace.setVisibility(View.GONE);
         }
 
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -237,8 +273,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 ads = true;
             }
-
-
         }
     };
 
@@ -266,15 +300,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // MAX Ad Listener
+    @Override
+    public void onAdLoaded(final MaxAd maxAd) {}
+
+    @Override
+    public void onAdLoadFailed(final String adUnitId, final MaxError error) {}
+
+    @Override
+    public void onAdDisplayFailed(final MaxAd maxAd, final MaxError error) {}
+
+    @Override
+    public void onAdClicked(final MaxAd maxAd) {}
+
+    @Override
+    public void onAdExpanded(final MaxAd maxAd) {}
+
+    @Override
+    public void onAdCollapsed(final MaxAd maxAd) {}
+
+    @Override
+    public void onAdDisplayed(final MaxAd maxAd) { /* DO NOT USE - THIS IS RESERVED FOR FULLSCREEN ADS ONLY AND WILL BE REMOVED IN A FUTURE SDK RELEASE */ }
+
+    @Override
+    public void onAdHidden(final MaxAd maxAd) { /* DO NOT USE - THIS IS RESERVED FOR FULLSCREEN ADS ONLY AND WILL BE REMOVED IN A FUTURE SDK RELEASE */ }
+
     @Override
     protected void onResume() {
-        bannerAd.resume();
+        if (bannerAd != null) {
+            bannerAd.startAutoRefresh();
+        }
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        bannerAd.pause();
+        // Set this extra parameter to work around SDK bug that ignores calls to stopAutoRefresh()
+        bannerAd.setExtraParameter( "allow_pause_auto_refresh_immediately", "true" );
+        bannerAd.stopAutoRefresh();
         super.onPause();
     }
 

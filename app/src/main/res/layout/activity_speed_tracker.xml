@@ -433,15 +433,12 @@
         app:layout_constraintTop_toBottomOf="@+id/timeRemainingTextView"
         app:srcCompat="@mipmap/button_play" />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/bannerAd"
+    <RelativeLayout
+        android:id="@+id/bottomAdView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:adSize="BANNER"
-        android:background="@color/light_green"
-        app:adUnitId="@string/speed_tracker_ad_banner_id"
+        android:layout_height="@dimen/banner_height"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

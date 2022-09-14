@@ -6,13 +6,11 @@
     android:layout_height="match_parent"
     tools:context="stepn.sidekick.stepnsidekick.MainActivity">
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/bannerAd"
+    <View
+        android:id="@+id/bannerAdSpace"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:adSize="BANNER"
+        android:layout_height="@dimen/banner_height"
         android:background="@color/light_green"
-        app:adUnitId="@string/main_ad_banner_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +21,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bannerAd">
+        app:layout_constraintTop_toBottomOf="@+id/bannerAdSpace">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
