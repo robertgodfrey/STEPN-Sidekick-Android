@@ -36,6 +36,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +54,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.3.13 Bug fixes, adjusted formulas, added 125% button, added moar shoes
+ * @version 1.3.16 Updated layout to fix lag
  *
  */
 
@@ -125,7 +126,9 @@ public class OptimizerFrag extends Fragment {
             optimizeGstButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
-            shoeNameBoxImageView;
+            shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow;
+
+    LinearLayout shoeTypeLayout, shoeTypeLayoutShadow;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum;
@@ -318,6 +321,12 @@ public class OptimizerFrag extends Fragment {
         footOne = view.findViewById(R.id.footprint1ImageView);
         footTwo = view.findViewById(R.id.footprint2ImageView);
         footThree = view.findViewById(R.id.footprint3ImageView);
+        footOneShadow = view.findViewById(R.id.footprint1ShadowImageView);
+        footTwoShadow = view.findViewById(R.id.footprint2ShadowImageView);
+        footThreeShadow = view.findViewById(R.id.footprint3ShadowImageView);
+
+        shoeTypeLayout = view.findViewById(R.id.shoeTypeLayout);
+        shoeTypeLayoutShadow = view.findViewById(R.id.shoeTypeLayoutShadow);
 
         backgroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -510,7 +519,7 @@ public class OptimizerFrag extends Fragment {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         shoeTypeButton.setVisibility(View.INVISIBLE);
-                        shoeTypeTextView.setVisibility(View.INVISIBLE);
+                        shoeTypeLayout.setVisibility(View.INVISIBLE);
                         shoeTypeShadowTextView.setText(shoeTypeTextView.getText().toString());
                         switch (shoeRarity) {
                             case UNCOMMON:
@@ -529,7 +538,7 @@ public class OptimizerFrag extends Fragment {
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         shoeTypeButton.setVisibility(View.VISIBLE);
-                        shoeTypeTextView.setVisibility(View.VISIBLE);
+                        shoeTypeLayout.setVisibility(View.VISIBLE);
                         shoeTypeButtonShadow.setImageResource(R.drawable.main_button_shadow);
                         break;
                 }
@@ -1116,6 +1125,9 @@ public class OptimizerFrag extends Fragment {
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footOneShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footTwoShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footThreeShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
 
                 effEditText.setHint("8 - 21.6");
                 luckEditText.setHint("8 - 21.6");
@@ -1148,6 +1160,9 @@ public class OptimizerFrag extends Fragment {
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footOneShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footTwoShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footThreeShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
 
                 effEditText.setHint("15 - 42");
                 luckEditText.setHint("15 - 42");
@@ -1180,6 +1195,9 @@ public class OptimizerFrag extends Fragment {
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footOneShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footTwoShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footThreeShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
 
                 effEditText.setHint("28 - 75.6");
                 luckEditText.setHint("28 - 75.6");
@@ -1206,6 +1224,9 @@ public class OptimizerFrag extends Fragment {
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                footOneShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                footTwoShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                footThreeShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
 
                 effEditText.setHint("1 - 10");
                 luckEditText.setHint("1 - 10");
@@ -1263,6 +1284,9 @@ public class OptimizerFrag extends Fragment {
                 footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.GONE);
+                footOneShadow.setImageResource(R.mipmap.footprint);
+                footTwoShadow.setVisibility(View.VISIBLE);
+                footThreeShadow.setVisibility(View.GONE);
                 break;
             case RUNNER:
                 shoeTypeImageView.setImageResource(R.mipmap.shoe_runner);
@@ -1270,6 +1294,9 @@ public class OptimizerFrag extends Fragment {
                 footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.VISIBLE);
+                footOneShadow.setImageResource(R.mipmap.footprint);
+                footTwoShadow.setVisibility(View.VISIBLE);
+                footThreeShadow.setVisibility(View.VISIBLE);
                 break;
             case TRAINER:
                 shoeTypeImageView.setImageResource(R.mipmap.shoe_trainer);
@@ -1277,6 +1304,9 @@ public class OptimizerFrag extends Fragment {
                 footOne.setImageResource(R.mipmap.trainer_t);
                 footTwo.setVisibility(View.GONE);
                 footThree.setVisibility(View.GONE);
+                footOneShadow.setImageResource(R.mipmap.trainer_t);
+                footTwoShadow.setVisibility(View.GONE);
+                footThreeShadow.setVisibility(View.GONE);
                 break;
             default:
                 shoeTypeImageView.setImageResource(R.mipmap.shoe_walker);
@@ -1284,6 +1314,9 @@ public class OptimizerFrag extends Fragment {
                 footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.GONE);
                 footThree.setVisibility(View.GONE);
+                footOneShadow.setImageResource(R.mipmap.footprint);
+                footTwoShadow.setVisibility(View.GONE);
+                footThreeShadow.setVisibility(View.GONE);
         }
     }
 

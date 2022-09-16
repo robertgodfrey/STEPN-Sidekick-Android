@@ -387,299 +387,319 @@
         app:layout_constraintStart_toStartOf="@+id/shoeNameImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeNameImageView" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rarityConstraint"
+    <Button
+        android:id="@+id/oneTwentyFiveButton"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="-10dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintEnd_toEndOf="@+id/buttonRow"
+        app:layout_constraintTop_toTopOf="@+id/buttonRow" />
+
+    <LinearLayout
+        android:id="@+id/buttonRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/shoeTypeConstraint"
-        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
-        app:layout_constraintTop_toBottomOf="@+id/shoeOneTextView">
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
+        app:layout_constraintTop_toBottomOf="@+id/shoeTwoTextView">
 
-        <ImageView
-            android:id="@+id/shoeRarityBoxShadow"
+        <LinearLayout
+            android:id="@+id/leftLayout"
             android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="2dp"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rarityLabelTextView"
-            app:srcCompat="@drawable/main_button_shadow" />
-
-        <TextView
-            android:id="@+id/shoeRarityShadowTextView"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Common"
-            android:textColor="@color/almost_black"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/shoeRarityBoxShadow"
-            app:layout_constraintEnd_toEndOf="@+id/shoeRarityBoxShadow"
-            app:layout_constraintStart_toStartOf="@+id/shoeRarityBoxShadow"
-            app:layout_constraintTop_toTopOf="@+id/shoeRarityBoxShadow" />
+            android:layout_weight="1"
+            android:layout_marginEnd="1dp"
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/shoeRarityButton"
+            <TextView
+                android:id="@+id/rarityLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/rarity"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:id="@+id/rarityButtonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/shoeRarityBoxShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/main_button_shadow" />
+
+                <TextView
+                    android:id="@+id/shoeRarityShadowTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:text="Common"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/shoeRarityButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@null"
+                    app:srcCompat="@drawable/box_common" />
+
+                <TextView
+                    android:id="@+id/shoeRarityTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:text="Common"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/midLayout"
             android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="-2dp"
-            android:layout_marginEnd="2dp"
-            android:background="@null"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintEnd_toEndOf="@id/shoeRarityBoxShadow"
-            app:layout_constraintStart_toStartOf="@id/shoeRarityBoxShadow"
-            app:layout_constraintTop_toBottomOf="@id/rarityLabelTextView"
-            app:srcCompat="@drawable/box_common" />
-
-        <TextView
-            android:id="@+id/shoeRarityTextView"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Common"
-            android:textColor="@color/almost_black"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/shoeRarityButton"
-            app:layout_constraintEnd_toEndOf="@+id/shoeRarityButton"
-            app:layout_constraintStart_toStartOf="@+id/shoeRarityButton"
-            app:layout_constraintTop_toTopOf="@+id/shoeRarityButton" />
+            android:layout_weight="1"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/rarityLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/RegItalic"
-            android:text="@string/rarity"
-            android:textColor="@color/gandalf"
-            android:textSize="14sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/shoeRarityButton"
-            app:layout_constraintStart_toStartOf="@+id/shoeRarityButton" />
+            <TextView
+                android:id="@+id/shoeTypeLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/type"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <FrameLayout
+                android:id="@+id/typeButtonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/shoeTypeConstraint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/energyConstraint"
-        app:layout_constraintStart_toEndOf="@+id/rarityConstraint"
-        app:layout_constraintTop_toBottomOf="@+id/shoeOneTextView">
+                <ImageView
+                    android:id="@+id/shoeTypeBoxShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/main_button_shadow" />
 
-        <ImageView
-            android:id="@+id/shoeTypeBoxShadow"
+                <LinearLayout
+                    android:id="@+id/shoeTypeLayoutShadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/footprint3ShadowImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="3dp"
+                        android:adjustViewBounds="true"
+                        android:visibility="gone"
+                        app:srcCompat="@mipmap/footprint" />
+
+                    <ImageView
+                        android:id="@+id/footprint2ShadowImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="3dp"
+                        android:adjustViewBounds="true"
+                        android:visibility="gone"
+                        app:srcCompat="@mipmap/footprint" />
+
+                    <ImageView
+                        android:id="@+id/footprint1ShadowImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginEnd="4dp"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@mipmap/footprint" />
+
+                    <TextView
+                        android:id="@+id/shoeTypeShadowTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto_condensed_bold_italic"
+                        android:text="Walker"
+                        android:textColor="@color/almost_black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/shoeTypeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@null"
+                    app:srcCompat="@drawable/box_common" />
+
+                <LinearLayout
+                    android:id="@+id/shoeTypeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/footprint3ImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="2dp"
+                        android:adjustViewBounds="true"
+                        android:visibility="gone"
+                        app:srcCompat="@mipmap/footprint" />
+
+                    <ImageView
+                        android:id="@+id/footprint2ImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="2dp"
+                        android:adjustViewBounds="true"
+                        android:visibility="gone"
+                        app:srcCompat="@mipmap/footprint" />
+
+                    <ImageView
+                        android:id="@+id/footprint1ImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="4dp"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@mipmap/footprint" />
+
+                    <TextView
+                        android:id="@+id/shoeTypeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto_condensed_bold_italic"
+                        android:text="Walker"
+                        android:textColor="@color/almost_black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/RightLayout"
             android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shoeTypeLabelTextView"
-            app:srcCompat="@drawable/main_button_shadow" />
-
-        <TextView
-            android:id="@+id/shoeTypeShadowTextView"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Walker"
-            android:textColor="@color/almost_black"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/shoeTypeBoxShadow"
-            app:layout_constraintEnd_toEndOf="@+id/shoeTypeBoxShadow"
-            app:layout_constraintStart_toEndOf="@id/footprint1ImageView"
-            app:layout_constraintTop_toTopOf="@+id/shoeTypeBoxShadow" />
+            android:layout_weight="1"
+            android:layout_marginStart="1dp"
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/shoeTypeButton"
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="-2dp"
-            android:layout_marginEnd="2dp"
-            android:background="@null"
-            app:layout_constraintEnd_toEndOf="@id/shoeTypeBoxShadow"
-            app:layout_constraintStart_toStartOf="@+id/shoeTypeBoxShadow"
-            app:layout_constraintTop_toBottomOf="@+id/shoeTypeLabelTextView"
-            app:srcCompat="@drawable/box_common" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/shoeTypeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold_italic"
-            android:text="Walker"
-            android:textColor="@color/almost_black"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/shoeTypeButton"
-            app:layout_constraintEnd_toEndOf="@+id/shoeTypeButton"
-            app:layout_constraintStart_toEndOf="@id/footprint1ImageView"
-            app:layout_constraintTop_toTopOf="@+id/shoeTypeButton" />
+                <TextView
+                    android:id="@+id/oneTwentyFiveTextView"
+                    style="@style/RegItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100%"
+                    android:textColor="@color/gandalf"
+                    android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/footprint1ImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_marginEnd="4dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
-            app:layout_constraintEnd_toStartOf="@+id/shoeTypeTextView"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/footprint2ImageView"
-            app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-            app:srcCompat="@mipmap/footprint" />
+                <TextView
+                    android:id="@+id/energyLabelTextView"
+                    style="@style/RegItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/energy"
+                    android:textColor="@color/gandalf"
+                    android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/footprint2ImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:adjustViewBounds="true"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
-            app:layout_constraintEnd_toStartOf="@id/footprint1ImageView"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/footprint3ImageView"
-            app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-            app:srcCompat="@mipmap/footprint" />
+            </LinearLayout>
 
-        <ImageView
-            android:id="@+id/footprint3ImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:adjustViewBounds="true"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
-            app:layout_constraintEnd_toStartOf="@+id/footprint2ImageView"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/shoeTypeButton"
-            app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-            app:srcCompat="@mipmap/footprint" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/shoeTypeLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/RegItalic"
-            android:text="@string/type"
-            android:textColor="@color/gandalf"
-            android:textSize="14sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/shoeTypeButton"
-            app:layout_constraintStart_toStartOf="@+id/shoeTypeButton" />
+                <ImageView
+                    android:id="@+id/energyBoxOptimizerShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/energy_input_box"
+                    app:tint="@color/energy_blue_border" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/energyBoxOptimizer"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    app:srcCompat="@drawable/energy_input_box" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/energyConstraint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
-        app:layout_constraintStart_toEndOf="@+id/shoeTypeConstraint"
-        app:layout_constraintTop_toBottomOf="@+id/shoeOneTextView">
+                <ImageView
+                    android:id="@+id/energyBolt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="24dp"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@mipmap/energy_bolt" />
 
-        <ImageView
-            android:id="@+id/energyBoxOptimizerShadow"
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/energyLabelTextView"
-            app:srcCompat="@drawable/energy_input_box"
-            app:tint="@color/energy_blue_border" />
+                <EditText
+                    android:id="@+id/energyToSpendOptimizerEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@null"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:hint="0.0"
+                    android:inputType="number|numberDecimal"
+                    android:maxLength="4"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:paddingVertical="8dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+            </FrameLayout>
 
-        <TextView
-            android:id="@+id/energyLabelTextView"
-            style="@style/RegItalic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/energy"
-            android:textColor="@color/gandalf"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/oneTwentyFiveTextView"
-            app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/oneTwentyFiveTextView"
-            style="@style/RegItalic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="100%"
-            android:textColor="@color/gandalf"
-            android:textSize="14sp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer"
-            app:layout_constraintEnd_toStartOf="@+id/energyLabelTextView"
-            app:layout_constraintBottom_toTopOf="@+id/energyBoxOptimizer" />
-
-
-        <ImageView
-            android:id="@+id/energyBoxOptimizer"
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="-2dp"
-            android:layout_marginEnd="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizerShadow"
-            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizerShadow"
-            app:layout_constraintTop_toBottomOf="@+id/energyLabelTextView"
-            app:srcCompat="@drawable/energy_input_box" />
-
-        <ImageView
-            android:id="@+id/energyBolt"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginBottom="8dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="@+id/energyBoxOptimizer"
-            app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
-            app:layout_constraintTop_toTopOf="@+id/energyBoxOptimizer"
-            app:srcCompat="@mipmap/energy_bolt" />
-
-        <Button
-            android:id="@+id/oneTwentyFiveButton"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/oneTwentyFiveTextView"
-            app:layout_constraintEnd_toEndOf="@+id/energyBoxOptimizer"
-            app:layout_constraintStart_toStartOf="@+id/energyBoxOptimizer" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <EditText
-        android:id="@+id/energyToSpendOptimizerEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@null"
-        android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:hint="0.0"
-        android:inputType="number|numberDecimal"
-        android:maxLength="4"
-        android:paddingHorizontal="36dp"
-        android:paddingVertical="8dp"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/energyConstraint"
-        app:layout_constraintEnd_toEndOf="@+id/energyConstraint"
-        app:layout_constraintStart_toStartOf="@+id/energyConstraint" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/seekbarBackground"
@@ -690,7 +710,7 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/rarityConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRow"
         app:srcCompat="@drawable/seekbar_background" />
 
     <ImageView
