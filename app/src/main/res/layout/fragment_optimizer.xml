@@ -287,7 +287,7 @@
         android:id="@+id/shoeTwoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="1"
         android:textColor="@color/almost_black"
@@ -345,7 +345,7 @@
 
     <Button
         android:id="@+id/leftArrowButton"
-        android:layout_width="40dp"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:backgroundTint="#00FFFFFF"
         android:stateListAnimator="@null"
@@ -356,7 +356,7 @@
 
     <Button
         android:id="@+id/rightArrowButton"
-        android:layout_width="40dp"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:backgroundTint="#00FFFFFF"
         android:stateListAnimator="@null"
@@ -402,7 +402,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
@@ -413,8 +413,8 @@
             android:id="@+id/leftLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="1dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -478,9 +478,9 @@
             android:id="@+id/midLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -617,8 +617,8 @@
             android:id="@+id/RightLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="1dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
@@ -682,14 +682,14 @@
                     android:id="@+id/energyToSpendOptimizerEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="34dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
                     android:layout_marginEnd="6dp"
                     android:background="@null"
                     android:fontFamily="@font/roboto_condensed_bold_italic"
                     android:hint="0.0"
                     android:inputType="number|numberDecimal"
                     android:maxLength="4"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="2dp"
                     android:paddingVertical="8dp"
                     android:selectAllOnFocus="true"
                     android:singleLine="true"
