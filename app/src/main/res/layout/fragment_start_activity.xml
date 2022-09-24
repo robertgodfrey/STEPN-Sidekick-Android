@@ -226,7 +226,7 @@
         app:layout_constraintTop_toBottomOf="@+id/settingsTextView">
 
         <LinearLayout
-            android:id="@+id/leftSpeedLayout"
+            android:id="@+id/minSpeedStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
@@ -302,7 +302,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/rightSpeedLayout"
+            android:id="@+id/maxSpeedStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
@@ -394,7 +394,7 @@
         app:layout_constraintTop_toBottomOf="@+id/speedRow">
 
         <LinearLayout
-            android:id="@+id/secondRowLeftLayout"
+            android:id="@+id/countdownStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
@@ -464,7 +464,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/secondRowMidLayout"
+            android:id="@+id/alertsStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
@@ -536,7 +536,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/RightLayout"
+            android:id="@+id/energyStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"

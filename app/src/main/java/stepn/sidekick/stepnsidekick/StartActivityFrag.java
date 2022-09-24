@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,7 @@ public class StartActivityFrag extends Fragment {
 
     // keys for shared prefs
     private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";
+    private final String ALERTS_VIBRATION_AUDIBLE = "alertsVibrationAudible";
     // private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeed";  OLD, DO NOT USE
     private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeedType";
     private final String VOICE_ALERTS_TIME_PREF = "voiceAlertsTime";
@@ -70,20 +72,22 @@ public class StartActivityFrag extends Fragment {
 
     Button leftButton, rightButton, backgroundButton;
     ImageButton startButton, countDownTimerButton, voiceAlertSpeedButton, voiceAlertTimeButton,
-            voiceAlertCountdownButton, helpButton;
+            voiceAlertCountdownButton, helpButton, alertsVibrateButton;
     ImageView countDownTimerButtonShadow, voiceAlertSpeedButtonShadow, voiceAlertTimeButtonShadow,
             voiceAlertCountdownButtonShadow, startButtonShadow, helpButtonShadow, shoeTypeImage,
             footOne, footTwo, footThree, energyBox, energyBoxShadow, maxSpeedBox, minSpeedBox,
-            maxSpeedBoxShadow, minSpeedBoxShadow, leftLilHelper, rightLilHelper;
+            maxSpeedBoxShadow, minSpeedBoxShadow, leftLilHelper, rightLilHelper, alertsVibrateShadow;
     TextView countDownTimerTextView, voiceAlertSpeedTextView, voiceAlertTimeTextView,
             voiceAlertCountdownTextView, startTextView, helpButtonTextView,
             countDownTimerTextViewShadow, voiceAlertSpeedTextViewShadow,
             voiceAlertTimeTextViewShadow, voiceAlertCountdownTextViewShadow, shoeTypeTextView,
-            energyInMins;
+            energyInMins, alertsVibrateTextView;
     EditText minSpeedEditText, maxSpeedEditText, energyEditText, focusThief;
+    LinearLayout speedsLayout, countdownLayout, alertsLayout, energyLayout, voiceUpdatesLayout,
+            minSpeedStack, maxSpeedStack;
 
-    private float savedAppVersion;
-    private int shoeTypeIterator, voiceAlertsSpeedType;
+    private float savedAppVersion, customMinSpeed, customMaxSpeed;
+    private int shoeTypeIterator, alertsVibrationAudible, voiceAlertsSpeedType;
     private double energy;
     private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsTime, voiceAlertsAvgSpeed,
             voiceAlertsCurrentSpeed, gpsPermissions, firstTime;
@@ -105,13 +109,14 @@ public class StartActivityFrag extends Fragment {
                 SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
 
                 tenSecondTimer = getSharedPrefs.getBoolean(TEN_SECOND_TIMER_PREF, true);
+                alertsVibrationAudible = getSharedPrefs.getInt(ALERTS_VIBRATION_AUDIBLE, 2);
                 voiceAlertsSpeedType = getSharedPrefs.getInt(VOICE_ALERTS_SPEED_PREF, 3);
                 voiceAlertsTime = getSharedPrefs.getBoolean(VOICE_ALERTS_TIME_PREF, true);
                 voiceCountdownAlerts = getSharedPrefs.getBoolean(VOICE_ALERTS_CD_PREF, true);
                 energy = (double) getSharedPrefs.getInt(ENERGY_PREF, 0) / 10;
                 shoeTypeIterator = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
-                float customMinSpeed = getSharedPrefs.getFloat(CUSTOM_MIN_SPEED_PREF, 0);
-                float customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
+                customMinSpeed = getSharedPrefs.getFloat(CUSTOM_MIN_SPEED_PREF, 0);
+                customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
                 firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
                 savedAppVersion = getSharedPrefs.getFloat(APP_VERSION_PREF, 1f);
 
@@ -132,59 +137,69 @@ public class StartActivityFrag extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_start_activity, container, false);
 
-        startButton = (ImageButton) view.findViewById(R.id.startImageButton);
-        startButtonShadow = (ImageView) view.findViewById(R.id.startButtonShadow);
+        speedsLayout = view.findViewById(R.id.speedRow);
+        countdownLayout = view.findViewById(R.id.countdownStack);
+        alertsLayout  = view.findViewById(R.id.alertsStack);
+        energyLayout = view.findViewById(R.id.energyStack);
+        voiceUpdatesLayout = view.findViewById(R.id.voiceUpdatesRow);
+        minSpeedStack = view.findViewById(R.id.minSpeedStack);
+        maxSpeedStack = view.findViewById(R.id.maxSpeedStack);
 
-        helpButton = (ImageButton) view.findViewById(R.id.helpButton);
-        helpButtonShadow = (ImageView) view.findViewById(R.id.helpButtonShadow);
-        helpButtonTextView = (TextView) view.findViewById(R.id.helpTextView);
+        startButton = view.findViewById(R.id.startImageButton);
+        startButtonShadow = view.findViewById(R.id.startButtonShadow);
 
-        leftButton = (Button) view.findViewById(R.id.leftArrowButton);
-        rightButton = (Button) view.findViewById(R.id.rightArrowButton);
-        backgroundButton = (Button) view.findViewById(R.id.backgroundButton);
-        shoeTypeImage = (ImageView) view.findViewById(R.id.shoeTypeImageView);
-        shoeTypeTextView = (TextView) view.findViewById(R.id.shoeTypeTextView);
+        helpButton = view.findViewById(R.id.helpButton);
+        helpButtonShadow = view.findViewById(R.id.helpButtonShadow);
+        helpButtonTextView = view.findViewById(R.id.helpTextView);
 
-        countDownTimerButton = (ImageButton) view.findViewById(R.id.countdownTimerButton);
-        voiceAlertSpeedButton = (ImageButton) view.findViewById(R.id.voiceAlertSpeedButton);
-        voiceAlertTimeButton = (ImageButton) view.findViewById(R.id.voiceTimeButton);
-        voiceAlertCountdownButton = (ImageButton) view.findViewById(R.id.voiceOneMinThirtySecButton);
+        leftButton = view.findViewById(R.id.leftArrowButton);
+        rightButton = view.findViewById(R.id.rightArrowButton);
+        backgroundButton = view.findViewById(R.id.backgroundButton);
+        shoeTypeImage = view.findViewById(R.id.shoeTypeImageView);
+        shoeTypeTextView = view.findViewById(R.id.shoeTypeTextView);
 
-        countDownTimerButtonShadow = (ImageView) view.findViewById(R.id.countdownTimerButtonShadow);
-        voiceAlertSpeedButtonShadow = (ImageView) view.findViewById(R.id.voiceAlertSpeedButtonShadow);
-        voiceAlertTimeButtonShadow = (ImageView) view.findViewById(R.id.voiceTimeButtonShadow);
-        voiceAlertCountdownButtonShadow = (ImageView) view.findViewById(R.id.voiceOneMinThirtySecButtonShadow);
+        countDownTimerButton = view.findViewById(R.id.countdownTimerButton);
+        alertsVibrateButton = view.findViewById(R.id.alertsTimerButton);
+        voiceAlertSpeedButton = view.findViewById(R.id.voiceAlertSpeedButton);
+        voiceAlertTimeButton = view.findViewById(R.id.voiceTimeButton);
+        voiceAlertCountdownButton = view.findViewById(R.id.voiceOneMinThirtySecButton);
 
-        countDownTimerTextView = (TextView) view.findViewById(R.id.countdownTimerTextView);
-        voiceAlertSpeedTextView = (TextView) view.findViewById(R.id.voiceAlertSpeedTextView);
-        voiceAlertTimeTextView = (TextView) view.findViewById(R.id.voiceAlertTimeTextView);
-        voiceAlertCountdownTextView = (TextView) view.findViewById(R.id.voiceOneMinThirtySecTextView);
-        startTextView = (TextView) view.findViewById(R.id.startTextView);
+        countDownTimerButtonShadow = view.findViewById(R.id.countdownTimerButtonShadow);
+        voiceAlertSpeedButtonShadow = view.findViewById(R.id.voiceAlertSpeedButtonShadow);
+        voiceAlertTimeButtonShadow = view.findViewById(R.id.voiceTimeButtonShadow);
+        voiceAlertCountdownButtonShadow = view.findViewById(R.id.voiceOneMinThirtySecButtonShadow);
 
-        countDownTimerTextViewShadow = (TextView) view.findViewById(R.id.countdownTimerShadowTextView);
-        voiceAlertSpeedTextViewShadow = (TextView) view.findViewById(R.id.voiceAlertSpeedShadowTextView);
-        voiceAlertTimeTextViewShadow = (TextView) view.findViewById(R.id.voiceAlertTimeShadowTextView);
-        voiceAlertCountdownTextViewShadow = (TextView) view.findViewById(R.id.voiceOneMinThirtySecShadowTextView);
+        countDownTimerTextView = view.findViewById(R.id.countdownTimerTextView);
+        alertsVibrateTextView = view.findViewById(R.id.alertsTextView);
+        voiceAlertSpeedTextView = view.findViewById(R.id.voiceAlertSpeedTextView);
+        voiceAlertTimeTextView = view.findViewById(R.id.voiceAlertTimeTextView);
+        voiceAlertCountdownTextView = view.findViewById(R.id.voiceOneMinThirtySecTextView);
+        startTextView = view.findViewById(R.id.startTextView);
 
-        footOne = (ImageView) view.findViewById(R.id.footprint1ImageView);
-        footTwo = (ImageView) view.findViewById(R.id.footprint2ImageView);
-        footThree = (ImageView) view.findViewById(R.id.footprint3ImageView);
+        countDownTimerTextViewShadow = view.findViewById(R.id.countdownTimerShadowTextView);
+        voiceAlertSpeedTextViewShadow = view.findViewById(R.id.voiceAlertSpeedShadowTextView);
+        voiceAlertTimeTextViewShadow = view.findViewById(R.id.voiceAlertTimeShadowTextView);
+        voiceAlertCountdownTextViewShadow = view.findViewById(R.id.voiceOneMinThirtySecShadowTextView);
 
-        energyBox = (ImageView) view.findViewById(R.id.energyBox);
-        energyBoxShadow = (ImageView) view.findViewById(R.id.energyBoxShadow);
-        maxSpeedBox = (ImageView) view.findViewById(R.id.maxSpeedBox);
-        minSpeedBox = (ImageView) view.findViewById(R.id.minSpeedBox);
-        maxSpeedBoxShadow = (ImageView) view.findViewById(R.id.maxSpeedBoxShadow);
-        minSpeedBoxShadow = (ImageView) view.findViewById(R.id.minSpeedBoxShadow);
+        footOne = view.findViewById(R.id.footprint1ImageView);
+        footTwo = view.findViewById(R.id.footprint2ImageView);
+        footThree = view.findViewById(R.id.footprint3ImageView);
 
-        minSpeedEditText = (EditText) view.findViewById(R.id.minSpeedEditText);
-        maxSpeedEditText = (EditText) view.findViewById(R.id.maxSpeedEditText);
-        energyEditText = (EditText) view.findViewById(R.id.energyToSpendEditText);
-        focusThief = (EditText) view.findViewById(R.id.focusThief);
-        energyInMins = (TextView) view.findViewById(R.id.energyInMinsTextView);
+        energyBox = view.findViewById(R.id.energyBox);
+        energyBoxShadow = view.findViewById(R.id.energyBoxShadow);
+        maxSpeedBox = view.findViewById(R.id.maxSpeedBox);
+        minSpeedBox = view.findViewById(R.id.minSpeedBox);
+        maxSpeedBoxShadow = view.findViewById(R.id.maxSpeedBoxShadow);
+        minSpeedBoxShadow = view.findViewById(R.id.minSpeedBoxShadow);
 
-        leftLilHelper = (ImageView) view.findViewById(R.id.helperCircleLeft);
-        rightLilHelper = (ImageView) view.findViewById(R.id.helperCircleRight);
+        minSpeedEditText = view.findViewById(R.id.minSpeedEditText);
+        maxSpeedEditText = view.findViewById(R.id.maxSpeedEditText);
+        energyEditText = view.findViewById(R.id.energyToSpendEditText);
+        focusThief = view.findViewById(R.id.focusThief);
+        energyInMins = view.findViewById(R.id.energyInMinsTextView);
+
+        leftLilHelper = view.findViewById(R.id.helperCircleLeft);
+        rightLilHelper = view.findViewById(R.id.helperCircleRight);
 
         return view;
     }
@@ -245,6 +260,8 @@ public class StartActivityFrag extends Fragment {
                 return false;
             }
         });
+
+        
 
         // voiceAlertsSpeedType: 0 = disabled, 1 = current, 2 = average, 3 = both
         voiceAlertSpeedButton.setOnClickListener(new View.OnClickListener() {
@@ -674,22 +691,22 @@ public class StartActivityFrag extends Fragment {
                 toastMessage = getString(R.string.plz_allow_precise_location);
             } else if (min < 1.0) {
                 toastMessage = getString(R.string.minimum_speed_too_low);
-                shakeDaBox(minSpeedBox, minSpeedBoxShadow, minSpeedEditText);
+                shakeyShake(minSpeedStack, minSpeedEditText);
             } else if (max < min + 1.0) {
                 toastMessage = getString(R.string.maximum_speed_too_low);
-                shakeDaBox(maxSpeedBox, maxSpeedBoxShadow, maxSpeedEditText);
+                shakeyShake(maxSpeedStack, maxSpeedEditText);
             } else if (energy < 0.2) {
                 toastMessage = getString(R.string.energy_too_low);
-                shakeDaBox(energyBox, energyBoxShadow, energyEditText);
+                shakeyShake(energyLayout, energyEditText);
             } else if (energy * 10 % 2 != 0) {
                 toastMessage = getString(R.string.not_a_multiple_of_2);
-                shakeDaBox(energyBox, energyBoxShadow, energyEditText);
+                shakeyShake(energyLayout, energyEditText);
             }
 
             Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
 
         } else if (energy == 0) {
-            shakeDaBox(energyBox, energyBoxShadow, energyEditText);
+            shakeyShake(energyLayout, energyEditText);
             Toast.makeText(getActivity(), getString(R.string.energy_too_low), Toast.LENGTH_SHORT).show();
         } else {
             Intent startGPSActivity = new Intent(getContext(), SpeedTracker.class);
@@ -761,73 +778,47 @@ public class StartActivityFrag extends Fragment {
     /**
      * Shakes input box, shadow. Focuses on EditText.
      *
-     * @param boxOne the box to shake
-     * @param boxTwo box's shadow
+     * @param layout the layout to shake
      * @param textToFocus the text to focus on
      */
-    private void shakeDaBox(ImageView boxOne, ImageView boxTwo, EditText textToFocus) {
+    private void shakeyShake(LinearLayout layout, EditText textToFocus) {
         textToFocus.requestFocus();
         ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
-                boxOne,
+                layout,
                 PropertyValuesHolder.ofFloat("scaleX", 1.1f),
                 PropertyValuesHolder.ofFloat("scaleY", 1.1f));
         scaler.setDuration(80);
         scaler.setRepeatCount(3);
         scaler.setRepeatMode(ValueAnimator.REVERSE);
         scaler.start();
-
-        ObjectAnimator scalerShadow = ObjectAnimator.ofPropertyValuesHolder(
-                boxTwo,
-                PropertyValuesHolder.ofFloat("scaleX", 1.1f),
-                PropertyValuesHolder.ofFloat("scaleY", 1.1f));
-        scalerShadow.setDuration(80);
-        scalerShadow.setRepeatCount(3);
-        scalerShadow.setRepeatMode(ValueAnimator.REVERSE);
-        scalerShadow.start();
     }
 
     /**
      * Grows box to highlight field (for the how-to)
      *
-     * @param boxOne the box
-     * @param boxTwo the box's shadow
+     * @param layout the layout to grow
      */
-    private void growDaBox(ImageView boxOne, ImageView boxTwo) {
+    private void growLayout(LinearLayout layout) {
         ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
-                boxOne,
+                layout,
                 PropertyValuesHolder.ofFloat("scaleX", 1.1f),
                 PropertyValuesHolder.ofFloat("scaleY", 1.1f));
         scaler.setDuration(500);
         scaler.start();
-
-        ObjectAnimator scalerShadow = ObjectAnimator.ofPropertyValuesHolder(
-                boxTwo,
-                PropertyValuesHolder.ofFloat("scaleX", 1.1f),
-                PropertyValuesHolder.ofFloat("scaleY", 1.1f));
-        scalerShadow.setDuration(500);
-        scalerShadow.start();
     }
 
     /**
      * Shrinks box of highlighted field (tutorial)
      *
-     * @param boxOne the box
-     * @param boxTwo the box's shadow
+     * @param layout the layout to shrink
      */
-    private void shrinkDaBox(ImageView boxOne, ImageView boxTwo) {
+    private void shrinkLayout(LinearLayout layout) {
         ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
-                boxOne,
+                layout,
                 PropertyValuesHolder.ofFloat("scaleX", 1),
                 PropertyValuesHolder.ofFloat("scaleY", 1));
         scaler.setDuration(500);
         scaler.start();
-
-        ObjectAnimator scalerShadow = ObjectAnimator.ofPropertyValuesHolder(
-                boxTwo,
-                PropertyValuesHolder.ofFloat("scaleX", 1),
-                PropertyValuesHolder.ofFloat("scaleY", 1));
-        scalerShadow.setDuration(500);
-        scalerShadow.start();
     }
 
     // updates number of footprints depending on the type of shoe selected
@@ -945,8 +936,7 @@ public class StartActivityFrag extends Fragment {
 
         instructionsOne.show();
 
-        growDaBox(minSpeedBox, minSpeedBoxShadow);
-        growDaBox(maxSpeedBox, maxSpeedBoxShadow);
+        growLayout(speedsLayout);
 
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -954,8 +944,7 @@ public class StartActivityFrag extends Fragment {
                 instructionsOne.dismiss();
                 leftLilHelper.animate().alpha(0.0f).setDuration(500);
                 rightLilHelper.animate().alpha(0.0f).setDuration(500);
-                shrinkDaBox(minSpeedBox, minSpeedBoxShadow);
-                shrinkDaBox(maxSpeedBox, maxSpeedBoxShadow);
+                shrinkLayout(speedsLayout);
             }
         });
 
@@ -966,8 +955,7 @@ public class StartActivityFrag extends Fragment {
                 showInstructionsTwo();
                 leftLilHelper.animate().alpha(0.0f).setDuration(500);
                 rightLilHelper.animate().alpha(0.0f).setDuration(500);
-                shrinkDaBox(minSpeedBox, minSpeedBoxShadow);
-                shrinkDaBox(maxSpeedBox, maxSpeedBoxShadow);
+                shrinkLayout(speedsLayout);
             }
         });
 
@@ -1003,13 +991,13 @@ public class StartActivityFrag extends Fragment {
 
         instructionsTwo.show();
 
-        growDaBox(energyBox, energyBoxShadow);
+        growLayout(energyLayout);
 
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 instructionsTwo.dismiss();
-                shrinkDaBox(energyBox, energyBoxShadow);
+                shrinkLayout(energyLayout);
             }
         });
 
@@ -1017,7 +1005,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 instructionsTwo.dismiss();
-                shrinkDaBox(energyBox, energyBoxShadow);
+                shrinkLayout(energyLayout);
                 showInstructionsThree();
             }
         });
@@ -1052,13 +1040,13 @@ public class StartActivityFrag extends Fragment {
 
         instructionsThree.show();
 
-        growDaBox(countDownTimerButton, countDownTimerButtonShadow);
+        growLayout(countdownLayout);
 
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 instructionsThree.dismiss();
-                shrinkDaBox(countDownTimerButton, countDownTimerButtonShadow);
+                shrinkLayout(countdownLayout);
             }
         });
 
@@ -1066,7 +1054,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 instructionsThree.dismiss();
-                shrinkDaBox(countDownTimerButton, countDownTimerButtonShadow);
+                shrinkLayout(countdownLayout);
                 showInstructionsFour();
             }
         });
@@ -1102,18 +1090,14 @@ public class StartActivityFrag extends Fragment {
 
         instructionsFour.show();
 
-        growDaBox(voiceAlertSpeedButton, voiceAlertSpeedButtonShadow);
-        growDaBox(voiceAlertTimeButton, voiceAlertTimeButtonShadow);
-        growDaBox(voiceAlertCountdownButton, voiceAlertCountdownButtonShadow);
+        growLayout(voiceUpdatesLayout);
 
 
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 instructionsFour.dismiss();
-                shrinkDaBox(voiceAlertSpeedButton, voiceAlertSpeedButtonShadow);
-                shrinkDaBox(voiceAlertTimeButton, voiceAlertTimeButtonShadow);
-                shrinkDaBox(voiceAlertCountdownButton, voiceAlertCountdownButtonShadow);
+                shrinkLayout(voiceUpdatesLayout);
             }
         });
 
@@ -1121,9 +1105,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 instructionsFour.dismiss();
-                shrinkDaBox(voiceAlertSpeedButton, voiceAlertSpeedButtonShadow);
-                shrinkDaBox(voiceAlertTimeButton, voiceAlertTimeButtonShadow);
-                shrinkDaBox(voiceAlertCountdownButton, voiceAlertCountdownButtonShadow);
+                shrinkLayout(voiceUpdatesLayout);
                 showInstructionsFive();
             }
         });
@@ -1231,6 +1213,7 @@ public class StartActivityFrag extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putBoolean(TEN_SECOND_TIMER_PREF, tenSecondTimer);
+        editor.putInt(ALERTS_VIBRATION_AUDIBLE, alertsVibrationAudible);
         editor.putInt(VOICE_ALERTS_SPEED_PREF, voiceAlertsSpeedType);
         editor.putBoolean(VOICE_ALERTS_TIME_PREF, voiceAlertsTime);
         editor.putBoolean(VOICE_ALERTS_CD_PREF, voiceCountdownAlerts);
