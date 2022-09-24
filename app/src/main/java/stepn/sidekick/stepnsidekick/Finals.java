@@ -18,7 +18,8 @@ public final class Finals {
     public static final String SHOE_TYPE = "type";
     public static final String NUM_FEET = "feet";
     public static final String TEN_SECOND_TIMER = "tenSec";
-    public static final String ALERTS_VIBRATION_AUDIBLE = "alertsVibrationAudible";
+    public static final String ALERTS_VIBRATION = "alertsVibration";
+    public static final String ALERTS_AUDIBLE = "alertsAudible";
     public static final String VOICE_ALERTS_CD = "voiceCD";
     public static final String VOICE_ALERTS_CURRENT_SPEED = "voiceCurrentSpeed";
     public static final String VOICE_ALERTS_AVG_SPEED = "voiceAvgSpeed";

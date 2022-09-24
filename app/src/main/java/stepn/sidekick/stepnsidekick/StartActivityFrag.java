@@ -49,9 +49,11 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer. Starts the SpeedTracker activity.
  *
  * @author Rob Godfrey
- * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
+ * @version 1.4.0 Added vibration option for alerts
  *
  */
+
+// TODO: add update dialog, add instructions for vibrate stuff
 
 public class StartActivityFrag extends Fragment {
     private final int PERMISSIONS_FINE_LOCATION = 99;
@@ -90,7 +92,7 @@ public class StartActivityFrag extends Fragment {
     private int shoeTypeIterator, alertsVibrationAudible, voiceAlertsSpeedType;
     private double energy;
     private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsTime, voiceAlertsAvgSpeed,
-            voiceAlertsCurrentSpeed, gpsPermissions, firstTime;
+            voiceAlertsCurrentSpeed, gpsPermissions, firstTime, alertsAudible, alertsVibration;
 
     ArrayList<Shoe> shoes;
     LocationManager manager;
@@ -109,7 +111,7 @@ public class StartActivityFrag extends Fragment {
                 SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
 
                 tenSecondTimer = getSharedPrefs.getBoolean(TEN_SECOND_TIMER_PREF, true);
-                alertsVibrationAudible = getSharedPrefs.getInt(ALERTS_VIBRATION_AUDIBLE_PREF, 2);
+                alertsVibrationAudible = getSharedPrefs.getInt(ALERTS_VIBRATION_AUDIBLE_PREF, 1);
                 voiceAlertsSpeedType = getSharedPrefs.getInt(VOICE_ALERTS_SPEED_PREF, 3);
                 voiceAlertsTime = getSharedPrefs.getBoolean(VOICE_ALERTS_TIME_PREF, true);
                 voiceCountdownAlerts = getSharedPrefs.getBoolean(VOICE_ALERTS_CD_PREF, true);
@@ -276,7 +278,6 @@ public class StartActivityFrag extends Fragment {
             }
         });
 
-        // alertsVibrationAudible: 0 = disabled, 1 = audible, 2 = vibration, 3 = both
         alertsVibrateButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -643,17 +644,25 @@ public class StartActivityFrag extends Fragment {
     private void updateAlertsButton() {
         switch (alertsVibrationAudible) {
             case 0:
+                alertsAudible = false;
+                alertsVibration = false;
                 alertsVibrateTextView.setText(R.string.disabled);
                 alertsVibrateButton.setImageResource(R.drawable.main_buttons_disabled);
                 break;
             case 1:
+                alertsAudible = true;
+                alertsVibration = false;
                 alertsVibrateTextView.setText(R.string.audible);
                 alertsVibrateButton.setImageResource(R.drawable.main_buttons);
                 break;
             case 2:
+                alertsAudible = false;
+                alertsVibration = true;
                 alertsVibrateTextView.setText(R.string.vibration);
                 break;
             default:
+                alertsAudible = true;
+                alertsVibration = true;
                 alertsVibrateTextView.setText(R.string.both);
                 break;
         }
@@ -776,7 +785,8 @@ public class StartActivityFrag extends Fragment {
             startGPSActivity.putExtra(SHOE_TYPE, shoes.get(shoeTypeIterator).getTitle());
             startGPSActivity.putExtra(NUM_FEET, shoes.get(shoeTypeIterator).getNumFeet());
             startGPSActivity.putExtra(TEN_SECOND_TIMER, tenSecondTimer);
-            startGPSActivity.putExtra(ALERTS_VIBRATION_AUDIBLE, alertsVibrationAudible);
+            startGPSActivity.putExtra(ALERTS_VIBRATION, alertsVibration);
+            startGPSActivity.putExtra(ALERTS_AUDIBLE, alertsAudible);
             startGPSActivity.putExtra(VOICE_ALERTS_CD, voiceCountdownAlerts);
             startGPSActivity.putExtra(VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
             startGPSActivity.putExtra(VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
@@ -807,6 +817,7 @@ public class StartActivityFrag extends Fragment {
         }
         updatePage();
         updateVoiceSpeedButton();
+        updateAlertsButton();
     }
 
     // updates the minutes shown when the user enters amount of energy

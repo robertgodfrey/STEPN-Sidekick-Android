@@ -18,8 +18,6 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -40,10 +38,26 @@ import java.util.concurrent.TimeUnit;
  *
  *
  * @author Rob Godfrey
- * @version 1.3.8 Fixed ads, updated layouts to look better on small and big phones, fixed comf gem bug, updated hp loss formulas
+ * @version 1.4.0 Added vibration option for alerts
  */
 
 public class GpsAndClockService extends Service {
+
+    private final BroadcastReceiver updatedTimeReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getExtras() != null) {
+                int timeMod = intent.getIntExtra(TIME_MODIFIER, STOP_STOPPED);
+                updateTimer(timeMod);
+            }
+        }
+    };
+
+    private final BroadcastReceiver respondToPing = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            broadcastInfo();
+        }
+    };
 
     // Google's API for location services
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -65,25 +79,10 @@ public class GpsAndClockService extends Service {
     private float gpsAccuracy, speedSum, currentAvgSpeed;
     private float[] avgSpeeds;
     private boolean voiceAlertsMinuteThirty, voiceAlertsTime, voiceAlertsCurrentSpeed, voiceAlertsAvgSpeed,
-            tenSecondTimer, tenSecondTimerDone, justPlayed, killThread, firstFive;
+            tenSecondTimer, tenSecondTimerDone, justPlayed, killThread, firstFive, alertsAudible,
+            alertsVibration;
 
     private long millisRemaining, millisBreak, millisBreak2;
-
-    private final BroadcastReceiver updatedTimeReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getExtras() != null) {
-                int timeMod = intent.getIntExtra(TIME_MODIFIER, STOP_STOPPED);
-                updateTimer(timeMod);
-            }
-        }
-    };
-
-    private final BroadcastReceiver respondToPing = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            broadcastInfo();
-        }
-    };
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -103,6 +102,8 @@ public class GpsAndClockService extends Service {
         speedUpperLimit = intent.getDoubleExtra(MAX_SPEED, 0);
         energy = (intent.getDoubleExtra(ENERGY, 0));
         tenSecondTimer = intent.getBooleanExtra(TEN_SECOND_TIMER, false);
+        alertsAudible = intent.getBooleanExtra(ALERTS_AUDIBLE, true);
+        alertsVibration = intent.getBooleanExtra(ALERTS_VIBRATION, true);
         voiceAlertsMinuteThirty = intent.getBooleanExtra(VOICE_ALERTS_CD, true);
         voiceAlertsCurrentSpeed = intent.getBooleanExtra(VOICE_ALERTS_CURRENT_SPEED, true);
         voiceAlertsAvgSpeed = intent.getBooleanExtra(VOICE_ALERTS_AVG_SPEED, true);
@@ -209,11 +210,21 @@ public class GpsAndClockService extends Service {
                 if ((currentSpeed <= speedLowerLimit || currentSpeed >= speedUpperLimit) && tenSecondTimerDone) {
                     if (!justPlayed) {
                         if (currentSpeed <= speedLowerLimit) {
-                            // low-pitch alert
-                            alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 0.8f);
+                            if (alertsAudible) {
+                                // low-pitch alert
+                                alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 0.8f);
+                            }
+                            if (alertsVibration) {
+                                // vibrate
+                            }
                         } else {
-                            // high-pitch alert
-                            alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 1.2f);
+                            if (alertsAudible) {
+                                // high-pitch alert
+                                alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 1.2f);
+                            }
+                            if (alertsVibration) {
+                                // vibrate
+                            }
                         }
                         justPlayed = true;
                     } else {
@@ -289,11 +300,17 @@ public class GpsAndClockService extends Service {
                     // 60 second alert
                     if ((millisUntilFinished / 1000) - 1 == 60) {
                         oneMinuteRemaining();
+                        if (alertsVibration) {
+                            // vibrate
+                        }
                     }
 
                     // 30 second alert
                     if ((millisUntilFinished / 1000) - 1 == 30) {
                         thirtySecondsRemaining();
+                        if (alertsVibration) {
+                            // vibrate
+                        }
                     }
                 }
 
@@ -341,6 +358,9 @@ public class GpsAndClockService extends Service {
             @Override
             public void run() {
                 alertSoundPool.play(softAlert, 1, 1, 0, 0, 1);
+                if (alertsVibration) {
+                    // vibrate
+                }
                 for (int i = 3; i > 1; i--) {
                     if (killThread) {
                         return;
@@ -354,17 +374,26 @@ public class GpsAndClockService extends Service {
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
+                    if (alertsVibration) {
+                        // vibrate
+                    }
                 }
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
+                if (alertsVibration) {
+                    // vibrate
+                }
                 if (playStartSound) {
                     if (killThread) {
                         return;
                     }
                     alertSoundPool.play(startSound, 1, 1, 0, 0, 1);
+                    if (alertsVibration) {
+                        // vibrate
+                    }
                 }
             }
         }).start();

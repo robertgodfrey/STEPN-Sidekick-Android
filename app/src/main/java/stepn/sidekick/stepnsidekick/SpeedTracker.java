@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit;
  * the GpsAndClockService class.
  *
  * @author Rob Godfrey
- * @version 1.3.15 Fixed ads
+ * @version 1.4.0 Added vibration option for alerts
  */
 
 public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListener {
@@ -51,7 +51,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
     private String shoeType;
     private int numFeet;
     private boolean tenSecondTimer, tenSecondTimerDone, changedUI, voiceAlertsTime, voiceAlertsAvgSpeed,
-            voiceAlertsCurrentSpeed, voiceAlertsMinuteThirty;
+            voiceAlertsCurrentSpeed, voiceAlertsMinuteThirty, alertsAudible, alertsVibration;
 
     CountDownTimer initialCountDownTimer;
 
@@ -87,17 +87,19 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            speedLowerLimit = extras.getDouble(MIN_SPEED);
-            speedUpperLimit = extras.getDouble(MAX_SPEED);
-            energy = extras.getDouble(ENERGY);
-            shoeType = extras.getString(SHOE_TYPE);
-            numFeet = extras.getInt(NUM_FEET);
-            tenSecondTimer = extras.getBoolean(TEN_SECOND_TIMER);
-            voiceAlertsMinuteThirty = extras.getBoolean(VOICE_ALERTS_CD);
-            voiceAlertsCurrentSpeed = extras.getBoolean(VOICE_ALERTS_CURRENT_SPEED);
-            voiceAlertsAvgSpeed = extras.getBoolean(VOICE_ALERTS_AVG_SPEED);
-            voiceAlertsTime = extras.getBoolean(VOICE_ALERTS_TIME);
-            ads = extras.getBoolean(AD_PREF);
+            speedLowerLimit = extras.getDouble(MIN_SPEED, 1.0);
+            speedUpperLimit = extras.getDouble(MAX_SPEED, 6.0);
+            energy = extras.getDouble(ENERGY, 2.0);
+            shoeType = extras.getString(SHOE_TYPE, "WALKER");
+            numFeet = extras.getInt(NUM_FEET, 1);
+            tenSecondTimer = extras.getBoolean(TEN_SECOND_TIMER, true);
+            alertsAudible = extras.getBoolean(ALERTS_AUDIBLE, true);
+            alertsVibration = extras.getBoolean(ALERTS_VIBRATION, false);
+            voiceAlertsMinuteThirty = extras.getBoolean(VOICE_ALERTS_CD, true);
+            voiceAlertsCurrentSpeed = extras.getBoolean(VOICE_ALERTS_CURRENT_SPEED, true);
+            voiceAlertsAvgSpeed = extras.getBoolean(VOICE_ALERTS_AVG_SPEED, true);
+            voiceAlertsTime = extras.getBoolean(VOICE_ALERTS_TIME, true);
+            ads = extras.getBoolean(AD_PREF, true);
         }
 
         tenSecondTimerDone = !tenSecondTimer;
@@ -253,6 +255,8 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
         serviceIntent.putExtra(MAX_SPEED, speedUpperLimit);
         serviceIntent.putExtra(ENERGY, energy);
         serviceIntent.putExtra(TEN_SECOND_TIMER, tenSecondTimer);
+        serviceIntent.putExtra(ALERTS_AUDIBLE, alertsAudible);
+        serviceIntent.putExtra(ALERTS_VIBRATION, alertsVibration);
         serviceIntent.putExtra(VOICE_ALERTS_CD, voiceAlertsMinuteThirty);
         serviceIntent.putExtra(VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
         serviceIntent.putExtra(VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
