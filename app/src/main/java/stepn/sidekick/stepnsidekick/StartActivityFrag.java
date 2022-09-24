@@ -53,12 +53,10 @@ import java.util.ArrayList;
  *
  */
 
-// TODO: add instructions for vibrate stuff
-
 public class StartActivityFrag extends Fragment {
     private final int PERMISSIONS_FINE_LOCATION = 99;
 
-    // only use major version changes, eg 1.1, 1.2, not 1.1.2
+    // only use major version changes, eg 1.1, 1.2, not 1.1.2 ...cause it's a float :D
     private final float CURRENT_APP_VERSION = 1.4f;
 
     // keys for shared prefs
