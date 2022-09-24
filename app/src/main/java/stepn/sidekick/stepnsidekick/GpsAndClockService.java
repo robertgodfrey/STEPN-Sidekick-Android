@@ -18,6 +18,8 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -72,6 +74,8 @@ public class GpsAndClockService extends Service {
 
     CountDownTimer initialCountDownTimer, mainCountDownTimer;
 
+    Vibrator vibrator;
+
     private SoundPool alertSoundPool, voiceSoundPool;
     private int softAlert, spicyAlert, startSound, avgSpeedCounter;
 
@@ -111,6 +115,8 @@ public class GpsAndClockService extends Service {
 
         tenSecondTimerDone =! tenSecondTimer;
         justPlayed = false;
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         AudioAttributes attributes = new AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -215,7 +221,7 @@ public class GpsAndClockService extends Service {
                                 alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 0.8f);
                             }
                             if (alertsVibration) {
-                                // vibrate
+                                vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                             }
                         } else {
                             if (alertsAudible) {
@@ -223,7 +229,7 @@ public class GpsAndClockService extends Service {
                                 alertSoundPool.play(spicyAlert, 1, 1, 0, 0, 1.2f);
                             }
                             if (alertsVibration) {
-                                // vibrate
+                                vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
                             }
                         }
                         justPlayed = true;
@@ -301,7 +307,18 @@ public class GpsAndClockService extends Service {
                     if ((millisUntilFinished / 1000) - 1 == 60) {
                         oneMinuteRemaining();
                         if (alertsVibration) {
-                            // vibrate
+                            vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Thread.sleep(500);
+                                        vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+                                    } catch (InterruptedException ex) {
+                                        Thread.currentThread().interrupt();
+                                    }
+                                }
+                            }).start();
                         }
                     }
 
@@ -309,7 +326,18 @@ public class GpsAndClockService extends Service {
                     if ((millisUntilFinished / 1000) - 1 == 30) {
                         thirtySecondsRemaining();
                         if (alertsVibration) {
-                            // vibrate
+                            vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Thread.sleep(500);
+                                        vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+                                    } catch (InterruptedException ex) {
+                                        Thread.currentThread().interrupt();
+                                    }
+                                }
+                            }).start();
                         }
                     }
                 }
@@ -359,7 +387,7 @@ public class GpsAndClockService extends Service {
             public void run() {
                 alertSoundPool.play(softAlert, 1, 1, 0, 0, 1);
                 if (alertsVibration) {
-                    // vibrate
+                    vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
                 }
                 for (int i = 3; i > 1; i--) {
                     if (killThread) {
@@ -375,7 +403,7 @@ public class GpsAndClockService extends Service {
                         Thread.currentThread().interrupt();
                     }
                     if (alertsVibration) {
-                        // vibrate
+                        vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
                     }
                 }
                 try {
@@ -383,16 +411,13 @@ public class GpsAndClockService extends Service {
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-                if (alertsVibration) {
-                    // vibrate
-                }
                 if (playStartSound) {
                     if (killThread) {
                         return;
                     }
                     alertSoundPool.play(startSound, 1, 1, 0, 0, 1);
                     if (alertsVibration) {
-                        // vibrate
+                        vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
                     }
                 }
             }
