@@ -188,8 +188,8 @@
         android:id="@+id/nextButtonShadowTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:includeFontPadding="false"
-        style="@style/ButtonBoldItalic"
         android:text="@string/okay"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
@@ -212,9 +212,9 @@
 
     <TextView
         android:id="@+id/nextButtonTextView"
-        style="@style/ButtonBoldItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:includeFontPadding="false"
         android:text="@string/okay"
         android:textAlignment="center"
