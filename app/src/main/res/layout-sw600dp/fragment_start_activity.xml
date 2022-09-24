@@ -217,9 +217,9 @@
         android:id="@+id/speedRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="120dp"
         android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -231,6 +231,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -307,6 +309,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -385,9 +388,9 @@
         android:id="@+id/timerSoundRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="120dp"
         android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -399,6 +402,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -541,6 +546,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -613,8 +619,9 @@
         android:id="@+id/energyMinsRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginEnd="92dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginEnd="114dp"
         android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -672,9 +679,9 @@
         android:id="@+id/voiceUpdatesRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="130dp"
         android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"

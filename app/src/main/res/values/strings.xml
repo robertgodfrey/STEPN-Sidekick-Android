@@ -52,10 +52,12 @@
     <string name="instructions_2">Enter the amount of energy you wish to spend. The amount of time required to spend the energy will be displayed below.</string>
     <string name="instructions_3">Select whether or not the ten-second countdown timer is enabled. If enabled, this timer
         gives your GPS time to sync and gives you time to switch to the STEPN app to start your activity. If disabled, the app will start the activity timer immediately.</string>
-    <string name="instructions_4">Select whether or not voice alerts are enabled. The \"Speed\" and \"Time\" alerts will sound every five minutes, updating you with the amount of
+    <string name="instructions_4">Select type of speed alerts: audible, vibration, neither, or both. If vibration alerts are enabled, your device will vibrate if you fall outside of your speed range.
+        Vibrations will also occur at one minute and thirty seconds, if these alerts are enabled.</string>
+    <string name="instructions_5">Select whether or not voice alerts are enabled. The \"Speed\" and \"Time\" alerts will sound every five minutes, updating you with the amount of
         time remaining and information about your speed. The \"1 min / 30 sec\" alert gives a warning when you have one minute remaining and another warning at thirty
         seconds. </string>
-    <string name="instructions_5">Press the start button to start your activity. Happy earning!</string>
+    <string name="instructions_6">Press the start button to start your activity. Happy earning!</string>
     <string name="welcome_message">Please view these brief instructions before getting started.</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP ></string>
@@ -73,11 +75,11 @@
     <string name="pause">PAUSE</string>
     <string name="stop">STOP</string>
     <string name="update">UPDATE</string>
-    <string name="update_info_top">Shoe Optimizer!</string>
-    <string name="update_details_one">The app now includes a shoe optimizer. Try it out and let me know what you think!</string>
-    <string name="update_details_two">There are ads coming in a later update. As a thank-you for being one of the first to try out this app, you will not see any ads (even after you update)</string>
-    <string name="update_details_three">Please note that if you uninstall and reinstall the app, ads will appear</string>
-    <string name="review_plz">If you like the app, please consider leaving a review on the Play Store!</string>
+    <string name="update_details_one">There is now an option for vibrating speed alerts</string>
+    <string name="update_details_two">If enabled, your device will vibrate if you fall outside of your speed range</string>
+    <string name="update_details_three">You can choose between audible alerts, vibrating alerts, both, or neither</string>
+    <string name="update_details_four">Vibrations will also occur at one minute and thirty seconds, if these alerts are enabled</string>
+    <string name="review_plz">If you have been enjoying the app, please consider leaving a review on the Play Store!</string>
     <string name="five_min_average">5-Min Average:</string>
     <string name="current">CURRENT</string>
     <string name="average">AVERAGE</string>

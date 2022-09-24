@@ -53,13 +53,13 @@ import java.util.ArrayList;
  *
  */
 
-// TODO: add update dialog, add instructions for vibrate stuff
+// TODO: add instructions for vibrate stuff
 
 public class StartActivityFrag extends Fragment {
     private final int PERMISSIONS_FINE_LOCATION = 99;
 
     // only use major version changes, eg 1.1, 1.2, not 1.1.2
-    private final float CURRENT_APP_VERSION = 1.3f;
+    private final float CURRENT_APP_VERSION = 1.4f;
 
     // keys for shared prefs
     private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";
@@ -856,8 +856,8 @@ public class StartActivityFrag extends Fragment {
         textToFocus.requestFocus();
         ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
                 layout,
-                PropertyValuesHolder.ofFloat("scaleX", 1.1f),
-                PropertyValuesHolder.ofFloat("scaleY", 1.1f));
+                PropertyValuesHolder.ofFloat("scaleX", 1.05f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.05f));
         scaler.setDuration(80);
         scaler.setRepeatCount(3);
         scaler.setRepeatMode(ValueAnimator.REVERSE);
@@ -963,7 +963,7 @@ public class StartActivityFrag extends Fragment {
         });
     }
 
-    // how-to dialog #1 of 5
+    // how-to dialog #1 of 6
     @SuppressLint("ClickableViewAccessibility")
     private void howTo(View view) {
         Dialog instructionsOne = new Dialog(getActivity());
@@ -1041,7 +1041,7 @@ public class StartActivityFrag extends Fragment {
 
     }
 
-    // how-to dialog #2 of 5
+    // how-to dialog #2 of 6
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsTwo() {
         Dialog instructionsTwo = new Dialog(requireActivity());
@@ -1090,7 +1090,7 @@ public class StartActivityFrag extends Fragment {
             }
         });
     }
-    // how-to dialog #3 of 5
+    // how-to dialog #3 of 6
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsThree() {
         Dialog instructionsThree = new Dialog(requireActivity());
@@ -1140,7 +1140,8 @@ public class StartActivityFrag extends Fragment {
         });
 
     }
-    // how-to dialog #4 of 5
+
+    // how-to dialog #4 of 6
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsFour() {
         Dialog instructionsFour = new Dialog(requireActivity());
@@ -1161,14 +1162,14 @@ public class StartActivityFrag extends Fragment {
 
         instructionsFour.show();
 
-        growLayout(voiceUpdatesLayout);
+        growLayout(alertsLayout);
 
 
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 instructionsFour.dismiss();
-                shrinkLayout(voiceUpdatesLayout);
+                shrinkLayout(alertsLayout);
             }
         });
 
@@ -1176,7 +1177,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 instructionsFour.dismiss();
-                shrinkLayout(voiceUpdatesLayout);
+                shrinkLayout(alertsLayout);
                 showInstructionsFive();
             }
         });
@@ -1192,29 +1193,80 @@ public class StartActivityFrag extends Fragment {
 
     }
 
-    // how-to dialog #5 of 5
+    // how-to dialog #5 of 6
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsFive() {
         Dialog instructionsFive = new Dialog(requireActivity());
 
         instructionsFive.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        instructionsFive.setCancelable(true);
+        instructionsFive.setCancelable(false);
         instructionsFive.setContentView(R.layout.instructions_5);
         instructionsFive.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         instructionsFive.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
         instructionsFive.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        ImageButton nextButton = instructionsFive.findViewById(R.id.goButton);
-        ImageView nextButtonShadow = instructionsFive.findViewById(R.id.goButtonShadow);
-        TextView nextButtonTextView = instructionsFive.findViewById(R.id.goButtonTextView);
+        ImageButton nextButton = instructionsFive.findViewById(R.id.nextButton);
+        ImageView nextButtonShadow = instructionsFive.findViewById(R.id.nextButtonShadow);
+        TextView nextButtonTextView = instructionsFive.findViewById(R.id.nextButtonTextView);
+
+        Button skipButton = instructionsFive.findViewById(R.id.skipButton);
 
         instructionsFive.show();
+
+        growLayout(voiceUpdatesLayout);
+
+
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                instructionsFive.dismiss();
+                shrinkLayout(voiceUpdatesLayout);
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 instructionsFive.dismiss();
+                shrinkLayout(voiceUpdatesLayout);
+                showInstructionsSix();
+            }
+        });
+
+        nextButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
+                        R.drawable.start_button, R.drawable.start_button_shadow);
+                return false;
+            }
+        });
+    }
+
+    // how-to dialog #6 of 6
+    @SuppressLint("ClickableViewAccessibility")
+    private void showInstructionsSix() {
+        Dialog instructionsSix = new Dialog(requireActivity());
+
+        instructionsSix.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        instructionsSix.setCancelable(true);
+        instructionsSix.setContentView(R.layout.instructions_6);
+        instructionsSix.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        instructionsSix.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+        instructionsSix.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+        ImageButton nextButton = instructionsSix.findViewById(R.id.goButton);
+        ImageView nextButtonShadow = instructionsSix.findViewById(R.id.goButtonShadow);
+        TextView nextButtonTextView = instructionsSix.findViewById(R.id.goButtonTextView);
+
+        instructionsSix.show();
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                instructionsSix.dismiss();
             }
         });
 
@@ -1230,9 +1282,6 @@ public class StartActivityFrag extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     private void appUpdateDialog() {
-        // TODO remove in further major updates...
-        ((MainActivity) requireActivity()).ads = false;
-
         Dialog updateDialog = new Dialog(getActivity());
 
         updateDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -216,9 +216,9 @@
         android:id="@+id/speedRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -229,7 +229,9 @@
             android:id="@+id/minSpeedStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="2dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -306,6 +308,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -381,12 +384,58 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/energyMinsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginEnd="12dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerSoundRow">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="-20dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/energyInMinsTextView"
+                style="@style/BoldItalicSubtitles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/roboto_condensed_bold_italic"
+                android:includeFontPadding="false"
+                android:text="@string/zero_mins"
+                android:textAlignment="center"
+                android:textColor="@color/gandalf"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/timerSoundRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
         android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -397,7 +446,9 @@
             android:id="@+id/countdownStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="2dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -540,6 +591,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -603,51 +655,6 @@
                     android:textSize="18sp" />
 
             </FrameLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/energyMinsRow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="12dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerSoundRow">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="-20dp"
-            android:layout_weight="1" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/energyInMinsTextView"
-                style="@style/BoldItalicSubtitles"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/roboto_condensed_bold_italic"
-                android:includeFontPadding="false"
-                android:text="@string/zero_mins"
-                android:textAlignment="center"
-                android:textColor="@color/gandalf"
-                android:textSize="13sp" />
 
         </LinearLayout>
 
