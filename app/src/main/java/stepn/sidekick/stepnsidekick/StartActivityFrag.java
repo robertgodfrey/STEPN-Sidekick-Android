@@ -61,7 +61,7 @@ public class StartActivityFrag extends Fragment {
 
     // keys for shared prefs
     private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";
-    private final String ALERTS_VIBRATION_AUDIBLE = "alertsVibrationAudible";
+    private final String ALERTS_VIBRATION_AUDIBLE_PREF = "alertsVibrationAudible";
     // private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeed";  OLD, DO NOT USE
     private final String VOICE_ALERTS_SPEED_PREF = "voiceAlertsSpeedType";
     private final String VOICE_ALERTS_TIME_PREF = "voiceAlertsTime";
@@ -76,12 +76,12 @@ public class StartActivityFrag extends Fragment {
     ImageView countDownTimerButtonShadow, voiceAlertSpeedButtonShadow, voiceAlertTimeButtonShadow,
             voiceAlertCountdownButtonShadow, startButtonShadow, helpButtonShadow, shoeTypeImage,
             footOne, footTwo, footThree, energyBox, energyBoxShadow, maxSpeedBox, minSpeedBox,
-            maxSpeedBoxShadow, minSpeedBoxShadow, leftLilHelper, rightLilHelper, alertsVibrateShadow;
+            maxSpeedBoxShadow, minSpeedBoxShadow, leftLilHelper, rightLilHelper, alertsVibrateButtonShadow;
     TextView countDownTimerTextView, voiceAlertSpeedTextView, voiceAlertTimeTextView,
             voiceAlertCountdownTextView, startTextView, helpButtonTextView,
             countDownTimerTextViewShadow, voiceAlertSpeedTextViewShadow,
             voiceAlertTimeTextViewShadow, voiceAlertCountdownTextViewShadow, shoeTypeTextView,
-            energyInMins, alertsVibrateTextView;
+            energyInMins, alertsVibrateTextView, alertsVibrateShadowTextView;
     EditText minSpeedEditText, maxSpeedEditText, energyEditText, focusThief;
     LinearLayout speedsLayout, countdownLayout, alertsLayout, energyLayout, voiceUpdatesLayout,
             minSpeedStack, maxSpeedStack;
@@ -109,7 +109,7 @@ public class StartActivityFrag extends Fragment {
                 SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
 
                 tenSecondTimer = getSharedPrefs.getBoolean(TEN_SECOND_TIMER_PREF, true);
-                alertsVibrationAudible = getSharedPrefs.getInt(ALERTS_VIBRATION_AUDIBLE, 2);
+                alertsVibrationAudible = getSharedPrefs.getInt(ALERTS_VIBRATION_AUDIBLE_PREF, 2);
                 voiceAlertsSpeedType = getSharedPrefs.getInt(VOICE_ALERTS_SPEED_PREF, 3);
                 voiceAlertsTime = getSharedPrefs.getBoolean(VOICE_ALERTS_TIME_PREF, true);
                 voiceCountdownAlerts = getSharedPrefs.getBoolean(VOICE_ALERTS_CD_PREF, true);
@@ -165,6 +165,7 @@ public class StartActivityFrag extends Fragment {
         voiceAlertCountdownButton = view.findViewById(R.id.voiceOneMinThirtySecButton);
 
         countDownTimerButtonShadow = view.findViewById(R.id.countdownTimerButtonShadow);
+        alertsVibrateButtonShadow = view.findViewById(R.id.alertsButtonShadow);
         voiceAlertSpeedButtonShadow = view.findViewById(R.id.voiceAlertSpeedButtonShadow);
         voiceAlertTimeButtonShadow = view.findViewById(R.id.voiceTimeButtonShadow);
         voiceAlertCountdownButtonShadow = view.findViewById(R.id.voiceOneMinThirtySecButtonShadow);
@@ -177,6 +178,7 @@ public class StartActivityFrag extends Fragment {
         startTextView = view.findViewById(R.id.startTextView);
 
         countDownTimerTextViewShadow = view.findViewById(R.id.countdownTimerShadowTextView);
+        alertsVibrateShadowTextView = view.findViewById(R.id.alertsShadowTextView);
         voiceAlertSpeedTextViewShadow = view.findViewById(R.id.voiceAlertSpeedShadowTextView);
         voiceAlertTimeTextViewShadow = view.findViewById(R.id.voiceAlertTimeShadowTextView);
         voiceAlertCountdownTextViewShadow = view.findViewById(R.id.voiceOneMinThirtySecShadowTextView);
@@ -261,7 +263,44 @@ public class StartActivityFrag extends Fragment {
             }
         });
 
-        
+        alertsVibrateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alertsVibrationAudible == 3){
+                    alertsVibrationAudible = 0;
+                } else {
+                    alertsVibrationAudible++;
+                }
+                updateAlertsButton();
+                clearFocus(view);
+            }
+        });
+
+        // alertsVibrationAudible: 0 = disabled, 1 = audible, 2 = vibration, 3 = both
+        alertsVibrateButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        alertsVibrateButton.setVisibility(View.INVISIBLE);
+                        if (alertsVibrationAudible != 0) {
+                            alertsVibrateButtonShadow.setImageResource(R.drawable.main_buttons);
+                        } else {
+                            alertsVibrateButtonShadow.setImageResource(R.drawable.main_buttons_disabled);
+                        }
+                        alertsVibrateShadowTextView.setText(alertsVibrateTextView.getText().toString());
+                        alertsVibrateTextView.setVisibility(View.INVISIBLE);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        alertsVibrateButton.setVisibility(View.VISIBLE);
+                        alertsVibrateButtonShadow.setImageResource(R.drawable.main_button_shadow);
+                        alertsVibrateTextView.setVisibility(View.VISIBLE);
+                        break;
+                }
+                return false;
+            }
+        });
 
         // voiceAlertsSpeedType: 0 = disabled, 1 = current, 2 = average, 3 = both
         voiceAlertSpeedButton.setOnClickListener(new View.OnClickListener() {
@@ -272,7 +311,7 @@ public class StartActivityFrag extends Fragment {
                 } else {
                     voiceAlertsSpeedType++;
                 }
-                updateSpeedButton();
+                updateVoiceSpeedButton();
                 clearFocus(view);
             }
         });
@@ -600,8 +639,28 @@ public class StartActivityFrag extends Fragment {
         }
     }
 
-    // updates speed button
-    private void updateSpeedButton() {
+    // updates alert button: 0 = disabled, 1 = audible, 2 = vibration, 3 = both
+    private void updateAlertsButton() {
+        switch (alertsVibrationAudible) {
+            case 0:
+                alertsVibrateTextView.setText(R.string.disabled);
+                alertsVibrateButton.setImageResource(R.drawable.main_buttons_disabled);
+                break;
+            case 1:
+                alertsVibrateTextView.setText(R.string.audible);
+                alertsVibrateButton.setImageResource(R.drawable.main_buttons);
+                break;
+            case 2:
+                alertsVibrateTextView.setText(R.string.vibration);
+                break;
+            default:
+                alertsVibrateTextView.setText(R.string.both);
+                break;
+        }
+    }
+
+    // updates speed button for voice alerts
+    private void updateVoiceSpeedButton() {
         switch (voiceAlertsSpeedType) {
             case 0:
                 voiceAlertsAvgSpeed = false;
@@ -717,6 +776,7 @@ public class StartActivityFrag extends Fragment {
             startGPSActivity.putExtra(SHOE_TYPE, shoes.get(shoeTypeIterator).getTitle());
             startGPSActivity.putExtra(NUM_FEET, shoes.get(shoeTypeIterator).getNumFeet());
             startGPSActivity.putExtra(TEN_SECOND_TIMER, tenSecondTimer);
+            startGPSActivity.putExtra(ALERTS_VIBRATION_AUDIBLE, alertsVibrationAudible);
             startGPSActivity.putExtra(VOICE_ALERTS_CD, voiceCountdownAlerts);
             startGPSActivity.putExtra(VOICE_ALERTS_AVG_SPEED, voiceAlertsAvgSpeed);
             startGPSActivity.putExtra(VOICE_ALERTS_CURRENT_SPEED, voiceAlertsCurrentSpeed);
@@ -746,7 +806,7 @@ public class StartActivityFrag extends Fragment {
             updateEnergy();
         }
         updatePage();
-        updateSpeedButton();
+        updateVoiceSpeedButton();
     }
 
     // updates the minutes shown when the user enters amount of energy
@@ -1213,7 +1273,7 @@ public class StartActivityFrag extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putBoolean(TEN_SECOND_TIMER_PREF, tenSecondTimer);
-        editor.putInt(ALERTS_VIBRATION_AUDIBLE, alertsVibrationAudible);
+        editor.putInt(ALERTS_VIBRATION_AUDIBLE_PREF, alertsVibrationAudible);
         editor.putInt(VOICE_ALERTS_SPEED_PREF, voiceAlertsSpeedType);
         editor.putBoolean(VOICE_ALERTS_TIME_PREF, voiceAlertsTime);
         editor.putBoolean(VOICE_ALERTS_CD_PREF, voiceCountdownAlerts);

@@ -29,14 +29,14 @@
 
     <ImageView
         android:id="@+id/bigOlBox"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="14dp"
         android:adjustViewBounds="true"
-        app:layout_constraintWidth_max="450dp"
+        android:maxWidth="500dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -100,12 +100,12 @@
         android:id="@+id/shoeTypeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:includeFontPadding="false"
         android:text="Walker"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/bigOlBox"
         app:layout_constraintEnd_toEndOf="@+id/bigOlBox"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -114,7 +114,7 @@
     <ImageView
         android:id="@+id/footprint1ImageView"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
+        android:layout_height="17dp"
         android:layout_marginEnd="6dp"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
@@ -127,7 +127,7 @@
     <ImageView
         android:id="@+id/footprint2ImageView"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
+        android:layout_height="17dp"
         android:adjustViewBounds="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
@@ -140,7 +140,7 @@
     <ImageView
         android:id="@+id/footprint3ImageView"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
+        android:layout_height="17dp"
         android:adjustViewBounds="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/shoeTypeTextView"
@@ -195,7 +195,9 @@
         android:backgroundTint="#00FFFFFF"
         android:stateListAnimator="@null"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backgroundTop" />
+        app:layout_constraintTop_toBottomOf="@+id/backgroundTop"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/settingsTextView"
@@ -211,532 +213,686 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backgroundTop" />
 
-    <ImageView
-        android:id="@+id/minSpeedBoxShadow"
+    <LinearLayout
+        android:id="@+id/speedRow"
         android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="-2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/minSpeedBox"
-        app:layout_constraintEnd_toEndOf="@+id/minSpeedBox"
-        app:layout_constraintStart_toStartOf="@+id/minSpeedBox"
-        app:layout_constraintTop_toTopOf="@+id/minSpeedBox"
-        app:srcCompat="@drawable/input_box_speeds"
-        app:tint="@color/almost_black" />
-
-    <ImageView
-        android:id="@+id/minSpeedBox"
-        android:layout_width="150dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/maxSpeedBox"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minSpeedLabelTextView"
-        app:srcCompat="@drawable/main_buttons_disabled" />
-
-    <TextView
-        android:id="@+id/minSpeedLabelTextView"
-        style="@style/RegItalic"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/minimum_speed"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/minSpeedBox"
-        app:layout_constraintStart_toStartOf="@+id/minSpeedBox"
-        app:layout_constraintTop_toTopOf="@+id/maxSpeedLabelTextView" />
-
-    <EditText
-        android:id="@+id/minSpeedEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:focusable="false"
-        android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:hint="0.0"
-        android:inputType="number|numberDecimal"
-        android:maxLength="4"
-        android:nextFocusDown="@+id/maxSpeedEditText"
-        android:paddingHorizontal="36dp"
-        android:paddingVertical="8dp"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:text="1.0"
-        android:textAlignment="center"
-        android:textColor="@color/almost_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/minSpeedBox"
-        app:layout_constraintEnd_toEndOf="@+id/minSpeedBox"
-        app:layout_constraintStart_toStartOf="@+id/minSpeedBox"
-        app:layout_constraintTop_toTopOf="@+id/minSpeedBox" />
-
-    <TextView
-        android:id="@+id/minSpeedKmhLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:text="km/h\u00A0"
-        android:textColor="@color/almost_black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/minSpeedBox"
-        app:layout_constraintEnd_toEndOf="@+id/minSpeedBox"
-        app:layout_constraintTop_toTopOf="@+id/minSpeedBox" />
-
-    <ImageView
-        android:id="@+id/maxSpeedBoxShadow"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="-2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/maxSpeedBox"
-        app:layout_constraintEnd_toEndOf="@+id/maxSpeedBox"
-        app:layout_constraintStart_toStartOf="@+id/maxSpeedBox"
-        app:layout_constraintTop_toTopOf="@+id/maxSpeedBox"
-        app:srcCompat="@drawable/input_box_speeds"
-        app:tint="@color/almost_black" />
-
-    <ImageView
-        android:id="@+id/maxSpeedBox"
-        android:layout_width="150dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="100dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/minSpeedBox"
-        app:layout_constraintTop_toBottomOf="@+id/maxSpeedLabelTextView"
-        app:srcCompat="@drawable/main_buttons_disabled" />
-
-    <TextView
-        android:id="@+id/maxSpeedLabelTextView"
-        style="@style/RegItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:includeFontPadding="false"
-        android:text="@string/maximum_speed"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/maxSpeedBoxShadow"
-        app:layout_constraintStart_toStartOf="@+id/maxSpeedBoxShadow"
-        app:layout_constraintTop_toBottomOf="@id/settingsTextView" />
-
-    <EditText
-        android:id="@+id/maxSpeedEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:focusable="false"
-        android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:hint="0.0"
-        android:inputType="number|numberDecimal"
-        android:maxLength="4"
-        android:paddingHorizontal="36dp"
-        android:paddingVertical="8dp"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:text="6.0"
-        android:textAlignment="center"
-        android:textColor="@color/almost_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/maxSpeedBox"
-        app:layout_constraintEnd_toEndOf="@+id/maxSpeedBox"
-        app:layout_constraintStart_toStartOf="@+id/maxSpeedBox"
-        app:layout_constraintTop_toTopOf="@+id/maxSpeedBox" />
-
-    <TextView
-        android:id="@+id/maxSpeedKmhLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:text="km/h\u00A0"
-        android:textColor="@color/almost_black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/maxSpeedBox"
-        app:layout_constraintEnd_toEndOf="@+id/maxSpeedBox"
-        app:layout_constraintTop_toTopOf="@+id/maxSpeedBox" />
-
-    <TextView
-        android:id="@+id/countdownTimerLabelTextView"
-        style="@style/RegItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/countdown_timer"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/countdownTimerButton"
-        app:layout_constraintStart_toStartOf="@+id/countdownTimerButton"
-        app:layout_constraintTop_toTopOf="@id/energyLabelTextView" />
-
-    <ImageView
-        android:id="@+id/countdownTimerButtonShadow"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="-2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/countdownTimerButton"
-        app:layout_constraintEnd_toEndOf="@+id/countdownTimerButton"
-        app:layout_constraintStart_toStartOf="@+id/countdownTimerButton"
-        app:layout_constraintTop_toTopOf="@+id/countdownTimerButton"
-        app:srcCompat="@drawable/main_button_shadow" />
-
-    <TextView
-        android:id="@+id/countdownTimerShadowTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="ENABLED"
-        android:textAlignment="center"
-        android:textColor="@color/almost_black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/countdownTimerButtonShadow"
-        app:layout_constraintEnd_toEndOf="@+id/countdownTimerButtonShadow"
-        app:layout_constraintStart_toStartOf="@+id/countdownTimerButtonShadow"
-        app:layout_constraintTop_toTopOf="@+id/countdownTimerButtonShadow" />
-
-    <ImageButton
-        android:id="@+id/countdownTimerButton"
-        android:layout_width="150dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="8dp"
-        android:background="@null"
-        android:src="@drawable/main_buttons"
-        app:layout_constraintEnd_toStartOf="@id/energyBox"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/countdownTimerLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsTextView">
 
-    <TextView
-        android:id="@+id/countdownTimerTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/enabled"
-        android:textAlignment="center"
-        android:textColor="@color/almost_black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/countdownTimerButton"
-        app:layout_constraintEnd_toEndOf="@+id/countdownTimerButton"
-        app:layout_constraintStart_toStartOf="@+id/countdownTimerButton"
-        app:layout_constraintTop_toTopOf="@+id/countdownTimerButton" />
+        <LinearLayout
+            android:id="@+id/minSpeedStack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/energyBoxShadow"
+            <TextView
+                android:id="@+id/minSpeedLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/minimum_speed"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:id="@+id/minSpeedLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/minSpeedBoxShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/input_box_speeds"
+                    app:tint="@color/almost_black" />
+
+                <ImageView
+                    android:id="@+id/minSpeedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="1.5dp"
+                    android:layout_marginBottom="2dp"
+                    app:srcCompat="@drawable/main_buttons_disabled" />
+
+                <TextView
+                    android:id="@+id/minSpeedKmhLabelTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="0.4dp"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:gravity="end"
+                    android:text="km/h\u00A0"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/minSpeedEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:hint="0.0"
+                    android:inputType="number|numberDecimal"
+                    android:maxLength="4"
+                    android:nextFocusDown="@+id/maxSpeedEditText"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:text="1.0"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="20sp" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/maxSpeedStack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/maxSpeedLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/maximum_speed"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:id="@+id/maxSpeedLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/maxSpeedBoxShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/input_box_speeds"
+                    app:tint="@color/almost_black" />
+
+                <ImageView
+                    android:id="@+id/maxSpeedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="1.5dp"
+                    android:layout_marginBottom="2dp"
+                    app:srcCompat="@drawable/main_buttons_disabled" />
+
+                <TextView
+                    android:id="@+id/maxSpeedKmhLabelTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="0.4dp"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:gravity="end"
+                    android:text="km/h\u00A0"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/maxSpeedEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:hint="0.0"
+                    android:inputType="number|numberDecimal"
+                    android:maxLength="4"
+                    android:nextFocusDown="@+id/maxSpeedEditText"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:text="6.0"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="20sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/timerSoundRow"
         android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="-2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/energyBox"
-        app:layout_constraintEnd_toEndOf="@+id/energyBox"
-        app:layout_constraintStart_toStartOf="@+id/energyBox"
-        app:layout_constraintTop_toTopOf="@+id/energyBox"
-        app:srcCompat="@drawable/energy_input_box"
-        app:tint="@color/energy_blue_border" />
-
-    <TextView
-        android:id="@+id/energyLabelTextView"
-        style="@style/RegItalic"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="10dp"
-        android:includeFontPadding="false"
-        android:text="@string/energy_to_spend"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/energyBox"
-        app:layout_constraintStart_toStartOf="@+id/energyBoxShadow"
-        app:layout_constraintTop_toBottomOf="@id/maxSpeedBox" />
-
-    <ImageView
-        android:id="@+id/energyBox"
-        android:layout_width="150dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="100dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/countdownTimerButton"
-        app:layout_constraintTop_toBottomOf="@+id/energyLabelTextView"
-        app:srcCompat="@drawable/energy_input_box" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speedRow">
 
-    <EditText
-        android:id="@+id/energyToSpendEditText"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/countdownStack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/countdownTimerLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/countdown_timer"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/countdownTimerButtonShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/main_button_shadow" />
+
+                <TextView
+                    android:id="@+id/countdownTimerShadowTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/enabled"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/countdownTimerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="1.5dp"
+                    android:background="@null"
+                    android:src="@drawable/main_buttons" />
+
+                <TextView
+                    android:id="@+id/countdownTimerTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/enabled"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/alertsStack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/alertSoundLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/speed_alerts"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/alertsButtonShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/main_button_shadow" />
+
+                <TextView
+                    android:id="@+id/alertsShadowTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/audible"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/alertsTimerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="1.5dp"
+                    android:background="@null"
+                    android:src="@drawable/main_buttons" />
+
+                <TextView
+                    android:id="@+id/alertsTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/audible"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/energyStack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/energyLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/energy"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/energyBoxShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/energy_input_box"
+                    app:tint="@color/energy_blue_border" />
+
+                <ImageView
+                    android:id="@+id/energyBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="1.5dp"
+                    android:layout_marginBottom="2dp"
+                    app:srcCompat="@drawable/energy_input_box" />
+
+                <ImageView
+                    android:id="@+id/energyBolt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="24dp"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@mipmap/energy_bolt" />
+
+                <EditText
+                    android:id="@+id/energyToSpendEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@null"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:hint="0.0"
+                    android:inputType="number|numberDecimal"
+                    android:maxLength="4"
+                    android:paddingVertical="8dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/energyMinsRow"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
-        android:background="@null"
-        android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:hint="0.0"
-        android:inputType="number|numberDecimal"
-        android:maxLength="4"
-        android:paddingHorizontal="36dp"
-        android:paddingVertical="8dp"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textColor="@color/almost_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/energyBox"
-        app:layout_constraintEnd_toEndOf="@+id/energyBox"
-        app:layout_constraintStart_toStartOf="@+id/energyBox"
-        app:layout_constraintTop_toTopOf="@+id/energyBox" />
+        android:layout_marginStart="88dp"
+        android:layout_marginEnd="92dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerSoundRow">
 
-    <ImageView
-        android:id="@+id/energyBolt"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="@+id/energyBox"
-        app:layout_constraintEnd_toEndOf="@+id/energyBox"
-        app:layout_constraintTop_toTopOf="@+id/energyBox"
-        app:srcCompat="@mipmap/energy_bolt" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/energyInMinsTextView"
-        style="@style/BoldItalicSubtitles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:includeFontPadding="false"
-        android:text="@string/zero_mins"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/energyBox"
-        app:layout_constraintStart_toStartOf="@+id/energyBox"
-        app:layout_constraintTop_toBottomOf="@+id/energyBox" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="-20dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/energyInMinsTextView"
+                style="@style/BoldItalicSubtitles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/roboto_condensed_bold_italic"
+                android:includeFontPadding="false"
+                android:text="@string/zero_mins"
+                android:textAlignment="center"
+                android:textColor="@color/gandalf"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/voiceUpdatesTextView"
         style="@style/BoldItalicTitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="24dp"
         android:text="@string/voice_updates"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/energyInMinsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/timerSoundRow" />
 
-    <ImageView
-        android:id="@+id/voiceAlertSpeedButtonShadow"
+    <LinearLayout
+        android:id="@+id/voiceUpdatesRow"
         android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="-2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintEnd_toEndOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintStart_toStartOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceAlertSpeedButton"
-        app:srcCompat="@drawable/main_button_shadow" />
-
-    <TextView
-        android:id="@+id/voiceAlertSpeedShadowTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/enabled"
-        android:textColor="@color/almost_black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceAlertSpeedButtonShadow"
-        app:layout_constraintEnd_toEndOf="@+id/voiceAlertSpeedButtonShadow"
-        app:layout_constraintStart_toStartOf="@+id/voiceAlertSpeedButtonShadow"
-        app:layout_constraintTop_toTopOf="@+id/voiceAlertSpeedButtonShadow" />
-
-    <ImageButton
-        android:id="@+id/voiceAlertSpeedButton"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
-        android:background="@null"
-        android:src="@drawable/main_buttons"
-        app:layout_constraintEnd_toStartOf="@+id/voiceTimeButton"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/voiceTimeButton" />
-
-    <TextView
-        android:id="@+id/voiceAlertSpeedTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/all"
-        android:textColor="@color/almost_black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintEnd_toEndOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintStart_toStartOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceAlertSpeedButton" />
-
-    <TextView
-        android:id="@+id/voiceAlertSpeedLabelTextView"
-        style="@style/RegItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/speed"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintStart_toStartOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceAlertTimeLabelTextView" />
-
-    <TextView
-        android:id="@+id/voiceAlertTimeLabelTextView"
-        style="@style/RegItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:includeFontPadding="false"
-        android:text="@string/time"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/voiceTimeButton"
-        app:layout_constraintStart_toStartOf="@+id/voiceTimeButton"
-        app:layout_constraintTop_toBottomOf="@+id/voiceUpdatesTextView" />
-
-    <ImageView
-        android:id="@+id/voiceTimeButtonShadow"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="-2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceTimeButton"
-        app:layout_constraintEnd_toEndOf="@+id/voiceTimeButton"
-        app:layout_constraintStart_toStartOf="@+id/voiceTimeButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceTimeButton"
-        app:srcCompat="@drawable/main_button_shadow" />
-
-    <TextView
-        android:id="@+id/voiceAlertTimeShadowTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/enabled"
-        android:textColor="@color/almost_black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceTimeButtonShadow"
-        app:layout_constraintEnd_toEndOf="@+id/voiceTimeButtonShadow"
-        app:layout_constraintStart_toStartOf="@+id/voiceTimeButtonShadow"
-        app:layout_constraintTop_toTopOf="@+id/voiceTimeButtonShadow" />
-
-    <ImageButton
-        android:id="@+id/voiceTimeButton"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:background="@null"
-        android:src="@drawable/main_buttons"
-        app:layout_constraintEnd_toStartOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintStart_toEndOf="@+id/voiceAlertSpeedButton"
-        app:layout_constraintTop_toBottomOf="@+id/voiceAlertTimeLabelTextView" />
-
-    <TextView
-        android:id="@+id/voiceAlertTimeTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/enabled"
-        android:textColor="@color/almost_black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceTimeButton"
-        app:layout_constraintEnd_toEndOf="@+id/voiceTimeButton"
-        app:layout_constraintStart_toStartOf="@+id/voiceTimeButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceTimeButton" />
-
-    <TextView
-        android:id="@+id/voiceOneMinThirtySecLabelTextView"
-        style="@style/RegItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/one_min_thirty_sec"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceAlertTimeLabelTextView" />
-
-    <ImageView
-        android:id="@+id/voiceOneMinThirtySecButtonShadow"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="-2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintEnd_toEndOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintStart_toStartOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceOneMinThirtySecButton"
-        app:srcCompat="@drawable/main_button_shadow" />
-
-    <TextView
-        android:id="@+id/voiceOneMinThirtySecShadowTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/enabled"
-        android:textColor="@color/almost_black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceOneMinThirtySecButtonShadow"
-        app:layout_constraintEnd_toEndOf="@+id/voiceOneMinThirtySecButtonShadow"
-        app:layout_constraintStart_toStartOf="@+id/voiceOneMinThirtySecButtonShadow"
-        app:layout_constraintTop_toTopOf="@+id/voiceOneMinThirtySecButtonShadow" />
-
-    <ImageButton
-        android:id="@+id/voiceOneMinThirtySecButton"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:background="@null"
-        android:src="@drawable/main_buttons"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/voiceTimeButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceTimeButton" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voiceUpdatesTextView">
 
-    <TextView
-        android:id="@+id/voiceOneMinThirtySecTextView"
-        style="@style/ButtonBoldItalic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/enabled"
-        android:textColor="@color/almost_black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintEnd_toEndOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintStart_toStartOf="@+id/voiceOneMinThirtySecButton"
-        app:layout_constraintTop_toTopOf="@+id/voiceOneMinThirtySecButton" />
+        <LinearLayout
+            android:id="@+id/voiceSpeedStack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/voiceAlertSpeedLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/speed"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/voiceAlertSpeedButtonShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/main_button_shadow" />
+
+                <TextView
+                    android:id="@+id/voiceAlertSpeedShadowTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/enabled"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/voiceAlertSpeedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="1.5dp"
+                    android:background="@null"
+                    android:src="@drawable/main_buttons" />
+
+                <TextView
+                    android:id="@+id/voiceAlertSpeedTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/enabled"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/voiceTimeStack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/voiceAlertTimeLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/time"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/voiceTimeButtonShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/main_button_shadow" />
+
+                <TextView
+                    android:id="@+id/voiceAlertTimeShadowTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/enabled"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/voiceTimeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="1.5dp"
+                    android:background="@null"
+                    android:src="@drawable/main_buttons" />
+
+                <TextView
+                    android:id="@+id/voiceAlertTimeTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/enabled"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/voiceMinThirtyStack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/voiceOneMinThirtySecLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/one_min_thirty_sec"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/voiceOneMinThirtySecButtonShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/main_button_shadow" />
+
+                <TextView
+                    android:id="@+id/voiceOneMinThirtySecShadowTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/enabled"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/voiceOneMinThirtySecButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="1.5dp"
+                    android:background="@null"
+                    android:src="@drawable/main_buttons" />
+
+                <TextView
+                    android:id="@+id/voiceOneMinThirtySecTextView"
+                    style="@style/ButtonBoldItalic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="1dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/enabled"
+                    android:textAlignment="center"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/startButtonShadow"
@@ -780,7 +936,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/voiceOneMinThirtySecButton"
+        app:layout_constraintTop_toBottomOf="@+id/voiceUpdatesRow"
         app:layout_constraintVertical_bias="0.41000003"
         app:layout_constraintVertical_chainStyle="spread"
         app:srcCompat="@drawable/start_button" />

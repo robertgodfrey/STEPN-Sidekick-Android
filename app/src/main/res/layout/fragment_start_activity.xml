@@ -479,7 +479,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:includeFontPadding="false"
-                android:text="Alerts"
+                android:text="@string/speed_alerts"
                 android:textColor="@color/gandalf"
                 android:textSize="14sp" />
 
@@ -504,7 +504,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="1dp"
                     android:includeFontPadding="false"
-                    android:text="@string/enabled"
+                    android:text="@string/audible"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
                     android:textSize="15sp" />
@@ -525,7 +525,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="1dp"
                     android:includeFontPadding="false"
-                    android:text="@string/enabled"
+                    android:text="@string/audible"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
                     android:textSize="15sp" />

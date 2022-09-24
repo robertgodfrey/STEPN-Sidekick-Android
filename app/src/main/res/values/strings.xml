@@ -127,4 +127,8 @@
     <string name="base_percent">"% base\n+ "</string>
     <string name="base">Base</string>
     <string name="are_you_sure_you_want_to_reset_all_values">Are you sure you want to reset all values?</string>
+    <string name="audible">AUDIBLE</string>
+    <string name="vibration">VIBRATION</string>
+    <string name="speed_alerts">Speed Alerts</string>
+    <string name="both">BOTH</string>
 </resources>
