@@ -279,6 +279,47 @@
         app:layout_constraintTop_toTopOf="@+id/karlThanksTextView" />
 
     <TextView
+        android:id="@+id/otikxThanksTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:includeFontPadding="false"
+        android:text="\@otik_x"
+        android:textColor="@color/luck_socket_border"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/karlThanksDeetsTextView" />
+
+    <Button
+        android:id="@+id/otikxButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:alpha="0"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/otikxThanksTextView"
+        app:layout_constraintEnd_toEndOf="@+id/otikxThanksTextView"
+        app:layout_constraintStart_toStartOf="@+id/otikxThanksTextView"
+        app:layout_constraintTop_toTopOf="@+id/otikxThanksTextView" />
+
+    <TextView
+        android:id="@+id/otikxThanksDeetsTextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:includeFontPadding="false"
+        android:text="                 for letting me use his awesome STEPN-style sandal as the &quot;custom&quot; shoe image in this app. Check out his page for more great artwork."
+        android:textColor="@color/almost_black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toTopOf="@+id/otikxThanksTextView" />
+
+    <TextView
         android:id="@+id/contactTextView"
         style="@style/RegText"
         android:layout_width="0dp"
@@ -293,7 +334,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
-        app:layout_constraintTop_toBottomOf="@+id/karlThanksDeetsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/otikxThanksDeetsTextView" />
 
     <TextView
         android:id="@+id/contactEmailTextView"
@@ -449,7 +490,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="100dp"
         android:includeFontPadding="false"
-        android:text="v 1.4.0"
+        android:text="v 1.4.1"
         android:textColor="@color/gandalf"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"

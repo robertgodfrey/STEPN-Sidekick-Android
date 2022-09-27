@@ -26,7 +26,7 @@ import android.widget.Toast;
  * Information about the app, 'remove ads' button, option to donate.
  *
  * @author Rob Godfrey
- * @version 1.3.13 Removed crypto address donations, added thank-you message for those who removed ads, added other community projects
+ * @version 1.4.1 Added @otik_x to thanks section
  *
  */
 
@@ -36,13 +36,14 @@ public class AboutFrag extends Fragment {
             stepnWikiButton, stepnWikiAuthorButton, stepnAssistButton, stepnAssistAuthorButton,
             stepnFpButton, stepnFpAuthorButton, stepnEnhancedFilterButton, stepnEnhancedFilterAuthorButton,
             stepnStatsButton, stepnStatsAuthorOneButton, stepnStatsAuthorTwoButton, stepnMarketGuideButton,
-            stepnMarketGuideAuthorButton;
+            stepnMarketGuideAuthorButton, otikxButton;
     ImageButton removeAdsButton;
     ImageView removeAdsShadow, buyCoffeeLogo, stepnGuideIv, stepnWikiIv, stepnAssistIv, stepnFpIv,
             stepnEfIv, stepnStatsIv, stepnMarketIv;
     TextView emailTextView, removeAdsTextView, removeAdsShadowTextView, plzSupportTextView, orTv, kritTv,
             karlTv, stepnGuideAuthorTv, stepnWikiAuthorTv, stepnAssistAuthorTv, stepnFpAuthorTv,
-            stepnEnhancedAuthorTv, stepnStatsAuthorOneTv, stepnStatsAuthorTwoTv, stepnMarketGuideAuthorTv;
+            stepnEnhancedAuthorTv, stepnStatsAuthorOneTv, stepnStatsAuthorTwoTv, stepnMarketGuideAuthorTv,
+            otikxTv;
     ClipboardManager clipboard;
 
     public AboutFrag() {
@@ -71,6 +72,7 @@ public class AboutFrag extends Fragment {
 
         kritButton = view.findViewById(R.id.kritButton);
         karlButton = view.findViewById(R.id.karlButton);
+        otikxButton = view.findViewById(R.id.otikxButton);
         stepnGuideButton = view.findViewById(R.id.stepnGuideButton);
         stepnGuideAuthorButton = view.findViewById(R.id.stepnGuideAuthorButton);
         stepnWikiButton = view.findViewById(R.id.stepnWikiButton);
@@ -89,6 +91,7 @@ public class AboutFrag extends Fragment {
 
         kritTv = view.findViewById(R.id.kritThanksTextView);
         karlTv = view.findViewById(R.id.karlThanksTextView);
+        otikxTv = view.findViewById(R.id.otikxThanksTextView);
         stepnGuideAuthorTv = view.findViewById(R.id.stepnGuideAuthor);
         stepnWikiAuthorTv = view.findViewById(R.id.stepnWikiAuthor);
         stepnAssistAuthorTv = view.findViewById(R.id.stepnAssistAuthor);
@@ -194,6 +197,17 @@ public class AboutFrag extends Fragment {
         });
 
         textTouchies(karlButton, karlTv);
+
+        otikxButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://twitter.com/otik_x");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        textTouchies(otikxButton, otikxTv);
 
         stepnGuideButton.setOnClickListener(new View.OnClickListener() {
             @Override

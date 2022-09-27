@@ -49,7 +49,7 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer. Starts the SpeedTracker activity.
  *
  * @author Rob Godfrey
- * @version 1.4.0 Added vibration option for alerts
+ * @version 1.4.1 Added cooler custom shoe image
  *
  */
 
@@ -708,11 +708,14 @@ public class StartActivityFrag extends Fragment {
             maxSpeedEditText.setFocusable(false);
             minSpeedBox.setImageResource(R.drawable.main_buttons_disabled);
             maxSpeedBox.setImageResource(R.drawable.main_buttons_disabled);
+            shoeTypeImage.setPadding(0, 0, (int) (5 * getResources().getDisplayMetrics().density + 0.5f),0);
+
         } else {
             minSpeedEditText.setFocusableInTouchMode(true);
             maxSpeedEditText.setFocusableInTouchMode(true);
             minSpeedBox.setImageResource(R.drawable.input_box_speeds);
             maxSpeedBox.setImageResource(R.drawable.input_box_speeds);
+            shoeTypeImage.setPadding(0, 0, 0, 0);
 
             if (minSpeedEditText.getText().toString().equals("0.0")) {
                 minSpeedEditText.setText("");
