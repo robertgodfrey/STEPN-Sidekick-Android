@@ -288,7 +288,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gemMultipleDeetsTextView"
         app:layout_constraintEnd_toStartOf="@+id/gemMultipleDeetsTextView"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleDeetsTextView"
-        app:srcCompat="@mipmap/logo_gst" />
+        app:srcCompat="@drawable/logo_gst" />
 
     <TextView
         android:id="@+id/gstIncomeTextView"
@@ -427,7 +427,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gemPriceGstTextView"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackgroundButton"
         app:layout_constraintTop_toTopOf="@+id/gemPriceGstTextView"
-        app:srcCompat="@mipmap/logo_gst" />
+        app:srcCompat="@drawable/logo_gst" />
 
     <TextView
         android:id="@+id/totalIncomeGstLabelTextView"
@@ -463,7 +463,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/totalIncomeGstTextView"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackgroundButton"
         app:layout_constraintTop_toTopOf="@+id/totalIncomeGstTextView"
-        app:srcCompat="@mipmap/logo_gst" />
+        app:srcCompat="@drawable/logo_gst" />
 
     <TextView
         android:id="@+id/totalIncomeUsdLabelTextView"

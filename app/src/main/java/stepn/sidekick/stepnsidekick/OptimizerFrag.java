@@ -15,12 +15,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -33,6 +32,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -91,6 +91,7 @@ public class OptimizerFrag extends Fragment {
     private final String ONE_TWENTY_FIVE_BOOL_PREF = "oneTwentyFiveBool";
     private final String ONE_TWENTY_FIVE_ENERGY_PREF = "oneTwentyFiveEnergy";
     private final String SHOE_NUM_PREF = "shoeNum";
+    private final String GMT_EARNING_PREF = "gmtEarning";
 
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
@@ -111,13 +112,14 @@ public class OptimizerFrag extends Fragment {
             shoeNameEditText, gstPriceEditText, chainCoinPriceEditText;
 
     TextView shoeRarityTextView, shoeTypeTextView, levelTextView, effTotalTextView, luckTotalTextView,
-            comfortTotalTextView, resTotalTextView, pointsAvailableTextView, gstEarnedTextView,
-            gstLimitTextView, durabilityLossTextView, repairCostDurTextView, gstIncomeTextView,
+            comfortTotalTextView, resTotalTextView, pointsAvailableTextView, estGstGmtTextView,
+            gstLimitTextView, durabilityLossTextView, repairCostDurTextView, totalIncomeTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
             resPlusTv, optimizeGstTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
             optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
-            gemPriceGstTextView, totalIncomeGstTextView, totalIncomeUsdTextView, oneTwentyFiveTextView;
+            gemPriceGstTextView, totalIncomeGstTextView, totalIncomeUsdTextView, oneTwentyFiveTextView,
+            switchTokenGstTextView, switchTokenGmtTextView, estGstGmtLabelTv, gstLimitPerDaySlashTextView;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -126,16 +128,19 @@ public class OptimizerFrag extends Fragment {
             optimizeGstButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
-            shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow;
+            shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, switchTokenShadow,
+            switchTokenBack, estGstGmtIcon;
 
     LinearLayout shoeTypeLayout, shoeTypeLayoutShadow;
+
+    SwitchCompat switchTokenSwitch;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored, gstProfitBeforeGem, comfGemMultiplier,
             oneTwentyFiveEnergy;
-    private boolean saveNewGem, update, oneTwentyFive;
+    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, switchTouch;
     private double hpLoss;
     private String shoeName;
 
@@ -181,6 +186,7 @@ public class OptimizerFrag extends Fragment {
                 update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
                 shoeName = getSharedPrefs.getString(SHOE_NAME + shoeNumString, "");
                 oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
+                gmtEarningOn = getSharedPrefs.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
 
                 dpScale = getResources().getDisplayMetrics().density;
 
@@ -201,7 +207,6 @@ public class OptimizerFrag extends Fragment {
                 gems.get(3).setMountedGem(getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF + shoeNumString, 0));
             }
         }).start();
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -241,6 +246,16 @@ public class OptimizerFrag extends Fragment {
         subResButton = view.findViewById(R.id.subResButton);
         addResButton = view.findViewById(R.id.addResButton);
 
+        switchTokenSwitch = view.findViewById(R.id.switchToken);
+        switchTokenBack = view.findViewById(R.id.switchTokenBack);
+        switchTokenShadow = view.findViewById(R.id.switchTokenShadow);
+        switchTokenGstTextView = view.findViewById(R.id.gstSwitchTextView);
+        switchTokenGmtTextView = view.findViewById(R.id.gmtSwitchTextView);
+
+        estGstGmtLabelTv = view.findViewById(R.id.estGstGmtLabelTextView);
+        gstLimitPerDaySlashTextView = view.findViewById(R.id.gstLimitPerDaySlashTextView);
+        estGstGmtIcon = view.findViewById(R.id.gstGmtIconLimit);
+
         backgroundButton = view.findViewById(R.id.backgroundThingButton);
         levelSeekbar = view.findViewById(R.id.levelSeekBar);
 
@@ -265,11 +280,11 @@ public class OptimizerFrag extends Fragment {
         comfortTotalTextView = view.findViewById(R.id.totalComfTextView);
         resTotalTextView = view.findViewById(R.id.totalResTextView);
         pointsAvailableTextView = view.findViewById(R.id.pointsTextView);
-        gstEarnedTextView = view.findViewById(R.id.gstPerDayTextView);
+        estGstGmtTextView = view.findViewById(R.id.gstPerDayTextView);
         gstLimitTextView = view.findViewById(R.id.gstLimitPerDayTextView);
         durabilityLossTextView = view.findViewById(R.id.durabilityLossTextView);
         repairCostDurTextView = view.findViewById(R.id.repairCostDurTextView);
-        gstIncomeTextView = view.findViewById(R.id.gstIncomeTextView);
+        totalIncomeTextView = view.findViewById(R.id.gstIncomeTextView);
         optimizeGstTextView = view.findViewById(R.id.optimizeGstTextView);
         optimizeLuckTextView = view.findViewById(R.id.optimizeLuckTextView);
         lvl10Shrug = view.findViewById(R.id.lvl10shrug);
@@ -953,6 +968,31 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
+        switchTokenSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchTouch = true;
+            }
+        });
+
+        switchTokenSwitch.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switchTouch = true;
+                return false;
+            }
+        });
+
+        switchTokenSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (switchTouch) {
+                    gmtEarningOn = !gmtEarningOn;
+                    updateGmtSwitch();
+                }
+            }
+        });
+
         optimizeGstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1073,10 +1113,13 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
+        switchTouch = false;
+
         loadPoints();
         updateType();
         updateRarity();
         updateShoeNums();
+        updateGmtSwitch();
 
         if (update) {
             update = false;
@@ -2108,14 +2151,14 @@ public class OptimizerFrag extends Fragment {
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
         if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
-            gstEarnedTextView.setText("0");
+            estGstGmtTextView.setText("0");
             durabilityLossTextView.setText("0");
             repairCostDurTextView.setText("0");
             hpLossTextView.setText("0");
             repairCostHpTextView.setText("0");
             gemMultipleTextView.setText("0");
             gemMultipleTotalTextView.setText("-  0");
-            gstIncomeTextView.setText("0");
+            totalIncomeTextView.setText("0");
             return;
         }
 
@@ -2175,15 +2218,15 @@ public class OptimizerFrag extends Fragment {
             gemMultipleTotalTextView.setText(multiplier);
         }
 
-        gstEarnedTextView.setText(String.valueOf(gstTotal));
+        estGstGmtTextView.setText(String.valueOf(gstTotal));
         durabilityLossTextView.setText(String.valueOf(durabilityLost));
         repairCostDurTextView.setText(String.valueOf(repairCostDurability));
-        gstIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
+        totalIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
 
         if (gstTotal > gstLimit) {
-            gstEarnedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
+            estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
         } else {
-            gstEarnedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
         }
     }
 
@@ -2725,6 +2768,11 @@ public class OptimizerFrag extends Fragment {
         final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
+        if (gmtEarningOn) {
+            clearMbs();
+            return;
+        }
+
         if (localEnergy <= -0.04 * totalLuck + 6 && localEnergy >= -0.05263 * totalLuck + 2 && localEnergy >= 1 && totalLuck > 1) {
             // lvl 1 high chance range
             mysteryBox1.clearColorFilter();
@@ -2872,6 +2920,28 @@ public class OptimizerFrag extends Fragment {
             mysteryBox9.setAlpha(0.5f);
             lvl10Shrug.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void clearMbs() {
+        mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox1.setAlpha(0.5f);
+        mysteryBox2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox2.setAlpha(0.5f);
+        mysteryBox3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox3.setAlpha(0.5f);
+        mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox4.setAlpha(0.5f);
+        mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox5.setAlpha(0.5f);
+        mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox6.setAlpha(0.5f);
+        mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox7.setAlpha(0.5f);
+        mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox8.setAlpha(0.5f);
+        mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox9.setAlpha(0.5f);
+        lvl10Shrug.setVisibility(View.INVISIBLE);
     }
 
     private void updatePoints() {
@@ -3109,6 +3179,7 @@ public class OptimizerFrag extends Fragment {
                 editor.putInt(ADDED_RES_PREF + oldShoeNumString, addedRes);
                 editor.putString(SHOE_NAME + oldShoeNumString, shoeName);
                 editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + oldShoeNumString, oneTwentyFive);
+                editor.putBoolean(GMT_EARNING_PREF + oldShoeNumString, gmtEarningOn);
 
                 editor.putInt(GEM_ONE_TYPE_PREF + oldShoeNumString, gems.get(0).getSocketType());
                 editor.putInt(GEM_ONE_RARITY_PREF + oldShoeNumString, gems.get(0).getSocketRarity());
@@ -3140,6 +3211,7 @@ public class OptimizerFrag extends Fragment {
                 addedRes = sharedPreferences.getInt(ADDED_RES_PREF + shoeNumString, 0);
                 shoeName = sharedPreferences.getString(SHOE_NAME + shoeNumString, "");
                 oneTwentyFive = sharedPreferences.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
+                gmtEarningOn = sharedPreferences.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
 
                 gems.clear();
 
@@ -3168,9 +3240,28 @@ public class OptimizerFrag extends Fragment {
             e.printStackTrace();
         }
 
+        updateGmtSwitch();
         loadPoints();
         updateType();
         updateRarity();
+    }
+
+    // updates GMT switch for new shoe
+    private void updateGmtSwitch() {
+        switchTokenSwitch.setChecked(gmtEarningOn);
+        switchTokenGstTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
+        switchTokenGmtTextView.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
+        switchTokenBack.setColorFilter(ContextCompat.getColor(requireContext(),
+                gmtEarningOn ? R.color.switch_track_gmt : R.color.switch_track_gst));
+        switchTokenShadow.setColorFilter(ContextCompat.getColor(requireContext(),
+                gmtEarningOn ? R.color.switch_shadow_gmt : R.color.switch_shadow_gst));
+
+        estGstGmtLabelTv.setText(gmtEarningOn ? "Est. GMT" : getString(R.string.est_gst_daily_limit));
+        gstLimitPerDaySlashTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
+        gstLimitTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
+        estGstGmtIcon.setImageResource(gmtEarningOn ? R.drawable.logo_gmt : R.drawable.logo_gst);
+
+        calcMbChances();
     }
 
     // clears focus from the input boxes by focusing on another hidden edittext
@@ -3495,10 +3586,10 @@ public class OptimizerFrag extends Fragment {
         repairCostHpTextView.setText("0");
         gemMultipleTextView.setText("0");
         gemMultipleTotalTextView.setText("-  0");
-        gstEarnedTextView.setText("0");
+        estGstGmtTextView.setText("0");
         durabilityLossTextView.setText("0");
         repairCostDurTextView.setText("0");
-        gstIncomeTextView.setText("0");
+        totalIncomeTextView.setText("0");
 
         Toast.makeText(requireActivity(), "Values Reset", Toast.LENGTH_SHORT).show();
     }
@@ -3528,6 +3619,7 @@ public class OptimizerFrag extends Fragment {
         editor.putBoolean(UPDATE_PREF, false);
         editor.putString(SHOE_NAME + shoeNumString, shoeName);
         editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, oneTwentyFive);
+        editor.putBoolean(GMT_EARNING_PREF + shoeNumString, gmtEarningOn);
         editor.putInt(SHOE_NUM_PREF, shoeNum);
 
         editor.putInt(GEM_ONE_TYPE_PREF + shoeNumString, gems.get(0).getSocketType());

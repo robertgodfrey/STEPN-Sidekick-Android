@@ -29,4 +29,8 @@
     <color name="eff_socket_border">#e6c247</color>
     <color name="comf_socket">#f79091</color>
     <color name="comf_socket_border">#e44549</color>
+    <color name="switch_shadow_gst">#adadad</color>
+    <color name="switch_shadow_gmt">#e78a1c</color>
+    <color name="switch_track_gmt">#ffcb6d</color>
+    <color name="switch_track_gst">#e3e3e3</color>
 </resources>
