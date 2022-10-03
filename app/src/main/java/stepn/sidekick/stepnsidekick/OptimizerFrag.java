@@ -102,7 +102,8 @@ public class OptimizerFrag extends Fragment {
     private final int RUNNER = 2;
     private final int TRAINER = 3;
 
-    ImageButton shoeRarityButton, shoeTypeButton, optimizeGstButton, optimizeLuckButton, backgroundButton;
+    ImageButton shoeRarityButton, shoeTypeButton, optimizeGstGmtButton, optimizeLuckButton, backgroundButton,
+            gmtDisabledButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
             subResButton, addResButton, changeComfGemButton, leftButton, rightButton, resetButton,
@@ -115,11 +116,12 @@ public class OptimizerFrag extends Fragment {
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, estGstGmtTextView,
             gstLimitTextView, durabilityLossTextView, repairCostDurTextView, totalIncomeTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
-            resPlusTv, optimizeGstTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
+            resPlusTv, optimizeGstGmtTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
             optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
             gemPriceGstTextView, totalIncomeGstTextView, totalIncomeUsdTextView, oneTwentyFiveTextView,
-            switchTokenGstTextView, switchTokenGmtTextView, estGstGmtLabelTv, gstLimitPerDaySlashTextView;
+            switchTokenGstTextView, switchTokenGmtTextView, estGstGmtLabelTv, gstLimitPerDaySlashTextView,
+            gmtTotalMinusTv, gmtTotalTv, optimizeGstGmtTextViewShadow;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -129,7 +131,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
             shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, switchTokenShadow,
-            switchTokenBack, estGstGmtIcon;
+            switchTokenBack, estGstGmtIcon, totalGmtIcon;
 
     LinearLayout shoeTypeLayout, shoeTypeLayoutShadow;
 
@@ -217,7 +219,7 @@ public class OptimizerFrag extends Fragment {
 
         shoeRarityButton = view.findViewById(R.id.shoeRarityButton);
         shoeTypeButton = view.findViewById(R.id.shoeTypeButton);
-        optimizeGstButton = view.findViewById(R.id.optimizeGstButton);
+        optimizeGstGmtButton = view.findViewById(R.id.optimizeGmtButton);
         optimizeLuckButton = view.findViewById(R.id.optimizeLuckButton);
         leftButton = view.findViewById(R.id.leftArrowButton);
         rightButton = view.findViewById(R.id.rightArrowButton);
@@ -255,6 +257,10 @@ public class OptimizerFrag extends Fragment {
         estGstGmtLabelTv = view.findViewById(R.id.estGstGmtLabelTextView);
         gstLimitPerDaySlashTextView = view.findViewById(R.id.gstLimitPerDaySlashTextView);
         estGstGmtIcon = view.findViewById(R.id.gstGmtIconLimit);
+        gmtTotalMinusTv = view.findViewById(R.id.gmtTotalMinusTextView);
+        gmtTotalTv = view.findViewById(R.id.gmtIncomeTextView);
+        totalGmtIcon = view.findViewById(R.id.gmtIconTotal);
+        gmtDisabledButton = view.findViewById(R.id.gmtDisabledButton);
 
         backgroundButton = view.findViewById(R.id.backgroundThingButton);
         levelSeekbar = view.findViewById(R.id.levelSeekBar);
@@ -285,7 +291,8 @@ public class OptimizerFrag extends Fragment {
         durabilityLossTextView = view.findViewById(R.id.durabilityLossTextView);
         repairCostDurTextView = view.findViewById(R.id.repairCostDurTextView);
         totalIncomeTextView = view.findViewById(R.id.gstIncomeTextView);
-        optimizeGstTextView = view.findViewById(R.id.optimizeGstTextView);
+        optimizeGstGmtTextView = view.findViewById(R.id.optimizeGstGmtTextView);
+        optimizeGstGmtTextViewShadow = view.findViewById(R.id.optimizeGstGmtTextViewShadow);
         optimizeLuckTextView = view.findViewById(R.id.optimizeLuckTextView);
         lvl10Shrug = view.findViewById(R.id.lvl10shrug);
         hpLossTextView = view.findViewById(R.id.hpLossTextView);
@@ -635,6 +642,15 @@ public class OptimizerFrag extends Fragment {
                     minLevelImageView.setVisibility(View.INVISIBLE);
                 }
                 shoeLevel = i + 1;
+                if (shoeLevel == 30) {
+                    gmtDisabledButton.setVisibility(View.GONE);
+                    switchTokenSwitch.setEnabled(true);
+                } else {
+                    gmtDisabledButton.setVisibility(View.VISIBLE);
+                    gmtEarningOn = false;
+                    switchTokenSwitch.setEnabled(false);
+                    updateGmtSwitch();
+                }
             }
 
             @Override
@@ -645,7 +661,6 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 updateLevel();
-                calcTotals();
             }
         });
 
@@ -989,15 +1004,23 @@ public class OptimizerFrag extends Fragment {
                 if (switchTouch) {
                     gmtEarningOn = !gmtEarningOn;
                     updateGmtSwitch();
+                    switchTouch = false;
                 }
             }
         });
 
-        optimizeGstButton.setOnClickListener(new View.OnClickListener() {
+        gmtDisabledButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "GMT earning unlocked at level 30", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        optimizeGstGmtButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (energy > 0) {
-                    optimizeForGst();
+                    optimizeForGstGmt();
                 } else if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
                     Toast.makeText(getContext(), "Base values must be greater than 0", Toast.LENGTH_SHORT).show();
                 } else {
@@ -1007,19 +1030,19 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        optimizeGstButton.setOnTouchListener(new View.OnTouchListener() {
+        optimizeGstGmtButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        optimizeGstButton.setVisibility(View.INVISIBLE);
-                        optimizeGstTextView.setVisibility(View.INVISIBLE);
+                        optimizeGstGmtButton.setVisibility(View.INVISIBLE);
+                        optimizeGstGmtTextView.setVisibility(View.INVISIBLE);
                         optimizeGstButtonShadow.setImageResource(R.drawable.start_button);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
-                        optimizeGstButton.setVisibility(View.VISIBLE);
-                        optimizeGstTextView.setVisibility(View.VISIBLE);
+                        optimizeGstGmtButton.setVisibility(View.VISIBLE);
+                        optimizeGstGmtTextView.setVisibility(View.VISIBLE);
                         optimizeGstButtonShadow.setImageResource(R.drawable.start_button_shadow);
                         break;
                 }
@@ -1031,7 +1054,11 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 if (energy > 0) {
-                    optimizeForLuck();
+                    if (gmtEarningOn) {
+                        Toast.makeText(getContext(), "Mystery box earning is disabled while earning GMT", Toast.LENGTH_SHORT).show();
+                    } else {
+                        optimizeForLuck();
+                    }
                 } else if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
                     Toast.makeText(getContext(), "Base values must be greater than 0", Toast.LENGTH_SHORT).show();
                 } else {
@@ -2157,33 +2184,56 @@ public class OptimizerFrag extends Fragment {
             hpLossTextView.setText("0");
             repairCostHpTextView.setText("0");
             gemMultipleTextView.setText("0");
-            gemMultipleTotalTextView.setText("-  0");
+            gemMultipleTotalTextView.setText("- 0");
             totalIncomeTextView.setText("0");
+            gmtTotalTv.setText("0");
             return;
         }
 
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
         int durabilityLost;
-        float repairCostDurability, gstTotal;
+        float repairCostDurability, gstGmtTotal;
         double hpRatio, repairCostHp;
+        float gmtLowRange = 0;
+        float gmtHighRange = 0;
 
         float totalEff = Float.parseFloat(effTotalTextView.getText().toString());
         float totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
         float totalRes = Float.parseFloat(resTotalTextView.getText().toString());
 
-        switch (shoeType) {
-            case JOGGER:
-                gstTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.48) * 10) / 10);
-                break;
-            case RUNNER:
-                gstTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.49) * 10) / 10);
-                break;
-            case TRAINER:
-                gstTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.492) * 10) / 10);
-                break;
-            default:
-                gstTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.47) * 10) / 10);
+        if (gmtEarningOn) {
+            double energyCo = 0;
+            switch (shoeType) {
+                case JOGGER:
+                    energyCo = 0.475;
+                    break;
+                case RUNNER:
+                    energyCo = 0.48;
+                    break;
+                case TRAINER:
+                    energyCo = 0.482;
+                    break;
+                default:
+                    energyCo = 0.47;
+            }
+            gmtLowRange = (float) (Math.floor((localEnergy * 5 * (0.03 * Math.pow(totalComf + 10, energyCo) - 0.1)) * 10) / 10);
+            gmtHighRange = (float) (Math.floor((localEnergy * 5 * (0.03 * Math.pow(totalComf + 10, energyCo) + 0.23)) * 10) / 10);
+            gstGmtTotal = (float) (Math.round((gmtLowRange + gmtHighRange) / 2 * 10) /10);
+        } else {
+            switch (shoeType) {
+                case JOGGER:
+                    gstGmtTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.48) * 10) / 10);
+                    break;
+                case RUNNER:
+                    gstGmtTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.49) * 10) / 10);
+                    break;
+                case TRAINER:
+                    gstGmtTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.492) * 10) / 10);
+                    break;
+                default:
+                    gstGmtTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.47) * 10) / 10);
+            }
         }
 
         durabilityLost = (int) Math.round(localEnergy * ((2.944 * Math.exp(-totalRes / 6.763)) + (2.119 * Math.exp(-totalRes / 36.817)) + 0.294));
@@ -2200,7 +2250,7 @@ public class OptimizerFrag extends Fragment {
         hpLoss = Math.round(hpLoss * 100.0) / 100.0;
         repairCostHp = Math.round(gstCostBasedOnGem * hpRatio * 10.0) / 10.0;
         repairCostDurability = (float) (Math.round(repairCostDurability * 10.0) / 10.0);
-        gstProfitBeforeGem = (float) (Math.round((gstTotal - repairCostDurability - repairCostHp) * 10.0) / 10.0);
+        gstProfitBeforeGem = (float) (Math.round((gstGmtTotal - repairCostDurability - repairCostHp) * 10.0) / 10.0);
 
         calcMbChances();
 
@@ -2208,22 +2258,29 @@ public class OptimizerFrag extends Fragment {
             hpLossTextView.setText("UNK");
             repairCostHpTextView.setText("UNK");
             gemMultipleTextView.setText("0");
-            gemMultipleTotalTextView.setText("-  0");
+            gemMultipleTotalTextView.setText("- 0");
         } else {
             comfGemMultiplier = (float) (Math.round(hpRatio * 100.0) / 100.0);
             hpLossTextView.setText(String.valueOf(hpLoss));
             repairCostHpTextView.setText(String.valueOf(repairCostHp));
             gemMultipleTextView.setText(String.valueOf(comfGemMultiplier));
-            String multiplier = "-  " + comfGemMultiplier;
+            String multiplier = "- " + comfGemMultiplier;
             gemMultipleTotalTextView.setText(multiplier);
         }
 
-        estGstGmtTextView.setText(String.valueOf(gstTotal));
         durabilityLossTextView.setText(String.valueOf(durabilityLost));
         repairCostDurTextView.setText(String.valueOf(repairCostDurability));
-        totalIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
+        if (gmtEarningOn) {
+            String gmtRange = gmtLowRange + " - " + gmtHighRange;
+            estGstGmtTextView.setText(gmtRange);
+            totalIncomeTextView.setText(String.valueOf(Math.round((repairCostDurability + repairCostHp) * 10.0) / 10.0));
+            gmtTotalTv.setText(String.valueOf(gstGmtTotal));
+        } else {
+            estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
+            totalIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
+        }
 
-        if (gstTotal > gstLimit) {
+        if (gstGmtTotal > gstLimit) {
             estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
         } else {
             estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
@@ -2231,7 +2288,7 @@ public class OptimizerFrag extends Fragment {
     }
 
     // finds the point allocation that is most profitable
-    private void optimizeForGst() {
+    private void optimizeForGstGmt() {
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
         double gstProfit, energyCo;
@@ -3256,12 +3313,20 @@ public class OptimizerFrag extends Fragment {
         switchTokenShadow.setColorFilter(ContextCompat.getColor(requireContext(),
                 gmtEarningOn ? R.color.switch_shadow_gmt : R.color.switch_shadow_gst));
 
-        estGstGmtLabelTv.setText(gmtEarningOn ? "Est. GMT" : getString(R.string.est_gst_daily_limit));
+        estGstGmtLabelTv.setText(gmtEarningOn ? getString(R.string.est_gmt_range) : getString(R.string.est_gst_daily_limit));
         gstLimitPerDaySlashTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
         gstLimitTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
         estGstGmtIcon.setImageResource(gmtEarningOn ? R.drawable.logo_gmt : R.drawable.logo_gst);
 
-        calcMbChances();
+        totalGmtIcon.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
+        gmtTotalMinusTv.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
+        gmtTotalTv.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
+
+        optimizeGstGmtTextView.setText(gmtEarningOn ? getString(R.string.optimize_gmt) : getString(R.string.optimize_gst));
+        optimizeGstGmtTextViewShadow.setText(gmtEarningOn ? getString(R.string.optimize_gmt) : getString(R.string.optimize_gst));
+
+        gmtDisabledButton.setVisibility(shoeLevel == 30 ? View.GONE : View.VISIBLE);
+        calcTotals();
     }
 
     // clears focus from the input boxes by focusing on another hidden edittext
@@ -3585,7 +3650,7 @@ public class OptimizerFrag extends Fragment {
         hpLossTextView.setText("0");
         repairCostHpTextView.setText("0");
         gemMultipleTextView.setText("0");
-        gemMultipleTotalTextView.setText("-  0");
+        gemMultipleTotalTextView.setText("- 0");
         estGstGmtTextView.setText("0");
         durabilityLossTextView.setText("0");
         repairCostDurTextView.setText("0");

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/switch_shadow_gst" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/logo_gst"
+        android:top="1.5dp"
+        android:bottom="1.5dp"
+        android:left="1.5dp"
+        android:right="1.5dp" />
+</layer-list>

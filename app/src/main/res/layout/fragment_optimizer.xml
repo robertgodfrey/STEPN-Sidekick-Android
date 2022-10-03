@@ -1287,7 +1287,7 @@
         android:layout_marginEnd="24dp"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
-        app:layout_constraintStart_toEndOf="@+id/optimizeGstButton"
+        app:layout_constraintStart_toEndOf="@+id/optimizeGmtButton"
         app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
         app:srcCompat="@drawable/start_button" />
 
@@ -1312,13 +1312,13 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="-2dp"
-        app:layout_constraintEnd_toEndOf="@+id/optimizeGstButton"
-        app:layout_constraintStart_toStartOf="@+id/optimizeGstButton"
-        app:layout_constraintTop_toTopOf="@+id/optimizeGstButton"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeGmtButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeGmtButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeGmtButton"
         app:srcCompat="@drawable/start_button_shadow" />
 
     <TextView
-        android:id="@+id/optimizeGstTextViewShadow"
+        android:id="@+id/optimizeGstGmtTextViewShadow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/BoldItalicSubtitles"
@@ -1331,7 +1331,7 @@
         app:layout_constraintTop_toTopOf="@+id/optimizeGstButtonShadow" />
 
     <ImageButton
-        android:id="@+id/optimizeGstButton"
+        android:id="@+id/optimizeGmtButton"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -1344,17 +1344,17 @@
         app:srcCompat="@drawable/start_button" />
 
     <TextView
-        android:id="@+id/optimizeGstTextView"
+        android:id="@+id/optimizeGstGmtTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/BoldItalicSubtitles"
         android:text="@string/optimize_gst"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/optimizeGstButton"
-        app:layout_constraintEnd_toEndOf="@+id/optimizeGstButton"
-        app:layout_constraintStart_toStartOf="@+id/optimizeGstButton"
-        app:layout_constraintTop_toTopOf="@+id/optimizeGstButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/optimizeGmtButton"
+        app:layout_constraintEnd_toEndOf="@+id/optimizeGmtButton"
+        app:layout_constraintStart_toStartOf="@+id/optimizeGmtButton"
+        app:layout_constraintTop_toTopOf="@+id/optimizeGmtButton" />
 
     <TextView
         android:id="@+id/estGstGmtLabelTextView"
@@ -1367,7 +1367,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/optimizeGstButton" />
+        app:layout_constraintTop_toBottomOf="@+id/optimizeGmtButton" />
 
     <ImageView
         android:id="@+id/gstGmtIconLimit"
@@ -1606,11 +1606,48 @@
         app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
 
     <ImageView
+        android:id="@+id/gmtIconTotal"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
+        app:layout_constraintEnd_toStartOf="@+id/gmtTotalMinusTextView"
+        app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
+        app:srcCompat="@drawable/logo_gmt" />
+
+    <TextView
+        android:id="@+id/gmtIncomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalIncomeLabelTextView"
+        app:layout_constraintEnd_toStartOf="@+id/gmtIconTotal"
+        app:layout_constraintTop_toTopOf="@+id/totalIncomeLabelTextView" />
+
+    <TextView
+        android:id="@+id/gmtTotalMinusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="-"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gstIncomeTextView"
+        app:layout_constraintEnd_toStartOf="@+id/gstIncomeTextView"
+        app:layout_constraintTop_toTopOf="@+id/gstIncomeTextView" />
+
+    <ImageView
         android:id="@+id/gstIconTotal"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
         app:layout_constraintEnd_toStartOf="@+id/gemMultipleTotalTextView"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
@@ -1621,7 +1658,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="3dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
@@ -1636,7 +1672,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
         android:fontFamily="@font/roboto_condensed_bold_italic"
-        android:text="-  0.0"
+        android:text="- 0.0"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/gstIncomeTextView"
@@ -1742,6 +1778,19 @@
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/moreTextView"
         app:track="@drawable/token_switch_track" />
+
+    <ImageButton
+        android:id="@+id/gmtDisabledButton"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        android:src="@drawable/start_button"
+        app:tint="#50FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/switchToken"
+        app:layout_constraintEnd_toEndOf="@+id/switchToken"
+        app:layout_constraintStart_toStartOf="@+id/switchToken"
+        app:layout_constraintTop_toTopOf="@+id/switchToken" />
 
     <TextView
         android:id="@+id/mysteryBoxChanceTextView"

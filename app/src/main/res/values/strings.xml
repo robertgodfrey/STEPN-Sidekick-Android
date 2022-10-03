@@ -129,4 +129,6 @@
     <string name="vibration">VIBRATION</string>
     <string name="speed_alerts">Speed Alerts</string>
     <string name="both">BOTH</string>
+    <string name="optimize_gmt">OPTIMIZE GMT</string>
+    <string name="est_gmt_range">Est. GMT Range</string>
 </resources>
