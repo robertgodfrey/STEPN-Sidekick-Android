@@ -2337,7 +2337,7 @@ public class OptimizerFrag extends Fragment {
                 hpLoss = Math.round(hpLoss * 100.0) / 100.0;
 
                 gstProfit = (Math.floor(localEnergy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
-                        (getRepairCost() * (int) Math.round(localEnergy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
+                        (getRepairCost() * (int) Math.round(localEnergy * ((2.944 * Math.exp(-(localAddedRes + localRes) / 6.763)) + (2.119 * Math.exp(-(localAddedRes + localRes) / 36.817)) + 0.294))) -
                         (Math.round(gstCostBasedOnGem * (hpLoss / hpPercentRestored) * 10.0) / 10.0);
 
                 if (gstProfit > maxProfit) {
