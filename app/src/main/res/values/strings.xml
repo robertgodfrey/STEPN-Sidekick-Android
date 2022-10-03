@@ -71,10 +71,9 @@
     <string name="pause">PAUSE</string>
     <string name="stop">STOP</string>
     <string name="update">UPDATE</string>
-    <string name="update_details_one">There is now an option for vibrating speed alerts</string>
-    <string name="update_details_two">If enabled, your device will vibrate if you fall outside of your speed range</string>
-    <string name="update_details_three">You can choose between audible alerts, vibrating alerts, both, or neither</string>
-    <string name="update_details_four">Vibrations will also occur at one minute and thirty seconds, if these alerts are enabled</string>
+    <string name="update_details_one">You can now switch between calculating GST and GMT.</string>
+    <string name="update_details_two">Because GMT earnings vary so widely, estimated GMT earnings are displayed as a range. The number at the bottom is the median of the range.</string>
+    <string name="update_details_three">Optimizing GMT will come in a later update, along with other GMT-related features.</string>
     <string name="review_plz">If you have been enjoying the app, please consider leaving a review on the Play Store!</string>
     <string name="five_min_average">5-Min Average:</string>
     <string name="current">CURRENT</string>

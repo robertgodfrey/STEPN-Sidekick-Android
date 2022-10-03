@@ -26,7 +26,7 @@ import android.widget.Toast;
  * Information about the app, 'remove ads' button, option to donate.
  *
  * @author Rob Godfrey
- * @version 1.4.1 Added @otik_x to thanks section
+ * @version 1.5.0 - GMT calcs
  *
  */
 

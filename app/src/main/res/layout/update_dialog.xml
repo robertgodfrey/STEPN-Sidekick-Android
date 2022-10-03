@@ -126,37 +126,6 @@
         app:layout_constraintTop_toBottomOf="@+id/updateList2TextView" />
 
     <TextView
-        android:id="@+id/bullets4TextView"
-        style="@style/RegText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:includeFontPadding="false"
-        android:text="•"
-        android:textColor="@color/almost_black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/updateList3TextView" />
-
-
-    <TextView
-        android:id="@+id/updateList4TextView"
-        style="@style/RegText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:includeFontPadding="false"
-        android:text="@string/update_details_four"
-        android:textColor="@color/almost_black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintStart_toEndOf="@+id/bulletsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/updateList3TextView" />
-
-    <TextView
         android:id="@+id/reviewPlz"
         style="@style/RegText"
         android:layout_width="0dp"
@@ -170,7 +139,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/updateList4TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/updateList3TextView" />
 
     <ImageView
         android:id="@+id/nextButtonShadow"

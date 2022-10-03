@@ -44,7 +44,6 @@
     <string name="note_details4">HP는 여전히 새롭습니다! 커뮤니티에서 더 많은 데이터를 얻을수록 견적은 개선될 것입니다.</string>
     <string name="contact">에러를 발견하시거나, 개선에 대한 제안이 있다면 개발자에게 컨택해주십시오.</string>
     <string name="support_project">이 앱이 유용하다고 생각하신다면, \n서포트 부탁드립니다.</string>
-    <string name="click_a_logo_to_copy_address">로고를 클릭하면 주소가 복사됩니다</string>
     <string name="sol_address_copied">SOL 주소가 클립보드에 복사되었습니다</string>
     <string name="bnb_address_copied">BNB 주소가 클립보드에 복사되었습니다</string>
     <string name="eth_address_copied">ETH 주소가 클립보드에 복사되었습니다</string>
@@ -113,12 +112,13 @@
     <string name="are_you_sure_you_want_to_reset_all_values">정말 초기화 하시겠습니까?</string>
     <string name="instructions_5">음성안내기능 사용여부를 선택해주십시오. \"속도\"와 \"시간\"알람은 5분마다 당신의 속도와 남은시간을 알려줄 것입니다. \"1분 / 30초\" 알람은 남은시간이 1분, 그리고 30초인 시점을 음성안내 할 것입니다. 현재 음성안내는 영어로만 제공됩니다.</string>
     <string name="instructions_4">"속도알림 타입을 선택하세요: 음성안내, 진동, 모두켜기, 혹은 모두끄기. 진동은 당신의 속도가 지정 속도범위에서 벗어날 경우 작동합니다. 또한 마지막 1분 지점, 30분 지점에 진동으로 알림합니다. "</string>
-    <string name="update_details_four">마지막 1분 지점, 30분 지점에 진동으로 알림합니다</string>
     <string name="audible">음성안내</string>
     <string name="vibration">진동</string>
     <string name="speed_alerts">속도알림</string>
     <string name="both">모두켜기</string>
-    <string name="update_details_one">진동 속도알람 기능이 추가되었습니다</string>
-    <string name="update_details_two">진동은 당신의 속도가 지정 속도범위에서 벗어날 경우 작동합니다</string>
-    <string name="update_details_three">음성안내, 진동, 모두켜기, 혹은 모두끄기 중 선택할 수 있습니다</string>
+    <string name="optimize_gmt">GST 최적화</string>
+    <string name="update_details_one">이제 GST뿐만 아니라, GMT를 기반으로 예상 소득을 계산할 수 있습니다.</string>
+    <string name="update_details_two">GMT 소득은 오차가 크기 때문에, 예상 GMT 소득은 범위로 표시됩니다. 하단의 숫자는 범위의 중간값을 나타냅니다.</string>
+    <string name="update_details_three">GMT 최적화는 다른 GMT관련 기능과 더불어 다음 업데이트에 추가될 예정입니다.</string>
+    <string name="est_gmt_range">예상 GMT 소득 범"</string>
 </resources>

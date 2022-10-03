@@ -54,7 +54,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.3.16 Updated layout to fix lag
+ * @version 1.5.0 - Added GMT calcs
  *
  */
 
@@ -127,7 +127,7 @@ public class OptimizerFrag extends Fragment {
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
             gemSocketThreeLockPlus, gemSocketFour, gemSocketFourShadow, gemSocketFourLockPlus,
             shoeTypeImageView, shoeCircles, shoeRarityButtonShadow, shoeTypeButtonShadow, minLevelImageView,
-            optimizeGstButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
+            optimizeGstGmtButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
             shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, switchTokenShadow,
@@ -327,7 +327,7 @@ public class OptimizerFrag extends Fragment {
         shoeTypeButtonShadow = view.findViewById(R.id.shoeTypeBoxShadow);
         energyBox = view.findViewById(R.id.energyBoxOptimizer);
         minLevelImageView = view.findViewById(R.id.seekbarMinLevel);
-        optimizeGstButtonShadow = view.findViewById(R.id.optimizeGstButtonShadow);
+        optimizeGstGmtButtonShadow = view.findViewById(R.id.optimizeGstButtonShadow);
         optimizeLuckButtonShadow = view.findViewById(R.id.optimizeLuckButtonShadow);
 
         mysteryBox1 = view.findViewById(R.id.mysteryBoxLvl1);
@@ -1020,7 +1020,11 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 if (energy > 0) {
-                    optimizeForGstGmt();
+                    if (gmtEarningOn) {
+                        optimizeForGmt();
+                    } else {
+                        optimizeForGst();
+                    }
                 } else if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
                     Toast.makeText(getContext(), "Base values must be greater than 0", Toast.LENGTH_SHORT).show();
                 } else {
@@ -1037,13 +1041,13 @@ public class OptimizerFrag extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         optimizeGstGmtButton.setVisibility(View.INVISIBLE);
                         optimizeGstGmtTextView.setVisibility(View.INVISIBLE);
-                        optimizeGstButtonShadow.setImageResource(R.drawable.start_button);
+                        optimizeGstGmtButtonShadow.setImageResource(R.drawable.start_button);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         optimizeGstGmtButton.setVisibility(View.VISIBLE);
                         optimizeGstGmtTextView.setVisibility(View.VISIBLE);
-                        optimizeGstButtonShadow.setImageResource(R.drawable.start_button_shadow);
+                        optimizeGstGmtButtonShadow.setImageResource(R.drawable.start_button_shadow);
                         break;
                 }
                 return false;
@@ -1105,7 +1109,11 @@ public class OptimizerFrag extends Fragment {
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                incomeMoreDetails();
+                if (gmtEarningOn) {
+                    Toast.makeText(getContext(), "Coming soon for GMT", Toast.LENGTH_SHORT).show();
+                } else {
+                    incomeMoreDetails();
+                }
             }
         });
 
@@ -2217,8 +2225,8 @@ public class OptimizerFrag extends Fragment {
                 default:
                     energyCo = 0.47;
             }
-            gmtLowRange = (float) (Math.floor((localEnergy * 5 * (0.03 * Math.pow(totalComf + 10, energyCo) - 0.1)) * 10) / 10);
-            gmtHighRange = (float) (Math.floor((localEnergy * 5 * (0.03 * Math.pow(totalComf + 10, energyCo) + 0.23)) * 10) / 10);
+            gmtLowRange = (float) (Math.floor((localEnergy * 5 * (0.03 * Math.pow(totalComf + 10, energyCo) - 0.04)) * 10) / 10);
+            gmtHighRange = (float) (Math.floor((localEnergy * 5 * (0.03 * Math.pow(totalComf + 10, energyCo) + 0.25)) * 10) / 10);
             gstGmtTotal = (float) (Math.round((gmtLowRange + gmtHighRange) / 2 * 10) /10);
         } else {
             switch (shoeType) {
@@ -2287,8 +2295,8 @@ public class OptimizerFrag extends Fragment {
         }
     }
 
-    // finds the point allocation that is most profitable
-    private void optimizeForGstGmt() {
+    // finds the point allocation that is most profitable for GST
+    private void optimizeForGst() {
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
         double gstProfit, energyCo;
@@ -2350,6 +2358,57 @@ public class OptimizerFrag extends Fragment {
         addedLuck = 0;
         addedComf = optimalAddedComf;
         updatePoints();
+    }
+
+    // finds the point allocation that is most profitable for GMT
+    private void optimizeForGmt() {
+        Toast.makeText(requireActivity(), "Coming soon", Toast.LENGTH_SHORT).show();
+
+        /* TODO finish this... calling it for today
+            need to do an api call to compare prices... going to take a while to finish
+        float gmtProfit, energyCo;
+        int optimalAddedComf = 0;
+        int optimalAddedRes = 0;
+
+        float maxProfit = 0;
+
+        float localTotalComf = baseComf + gemComf + (shoeLevel * 2 * shoeRarity);
+        float localTotalRes = baseRes + gemRes;
+
+        switch (shoeType) {
+            case JOGGER:
+                energyCo = 0.475f;
+                break;
+            case RUNNER:
+                energyCo = 0.48f;
+                break;
+            case TRAINER:
+                energyCo = 0.482f;
+                break;
+            default:
+                energyCo = 0.47f;
+        }
+
+        while (localTotalComf > baseComf + gemComf) {
+            gmtProfit = ((float) (Math.floor(energy * Math.pow(localTotalEff, energyCo) * 10) / 10)) -
+                    (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-localTotalRes / 30.9)) + (2.8 * Math.exp(-localTotalRes / 6.2)) + 0.4)));
+
+            if (gmtProfit > maxProfit) {
+                optimalAddedEff = (int) Math.round(localTotalEff - baseEff - gemEff);
+                optimalAddedRes = (int) Math.round(localTotalRes - baseRes - gemRes);
+                maxProfit = gstProfit;
+            }
+
+            localTotalEff--;
+            localTotalRes++;
+        }
+
+        addedEff = optimalAddedEff;
+        addedRes = optimalAddedRes;
+        addedLuck = 0;
+        addedComf = 0;
+        updatePoints();
+        */
     }
 
     // optimizes for most luck with no GST loss
