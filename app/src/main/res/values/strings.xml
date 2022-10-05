@@ -130,4 +130,5 @@
     <string name="both">BOTH</string>
     <string name="optimize_gmt">OPTIMIZE GMT</string>
     <string name="est_gmt_range">Est. GMT Range</string>
+    <string name="notes_details4">GMT earnings are still new. The estimate will improve as more data is gathered.</string>
 </resources>

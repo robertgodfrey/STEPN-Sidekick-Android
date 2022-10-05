@@ -1058,11 +1058,7 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 if (energy > 0) {
-                    if (gmtEarningOn) {
-                        Toast.makeText(getContext(), "Mystery box earning is disabled while earning GMT", Toast.LENGTH_SHORT).show();
-                    } else {
-                        optimizeForLuck();
-                    }
+                    optimizeForLuck();
                 } else if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
                     Toast.makeText(getContext(), "Base values must be greater than 0", Toast.LENGTH_SHORT).show();
                 } else {
@@ -2884,11 +2880,6 @@ public class OptimizerFrag extends Fragment {
         final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
-        if (gmtEarningOn) {
-            clearMbs();
-            return;
-        }
-
         if (localEnergy <= -0.04 * totalLuck + 6 && localEnergy >= -0.05263 * totalLuck + 2 && localEnergy >= 1 && totalLuck > 1) {
             // lvl 1 high chance range
             mysteryBox1.clearColorFilter();
@@ -3038,6 +3029,8 @@ public class OptimizerFrag extends Fragment {
         }
     }
 
+    // i guess i'll keep this for the rainbow shoes
+    /*
     private void clearMbs() {
         mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
         mysteryBox1.setAlpha(0.5f);
@@ -3059,6 +3052,7 @@ public class OptimizerFrag extends Fragment {
         mysteryBox9.setAlpha(0.5f);
         lvl10Shrug.setVisibility(View.INVISIBLE);
     }
+     */
 
     private void updatePoints() {
         pointsAvailable = (shoeLevel * 2 * shoeRarity) - addedEff - addedLuck - addedComf - addedRes;

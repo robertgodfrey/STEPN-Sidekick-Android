@@ -180,6 +180,38 @@
         app:layout_constraintTop_toTopOf="@+id/notesThreeLabel" />
 
     <TextView
+        android:id="@+id/notesFourLabel"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="4."
+        android:textAlignment="viewStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
+
+    <TextView
+        android:id="@+id/notesDeets4TextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:text="@string/notes_details4"
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
+        app:layout_constraintTop_toTopOf="@+id/notesFourLabel" />
+
+    <TextView
         android:id="@+id/thanksTextView"
         style="@style/RegItalic"
         android:layout_width="0dp"
@@ -194,7 +226,7 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
-        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets4TextView" />
 
     <TextView
         android:id="@+id/kritThanksTextView"
@@ -490,7 +522,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="100dp"
         android:includeFontPadding="false"
-        android:text="v 1.5.0"
+        android:text="v 1.5.1"
         android:textColor="@color/gandalf"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
