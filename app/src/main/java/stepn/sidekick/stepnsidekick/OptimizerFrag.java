@@ -55,7 +55,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.5.0 - Added GMT calcs
+ * @version 1.5.2 - Added GMT calcs
  *
  */
 
@@ -2208,10 +2208,10 @@ public class OptimizerFrag extends Fragment {
         double totalRes = Float.parseFloat(resTotalTextView.getText().toString());
 
         if (gmtEarningOn) {
-            if (totalComf < 70) {
-                gstGmtTotal = -0.00000164 * Math.pow(totalComf, 2) + 0.0047 * totalComf + 0.37;
+            if (totalComf < 118) {
+                gstGmtTotal = -0.00001 * Math.pow(totalComf - 350, 2) + 1.67;
             } else {
-                gstGmtTotal = -10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.5;
+                gstGmtTotal = -10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.75;
             }
 
             Log.d("testes", "calcTotals: gstGmtTotal: " + gstGmtTotal);
@@ -2229,13 +2229,12 @@ public class OptimizerFrag extends Fragment {
                     gstGmtTotal *= 0.98;
             }
 
-            gmtLowRange = Math.round((gstGmtTotal - 0.8f) * localEnergy * 10) / 10.0;
-            gmtHighRange = Math.round((gstGmtTotal + 0.8f) * localEnergy * 10) / 10.0;
+            gmtLowRange = Math.round((gstGmtTotal - 0.6f) * localEnergy * 10) / 10.0;
+            gmtHighRange = Math.round((gstGmtTotal + 0.6f) * localEnergy * 10) / 10.0;
             gstGmtTotal = Math.round(gstGmtTotal * localEnergy * 10) / 10.0;
 
-            if (gmtHighRange - gmtLowRange > gstGmtTotal) {
-                gmtLowRange = Math.round(gstGmtTotal * 6f) / 10.0;
-                gmtHighRange = Math.round(gstGmtTotal * 14f) /10.0;
+            if (gmtLowRange < 0) {
+                gmtLowRange = 0;
             }
 
         } else {
