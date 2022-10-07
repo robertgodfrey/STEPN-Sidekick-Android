@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -2197,46 +2198,59 @@ public class OptimizerFrag extends Fragment {
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
         int durabilityLost;
-        float repairCostDurability, gstGmtTotal;
+        double repairCostDurability, gstGmtTotal;
         double hpRatio, repairCostHp;
-        float gmtLowRange = 0;
-        float gmtHighRange = 0;
+        double gmtLowRange = 0;
+        double gmtHighRange = 0;
 
-        float totalEff = Float.parseFloat(effTotalTextView.getText().toString());
-        float totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
-        float totalRes = Float.parseFloat(resTotalTextView.getText().toString());
+        double totalEff = Float.parseFloat(effTotalTextView.getText().toString());
+        double totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
+        double totalRes = Float.parseFloat(resTotalTextView.getText().toString());
 
         if (gmtEarningOn) {
-            double energyCo = 0;
+            if (totalComf < 70) {
+                gstGmtTotal = -0.00000164 * Math.pow(totalComf, 2) + 0.0047 * totalComf + 0.37;
+            } else {
+                gstGmtTotal = -10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.5;
+            }
+
+            Log.d("testes", "calcTotals: gstGmtTotal: " + gstGmtTotal);
+
             switch (shoeType) {
                 case JOGGER:
-                    energyCo = 0.475;
                     break;
                 case RUNNER:
-                    energyCo = 0.48;
+                    gstGmtTotal *= 1.02;
                     break;
                 case TRAINER:
-                    energyCo = 0.482;
+                    gstGmtTotal *= 1.025;
                     break;
                 default:
-                    energyCo = 0.47;
+                    gstGmtTotal *= 0.98;
             }
-            gmtLowRange = (float) (Math.floor((localEnergy * 5 * (0.03 * Math.pow(totalComf + 10, energyCo) - 0.04)) * 10) / 10);
-            gmtHighRange = (float) (Math.floor((localEnergy * 5 * (0.03 * Math.pow(totalComf + 10, energyCo) + 0.25)) * 10) / 10);
-            gstGmtTotal = (float) (Math.round((gmtLowRange + gmtHighRange) / 2 * 10) /10);
+
+            gmtLowRange = Math.round((gstGmtTotal - 0.8f) * localEnergy * 10) / 10.0;
+            gmtHighRange = Math.round((gstGmtTotal + 0.8f) * localEnergy * 10) / 10.0;
+            gstGmtTotal = Math.round(gstGmtTotal * localEnergy * 10) / 10.0;
+
+            if (gmtHighRange - gmtLowRange > gstGmtTotal) {
+                gmtLowRange = Math.round(gstGmtTotal * 6f) / 10.0;
+                gmtHighRange = Math.round(gstGmtTotal * 14f) /10.0;
+            }
+
         } else {
             switch (shoeType) {
                 case JOGGER:
-                    gstGmtTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.48) * 10) / 10);
+                    gstGmtTotal = Math.floor(localEnergy * Math.pow(totalEff, 0.48) * 10) / 10;
                     break;
                 case RUNNER:
-                    gstGmtTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.49) * 10) / 10);
+                    gstGmtTotal = Math.floor(localEnergy * Math.pow(totalEff, 0.49) * 10) / 10;
                     break;
                 case TRAINER:
-                    gstGmtTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.492) * 10) / 10);
+                    gstGmtTotal = Math.floor(localEnergy * Math.pow(totalEff, 0.492) * 10) / 10;
                     break;
                 default:
-                    gstGmtTotal = (float) (Math.floor(localEnergy * Math.pow(totalEff, 0.47) * 10) / 10);
+                    gstGmtTotal = Math.floor(localEnergy * Math.pow(totalEff, 0.47) * 10) / 10;
             }
         }
 
@@ -2248,13 +2262,13 @@ public class OptimizerFrag extends Fragment {
 
         repairCostDurability = getRepairCost() * durabilityLost;
 
-        hpCalcs(totalComf);
+        hpCalcs((float) totalComf);
 
         hpRatio = hpLoss / hpPercentRestored;
         hpLoss = Math.round(hpLoss * 100.0) / 100.0;
         repairCostHp = Math.round(gstCostBasedOnGem * hpRatio * 10.0) / 10.0;
-        repairCostDurability = (float) (Math.round(repairCostDurability * 10.0) / 10.0);
-        gstProfitBeforeGem = (float) (Math.round((gstGmtTotal - repairCostDurability - repairCostHp) * 10.0) / 10.0);
+        repairCostDurability = Math.round(repairCostDurability * 10.0) / 10.0;
+        gstProfitBeforeGem = (float) (Math.round((gstGmtTotal - repairCostDurability - repairCostHp) * 10) / 10.0);
 
         calcMbChances();
 
