@@ -1780,7 +1780,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/roboto_condensed_bold_italic"
                     android:text="SOL"
-                    android:textColor="@color/almost_black"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
 
                 <ImageButton
@@ -1843,6 +1843,8 @@
                     android:id="@+id/coinLayoutShadow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="2dp"
                     android:layout_gravity="center"
                     android:orientation="horizontal">
 
@@ -1852,7 +1854,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="6dp"
-                        android:layout_marginEnd="6dp"
+                        android:layout_marginEnd="3dp"
                         android:layout_marginBottom="2dp"
                         android:fontFamily="@font/roboto_condensed_bold_italic"
                         android:text="GST"
@@ -1951,34 +1953,41 @@
                     android:layout_marginBottom="2dp"
                     app:srcCompat="@drawable/box_gem_price_input" />
 
-                <ImageView
-                    android:id="@+id/chainCoinImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="1dp"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:layout_marginStart="24dp"
-                    android:adjustViewBounds="true"
-                    app:srcCompat="@mipmap/logo_solana" />
-
-                <EditText
-                    android:id="@+id/gemPriceEditText"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="1dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="34dp"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="@null"
-                    android:fontFamily="@font/roboto_condensed_bold_italic"
-                    android:hint="0.0"
-                    android:inputType="number|numberDecimal"
-                    android:maxLength="4"
-                    android:paddingVertical="8dp"
-                    android:selectAllOnFocus="true"
-                    android:singleLine="true"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:layout_height="match_parent" >
+
+                    <EditText
+                        android:id="@+id/gemPriceEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
+                        android:background="@null"
+                        android:fontFamily="@font/roboto_condensed_bold_italic"
+                        android:hint="0.0"
+                        android:inputType="number|numberDecimal"
+                        android:maxLength="6"
+                        android:selectAllOnFocus="true"
+                        android:singleLine="true"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/chainCoinImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="4dp"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@mipmap/logo_solana" />
+
+                </LinearLayout>
+
             </FrameLayout>
 
         </LinearLayout>
@@ -2181,7 +2190,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="110dp"
         android:text="@string/disclaimer"
         android:textAlignment="center"
         android:textColor="@color/gandalf"

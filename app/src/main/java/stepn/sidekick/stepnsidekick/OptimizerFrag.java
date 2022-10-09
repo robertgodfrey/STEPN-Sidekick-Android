@@ -697,9 +697,7 @@ public class OptimizerFrag extends Fragment {
                     minLevelImageView.setVisibility(View.INVISIBLE);
                 }
                 shoeLevel = i + 1;
-                if (shoeLevel == 30) {
-                    // turn off gst button
-                } else {
+                if (shoeLevel != 30) {
                     gmtEarningOn = false;
                     updateGmtSwitch();
                 }
@@ -1129,7 +1127,7 @@ public class OptimizerFrag extends Fragment {
                 } else {
                     shoeChain++;
                 }
-                // TODO updateChain() ?
+                updateChain();
                 clearFocus(view);
             }
         });
@@ -1144,15 +1142,12 @@ public class OptimizerFrag extends Fragment {
                         chainSelectShadowTv.setText(chainSelectTv.getText().toString());
                         switch (shoeChain) {
                             case BSC:
-                                comfGemPriceIcon.setImageResource(R.mipmap.logo_bnb);
                                 chainSelectShadow.setImageResource(R.drawable.button_bsc);
                                 break;
-                            case RARE:
-                                comfGemPriceIcon.setImageResource(R.mipmap.logo_eth);
+                            case ETH:
                                 chainSelectShadow.setImageResource(R.drawable.button_eth);
                                 break;
                             default:
-                                comfGemPriceIcon.setImageResource(R.mipmap.logo_solana);
                                 chainSelectShadow.setImageResource(R.drawable.button_sol);
                         }
                         break;
@@ -1164,6 +1159,76 @@ public class OptimizerFrag extends Fragment {
                         break;
                 }
                 return false;
+            }
+        });
+
+        coinSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (shoeLevel != 30) {
+                    Toast.makeText(getContext(), "GMT earning unlocked at level 30", Toast.LENGTH_SHORT).show();
+                } else {
+                    gmtEarningOn = !gmtEarningOn;
+                }
+                updateGmtSwitch();
+                clearFocus(view);
+            }
+        });
+
+        coinSelectButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        coinSelectButton.setVisibility(View.INVISIBLE);
+                        coinSelectTv.setVisibility(View.INVISIBLE);
+                        coinSelectIcon.setVisibility(View.INVISIBLE);
+                        coinShadowSelectTv.setText(coinSelectTv.getText().toString());
+                        coinSelectShadow.setImageResource(gmtEarningOn ? R.drawable.button_gmt : R.drawable.button_gst);
+                        coinSelectIconShadow.setImageResource(gmtEarningOn ? R.drawable.logo_gmt : R.drawable.logo_gst);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        coinSelectButton.setVisibility(View.VISIBLE);
+                        coinSelectTv.setVisibility(View.VISIBLE);
+                        coinSelectIcon.setVisibility(View.VISIBLE);
+                        coinSelectShadow.setImageResource(R.drawable.button_main_shadow);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        comfGemPriceEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    energyBox.setImageResource(R.drawable.box_energy_input_active);
+                    oneTwentyFive = false;
+                    oneTwentyFiveTextView.setText("100%");
+                    energyEditText.setText(String.valueOf(energy));
+                    energyEditText.selectAll();
+                    InputMethodManager imm = (InputMethodManager) view.getContext()
+                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(view, 0);
+                } else {
+                    energyBox.setImageResource(R.drawable.box_energy_input);
+                    if (!energyEditText.getText().toString().isEmpty() && !energyEditText.getText().toString().equals(".")) {
+                        if (Float.parseFloat(energyEditText.getText().toString()) < 0.2) {
+                            energyEditText.setText("0.2");
+                        } else if (Float.parseFloat(energyEditText.getText().toString()) > 25) {
+                            energyEditText.setText("25");
+                        }
+                    } else {
+                        energyEditText.setText("0");
+                    }
+                    energy = Float.parseFloat(energyEditText.getText().toString());
+                    oneTwentyFiveEnergy = (float) (Math.round(energy * 12.5) / 10.0);
+                    if (oneTwentyFiveEnergy * 10 % 2 != 0) {
+                        oneTwentyFiveEnergy += 0.1;
+                    }
+                    calcTotals();
+                }
             }
         });
 
@@ -3420,8 +3485,32 @@ public class OptimizerFrag extends Fragment {
         updateRarity();
     }
 
+    private void updateChain() {
+        switch (shoeChain) {
+            case BSC:
+                chainSelectButton.setImageResource(R.drawable.button_bsc);
+                chainSelectTv.setText("BSC");
+                comfGemPriceIcon.setImageResource(R.mipmap.logo_bnb);
+                break;
+            case ETH:
+                chainSelectButton.setImageResource(R.drawable.button_eth);
+                chainSelectTv.setText("ETH");
+                comfGemPriceIcon.setImageResource(R.mipmap.logo_eth);
+                break;
+            default:
+                chainSelectButton.setImageResource(R.drawable.button_sol);
+                chainSelectTv.setText("SOL");
+                comfGemPriceIcon.setImageResource(R.mipmap.logo_solana);
+                break;
+        }
+    }
+
     // updates GMT switch for new shoe
     private void updateGmtSwitch() {
+        coinSelectButton.setImageResource(gmtEarningOn ? R.drawable.button_gmt : R.drawable.button_gst);
+        coinSelectTv.setText(gmtEarningOn ? "GMT" : "GST");
+        coinSelectIcon.setImageResource(gmtEarningOn ? R.drawable.logo_gmt : R.drawable.logo_gst);
+
         estGstGmtLabelTv.setText(gmtEarningOn ? getString(R.string.est_gmt_range) : getString(R.string.est_gst_daily_limit));
         gstLimitPerDaySlashTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
         gstLimitTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
@@ -3445,6 +3534,7 @@ public class OptimizerFrag extends Fragment {
         luckEditText.clearFocus();
         comfortEditText.clearFocus();
         resEditText.clearFocus();
+        comfGemPriceEditText.clearFocus();
 
         focusThief.requestFocus();
 
