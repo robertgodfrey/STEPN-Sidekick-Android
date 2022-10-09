@@ -53,7 +53,7 @@
         app:tint="@color/almost_black_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/input_box_speeds" />
+        app:srcCompat="@drawable/box_speeds_input" />
 
     <TextView
         android:id="@+id/gpsTextView"
@@ -343,7 +343,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/thumb"
+        android:src="@drawable/seekbar_level_thumb"
         app:layout_constraintBottom_toBottomOf="@+id/pauseImageButton"
         android:visibility="gone"
         android:alpha="0"
@@ -376,7 +376,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/thumb"
+        android:src="@drawable/seekbar_level_thumb"
         android:alpha="0"
         android:visibility="gone"
         app:tint="@color/white"

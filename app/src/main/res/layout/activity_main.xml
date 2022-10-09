@@ -57,7 +57,7 @@
             app:layout_constraintEnd_toEndOf="@+id/runnerIcon"
             app:layout_constraintStart_toStartOf="@+id/runnerIcon"
             app:layout_constraintTop_toTopOf="@+id/navBackground"
-            app:srcCompat="@drawable/start_button_shadow"
+            app:srcCompat="@drawable/button_start_shadow"
             app:tint="@color/button_green" />
 
         <ImageView
@@ -93,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="@+id/optimizerIcon"
             app:layout_constraintStart_toStartOf="@+id/optimizerIcon"
             app:layout_constraintTop_toTopOf="@+id/navBackground"
-            app:srcCompat="@drawable/start_button_shadow"
+            app:srcCompat="@drawable/button_start_shadow"
             app:tint="@color/button_green" />
 
         <ImageView
@@ -130,7 +130,7 @@
             app:layout_constraintEnd_toEndOf="@+id/infoIcon"
             app:layout_constraintStart_toStartOf="@+id/infoIcon"
             app:layout_constraintTop_toTopOf="@+id/navBackground"
-            app:srcCompat="@drawable/start_button_shadow"
+            app:srcCompat="@drawable/button_start_shadow"
             app:tint="@color/button_green" />
 
         <ImageView

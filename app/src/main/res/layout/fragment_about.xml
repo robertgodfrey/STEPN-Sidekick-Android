@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toTopOf="@+id/backgroundThing"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <ImageView
         android:id="@+id/backgroundThing"
@@ -428,7 +428,7 @@
         app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
         app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
         app:layout_constraintTop_toTopOf="@+id/removeAdsButton"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <TextView
         android:id="@+id/removeAdsShadowTextView"
@@ -456,7 +456,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supportTextView"
-        app:srcCompat="@drawable/start_button" />
+        app:srcCompat="@drawable/button_start" />
 
     <TextView
         android:id="@+id/removeAdsTextView"
@@ -541,7 +541,7 @@
         app:layout_constraintEnd_toEndOf="@id/lowerBackgroundThing"
         app:layout_constraintStart_toStartOf="@id/lowerBackgroundThing"
         app:layout_constraintTop_toTopOf="@+id/lowerBackgroundThing"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <ImageView
         android:id="@+id/lowerBackgroundThing"

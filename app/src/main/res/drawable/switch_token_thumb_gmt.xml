@@ -7,7 +7,7 @@
         </shape>
     </item>
 
-    <item android:drawable="@drawable/logo_gmt"
+    <item android:drawable="@drawable/coin_gmt"
         android:top="1.5dp"
         android:bottom="1.5dp"
         android:left="1.5dp"

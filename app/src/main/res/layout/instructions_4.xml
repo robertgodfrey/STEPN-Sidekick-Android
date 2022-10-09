@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="@+id/nextButton"
         app:layout_constraintStart_toStartOf="@+id/nextButton"
         app:layout_constraintTop_toTopOf="@+id/nextButton"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <TextView
         android:id="@+id/nextButtonShadowTextView"
@@ -94,7 +94,7 @@
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
         android:background="@null"
-        android:src="@drawable/start_button"
+        android:src="@drawable/button_start"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 

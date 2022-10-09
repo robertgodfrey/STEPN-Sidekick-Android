@@ -18,12 +18,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,7 +30,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -94,6 +90,9 @@ public class OptimizerFrag extends Fragment {
     private final String SHOE_NUM_PREF = "shoeNum";
     private final String GMT_EARNING_PREF = "gmtEarning";
 
+    private final int SOL = 0;
+    private final int BSC = 1;
+    private final int ETH = 2;
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
     private final int RARE = 4;
@@ -104,14 +103,14 @@ public class OptimizerFrag extends Fragment {
     private final int TRAINER = 3;
 
     ImageButton shoeRarityButton, shoeTypeButton, optimizeGstGmtButton, optimizeLuckButton, backgroundButton,
-            gmtDisabledButton;
+            chainSelectButton, coinSelectButton;
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
             subResButton, addResButton, changeComfGemButton, leftButton, rightButton, resetButton,
-            moreButton, oneTwentyFiveButton;
+            oneTwentyFiveButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief,
-            shoeNameEditText, gstPriceEditText, chainCoinPriceEditText;
+            shoeNameEditText, comfGemPriceEditText;
 
     TextView shoeRarityTextView, shoeTypeTextView, levelTextView, effTotalTextView, luckTotalTextView,
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, estGstGmtTextView,
@@ -121,8 +120,9 @@ public class OptimizerFrag extends Fragment {
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
             optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
             gemPriceGstTextView, totalIncomeGstTextView, totalIncomeUsdTextView, oneTwentyFiveTextView,
-            switchTokenGstTextView, switchTokenGmtTextView, estGstGmtLabelTv, gstLimitPerDaySlashTextView,
-            gmtTotalMinusTv, gmtTotalTv, optimizeGstGmtTextViewShadow;
+            estGstGmtLabelTv, gstLimitPerDaySlashTextView, gmtTotalMinusTv, gmtTotalTv,
+            optimizeGstGmtTextViewShadow, chainSelectTv, chainSelectShadowTv, coinSelectTv,
+            coinShadowSelectTv;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -131,21 +131,23 @@ public class OptimizerFrag extends Fragment {
             optimizeGstGmtButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
-            shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, switchTokenShadow,
-            switchTokenBack, estGstGmtIcon, totalGmtIcon;
+            shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, estGstGmtIcon,
+            totalGmtIcon, chainSelectShadow, coinSelectShadow, coinSelectIcon, comfGemPriceIcon,
+            coinSelectIconShadow;
+
 
     LinearLayout shoeTypeLayout, shoeTypeLayoutShadow;
 
-    SwitchCompat switchTokenSwitch;
-
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
-            addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum;
+            addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum, shoeChain;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored, gstProfitBeforeGem, comfGemMultiplier,
             oneTwentyFiveEnergy;
     private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, switchTouch;
     private double hpLoss;
     private String shoeName;
+
+    private double[] PRICES;
 
     ArrayList<Gem> gems;
 
@@ -210,6 +212,51 @@ public class OptimizerFrag extends Fragment {
                 gems.get(3).setMountedGem(getSharedPrefs.getInt(GEM_FOUR_MOUNTED_PREF + shoeNumString, 0));
             }
         }).start();
+
+        final String BASE_URL = "https://api.coingecko.com/";
+
+        // from 0 - 6: GMT, SOL, GST-SOL, BNB, GST-BNB, ETH, GST-ETH
+        PRICES = new double[] {0,0,0,0,0,0,0};
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Api myApi = retrofit.create(Api.class);
+
+        Call<Prices> call = myApi.getPosts();
+
+        call.enqueue(new Callback<Prices>() {
+            @Override
+            public void onResponse(Call<Prices> call, Response<Prices> response) {
+
+                try {
+                    Prices priceList = response.body();
+                    PRICES[0] = priceList.getGmtPrice();
+                    PRICES[1] = priceList.getSolanaPrice();
+                    PRICES[2] = priceList.getGstSol();
+                    PRICES[3] = priceList.getBinancecoin();
+                    PRICES[4] = priceList.getGstBsc();
+                    PRICES[5] = priceList.getEthereum();
+                    PRICES[6] = priceList.getGstEth();
+
+                    Log.d("API Stuff", "onResponse: GMT price: " + PRICES[0]);
+                    Log.d("API Stuff", "onResponse: SOL price: " + PRICES[1]);
+                    Log.d("API Stuff", "onResponse: GST SOL price: " + PRICES[2]);
+                    Log.d("API Stuff", "onResponse: BNB price: " + PRICES[3]);
+                    Log.d("API Stuff", "onResponse: GST BNB price: " + PRICES[4]);
+                    Log.d("API Stuff", "onResponse: ETH price: " + PRICES[5]);
+                    Log.d("API Stuff", "onResponse: GST ETH price: " + PRICES[6]);
+
+                } catch (NullPointerException e) {
+                    Toast.makeText(requireActivity(), "Unable to get prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Prices> call, Throwable t) {
+                Toast.makeText(requireActivity(), "Unable to get prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -225,7 +272,6 @@ public class OptimizerFrag extends Fragment {
         leftButton = view.findViewById(R.id.leftArrowButton);
         rightButton = view.findViewById(R.id.rightArrowButton);
         resetButton = view.findViewById(R.id.resetPageButton);
-        moreButton = view.findViewById(R.id.moreButton);
         oneTwentyFiveButton = view.findViewById(R.id.oneTwentyFiveButton);
 
         gemSocketOneButton = view.findViewById(R.id.gemSocketOneButton);
@@ -249,19 +295,12 @@ public class OptimizerFrag extends Fragment {
         subResButton = view.findViewById(R.id.subResButton);
         addResButton = view.findViewById(R.id.addResButton);
 
-        switchTokenSwitch = view.findViewById(R.id.switchToken);
-        switchTokenBack = view.findViewById(R.id.switchTokenBack);
-        switchTokenShadow = view.findViewById(R.id.switchTokenShadow);
-        switchTokenGstTextView = view.findViewById(R.id.gstSwitchTextView);
-        switchTokenGmtTextView = view.findViewById(R.id.gmtSwitchTextView);
-
         estGstGmtLabelTv = view.findViewById(R.id.estGstGmtLabelTextView);
         gstLimitPerDaySlashTextView = view.findViewById(R.id.gstLimitPerDaySlashTextView);
         estGstGmtIcon = view.findViewById(R.id.gstGmtIconLimit);
         gmtTotalMinusTv = view.findViewById(R.id.gmtTotalMinusTextView);
         gmtTotalTv = view.findViewById(R.id.gmtIncomeTextView);
         totalGmtIcon = view.findViewById(R.id.gmtIconTotal);
-        gmtDisabledButton = view.findViewById(R.id.gmtDisabledButton);
 
         backgroundButton = view.findViewById(R.id.backgroundThingButton);
         levelSeekbar = view.findViewById(R.id.levelSeekBar);
@@ -331,6 +370,19 @@ public class OptimizerFrag extends Fragment {
         optimizeGstGmtButtonShadow = view.findViewById(R.id.optimizeGstButtonShadow);
         optimizeLuckButtonShadow = view.findViewById(R.id.optimizeLuckButtonShadow);
 
+        chainSelectButton = view.findViewById(R.id.chainButton);
+        chainSelectTv = view.findViewById(R.id.chainTextView);
+        chainSelectShadow = view.findViewById(R.id.chainBoxShadow);
+        chainSelectShadowTv = view.findViewById(R.id.chainShadowTextView);
+        coinSelectButton = view.findViewById(R.id.coinTypeButton);
+        coinSelectTv = view.findViewById(R.id.coinTextView);
+        coinSelectIcon = view.findViewById(R.id.coinImageView);
+        coinSelectShadow = view.findViewById(R.id.coinBoxShadow);
+        coinShadowSelectTv = view.findViewById(R.id.coinTextViewShadow);
+        coinSelectIconShadow = view.findViewById(R.id.coinImageViewShadow);
+        comfGemPriceEditText = view.findViewById(R.id.gemPriceEditText);
+        comfGemPriceIcon = view.findViewById(R.id.chainCoinImageView);
+
         mysteryBox1 = view.findViewById(R.id.mysteryBoxLvl1);
         mysteryBox2 = view.findViewById(R.id.mysteryBoxLvl2);
         mysteryBox3 = view.findViewById(R.id.mysteryBoxLvl3);
@@ -350,6 +402,8 @@ public class OptimizerFrag extends Fragment {
 
         shoeTypeLayout = view.findViewById(R.id.shoeTypeLayout);
         shoeTypeLayoutShadow = view.findViewById(R.id.shoeTypeLayoutShadow);
+
+        shoeChain = 0;
 
         backgroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -489,23 +543,23 @@ public class OptimizerFrag extends Fragment {
                         shoeRarityShadowTextView.setText(shoeRarityTextView.getText().toString());
                         switch (shoeRarity) {
                             case UNCOMMON:
-                                shoeRarityButtonShadow.setImageResource(R.drawable.box_uncommon);
+                                shoeRarityButtonShadow.setImageResource(R.drawable.button_uncommon);
                                 break;
                             case RARE:
-                                shoeRarityButtonShadow.setImageResource(R.drawable.box_rare);
+                                shoeRarityButtonShadow.setImageResource(R.drawable.button_rare);
                                 break;
                             case EPIC:
-                                shoeRarityButtonShadow.setImageResource(R.drawable.box_epic);
+                                shoeRarityButtonShadow.setImageResource(R.drawable.button_epic);
                                 break;
                             default:
-                                shoeRarityButtonShadow.setImageResource(R.drawable.box_common);
+                                shoeRarityButtonShadow.setImageResource(R.drawable.button_common);
                         }
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         shoeRarityButton.setVisibility(View.VISIBLE);
                         shoeRarityTextView.setVisibility(View.VISIBLE);
-                        shoeRarityButtonShadow.setImageResource(R.drawable.main_button_shadow);
+                        shoeRarityButtonShadow.setImageResource(R.drawable.button_main_shadow);
                         break;
                 }
                 return false;
@@ -546,23 +600,23 @@ public class OptimizerFrag extends Fragment {
                         shoeTypeShadowTextView.setText(shoeTypeTextView.getText().toString());
                         switch (shoeRarity) {
                             case UNCOMMON:
-                                shoeTypeButtonShadow.setImageResource(R.drawable.box_uncommon);
+                                shoeTypeButtonShadow.setImageResource(R.drawable.button_uncommon);
                                 break;
                             case RARE:
-                                shoeTypeButtonShadow.setImageResource(R.drawable.box_rare);
+                                shoeTypeButtonShadow.setImageResource(R.drawable.button_rare);
                                 break;
                             case EPIC:
-                                shoeTypeButtonShadow.setImageResource(R.drawable.box_epic);
+                                shoeTypeButtonShadow.setImageResource(R.drawable.button_epic);
                                 break;
                             default:
-                                shoeTypeButtonShadow.setImageResource(R.drawable.box_common);
+                                shoeTypeButtonShadow.setImageResource(R.drawable.button_common);
                         }
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         shoeTypeButton.setVisibility(View.VISIBLE);
                         shoeTypeLayout.setVisibility(View.VISIBLE);
-                        shoeTypeButtonShadow.setImageResource(R.drawable.main_button_shadow);
+                        shoeTypeButtonShadow.setImageResource(R.drawable.button_main_shadow);
                         break;
                 }
                 return false;
@@ -582,7 +636,7 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    energyBox.setImageResource(R.drawable.energy_box_active);
+                    energyBox.setImageResource(R.drawable.box_energy_input_active);
                     oneTwentyFive = false;
                     oneTwentyFiveTextView.setText("100%");
                     energyEditText.setText(String.valueOf(energy));
@@ -591,7 +645,7 @@ public class OptimizerFrag extends Fragment {
                             .getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(view, 0);
                 } else {
-                    energyBox.setImageResource(R.drawable.energy_input_box);
+                    energyBox.setImageResource(R.drawable.box_energy_input);
                     if (!energyEditText.getText().toString().isEmpty() && !energyEditText.getText().toString().equals(".")) {
                         if (Float.parseFloat(energyEditText.getText().toString()) < 0.2) {
                             energyEditText.setText("0.2");
@@ -644,12 +698,9 @@ public class OptimizerFrag extends Fragment {
                 }
                 shoeLevel = i + 1;
                 if (shoeLevel == 30) {
-                    gmtDisabledButton.setVisibility(View.GONE);
-                    switchTokenSwitch.setEnabled(true);
+                    // turn off gst button
                 } else {
-                    gmtDisabledButton.setVisibility(View.VISIBLE);
                     gmtEarningOn = false;
-                    switchTokenSwitch.setEnabled(false);
                     updateGmtSwitch();
                 }
             }
@@ -984,39 +1035,6 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        switchTokenSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchTouch = true;
-            }
-        });
-
-        switchTokenSwitch.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switchTouch = true;
-                return false;
-            }
-        });
-
-        switchTokenSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (switchTouch) {
-                    gmtEarningOn = !gmtEarningOn;
-                    updateGmtSwitch();
-                    switchTouch = false;
-                }
-            }
-        });
-
-        gmtDisabledButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "GMT earning unlocked at level 30", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         optimizeGstGmtButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1042,13 +1060,13 @@ public class OptimizerFrag extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         optimizeGstGmtButton.setVisibility(View.INVISIBLE);
                         optimizeGstGmtTextView.setVisibility(View.INVISIBLE);
-                        optimizeGstGmtButtonShadow.setImageResource(R.drawable.start_button);
+                        optimizeGstGmtButtonShadow.setImageResource(R.drawable.button_start);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         optimizeGstGmtButton.setVisibility(View.VISIBLE);
                         optimizeGstGmtTextView.setVisibility(View.VISIBLE);
-                        optimizeGstGmtButtonShadow.setImageResource(R.drawable.start_button_shadow);
+                        optimizeGstGmtButtonShadow.setImageResource(R.drawable.button_start_shadow);
                         break;
                 }
                 return false;
@@ -1076,13 +1094,13 @@ public class OptimizerFrag extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         optimizeLuckButton.setVisibility(View.INVISIBLE);
                         optimizeLuckTextView.setVisibility(View.INVISIBLE);
-                        optimizeLuckButtonShadow.setImageResource(R.drawable.start_button);
+                        optimizeLuckButtonShadow.setImageResource(R.drawable.button_start);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         optimizeLuckButton.setVisibility(View.VISIBLE);
                         optimizeLuckTextView.setVisibility(View.VISIBLE);
-                        optimizeLuckButtonShadow.setImageResource(R.drawable.start_button_shadow);
+                        optimizeLuckButtonShadow.setImageResource(R.drawable.button_start_shadow);
                         break;
                 }
                 return false;
@@ -1103,14 +1121,49 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        moreButton.setOnClickListener(new View.OnClickListener() {
+        chainSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gmtEarningOn) {
-                    Toast.makeText(getContext(), "Coming soon for GMT", Toast.LENGTH_SHORT).show();
+                if (shoeChain == 2) {
+                    shoeChain = 0;
                 } else {
-                    incomeMoreDetails();
+                    shoeChain++;
                 }
+                // TODO updateChain() ?
+                clearFocus(view);
+            }
+        });
+
+        chainSelectButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        chainSelectButton.setVisibility(View.INVISIBLE);
+                        chainSelectTv.setVisibility(View.INVISIBLE);
+                        chainSelectShadowTv.setText(chainSelectTv.getText().toString());
+                        switch (shoeChain) {
+                            case BSC:
+                                comfGemPriceIcon.setImageResource(R.mipmap.logo_bnb);
+                                chainSelectShadow.setImageResource(R.drawable.button_bsc);
+                                break;
+                            case RARE:
+                                comfGemPriceIcon.setImageResource(R.mipmap.logo_eth);
+                                chainSelectShadow.setImageResource(R.drawable.button_eth);
+                                break;
+                            default:
+                                comfGemPriceIcon.setImageResource(R.mipmap.logo_solana);
+                                chainSelectShadow.setImageResource(R.drawable.button_sol);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        chainSelectButton.setVisibility(View.VISIBLE);
+                        chainSelectTv.setVisibility(View.VISIBLE);
+                        chainSelectShadow.setImageResource(R.drawable.button_main_shadow);
+                        break;
+                }
+                return false;
             }
         });
 
@@ -1188,14 +1241,14 @@ public class OptimizerFrag extends Fragment {
 
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeRarityButton.setImageResource(R.drawable.box_uncommon);
+                shoeRarityButton.setImageResource(R.drawable.button_uncommon);
 
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeTypeButton.setImageResource(R.drawable.box_uncommon);
+                shoeTypeButton.setImageResource(R.drawable.button_uncommon);
 
                 shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeNameBoxImageView.setImageResource(R.drawable.name_box_uncommon);
+                shoeNameBoxImageView.setImageResource(R.drawable.box_name_uncommon);
 
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
@@ -1223,14 +1276,14 @@ public class OptimizerFrag extends Fragment {
 
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeRarityButton.setImageResource(R.drawable.box_rare);
+                shoeRarityButton.setImageResource(R.drawable.button_rare);
 
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeTypeButton.setImageResource(R.drawable.box_rare);
+                shoeTypeButton.setImageResource(R.drawable.button_rare);
 
                 shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeNameBoxImageView.setImageResource(R.drawable.name_box_rare);
+                shoeNameBoxImageView.setImageResource(R.drawable.box_name_rare);
 
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
@@ -1258,14 +1311,14 @@ public class OptimizerFrag extends Fragment {
 
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeRarityButton.setImageResource(R.drawable.box_epic);
+                shoeRarityButton.setImageResource(R.drawable.button_epic);
 
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
                 shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeTypeButton.setImageResource(R.drawable.box_epic);
+                shoeTypeButton.setImageResource(R.drawable.button_epic);
 
                 shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeNameBoxImageView.setImageResource(R.drawable.name_box_epic);
+                shoeNameBoxImageView.setImageResource(R.drawable.box_name_epic);
 
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
@@ -1287,14 +1340,14 @@ public class OptimizerFrag extends Fragment {
 
                 shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeRarityButton.setImageResource(R.drawable.box_common);
+                shoeRarityButton.setImageResource(R.drawable.button_common);
 
                 shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeTypeButton.setImageResource(R.drawable.box_common);
+                shoeTypeButton.setImageResource(R.drawable.button_common);
 
                 shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeNameBoxImageView.setImageResource(R.drawable.name_box_common);
+                shoeNameBoxImageView.setImageResource(R.drawable.box_name_common);
 
                 footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
                 footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
@@ -2213,8 +2266,6 @@ public class OptimizerFrag extends Fragment {
             } else {
                 gstGmtTotal = -10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.75;
             }
-
-            Log.d("testes", "calcTotals: gstGmtTotal: " + gstGmtTotal);
 
             switch (shoeType) {
                 case JOGGER:
@@ -3371,18 +3422,10 @@ public class OptimizerFrag extends Fragment {
 
     // updates GMT switch for new shoe
     private void updateGmtSwitch() {
-        switchTokenSwitch.setChecked(gmtEarningOn);
-        switchTokenGstTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
-        switchTokenGmtTextView.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
-        switchTokenBack.setColorFilter(ContextCompat.getColor(requireContext(),
-                gmtEarningOn ? R.color.switch_track_gmt : R.color.switch_track_gst));
-        switchTokenShadow.setColorFilter(ContextCompat.getColor(requireContext(),
-                gmtEarningOn ? R.color.switch_shadow_gmt : R.color.switch_shadow_gst));
-
         estGstGmtLabelTv.setText(gmtEarningOn ? getString(R.string.est_gmt_range) : getString(R.string.est_gst_daily_limit));
         gstLimitPerDaySlashTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
         gstLimitTextView.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
-        estGstGmtIcon.setImageResource(gmtEarningOn ? R.drawable.logo_gmt : R.drawable.logo_gst);
+        estGstGmtIcon.setImageResource(gmtEarningOn ? R.drawable.coin_gmt : R.drawable.coin_gst);
 
         totalGmtIcon.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
         gmtTotalMinusTv.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
@@ -3391,7 +3434,6 @@ public class OptimizerFrag extends Fragment {
         optimizeGstGmtTextView.setText(gmtEarningOn ? getString(R.string.optimize_gmt) : getString(R.string.optimize_gst));
         optimizeGstGmtTextViewShadow.setText(gmtEarningOn ? getString(R.string.optimize_gmt) : getString(R.string.optimize_gst));
 
-        gmtDisabledButton.setVisibility(shoeLevel == 30 ? View.GONE : View.VISIBLE);
         calcTotals();
     }
 
@@ -3411,256 +3453,6 @@ public class OptimizerFrag extends Fragment {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    // dialog with more details for income
-    @SuppressLint("ClickableViewAccessibility")
-    private void incomeMoreDetails() {
-        final String BASE_URL = "https://api.coingecko.com/";
-
-        // from 0 - 5: SOL, GST-SOL, BNB, GST-BNB, ETH, GST-ETH
-        double[] PRICES = new double[] {0,0,0,0,0,0};
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Api myApi = retrofit.create(Api.class);
-
-        Call<Prices> call = myApi.getPosts();
-
-        call.enqueue(new Callback<Prices>() {
-            @Override
-            public void onResponse(Call<Prices> call, Response<Prices> response) {
-
-                try {
-                    Prices priceList = response.body();
-                    PRICES[0] = priceList.getSolanaPrice();
-                    PRICES[1] = priceList.getGstSol();
-                    PRICES[2] = priceList.getBinancecoin();
-                    PRICES[3] = priceList.getGstBsc();
-                    PRICES[4] = priceList.getEthereum();
-                    PRICES[5] = priceList.getGstEth();
-                    updateCurrentPriceViews(PRICES[0], PRICES[1]);
-
-                } catch (NullPointerException e) {
-                    Toast.makeText(requireActivity(), "Unable to connect. Try again in a few moments", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Prices> call, Throwable t) {
-                Toast.makeText(requireActivity(), "Too many requests. Try again in a few moments", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Dialog incomeMoreDetails = new Dialog(requireActivity());
-
-        incomeMoreDetails.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        incomeMoreDetails.setCancelable(true);
-        incomeMoreDetails.setContentView(R.layout.advanced_income_dialog);
-        incomeMoreDetails.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        incomeMoreDetails.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT);
-
-        EditText incomeFocusThief = incomeMoreDetails.findViewById(R.id.incomeFocusThief);
-        ImageButton incomeBackgroundButton = incomeMoreDetails.findViewById(R.id.alertBoxBackgroundButton);
-
-        ImageButton solButton = incomeMoreDetails.findViewById(R.id.solChainButton);
-        ImageButton bscButton = incomeMoreDetails.findViewById(R.id.bscChainButton);
-        ImageButton ethButton = incomeMoreDetails.findViewById(R.id.ethChainButton);
-        Button changeGem = incomeMoreDetails.findViewById(R.id.incomeDetailsChangeComfGemButton);
-
-        ImageView solSelected = incomeMoreDetails.findViewById(R.id.solChainSelected);
-        ImageView bscSelected = incomeMoreDetails.findViewById(R.id.bscChainSelected);
-        ImageView ethSelected = incomeMoreDetails.findViewById(R.id.ethChainSelected);
-
-        TextView chainCoinLabelTextView = incomeMoreDetails.findViewById(R.id.chainCoinLabelTextView);
-        gstPriceEditText = incomeMoreDetails.findViewById(R.id.gstCurrentPrice);
-        chainCoinPriceEditText = incomeMoreDetails.findViewById(R.id.chainCoinCurrentPrice);
-
-        TextView calculatedIncomeTextView = incomeMoreDetails.findViewById(R.id.gstIncomeTextView);
-        TextView gemMultiplierIncomeTextView = incomeMoreDetails.findViewById(R.id.gemMultipleDeetsTextView);
-        ImageView gemType = incomeMoreDetails.findViewById(R.id.comfGemHpTotalRepair);
-
-        EditText gemChainPriceEditText = incomeMoreDetails.findViewById(R.id.gemPriceEditText);
-        ImageView activeChainIcon = incomeMoreDetails.findViewById(R.id.chainIcon);
-
-        TextView gemMultiplierGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceMultiplierTextView);
-        gemPriceGstTextView = incomeMoreDetails.findViewById(R.id.gemPriceGstTextView);
-        totalIncomeGstTextView = incomeMoreDetails.findViewById(R.id.totalIncomeGstTextView);
-        totalIncomeUsdTextView = incomeMoreDetails.findViewById(R.id.totalIncomeUsdTextView);
-
-        incomeMoreDetails.show();
-
-        calculatedIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
-        String multiplier = "- " + comfGemMultiplier;
-        gemMultiplierIncomeTextView.setText(multiplier);
-        gemMultiplierGstTextView.setText(String.valueOf(comfGemMultiplier));
-        updateHpRepairComfGem(gemType);
-
-        gemChainPriceEditText.requestFocus();
-        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(gemChainPriceEditText, InputMethodManager.SHOW_IMPLICIT);
-
-        incomeBackgroundButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gstPriceEditText.clearFocus();
-                chainCoinPriceEditText.clearFocus();
-                gemChainPriceEditText.clearFocus();
-
-                incomeFocusThief.requestFocus();
-
-                InputMethodManager imm = (InputMethodManager) view.getContext()
-                        .getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        });
-
-        solButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                solSelected.setVisibility(View.VISIBLE);
-                bscSelected.setVisibility(View.INVISIBLE);
-                ethSelected.setVisibility(View.INVISIBLE);
-                chainCoinLabelTextView.setText("SOL");
-                activeChainIcon.setImageResource(R.drawable.logo_solana);
-                gemChainPriceEditText.setText("");
-                chainCoinPriceEditText.setText(String.valueOf(PRICES[0]));
-                gstPriceEditText.setText(String.valueOf(PRICES[1]));
-            }
-        });
-
-        bscButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                solSelected.setVisibility(View.INVISIBLE);
-                bscSelected.setVisibility(View.VISIBLE);
-                ethSelected.setVisibility(View.INVISIBLE);
-                chainCoinLabelTextView.setText("BNB");
-                activeChainIcon.setImageResource(R.mipmap.logo_bnb);
-                gemChainPriceEditText.setText("");
-                chainCoinPriceEditText.setText(String.valueOf(PRICES[2]));
-                gstPriceEditText.setText(String.valueOf(PRICES[3]));
-            }
-        });
-
-        ethButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                solSelected.setVisibility(View.INVISIBLE);
-                bscSelected.setVisibility(View.INVISIBLE);
-                ethSelected.setVisibility(View.VISIBLE);
-                chainCoinLabelTextView.setText("ETH");
-                activeChainIcon.setImageResource(R.mipmap.logo_eth);
-                gemChainPriceEditText.setText("");
-                chainCoinPriceEditText.setText(String.valueOf(PRICES[4]));
-                gstPriceEditText.setText(String.valueOf(PRICES[5]));
-            }
-        });
-
-        changeGem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (comfGemLvlForRepair < 3) {
-                    comfGemLvlForRepair++;
-                } else {
-                    comfGemLvlForRepair = 1;
-                }
-                updateHpRepairComfGem(gemType);
-                updateHpRepairComfGem(comfGemHpRepairImageView);
-                updateHpRepairComfGem(comfGemHpRepairTotalImageView);
-                calcTotals();
-                calculatedIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
-                String multiplier = "- " + comfGemMultiplier;
-                gemMultiplierIncomeTextView.setText(multiplier);
-                gemMultiplierGstTextView.setText(String.valueOf(comfGemMultiplier));
-                gemChainPriceEditText.setText("");
-            }
-        });
-
-        gstPriceEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (!chainCoinPriceEditText.getText().toString().isEmpty()
-                        && !gstPriceEditText.getText().toString().isEmpty()
-                        && !gemChainPriceEditText.getText().toString().isEmpty()) {
-                    try {
-                        incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
-                                Double.parseDouble(gstPriceEditText.getText().toString()),
-                                Double.parseDouble(gemChainPriceEditText.getText().toString()));
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(requireActivity(), "Error. Please double-check your input values", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-
-        chainCoinPriceEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (!chainCoinPriceEditText.getText().toString().isEmpty()
-                        && !gstPriceEditText.getText().toString().isEmpty()
-                        && !gemChainPriceEditText.getText().toString().isEmpty()) {
-                    try {
-                        incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
-                                Double.parseDouble(gstPriceEditText.getText().toString()),
-                                Double.parseDouble(gemChainPriceEditText.getText().toString()));
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(requireActivity(), "Error. Please double-check your input values", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-
-        gemChainPriceEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (!chainCoinPriceEditText.getText().toString().isEmpty()
-                        && !gstPriceEditText.getText().toString().isEmpty()
-                        && !gemChainPriceEditText.getText().toString().isEmpty()) {
-                    try {
-                        incomeDetailsCalcs(Double.parseDouble(chainCoinPriceEditText.getText().toString()),
-                                Double.parseDouble(gstPriceEditText.getText().toString()),
-                                Double.parseDouble(gemChainPriceEditText.getText().toString()));
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(requireActivity(), "Error. Please double-check your input values", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            }
-        });
-
-    }
-
     // calcs for total income
     private void incomeDetailsCalcs(double chainCoinPrice, double gstPrice, double gemPrice) {
         // gem price in chain coin * USD price chain coin / USD price gst * gem multiplier
@@ -3673,12 +3465,6 @@ public class OptimizerFrag extends Fragment {
         gemPriceGstTextView.setText(String.valueOf(gemCostGst));
         totalIncomeGstTextView.setText(String.valueOf(totalIncomeGst));
         totalIncomeUsdTextView.setText(String.valueOf(Math.round(totalIncomeGst * gstPrice * 100.0) / 100.0));
-    }
-
-    // updates views with current prices from coingecko
-    private void updateCurrentPriceViews(double sol, double gst) {
-        gstPriceEditText.setText(String.valueOf(gst));
-        chainCoinPriceEditText.setText(String.valueOf(sol));
     }
 
     // resets all values on page

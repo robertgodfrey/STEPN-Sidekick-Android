@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item android:id="@android:id/progress">
-        <clip android:drawable="@drawable/seekbar_progress" />
+        <clip android:drawable="@drawable/seekbar_level_progress" />
     </item>
 
 </layer-list>

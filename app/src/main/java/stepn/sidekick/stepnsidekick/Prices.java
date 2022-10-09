@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 @Keep
 public class Prices {
+    @SerializedName("stepn")
+    private final NestedPrice gmt;
     @SerializedName("solana")
     private final NestedPrice solana;
     @SerializedName("green-satoshi-token")
@@ -20,13 +22,19 @@ public class Prices {
     private final NestedPrice gstEth;
 
 
-    public Prices(NestedPrice solana, NestedPrice gstSol, NestedPrice binancecoin, NestedPrice gstBsc, NestedPrice ethereum, NestedPrice gstEth) {
+    public Prices(NestedPrice gmt, NestedPrice solana, NestedPrice gstSol, NestedPrice binancecoin,
+                  NestedPrice gstBsc, NestedPrice ethereum, NestedPrice gstEth) {
+        this.gmt = gmt;
         this.solana = solana;
         this.gstSol = gstSol;
         this.binancecoin = binancecoin;
         this.gstBsc = gstBsc;
         this.ethereum = ethereum;
         this.gstEth = gstEth;
+    }
+
+    public double getGmtPrice() {
+        return gmt.getPrice();
     }
 
     public double getSolanaPrice() {

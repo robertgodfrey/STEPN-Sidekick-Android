@@ -239,7 +239,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, helpButton, helpButtonShadow, helpButtonTextView,
-                        R.drawable.roundy_button, R.drawable.roundy_button_shadow);
+                        R.drawable.button_help, R.drawable.button_help_shadow);
                 return false;
             }
         });
@@ -283,9 +283,9 @@ public class StartActivityFrag extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         alertsVibrateButton.setVisibility(View.INVISIBLE);
                         if (alertsVibrationAudible != 0) {
-                            alertsVibrateButtonShadow.setImageResource(R.drawable.main_buttons);
+                            alertsVibrateButtonShadow.setImageResource(R.drawable.button_main);
                         } else {
-                            alertsVibrateButtonShadow.setImageResource(R.drawable.main_buttons_disabled);
+                            alertsVibrateButtonShadow.setImageResource(R.drawable.button_main_disabled);
                         }
                         alertsVibrateShadowTextView.setText(alertsVibrateTextView.getText().toString());
                         alertsVibrateTextView.setVisibility(View.INVISIBLE);
@@ -293,7 +293,7 @@ public class StartActivityFrag extends Fragment {
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         alertsVibrateButton.setVisibility(View.VISIBLE);
-                        alertsVibrateButtonShadow.setImageResource(R.drawable.main_button_shadow);
+                        alertsVibrateButtonShadow.setImageResource(R.drawable.button_main_shadow);
                         alertsVibrateTextView.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -323,9 +323,9 @@ public class StartActivityFrag extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         voiceAlertSpeedButton.setVisibility(View.INVISIBLE);
                         if (voiceAlertsSpeedType != 0) {
-                            voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_buttons);
+                            voiceAlertSpeedButtonShadow.setImageResource(R.drawable.button_main);
                         } else {
-                            voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_buttons_disabled);
+                            voiceAlertSpeedButtonShadow.setImageResource(R.drawable.button_main_disabled);
                         }
                         voiceAlertSpeedTextViewShadow.setText(voiceAlertSpeedTextView.getText().toString());
                         voiceAlertSpeedTextView.setVisibility(View.INVISIBLE);
@@ -333,7 +333,7 @@ public class StartActivityFrag extends Fragment {
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         voiceAlertSpeedButton.setVisibility(View.VISIBLE);
-                        voiceAlertSpeedButtonShadow.setImageResource(R.drawable.main_button_shadow);
+                        voiceAlertSpeedButtonShadow.setImageResource(R.drawable.button_main_shadow);
                         voiceAlertSpeedTextView.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -392,7 +392,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, startButton, startButtonShadow, startTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });
@@ -401,9 +401,9 @@ public class StartActivityFrag extends Fragment {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    energyBox.setImageResource(R.drawable.energy_box_active);
+                    energyBox.setImageResource(R.drawable.box_energy_input_active);
                 } else {
-                    energyBox.setImageResource(R.drawable.energy_input_box);
+                    energyBox.setImageResource(R.drawable.box_energy_input);
                 }
             }
         });
@@ -604,10 +604,10 @@ public class StartActivityFrag extends Fragment {
             case MotionEvent.ACTION_DOWN:
                 button.setVisibility(View.INVISIBLE);
                 if (enabled) {
-                    buttonShadow.setImageResource(R.drawable.main_buttons);
+                    buttonShadow.setImageResource(R.drawable.button_main);
                     buttonShadowText.setText(R.string.enabled);
                 } else {
-                    buttonShadow.setImageResource(R.drawable.main_buttons_disabled);
+                    buttonShadow.setImageResource(R.drawable.button_main_disabled);
                     buttonShadowText.setText(R.string.disabled);
                 }
                 buttonText.setVisibility(View.INVISIBLE);
@@ -615,7 +615,7 @@ public class StartActivityFrag extends Fragment {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 button.setVisibility(View.VISIBLE);
-                buttonShadow.setImageResource(R.drawable.main_button_shadow);
+                buttonShadow.setImageResource(R.drawable.button_main_shadow);
                 buttonText.setVisibility(View.VISIBLE);
                 break;
         }
@@ -631,10 +631,10 @@ public class StartActivityFrag extends Fragment {
     private void buttonClickSwitch(ImageView button, TextView buttonText, boolean enabled) {
         if (enabled) {
             buttonText.setText(R.string.enabled);
-            button.setImageResource(R.drawable.main_buttons);
+            button.setImageResource(R.drawable.button_main);
         } else {
             buttonText.setText(R.string.disabled);
-            button.setImageResource(R.drawable.main_buttons_disabled);
+            button.setImageResource(R.drawable.button_main_disabled);
         }
     }
 
@@ -645,13 +645,13 @@ public class StartActivityFrag extends Fragment {
                 alertsAudible = false;
                 alertsVibration = false;
                 alertsVibrateTextView.setText(R.string.disabled);
-                alertsVibrateButton.setImageResource(R.drawable.main_buttons_disabled);
+                alertsVibrateButton.setImageResource(R.drawable.button_main_disabled);
                 break;
             case 1:
                 alertsAudible = true;
                 alertsVibration = false;
                 alertsVibrateTextView.setText(R.string.audible);
-                alertsVibrateButton.setImageResource(R.drawable.main_buttons);
+                alertsVibrateButton.setImageResource(R.drawable.button_main);
                 break;
             case 2:
                 alertsAudible = false;
@@ -673,13 +673,13 @@ public class StartActivityFrag extends Fragment {
                 voiceAlertsAvgSpeed = false;
                 voiceAlertsCurrentSpeed = false;
                 voiceAlertSpeedTextView.setText(R.string.disabled);
-                voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons_disabled);
+                voiceAlertSpeedButton.setImageResource(R.drawable.button_main_disabled);
                 break;
             case 1:
                 voiceAlertsAvgSpeed = false;
                 voiceAlertsCurrentSpeed = true;
                 voiceAlertSpeedTextView.setText(R.string.current);
-                voiceAlertSpeedButton.setImageResource(R.drawable.main_buttons);
+                voiceAlertSpeedButton.setImageResource(R.drawable.button_main);
                 break;
             case 2:
                 voiceAlertsAvgSpeed = true;
@@ -706,15 +706,15 @@ public class StartActivityFrag extends Fragment {
         if (shoeTypeIterator != 4) {
             minSpeedEditText.setFocusable(false);
             maxSpeedEditText.setFocusable(false);
-            minSpeedBox.setImageResource(R.drawable.main_buttons_disabled);
-            maxSpeedBox.setImageResource(R.drawable.main_buttons_disabled);
+            minSpeedBox.setImageResource(R.drawable.button_main_disabled);
+            maxSpeedBox.setImageResource(R.drawable.button_main_disabled);
             shoeTypeImage.setPadding(0, 0, (int) (5 * getResources().getDisplayMetrics().density + 0.5f),0);
 
         } else {
             minSpeedEditText.setFocusableInTouchMode(true);
             maxSpeedEditText.setFocusableInTouchMode(true);
-            minSpeedBox.setImageResource(R.drawable.input_box_speeds);
-            maxSpeedBox.setImageResource(R.drawable.input_box_speeds);
+            minSpeedBox.setImageResource(R.drawable.box_speeds_input);
+            maxSpeedBox.setImageResource(R.drawable.box_speeds_input);
             shoeTypeImage.setPadding(0, 0, 0, 0);
 
             if (minSpeedEditText.getText().toString().equals("0.0")) {
@@ -801,15 +801,15 @@ public class StartActivityFrag extends Fragment {
     // changes the UI if the user has saved prefs (default: all enabled, energy 0, walker shoe type)
     private void updateUI() {
         if (!tenSecondTimer) {
-            countDownTimerButton.setImageResource(R.drawable.main_buttons_disabled);
+            countDownTimerButton.setImageResource(R.drawable.button_main_disabled);
             countDownTimerTextView.setText(R.string.disabled);
         }
         if (!voiceAlertsTime) {
-            voiceAlertTimeButton.setImageResource(R.drawable.main_buttons_disabled);
+            voiceAlertTimeButton.setImageResource(R.drawable.button_main_disabled);
             voiceAlertTimeTextView.setText(R.string.disabled);
         }
         if (!voiceCountdownAlerts) {
-            voiceAlertCountdownButton.setImageResource(R.drawable.main_buttons_disabled);
+            voiceAlertCountdownButton.setImageResource(R.drawable.button_main_disabled);
             voiceAlertCountdownTextView.setText(R.string.disabled);
         }
         if (energy != 0) {
@@ -958,7 +958,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });
@@ -1035,7 +1035,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });
@@ -1086,7 +1086,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });
@@ -1135,7 +1135,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });
@@ -1187,7 +1187,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });
@@ -1239,7 +1239,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });
@@ -1275,7 +1275,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });
@@ -1309,7 +1309,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 staticButtonTouchAnim(motionEvent, nextButton, nextButtonShadow, nextButtonTextView,
-                        R.drawable.start_button, R.drawable.start_button_shadow);
+                        R.drawable.button_start, R.drawable.button_start_shadow);
                 return false;
             }
         });

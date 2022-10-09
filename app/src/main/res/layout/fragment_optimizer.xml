@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="@id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/backgroundThingButton"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <ImageButton
         android:id="@+id/backgroundThingButton"
@@ -268,7 +268,7 @@
         app:layout_constraintEnd_toEndOf="@+id/shoeNameImageView"
         app:layout_constraintStart_toStartOf="@+id/shoeNameImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeNameImageView"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <TextView
         android:id="@+id/shoeOneTextView"
@@ -317,7 +317,7 @@
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/gemSocketFour"
-        app:srcCompat="@drawable/name_box_common" />
+        app:srcCompat="@drawable/box_name_common" />
 
     <ImageView
         android:id="@+id/leftArrowImageView"
@@ -438,7 +438,7 @@
                     android:layout_height="34dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/main_button_shadow" />
+                    app:srcCompat="@drawable/button_main_shadow" />
 
                 <TextView
                     android:id="@+id/shoeRarityShadowTextView"
@@ -457,7 +457,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginBottom="2dp"
                     android:background="@null"
-                    app:srcCompat="@drawable/box_common" />
+                    app:srcCompat="@drawable/button_common" />
 
                 <TextView
                     android:id="@+id/shoeRarityTextView"
@@ -504,7 +504,7 @@
                     android:layout_height="34dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/main_button_shadow" />
+                    app:srcCompat="@drawable/button_main_shadow" />
 
                 <LinearLayout
                     android:id="@+id/shoeTypeLayoutShadow"
@@ -559,7 +559,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginBottom="2dp"
                     android:background="@null"
-                    app:srcCompat="@drawable/box_common" />
+                    app:srcCompat="@drawable/button_common" />
 
                 <LinearLayout
                     android:id="@+id/shoeTypeLayout"
@@ -658,7 +658,7 @@
                     android:layout_height="34dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/energy_input_box"
+                    app:srcCompat="@drawable/box_energy_input"
                     app:tint="@color/energy_blue_border" />
 
                 <ImageView
@@ -667,7 +667,7 @@
                     android:layout_height="34dp"
                     android:layout_marginEnd="2dp"
                     android:layout_marginBottom="2dp"
-                    app:srcCompat="@drawable/energy_input_box" />
+                    app:srcCompat="@drawable/box_energy_input" />
 
                 <ImageView
                     android:id="@+id/energyBolt"
@@ -685,6 +685,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="2dp"
                     android:layout_marginEnd="6dp"
+                    android:textColor="@color/almost_black"
                     android:background="@null"
                     android:fontFamily="@font/roboto_condensed_bold_italic"
                     android:hint="0.0"
@@ -711,7 +712,7 @@
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/buttonRow"
-        app:srcCompat="@drawable/seekbar_background" />
+        app:srcCompat="@drawable/seekbar_level_background" />
 
     <ImageView
         android:id="@+id/seekbarMinLevel"
@@ -722,7 +723,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
         app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
         app:layout_constraintTop_toTopOf="@+id/seekbarBackground"
-        app:srcCompat="@drawable/seekbar_progress" />
+        app:srcCompat="@drawable/seekbar_level_progress" />
 
     <SeekBar
         android:id="@+id/levelSeekBar"
@@ -734,7 +735,7 @@
         android:progress="0"
         android:progressDrawable="@drawable/level_seekbar"
         android:splitTrack="false"
-        android:thumb="@drawable/thumb"
+        android:thumb="@drawable/seekbar_level_thumb"
         app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
         app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
         app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
@@ -1263,7 +1264,7 @@
         app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButton"
         app:layout_constraintStart_toStartOf="@+id/optimizeLuckButton"
         app:layout_constraintTop_toTopOf="@+id/optimizeLuckButton"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <TextView
         android:id="@+id/optimizeLuckTextViewShadow"
@@ -1289,7 +1290,7 @@
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toEndOf="@+id/optimizeGmtButton"
         app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
-        app:srcCompat="@drawable/start_button" />
+        app:srcCompat="@drawable/button_start" />
 
     <TextView
         android:id="@+id/optimizeLuckTextView"
@@ -1315,7 +1316,7 @@
         app:layout_constraintEnd_toEndOf="@+id/optimizeGmtButton"
         app:layout_constraintStart_toStartOf="@+id/optimizeGmtButton"
         app:layout_constraintTop_toTopOf="@+id/optimizeGmtButton"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <TextView
         android:id="@+id/optimizeGstGmtTextViewShadow"
@@ -1341,7 +1342,7 @@
         app:layout_constraintEnd_toStartOf="@+id/optimizeLuckButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/pointsLabelTextView"
-        app:srcCompat="@drawable/start_button" />
+        app:srcCompat="@drawable/button_start" />
 
     <TextView
         android:id="@+id/optimizeGstGmtTextView"
@@ -1378,7 +1379,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gstPerDayTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@drawable/coin_gst" />
 
     <TextView
         android:id="@+id/gstPerDayTextView"
@@ -1467,7 +1468,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/repairCostDurTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/repairCostDurTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@drawable/coin_gst" />
 
     <TextView
         android:id="@+id/repairCostDurTextView"
@@ -1590,7 +1591,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@drawable/coin_gst" />
 
     <TextView
         android:id="@+id/totalIncomeLabelTextView"
@@ -1614,7 +1615,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
         app:layout_constraintEnd_toStartOf="@+id/gmtTotalMinusTextView"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
-        app:srcCompat="@drawable/logo_gmt" />
+        app:srcCompat="@drawable/coin_gmt" />
 
     <TextView
         android:id="@+id/gmtIncomeTextView"
@@ -1651,7 +1652,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gemMultipleTotalTextView"
         app:layout_constraintEnd_toStartOf="@+id/gemMultipleTotalTextView"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
-        app:srcCompat="@drawable/logo_gst" />
+        app:srcCompat="@drawable/coin_gst" />
 
     <TextView
         android:id="@+id/gstIncomeTextView"
@@ -1691,106 +1692,298 @@
         app:srcCompat="@mipmap/gem_comf_level1" />
 
     <TextView
-        android:id="@+id/moreTextView"
-        style="@style/RegItalic"
+        android:id="@+id/totalIncomeUsdLabelTextView"
+        style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/more_details"
-        android:textColor="@color/gandalf"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        android:text="Total Income USD:"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
 
-    <Button
-        android:id="@+id/moreButton"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:backgroundTint="#00FFFFFF"
-        android:stateListAnimator="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/moreTextView"
-        app:layout_constraintEnd_toEndOf="@+id/moreTextView"
-        app:layout_constraintStart_toStartOf="@+id/moreTextView"
-        app:layout_constraintTop_toTopOf="@+id/moreTextView" />
-
-    <ImageView
-        android:id="@+id/switchTokenShadow"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="-2dp"
-        android:layout_marginBottom="-2dp"
-        app:tint="@color/switch_shadow_gst"
-        android:src="@drawable/start_button_shadow"
-        app:layout_constraintBottom_toBottomOf="@+id/switchToken"
-        app:layout_constraintEnd_toEndOf="@+id/switchToken"
-        app:layout_constraintStart_toStartOf="@+id/switchToken"
-        app:layout_constraintTop_toTopOf="@+id/switchToken" />
-
-    <ImageView
-        android:id="@+id/switchTokenBack"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:tint="@color/switch_track_gst"
-        android:src="@drawable/start_button_shadow"
-        app:layout_constraintBottom_toBottomOf="@+id/switchToken"
-        app:layout_constraintEnd_toEndOf="@+id/switchToken"
-        app:layout_constraintStart_toStartOf="@+id/switchToken"
-        app:layout_constraintTop_toTopOf="@+id/switchToken" />
-
     <TextView
-        android:id="@+id/gmtSwitchTextView"
-        style="@style/BoldItalicSubtitles"
+        android:id="@+id/totalIncomeUsdTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:text="GMT"
-        android:visibility="gone"
-        android:textColor="@color/switch_shadow_gmt"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/switchToken"
-        app:layout_constraintStart_toStartOf="@+id/switchToken"
-        app:layout_constraintTop_toTopOf="@+id/switchToken" />
+        android:layout_marginEnd="6dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="-"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalIncomeUsdLabelTextView"
+        app:layout_constraintEnd_toStartOf="@+id/totalIncomeUsdSymbol"
+        app:layout_constraintTop_toTopOf="@+id/totalIncomeUsdLabelTextView" />
 
     <TextView
-        android:id="@+id/gstSwitchTextView"
-        style="@style/BoldItalicSubtitles"
+        android:id="@+id/totalIncomeUsdSymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:text="GST"
-        android:textColor="@color/switch_shadow_gst"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/switchToken"
-        app:layout_constraintEnd_toEndOf="@+id/switchToken"
-        app:layout_constraintTop_toTopOf="@+id/switchToken" />
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="$"
+        android:textColor="@color/almost_black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalIncomeUsdLabelTextView"
+        app:layout_constraintEnd_toEndOf="@+id/comfGemHpTotalRepair"
+        app:layout_constraintStart_toStartOf="@+id/comfGemHpTotalRepair"
+        app:layout_constraintTop_toTopOf="@+id/totalIncomeUsdLabelTextView" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchToken"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginTop="8dp"
-        android:thumb="@drawable/thumb_token_switch"
-        app:switchMinWidth="80dp"
+    <LinearLayout
+        android:id="@+id/tokenChainSwitchButtonRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/moreTextView"
-        app:track="@drawable/token_switch_track" />
+        app:layout_constraintTop_toBottomOf="@+id/totalIncomeUsdLabelTextView">
 
-    <ImageButton
-        android:id="@+id/gmtDisabledButton"
-        android:layout_width="120dp"
-        android:layout_height="70dp"
-        android:backgroundTint="#00FFFFFF"
-        android:stateListAnimator="@null"
-        android:src="@drawable/start_button"
-        app:tint="#50FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/switchToken"
-        app:layout_constraintEnd_toEndOf="@+id/switchToken"
-        app:layout_constraintStart_toStartOf="@+id/switchToken"
-        app:layout_constraintTop_toTopOf="@+id/switchToken" />
+        <LinearLayout
+            android:id="@+id/leftLowerLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/chainLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Chain"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:id="@+id/chainButtonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/chainBoxShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/button_main_shadow" />
+
+                <TextView
+                    android:id="@+id/chainShadowTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:text="SOL"
+                    android:textColor="@color/almost_black"
+                    android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/chainButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@null"
+                    app:srcCompat="@drawable/button_sol" />
+
+                <TextView
+                    android:id="@+id/chainTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:text="SOL"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/midLowerLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/coinLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Coin"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:id="@+id/coinButtonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/coinBoxShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/button_main_shadow" />
+
+                <LinearLayout
+                    android:id="@+id/coinLayoutShadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/coinTextViewShadow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto_condensed_bold_italic"
+                        android:text="GST"
+                        android:textColor="@color/almost_black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/coinImageViewShadow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="2dp"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@drawable/logo_gst" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/coinTypeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@null"
+                    app:srcCompat="@drawable/button_gst" />
+
+                <LinearLayout
+                    android:id="@+id/coinTypeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/coinTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="3dp"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto_condensed_bold_italic"
+                        android:text="GST"
+                        android:textColor="@color/almost_black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/coinImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="2dp"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@drawable/logo_gst" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/RightLowerLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/gemPriceLabelTextView"
+                style="@style/RegItalic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_gravity="center"
+                android:text="Comf Gem Price"
+                android:textColor="@color/gandalf"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/gemPriceBoxShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/button_main_shadow" />
+
+                <ImageView
+                    android:id="@+id/gemPriceBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    app:srcCompat="@drawable/box_gem_price_input" />
+
+                <ImageView
+                    android:id="@+id/chainCoinImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="24dp"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@mipmap/logo_solana" />
+
+                <EditText
+                    android:id="@+id/gemPriceEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@null"
+                    android:fontFamily="@font/roboto_condensed_bold_italic"
+                    android:hint="0.0"
+                    android:inputType="number|numberDecimal"
+                    android:maxLength="4"
+                    android:paddingVertical="8dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/mysteryBoxChanceTextView"
@@ -1803,7 +1996,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/switchToken" />
+        app:layout_constraintTop_toBottomOf="@+id/tokenChainSwitchButtonRow" />
 
     <ImageView
         android:id="@+id/mysteryBoxLvl1"
@@ -1982,20 +2175,48 @@
 
     <TextView
         android:id="@+id/communityDataTextView"
+        style="@style/RegText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="80dp"
-        style="@style/RegItalic"
+        android:layout_marginBottom="100dp"
         android:text="@string/disclaimer"
         android:textAlignment="center"
         android:textColor="@color/gandalf"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/backgroundThingButton" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/pricesDataNoteTextView"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="3dp"
+        android:text="@string/price_data_provided_by"
+        android:textAlignment="center"
+        android:textColor="@color/gandalf"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/coinGeckoLogo"
+        app:layout_constraintEnd_toStartOf="@+id/coinGeckoLogo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/coinGeckoLogo" />
+
+    <ImageView
+        android:id="@+id/coinGeckoLogo"
+        android:layout_width="80dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pricesDataNoteTextView"
+        app:layout_constraintTop_toBottomOf="@+id/communityDataTextView"
+        app:srcCompat="@mipmap/coin_gecko" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

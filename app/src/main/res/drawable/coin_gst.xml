@@ -3,7 +3,13 @@
     android:height="34dp"
     android:viewportWidth="101"
     android:viewportHeight="102">
-
+  <path
+      android:pathData="M50.24,51m-48.06,0a48.06,48.06 0,1 1,96.12 0a48.06,48.06 0,1 1,-96.12 0"
+      android:strokeLineJoin="round"
+      android:strokeWidth="4.131"
+      android:fillColor="@color/gradient_gst"
+      android:fillType="nonZero"
+      android:strokeLineCap="round"/>
   <path
       android:pathData="M72.88,60.01c-3.55,-1.42 -5.3,-2.25 -6.75,-0.89 0.74,-1.48 0.44,-1.57 -0.18,-2.66 -1.24,-2.19 -4.53,-5.78 -5.67,-12.62a36.45,36.45 0,0 0,2.03 -7.98s0.69,-1.96 -2.35,-1a14.08,14.08 0,0 1,-9.96 -1.47c-5.15,-2.86 -5.61,-6.57 -7.09,-7.4 -1.03,-0.57 -4.08,2.62 -4.08,2.62L28.8,40.29l-0.77,1.44a1.8,1.8 0,0 0,0.15 1.94c2.86,3.81 14.74,19.66 20.37,26.42a22.56,22.56 0,0 0,8.97 3.33l15.39,0.14c2.01,-0.1 3.81,-0.25 5.24,-0.41a2.54,2.54 0,0 0,2.1 -1.63c1.63,-4.38 -0.97,-8.95 -7.36,-11.5z"
       android:strokeLineJoin="round"

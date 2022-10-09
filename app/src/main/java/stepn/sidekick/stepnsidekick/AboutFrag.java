@@ -130,13 +130,13 @@ public class AboutFrag extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         removeAdsButton.setVisibility(View.INVISIBLE);
                         removeAdsTextView.setVisibility(View.INVISIBLE);
-                        removeAdsShadow.setImageResource(R.drawable.start_button);
+                        removeAdsShadow.setImageResource(R.drawable.button_start);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         removeAdsButton.setVisibility(View.VISIBLE);
                         removeAdsTextView.setVisibility(View.VISIBLE);
-                        removeAdsShadow.setImageResource(R.drawable.start_button_shadow);
+                        removeAdsShadow.setImageResource(R.drawable.button_start_shadow);
                         break;
                 }
                 return false;

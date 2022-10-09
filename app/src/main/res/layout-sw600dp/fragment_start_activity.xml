@@ -53,7 +53,7 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/helpButton"
         app:layout_constraintTop_toTopOf="@+id/helpButton"
-        app:srcCompat="@drawable/roundy_button_shadow" />
+        app:srcCompat="@drawable/button_help_shadow" />
 
     <TextView
         android:id="@+id/helpTextViewShadow"
@@ -76,7 +76,7 @@
         android:layout_height="34dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/roundy_button"
+        android:background="@drawable/button_help"
         app:layout_constraintEnd_toEndOf="@+id/bigOlBox"
         app:layout_constraintTop_toTopOf="@+id/bigOlBox" />
 
@@ -257,7 +257,7 @@
                     android:layout_height="42dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/input_box_speeds"
+                    app:srcCompat="@drawable/box_speeds_input"
                     app:tint="@color/almost_black" />
 
                 <ImageView
@@ -266,7 +266,7 @@
                     android:layout_height="42dp"
                     android:layout_marginEnd="1.5dp"
                     android:layout_marginBottom="2dp"
-                    app:srcCompat="@drawable/main_buttons_disabled" />
+                    app:srcCompat="@drawable/button_main_disabled" />
 
                 <TextView
                     android:id="@+id/minSpeedKmhLabelTextView"
@@ -334,7 +334,7 @@
                     android:layout_height="42dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/input_box_speeds"
+                    app:srcCompat="@drawable/box_speeds_input"
                     app:tint="@color/almost_black" />
 
                 <ImageView
@@ -343,7 +343,7 @@
                     android:layout_height="42dp"
                     android:layout_marginEnd="1.5dp"
                     android:layout_marginBottom="2dp"
-                    app:srcCompat="@drawable/main_buttons_disabled" />
+                    app:srcCompat="@drawable/button_main_disabled" />
 
                 <TextView
                     android:id="@+id/maxSpeedKmhLabelTextView"
@@ -428,7 +428,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/main_button_shadow" />
+                    app:srcCompat="@drawable/button_main_shadow" />
 
                 <TextView
                     android:id="@+id/countdownTimerShadowTextView"
@@ -450,7 +450,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="1.5dp"
                     android:background="@null"
-                    android:src="@drawable/main_buttons" />
+                    android:src="@drawable/button_main" />
 
                 <TextView
                     android:id="@+id/countdownTimerTextView"
@@ -499,7 +499,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/main_button_shadow" />
+                    app:srcCompat="@drawable/button_main_shadow" />
 
                 <TextView
                     android:id="@+id/alertsShadowTextView"
@@ -521,7 +521,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="1.5dp"
                     android:background="@null"
-                    android:src="@drawable/main_buttons" />
+                    android:src="@drawable/button_main" />
 
                 <TextView
                     android:id="@+id/alertsTextView"
@@ -571,7 +571,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/energy_input_box"
+                    app:srcCompat="@drawable/box_energy_input"
                     app:tint="@color/energy_blue_border" />
 
                 <ImageView
@@ -580,7 +580,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="1.5dp"
                     android:layout_marginBottom="2dp"
-                    app:srcCompat="@drawable/energy_input_box" />
+                    app:srcCompat="@drawable/box_energy_input" />
 
                 <ImageView
                     android:id="@+id/energyBolt"
@@ -717,7 +717,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/main_button_shadow" />
+                    app:srcCompat="@drawable/button_main_shadow" />
 
                 <TextView
                     android:id="@+id/voiceAlertSpeedShadowTextView"
@@ -739,7 +739,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="1.5dp"
                     android:background="@null"
-                    android:src="@drawable/main_buttons" />
+                    android:src="@drawable/button_main" />
 
                 <TextView
                     android:id="@+id/voiceAlertSpeedTextView"
@@ -788,7 +788,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/main_button_shadow" />
+                    app:srcCompat="@drawable/button_main_shadow" />
 
                 <TextView
                     android:id="@+id/voiceAlertTimeShadowTextView"
@@ -810,7 +810,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="1.5dp"
                     android:background="@null"
-                    android:src="@drawable/main_buttons" />
+                    android:src="@drawable/button_main" />
 
                 <TextView
                     android:id="@+id/voiceAlertTimeTextView"
@@ -858,7 +858,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
-                    app:srcCompat="@drawable/main_button_shadow" />
+                    app:srcCompat="@drawable/button_main_shadow" />
 
                 <TextView
                     android:id="@+id/voiceOneMinThirtySecShadowTextView"
@@ -880,7 +880,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="1.5dp"
                     android:background="@null"
-                    android:src="@drawable/main_buttons" />
+                    android:src="@drawable/button_main" />
 
                 <TextView
                     android:id="@+id/voiceOneMinThirtySecTextView"
@@ -913,7 +913,7 @@
         app:layout_constraintEnd_toEndOf="@+id/startImageButton"
         app:layout_constraintStart_toStartOf="@+id/startImageButton"
         app:layout_constraintTop_toTopOf="@+id/startImageButton"
-        app:srcCompat="@drawable/start_button_shadow" />
+        app:srcCompat="@drawable/button_start_shadow" />
 
     <TextView
         android:id="@+id/startShadowTextView"
@@ -946,7 +946,7 @@
         app:layout_constraintTop_toBottomOf="@+id/voiceUpdatesRow"
         app:layout_constraintVertical_bias="0.41000003"
         app:layout_constraintVertical_chainStyle="spread"
-        app:srcCompat="@drawable/start_button" />
+        app:srcCompat="@drawable/button_start" />
 
     <TextView
         android:id="@+id/startTextView"
@@ -977,7 +977,7 @@
         app:layout_constraintStart_toStartOf="@+id/bigOlBox"
         app:layout_constraintTop_toTopOf="@+id/bigOlBox"
         app:layout_constraintVertical_bias="0.42"
-        app:srcCompat="@drawable/thumb"
+        app:srcCompat="@drawable/seekbar_level_thumb"
         app:tint="@color/yellow" />
 
     <ImageView
@@ -994,7 +994,7 @@
         app:layout_constraintStart_toEndOf="@+id/shoeTypeImageView"
         app:layout_constraintTop_toTopOf="@+id/bigOlBox"
         app:layout_constraintVertical_bias="0.42"
-        app:srcCompat="@drawable/thumb"
+        app:srcCompat="@drawable/seekbar_level_thumb"
         app:tint="@color/yellow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
