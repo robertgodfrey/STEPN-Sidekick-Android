@@ -1822,7 +1822,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Coin"
+                android:text="Token"
                 android:textColor="@color/gandalf"
                 android:textSize="14sp" />
 

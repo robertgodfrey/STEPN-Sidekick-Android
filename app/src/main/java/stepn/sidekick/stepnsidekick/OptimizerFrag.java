@@ -19,9 +19,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -89,10 +91,12 @@ public class OptimizerFrag extends Fragment {
     private final String ONE_TWENTY_FIVE_ENERGY_PREF = "oneTwentyFiveEnergy";
     private final String SHOE_NUM_PREF = "shoeNum";
     private final String GMT_EARNING_PREF = "gmtEarning";
+    private final String CHAIN_PREF = "chain";
 
-    private final int SOL = 0;
-    private final int BSC = 1;
-    private final int ETH = 2;
+    private final int SOL = 1;
+    private final int BSC = 3;
+    private final int ETH = 5;
+
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
     private final int RARE = 4;
@@ -133,7 +137,7 @@ public class OptimizerFrag extends Fragment {
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
             shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, estGstGmtIcon,
             totalGmtIcon, chainSelectShadow, coinSelectShadow, coinSelectIcon, comfGemPriceIcon,
-            coinSelectIconShadow;
+            coinSelectIconShadow, gemPriceBox;
 
 
     LinearLayout shoeTypeLayout, shoeTypeLayoutShadow;
@@ -143,8 +147,8 @@ public class OptimizerFrag extends Fragment {
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored, gstProfitBeforeGem, comfGemMultiplier,
             oneTwentyFiveEnergy;
-    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, switchTouch;
-    private double hpLoss;
+    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn;
+    private double hpLoss, comfGemPrice;
     private String shoeName;
 
     private double[] PRICES;
@@ -192,6 +196,7 @@ public class OptimizerFrag extends Fragment {
                 shoeName = getSharedPrefs.getString(SHOE_NAME + shoeNumString, "");
                 oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
                 gmtEarningOn = getSharedPrefs.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
+                shoeChain = getSharedPrefs.getInt(CHAIN_PREF + shoeNumString, SOL);
 
                 dpScale = getResources().getDisplayMetrics().density;
 
@@ -382,6 +387,8 @@ public class OptimizerFrag extends Fragment {
         coinSelectIconShadow = view.findViewById(R.id.coinImageViewShadow);
         comfGemPriceEditText = view.findViewById(R.id.gemPriceEditText);
         comfGemPriceIcon = view.findViewById(R.id.chainCoinImageView);
+        gemPriceBox = view.findViewById(R.id.gemPriceBox);
+        totalIncomeUsdTextView = view.findViewById(R.id.totalIncomeUsdTextView);
 
         mysteryBox1 = view.findViewById(R.id.mysteryBoxLvl1);
         mysteryBox2 = view.findViewById(R.id.mysteryBoxLvl2);
@@ -402,8 +409,6 @@ public class OptimizerFrag extends Fragment {
 
         shoeTypeLayout = view.findViewById(R.id.shoeTypeLayout);
         shoeTypeLayoutShadow = view.findViewById(R.id.shoeTypeLayoutShadow);
-
-        shoeChain = 0;
 
         backgroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1122,10 +1127,12 @@ public class OptimizerFrag extends Fragment {
         chainSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (shoeChain == 2) {
-                    shoeChain = 0;
+                if (shoeChain == SOL) {
+                    shoeChain = BSC;
+                } else if (shoeChain == BSC) {
+                    shoeChain = ETH;
                 } else {
-                    shoeChain++;
+                    shoeChain = SOL;
                 }
                 updateChain();
                 clearFocus(view);
@@ -1203,29 +1210,15 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    energyBox.setImageResource(R.drawable.box_energy_input_active);
-                    oneTwentyFive = false;
-                    oneTwentyFiveTextView.setText("100%");
-                    energyEditText.setText(String.valueOf(energy));
-                    energyEditText.selectAll();
+                    gemPriceBox.setImageResource(R.drawable.box_gem_price_input_active);
+                    comfGemPriceEditText.selectAll();
                     InputMethodManager imm = (InputMethodManager) view.getContext()
                             .getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(view, 0);
                 } else {
-                    energyBox.setImageResource(R.drawable.box_energy_input);
-                    if (!energyEditText.getText().toString().isEmpty() && !energyEditText.getText().toString().equals(".")) {
-                        if (Float.parseFloat(energyEditText.getText().toString()) < 0.2) {
-                            energyEditText.setText("0.2");
-                        } else if (Float.parseFloat(energyEditText.getText().toString()) > 25) {
-                            energyEditText.setText("25");
-                        }
-                    } else {
-                        energyEditText.setText("0");
-                    }
-                    energy = Float.parseFloat(energyEditText.getText().toString());
-                    oneTwentyFiveEnergy = (float) (Math.round(energy * 12.5) / 10.0);
-                    if (oneTwentyFiveEnergy * 10 % 2 != 0) {
-                        oneTwentyFiveEnergy += 0.1;
+                    gemPriceBox.setImageResource(R.drawable.box_gem_price_input);
+                    if (!comfGemPriceEditText.getText().toString().isEmpty() && !comfGemPriceEditText.getText().toString().equals(".")) {
+                        comfGemPrice = Float.parseFloat(comfGemPriceEditText.getText().toString());
                     }
                     calcTotals();
                 }
@@ -1262,8 +1255,6 @@ public class OptimizerFrag extends Fragment {
                 dialog.show();
             }
         });
-
-        switchTouch = false;
 
         loadPoints();
         updateType();
@@ -2300,6 +2291,7 @@ public class OptimizerFrag extends Fragment {
 
     // calculate gst earnings, durability lost, repair cost, and mb chance
     private void calcTotals() {
+        Log.d("taggin", "calcTotals: calcs");
         if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
             estGstGmtTextView.setText("0");
             durabilityLossTextView.setText("0");
@@ -2310,6 +2302,7 @@ public class OptimizerFrag extends Fragment {
             gemMultipleTotalTextView.setText("- 0");
             totalIncomeTextView.setText("0");
             gmtTotalTv.setText("0");
+            totalIncomeUsdTextView.setText("-");
             return;
         }
 
@@ -2320,6 +2313,7 @@ public class OptimizerFrag extends Fragment {
         double hpRatio, repairCostHp;
         double gmtLowRange = 0;
         double gmtHighRange = 0;
+        double totalUsd = 0;
 
         double totalEff = Float.parseFloat(effTotalTextView.getText().toString());
         double totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
@@ -2403,14 +2397,30 @@ public class OptimizerFrag extends Fragment {
 
         durabilityLossTextView.setText(String.valueOf(durabilityLost));
         repairCostDurTextView.setText(String.valueOf(repairCostDurability));
+
         if (gmtEarningOn) {
             String gmtRange = gmtLowRange + " - " + gmtHighRange;
+            totalUsd = Math.round(((gstGmtTotal * PRICES[0]) - ((repairCostDurability + repairCostHp) * PRICES[shoeChain + 1])
+                    - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
             estGstGmtTextView.setText(gmtRange);
             totalIncomeTextView.setText(String.valueOf(Math.round((repairCostDurability + repairCostHp) * 10.0) / 10.0));
             gmtTotalTv.setText(String.valueOf(gstGmtTotal));
         } else {
+            totalUsd = Math.round(((gstProfitBeforeGem * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
             estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
             totalIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
+        }
+
+        if (comfGemPrice == 0) {
+            totalIncomeUsdTextView.setText("Enter Gem Price ↓");
+            totalIncomeUsdTextView.setTypeface(ResourcesCompat.getFont(requireContext(), R.font.roboto_condensed_regular));
+            totalIncomeUsdTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+            totalIncomeUsdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+        } else {
+            totalIncomeUsdTextView.setText(String.format("%.2f", totalUsd));
+            totalIncomeUsdTextView.setTypeface(ResourcesCompat.getFont(requireContext(), R.font.roboto_condensed_bold_italic));
+            totalIncomeUsdTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            totalIncomeUsdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         }
 
         if (gstGmtTotal > gstLimit) {
@@ -3419,6 +3429,7 @@ public class OptimizerFrag extends Fragment {
                 editor.putString(SHOE_NAME + oldShoeNumString, shoeName);
                 editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + oldShoeNumString, oneTwentyFive);
                 editor.putBoolean(GMT_EARNING_PREF + oldShoeNumString, gmtEarningOn);
+                editor.putInt(CHAIN_PREF + oldShoeNumString, shoeChain);
 
                 editor.putInt(GEM_ONE_TYPE_PREF + oldShoeNumString, gems.get(0).getSocketType());
                 editor.putInt(GEM_ONE_RARITY_PREF + oldShoeNumString, gems.get(0).getSocketRarity());
@@ -3451,6 +3462,7 @@ public class OptimizerFrag extends Fragment {
                 shoeName = sharedPreferences.getString(SHOE_NAME + shoeNumString, "");
                 oneTwentyFive = sharedPreferences.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
                 gmtEarningOn = sharedPreferences.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
+                shoeChain = sharedPreferences.getInt(CHAIN_PREF + shoeNumString, SOL);
 
                 gems.clear();
 
@@ -3483,6 +3495,7 @@ public class OptimizerFrag extends Fragment {
         loadPoints();
         updateType();
         updateRarity();
+        updateChain();
     }
 
     private void updateChain() {
@@ -3503,6 +3516,7 @@ public class OptimizerFrag extends Fragment {
                 comfGemPriceIcon.setImageResource(R.mipmap.logo_solana);
                 break;
         }
+        calcTotals();
     }
 
     // updates GMT switch for new shoe
@@ -3628,6 +3642,7 @@ public class OptimizerFrag extends Fragment {
         editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, oneTwentyFive);
         editor.putBoolean(GMT_EARNING_PREF + shoeNumString, gmtEarningOn);
         editor.putInt(SHOE_NUM_PREF, shoeNum);
+        editor.putInt(CHAIN_PREF, shoeChain);
 
         editor.putInt(GEM_ONE_TYPE_PREF + shoeNumString, gems.get(0).getSocketType());
         editor.putInt(GEM_ONE_RARITY_PREF + shoeNumString, gems.get(0).getSocketRarity());
