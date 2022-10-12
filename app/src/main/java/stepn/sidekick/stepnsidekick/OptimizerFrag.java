@@ -145,7 +145,7 @@ public class OptimizerFrag extends Fragment {
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum, shoeChain;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
-            gemRes, dpScale, energy, hpPercentRestored, gstProfitBeforeGem, comfGemMultiplier,
+            gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier,
             oneTwentyFiveEnergy;
     private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn;
     private double hpLoss, comfGemPrice;
@@ -1045,7 +1045,13 @@ public class OptimizerFrag extends Fragment {
                     if (gmtEarningOn) {
                         optimizeForGmt();
                     } else {
-                        optimizeForGst();
+                        if (comfGemPrice != 0) {
+                            optimizeForGst(true);
+                        } else {
+                            Toast.makeText(getContext(), "For a more accurate estimation, enter comfort gem price", Toast.LENGTH_SHORT).show();
+                            optimizeForGst(false);
+                        }
+
                     }
                 } else if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
                     Toast.makeText(getContext(), "Base values must be greater than 0", Toast.LENGTH_SHORT).show();
@@ -2289,9 +2295,54 @@ public class OptimizerFrag extends Fragment {
 
     }
 
-    // calculate gst earnings, durability lost, repair cost, and mb chance
+    // returns estimated durability lost
+    private int getDurabilityLost(double localEnergy, double totalRes) {
+        int durLost = (int) Math.round(localEnergy * ((2.944 * Math.exp(-totalRes / 6.763)) + (2.119 * Math.exp(-totalRes / 36.817)) + 0.294));
+        return Math.max(durLost, 1);
+    }
+
+    private double getGstTotal(double localEnergy, double totalEff) {
+        switch (shoeType) {
+            case JOGGER:
+                return Math.floor(localEnergy * Math.pow(totalEff, 0.48) * 10) / 10;
+            case RUNNER:
+                return Math.floor(localEnergy * Math.pow(totalEff, 0.49) * 10) / 10;
+            case TRAINER:
+                return Math.floor(localEnergy * Math.pow(totalEff, 0.492) * 10) / 10;
+            default:
+                return Math.floor(localEnergy * Math.pow(totalEff, 0.47) * 10) / 10;
+        }
+
+    }
+
+    // returns estimated gmt per energy
+    private double getGmtPerEnergy(double totalComf) {
+        double gmtPerEnergy;
+
+        if (totalComf < 118) {
+            gmtPerEnergy = -0.00001 * Math.pow(totalComf - 350, 2) + 1.67;
+        } else {
+            gmtPerEnergy = -10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.75;
+        }
+
+        switch (shoeType) {
+            case JOGGER:
+                break;
+            case RUNNER:
+                gmtPerEnergy *= 1.02;
+                break;
+            case TRAINER:
+                gmtPerEnergy *= 1.025;
+                break;
+            default:
+                gmtPerEnergy *= 0.98;
+        }
+
+        return gmtPerEnergy;
+    }
+
+    // calculate earnings
     private void calcTotals() {
-        Log.d("taggin", "calcTotals: calcs");
         if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
             estGstGmtTextView.setText("0");
             durabilityLossTextView.setText("0");
@@ -2302,88 +2353,44 @@ public class OptimizerFrag extends Fragment {
             gemMultipleTotalTextView.setText("- 0");
             totalIncomeTextView.setText("0");
             gmtTotalTv.setText("0");
-            totalIncomeUsdTextView.setText("-");
+            totalIncomeUsdTextView.setText("0");
             return;
         }
 
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
-        int durabilityLost;
-        double repairCostDurability, gstGmtTotal;
-        double hpRatio, repairCostHp;
+        double repairCostDurability, gstGmtTotal, hpRatio, repairCostHp, gstProfitBeforeGem, totalUsd;
         double gmtLowRange = 0;
         double gmtHighRange = 0;
-        double totalUsd = 0;
-
         double totalEff = Float.parseFloat(effTotalTextView.getText().toString());
         double totalComf = Float.parseFloat(comfortTotalTextView.getText().toString());
         double totalRes = Float.parseFloat(resTotalTextView.getText().toString());
 
         if (gmtEarningOn) {
-            if (totalComf < 118) {
-                gstGmtTotal = -0.00001 * Math.pow(totalComf - 350, 2) + 1.67;
-            } else {
-                gstGmtTotal = -10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.75;
-            }
-
-            switch (shoeType) {
-                case JOGGER:
-                    break;
-                case RUNNER:
-                    gstGmtTotal *= 1.02;
-                    break;
-                case TRAINER:
-                    gstGmtTotal *= 1.025;
-                    break;
-                default:
-                    gstGmtTotal *= 0.98;
-            }
-
-            gmtLowRange = Math.round((gstGmtTotal - 0.6f) * localEnergy * 10) / 10.0;
+            gstGmtTotal = getGmtPerEnergy(totalComf);
+            gmtLowRange = Math.max(0, Math.round((gstGmtTotal - 0.6f) * localEnergy * 10) / 10.0);
             gmtHighRange = Math.round((gstGmtTotal + 0.6f) * localEnergy * 10) / 10.0;
             gstGmtTotal = Math.round(gstGmtTotal * localEnergy * 10) / 10.0;
-
-            if (gmtLowRange < 0) {
-                gmtLowRange = 0;
-            }
-
         } else {
-            switch (shoeType) {
-                case JOGGER:
-                    gstGmtTotal = Math.floor(localEnergy * Math.pow(totalEff, 0.48) * 10) / 10;
-                    break;
-                case RUNNER:
-                    gstGmtTotal = Math.floor(localEnergy * Math.pow(totalEff, 0.49) * 10) / 10;
-                    break;
-                case TRAINER:
-                    gstGmtTotal = Math.floor(localEnergy * Math.pow(totalEff, 0.492) * 10) / 10;
-                    break;
-                default:
-                    gstGmtTotal = Math.floor(localEnergy * Math.pow(totalEff, 0.47) * 10) / 10;
-            }
+            gstGmtTotal = getGstTotal(localEnergy, totalEff);
         }
 
-        durabilityLost = (int) Math.round(localEnergy * ((2.944 * Math.exp(-totalRes / 6.763)) + (2.119 * Math.exp(-totalRes / 36.817)) + 0.294));
-
-        if (durabilityLost < 1) {
-            durabilityLost = 1;
-        }
-
-        repairCostDurability = getRepairCost() * durabilityLost;
-
+        repairCostDurability = getRepairCost() * getDurabilityLost(localEnergy, totalRes);
         hpCalcs((float) totalComf);
 
         hpRatio = hpLoss / hpPercentRestored;
         hpLoss = Math.round(hpLoss * 100.0) / 100.0;
+
         repairCostHp = Math.round(gstCostBasedOnGem * hpRatio * 10.0) / 10.0;
         repairCostDurability = Math.round(repairCostDurability * 10.0) / 10.0;
-        gstProfitBeforeGem = (float) (Math.round((gstGmtTotal - repairCostDurability - repairCostHp) * 10) / 10.0);
+
+        gstProfitBeforeGem = Math.round((gstGmtTotal - repairCostDurability - repairCostHp) * 10) / 10.0;
 
         calcMbChances();
 
         if (hpLoss == 0) {
-            hpLossTextView.setText("UNK");
-            repairCostHpTextView.setText("UNK");
+            hpLossTextView.setText("0");
+            repairCostHpTextView.setText("0");
             gemMultipleTextView.setText("0");
             gemMultipleTotalTextView.setText("- 0");
         } else {
@@ -2395,7 +2402,7 @@ public class OptimizerFrag extends Fragment {
             gemMultipleTotalTextView.setText(multiplier);
         }
 
-        durabilityLossTextView.setText(String.valueOf(durabilityLost));
+        durabilityLossTextView.setText(String.valueOf(getDurabilityLost(localEnergy, totalRes)));
         repairCostDurTextView.setText(String.valueOf(repairCostDurability));
 
         if (gmtEarningOn) {
@@ -2431,16 +2438,16 @@ public class OptimizerFrag extends Fragment {
     }
 
     // finds the point allocation that is most profitable for GST
-    private void optimizeForGst() {
+    private void optimizeForGst(boolean usdOn) {
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
-        double gstProfit, energyCo;
+        double profit;
         int optimalAddedEff = 0;
         int optimalAddedRes = 0;
         int optimalAddedComf = 0;
 
         final int localPoints = shoeLevel * 2 * shoeRarity;
-        double maxProfit = 0;
+        double maxProfit = -50;
 
         float localEff = baseEff + gemEff;
         float localComf = baseComf + gemComf;
@@ -2449,20 +2456,6 @@ public class OptimizerFrag extends Fragment {
         int localAddedComf = 0;
         int localAddedRes;
 
-        switch (shoeType) {
-            case JOGGER:
-                energyCo = 0.48f;
-                break;
-            case RUNNER:
-                energyCo = 0.49f;
-                break;
-            case TRAINER:
-                energyCo = 0.492f;
-                break;
-            default:
-                energyCo = 0.47f;
-        }
-
         // O(n^2) w/ max 45,150 calcs... yikes
         while (localAddedEff <= localPoints) {
             while (localAddedComf <= localPoints - localAddedEff) {
@@ -2470,16 +2463,20 @@ public class OptimizerFrag extends Fragment {
 
                 hpCalcs(localComf + localAddedComf);
                 hpLoss = Math.round(hpLoss * 100.0) / 100.0;
+                comfGemMultiplier = (float) (hpLoss / hpPercentRestored);
 
-                gstProfit = (Math.floor(localEnergy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
-                        (getRepairCost() * (int) Math.round(localEnergy * ((2.944 * Math.exp(-(localAddedRes + localRes) / 6.763)) + (2.119 * Math.exp(-(localAddedRes + localRes) / 36.817)) + 0.294))) -
-                        (Math.round(gstCostBasedOnGem * (hpLoss / hpPercentRestored) * 10.0) / 10.0);
+                profit = getGstTotal(localEnergy, localEff + localAddedEff)
+                        - (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost())
+                        - (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
 
-                if (gstProfit > maxProfit) {
+                if (usdOn) {
+                    profit = Math.round(((profit * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
+                }
+                if (profit > maxProfit) {
                     optimalAddedEff = localAddedEff;
                     optimalAddedComf = localAddedComf;
                     optimalAddedRes = localAddedRes;
-                    maxProfit = gstProfit;
+                    maxProfit = profit;
                 }
 
                 localAddedComf ++;
@@ -3555,20 +3552,6 @@ public class OptimizerFrag extends Fragment {
         InputMethodManager imm = (InputMethodManager) view.getContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-    // calcs for total income
-    private void incomeDetailsCalcs(double chainCoinPrice, double gstPrice, double gemPrice) {
-        // gem price in chain coin * USD price chain coin / USD price gst * gem multiplier
-        if (chainCoinPrice == 0 || gstPrice == 0 || gemPrice == 0) {
-            return;
-        }
-        double gemCostGst = Math.round(gemPrice * chainCoinPrice / gstPrice * comfGemMultiplier * 100.0) / 100.0;
-        double totalIncomeGst = Math.round((gstProfitBeforeGem - gemCostGst) * 100.0) / 100.0;
-
-        gemPriceGstTextView.setText(String.valueOf(gemCostGst));
-        totalIncomeGstTextView.setText(String.valueOf(totalIncomeGst));
-        totalIncomeUsdTextView.setText(String.valueOf(Math.round(totalIncomeGst * gstPrice * 100.0) / 100.0));
     }
 
     // resets all values on page
