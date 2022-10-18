@@ -1043,6 +1043,9 @@ public class OptimizerFrag extends Fragment {
             public void onClick(View view) {
                 if (energy > 0) {
                     if (gmtEarningOn) {
+                        if (comfGemPrice == 0) {
+                            Toast.makeText(getContext(), "For a more accurate estimation, enter comfort gem price", Toast.LENGTH_SHORT).show();
+                        }
                         optimizeForGmt();
                     } else {
                         if (comfGemPrice != 0) {
@@ -2320,9 +2323,9 @@ public class OptimizerFrag extends Fragment {
         double gmtPerEnergy;
 
         if (totalComf < 118) {
-            gmtPerEnergy = -0.00001 * Math.pow(totalComf - 350, 2) + 1.67;
+            gmtPerEnergy = 0.4 * (-0.00001 * Math.pow(totalComf - 350, 2) + 1.67);
         } else {
-            gmtPerEnergy = -10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.75;
+            gmtPerEnergy = 0.4 * (-10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.75);
         }
 
         switch (shoeType) {
@@ -2368,8 +2371,8 @@ public class OptimizerFrag extends Fragment {
 
         if (gmtEarningOn) {
             gstGmtTotal = getGmtPerEnergy(totalComf);
-            gmtLowRange = Math.max(0, Math.round((gstGmtTotal - 0.6f) * localEnergy * 10) / 10.0);
-            gmtHighRange = Math.round((gstGmtTotal + 0.6f) * localEnergy * 10) / 10.0;
+            gmtLowRange = Math.max(0, Math.round((gstGmtTotal - 0.2f) * localEnergy * 10) / 10.0);
+            gmtHighRange = Math.round((gstGmtTotal + 0.2f) * localEnergy * 10) / 10.0;
             gstGmtTotal = Math.round(gstGmtTotal * localEnergy * 10) / 10.0;
         } else {
             gstGmtTotal = getGstTotal(localEnergy, totalEff);
@@ -2494,59 +2497,54 @@ public class OptimizerFrag extends Fragment {
 
     // finds the point allocation that is most profitable for GMT
     private void optimizeForGmt() {
-        Toast.makeText(requireActivity(), "Coming soon", Toast.LENGTH_SHORT).show();
+        final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
-        /* TODO finish this... calling it for today
-            need to do an api call to compare prices... going to take a while to finish
-        float gmtProfit, energyCo;
-        int optimalAddedComf = 0;
+        double profit;
         int optimalAddedRes = 0;
+        int optimalAddedComf = 0;
 
-        float maxProfit = 0;
+        final int localPoints = shoeLevel * 2 * shoeRarity;
+        double maxProfit = -50;
 
-        float localTotalComf = baseComf + gemComf + (shoeLevel * 2 * shoeRarity);
-        float localTotalRes = baseRes + gemRes;
+        float localComf = baseComf + gemComf;
+        float localRes = baseRes + gemRes;
+        int localAddedComf = 0;
+        int localAddedRes;
 
-        switch (shoeType) {
-            case JOGGER:
-                energyCo = 0.475f;
-                break;
-            case RUNNER:
-                energyCo = 0.48f;
-                break;
-            case TRAINER:
-                energyCo = 0.482f;
-                break;
-            default:
-                energyCo = 0.47f;
-        }
+        while (localAddedComf <= localPoints) {
+            localAddedRes = localPoints - localAddedComf;
 
-        while (localTotalComf > baseComf + gemComf) {
-            gmtProfit = ((float) (Math.floor(energy * Math.pow(localTotalEff, energyCo) * 10) / 10)) -
-                    (getRepairCost() * (int) Math.round(energy * ((2.22 * Math.exp(-localTotalRes / 30.9)) + (2.8 * Math.exp(-localTotalRes / 6.2)) + 0.4)));
+            hpCalcs(localComf + localAddedComf);
+            hpLoss = Math.round(hpLoss * 100.0) / 100.0;
+            comfGemMultiplier = (float) (hpLoss / hpPercentRestored);
 
-            if (gmtProfit > maxProfit) {
-                optimalAddedEff = (int) Math.round(localTotalEff - baseEff - gemEff);
-                optimalAddedRes = (int) Math.round(localTotalRes - baseRes - gemRes);
-                maxProfit = gstProfit;
+            // total profit GMT in USD
+            profit = localEnergy * getGmtPerEnergy(localComf + localAddedComf) * PRICES[0];
+            // subtract USD cost of repair durability
+            profit -= (PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
+            // subtract USD cost of restore HP
+            profit -= (comfGemMultiplier * comfGemPrice * PRICES[shoeChain]);
+
+            if (profit > maxProfit) {
+                optimalAddedComf = localAddedComf;
+                optimalAddedRes = localAddedRes;
+                maxProfit = profit;
             }
 
-            localTotalEff--;
-            localTotalRes++;
+            localAddedComf ++;
         }
 
-        addedEff = optimalAddedEff;
         addedRes = optimalAddedRes;
         addedLuck = 0;
-        addedComf = 0;
+        addedComf = optimalAddedComf;
         updatePoints();
-        */
     }
 
     // optimizes for most luck with no GST loss
     private void optimizeForLuck() {
         final int localPoints = shoeLevel * 2 * shoeRarity;
 
+        // TODO include comf gem
         int localAddedEff = 0;
         int localAddedComf = 0;
         int localAddedRes = 0;
