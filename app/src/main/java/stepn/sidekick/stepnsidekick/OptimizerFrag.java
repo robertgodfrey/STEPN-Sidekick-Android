@@ -2381,7 +2381,7 @@ public class OptimizerFrag extends Fragment {
             gstGmtTotal = getGmtPerEnergy(totalComf);
             gmtLowRange = Math.max(0, Math.round((gstGmtTotal - 0.2f) * localEnergy * 10) / 10.0);
             gmtHighRange = Math.round((gstGmtTotal + 0.2f) * localEnergy * 10) / 10.0;
-            gstGmtTotal = Math.round(gstGmtTotal * localEnergy * 10) / 10.0;
+            gstGmtTotal = gstGmtTotal * localEnergy;
         } else {
             gstGmtTotal = getGstTotal(localEnergy, totalEff);
         }
@@ -2393,9 +2393,6 @@ public class OptimizerFrag extends Fragment {
         comfGemMultiplier = (float) (hpLoss / hpPercentRestored);
 
         repairCostHp = gstCostBasedOnGem * hpRatio;
-
-        gstProfitBeforeGem = gstGmtTotal - repairCostDurability - repairCostHp;
-
         calcMbChances();
 
         repairCostHp = Math.round(repairCostHp * 10.0) / 10.0;
@@ -2423,8 +2420,9 @@ public class OptimizerFrag extends Fragment {
                     - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
             estGstGmtTextView.setText(gmtRange);
             totalIncomeTextView.setText(String.valueOf(Math.round((repairCostDurability + repairCostHp) * 10.0) / 10.0));
-            gmtTotalTv.setText(String.valueOf(gstGmtTotal));
+            gmtTotalTv.setText(String.valueOf(Math.round(gstGmtTotal * 10) / 10.0));
         } else {
+            gstProfitBeforeGem = gstGmtTotal - repairCostDurability - repairCostHp;
             totalUsd = Math.round(((gstProfitBeforeGem * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
             estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
             totalIncomeTextView.setText(String.valueOf(Math.round(gstProfitBeforeGem * 10) / 10.0));
@@ -2521,16 +2519,15 @@ public class OptimizerFrag extends Fragment {
 
         while (localAddedComf <= localPoints) {
             localAddedRes = localPoints - localAddedComf;
-
             hpCalcs(localComf + localAddedComf);
-            comfGemMultiplier = (float) (hpLoss / hpPercentRestored);
 
             // total profit GMT in USD
             profit = localEnergy * getGmtPerEnergy(localComf + localAddedComf) * PRICES[0];
-            // subtract USD cost of repair durability
+            // subtract USD cost of repair durability restore HP (GST)
             profit -= (PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
+            profit -= (PRICES[shoeChain + 1]) * (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
             // subtract USD cost of restore HP
-            profit -= (comfGemMultiplier * comfGemPrice * PRICES[shoeChain]);
+            profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[shoeChain]);
 
             if (profit > maxProfit) {
                 optimalAddedComf = localAddedComf;
@@ -2620,7 +2617,55 @@ public class OptimizerFrag extends Fragment {
 
     // optimizes for most luck with no GMT loss
     private void optimizeForLuckGmt() {
+        if (breakEvenGmt(0, 0)) {
+            addedEff = 0;
+            addedLuck = shoeLevel * 2 * shoeRarity;
+            addedComf = 0;
+            addedRes = 0;
+            updatePoints();
+            return;
+        }
 
+        final int localPoints = shoeLevel * 2 * shoeRarity;
+
+        int localAddedComf = 1;
+        int localAddedRes = 0;
+        int pointsSpent = 1;
+        boolean zero = false;
+
+        while (localAddedComf <= localPoints) {
+            if (breakEvenGmt(localAddedComf, localAddedRes)) {
+                break;
+            }
+
+            while (localAddedComf > 0) {
+                localAddedComf--;
+                localAddedRes = pointsSpent - localAddedComf;
+
+                if (breakEvenGmt(localAddedComf, localAddedRes)) {
+                    zero = true;
+                    break;
+                }
+            }
+
+            if (zero) {
+                break;
+            }
+
+            pointsSpent++;
+            localAddedComf = pointsSpent;
+            localAddedRes = 0;
+        }
+
+        if (zero) {
+            addedEff = 0;
+            addedRes = localAddedRes;
+            addedLuck = localPoints - pointsSpent;
+            addedComf = localAddedComf;
+        } else {
+            Toast.makeText(requireActivity(), "Cannot optimize luck - shoe always loses money", Toast.LENGTH_SHORT).show();
+        }
+        updatePoints();
     }
 
     // check GST profit, returns true if greater than 0
@@ -2644,11 +2689,26 @@ public class OptimizerFrag extends Fragment {
         profit = (profit * PRICES[shoeChain + 1]);
         // minus gem restore cost
         profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[shoeChain]);
+
         return profit > 0;
     }
 
-    private void breakEvenGmt() {
+    private boolean breakEvenGmt(final int localAddedComf, final int localAddedRes) {
+        final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
+        float localComf = baseComf + gemComf;
+        float localRes = baseRes + gemRes;
+        double profit;
 
+        hpCalcs(localComf + localAddedComf);
+
+        // total profit GMT in USD
+        profit = localEnergy * getGmtPerEnergy(localComf + localAddedComf) * PRICES[0];
+        // subtract USD cost of repair durability and restore HP
+        profit -= (PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
+        profit -= (PRICES[shoeChain + 1]) * (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
+        // subtract USD cost of restore HP
+        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[shoeChain]);
+        return profit > 0;
     }
 
     // sets up HP calcs based on gem level and shoe rarity
