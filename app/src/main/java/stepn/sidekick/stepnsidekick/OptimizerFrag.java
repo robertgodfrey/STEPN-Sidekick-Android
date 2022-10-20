@@ -1089,7 +1089,14 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 if (energy > 0) {
-                    optimizeForLuck();
+                    if (comfGemPrice == 0) {
+                        Toast.makeText(getContext(), "For a more accurate estimation, enter comfort gem price", Toast.LENGTH_SHORT).show();
+                    }
+                    if (gmtEarningOn) {
+                        optimizeForLuckGmt();
+                    } else {
+                        optimizeForLuckGst();
+                    }
                 } else if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
                     Toast.makeText(getContext(), "Base values must be greater than 0", Toast.LENGTH_SHORT).show();
                 } else {
@@ -1270,6 +1277,7 @@ public class OptimizerFrag extends Fragment {
         updateRarity();
         updateShoeNums();
         updateGmtSwitch();
+        updateChain();
 
         if (update) {
             update = false;
@@ -2382,14 +2390,16 @@ public class OptimizerFrag extends Fragment {
         hpCalcs((float) totalComf);
 
         hpRatio = hpLoss / hpPercentRestored;
-        hpLoss = Math.round(hpLoss * 100.0) / 100.0;
+        comfGemMultiplier = (float) (hpLoss / hpPercentRestored);
 
-        repairCostHp = Math.round(gstCostBasedOnGem * hpRatio * 10.0) / 10.0;
-        repairCostDurability = Math.round(repairCostDurability * 10.0) / 10.0;
+        repairCostHp = gstCostBasedOnGem * hpRatio;
 
-        gstProfitBeforeGem = Math.round((gstGmtTotal - repairCostDurability - repairCostHp) * 10) / 10.0;
+        gstProfitBeforeGem = gstGmtTotal - repairCostDurability - repairCostHp;
 
         calcMbChances();
+
+        repairCostHp = Math.round(repairCostHp * 10.0) / 10.0;
+        repairCostDurability = Math.round(repairCostDurability * 10.0) / 10.0;
 
         if (hpLoss == 0) {
             hpLossTextView.setText("0");
@@ -2397,11 +2407,10 @@ public class OptimizerFrag extends Fragment {
             gemMultipleTextView.setText("0");
             gemMultipleTotalTextView.setText("- 0");
         } else {
-            comfGemMultiplier = (float) (Math.round(hpRatio * 100.0) / 100.0);
-            hpLossTextView.setText(String.valueOf(hpLoss));
+            hpLossTextView.setText(String.valueOf(Math.round(hpLoss * 100) / 100.0));
             repairCostHpTextView.setText(String.valueOf(repairCostHp));
-            gemMultipleTextView.setText(String.valueOf(comfGemMultiplier));
-            String multiplier = "- " + comfGemMultiplier;
+            gemMultipleTextView.setText(String.valueOf(Math.round(hpRatio * 100.0) / 100.0));
+            String multiplier = "- " + Math.round(hpRatio * 100.0) / 100.0;
             gemMultipleTotalTextView.setText(multiplier);
         }
 
@@ -2418,7 +2427,7 @@ public class OptimizerFrag extends Fragment {
         } else {
             totalUsd = Math.round(((gstProfitBeforeGem * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
             estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
-            totalIncomeTextView.setText(String.valueOf(gstProfitBeforeGem));
+            totalIncomeTextView.setText(String.valueOf(Math.round(gstProfitBeforeGem * 10) / 10.0));
         }
 
         if (comfGemPrice == 0) {
@@ -2465,7 +2474,6 @@ public class OptimizerFrag extends Fragment {
                 localAddedRes = localPoints - localAddedComf - localAddedEff;
 
                 hpCalcs(localComf + localAddedComf);
-                hpLoss = Math.round(hpLoss * 100.0) / 100.0;
                 comfGemMultiplier = (float) (hpLoss / hpPercentRestored);
 
                 profit = getGstTotal(localEnergy, localEff + localAddedEff)
@@ -2473,7 +2481,7 @@ public class OptimizerFrag extends Fragment {
                         - (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
 
                 if (usdOn) {
-                    profit = Math.round(((profit * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
+                    profit = ((profit * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain]));
                 }
                 if (profit > maxProfit) {
                     optimalAddedEff = localAddedEff;
@@ -2515,7 +2523,6 @@ public class OptimizerFrag extends Fragment {
             localAddedRes = localPoints - localAddedComf;
 
             hpCalcs(localComf + localAddedComf);
-            hpLoss = Math.round(hpLoss * 100.0) / 100.0;
             comfGemMultiplier = (float) (hpLoss / hpPercentRestored);
 
             // total profit GMT in USD
@@ -2536,36 +2543,42 @@ public class OptimizerFrag extends Fragment {
 
         addedRes = optimalAddedRes;
         addedLuck = 0;
+        addedEff = 0;
         addedComf = optimalAddedComf;
         updatePoints();
     }
 
     // optimizes for most luck with no GST loss
-    private void optimizeForLuck() {
+    private void optimizeForLuckGst() {
+        if (breakEvenGst(0, 0, 0)) {
+            addedEff = 0;
+            addedLuck = shoeLevel * 2 * shoeRarity;
+            addedComf = 0;
+            addedRes = 0;
+            updatePoints();
+            return;
+        }
+
         final int localPoints = shoeLevel * 2 * shoeRarity;
 
-        // TODO include comf gem
-        int localAddedEff = 0;
+        int localAddedEff = 1;
         int localAddedComf = 0;
         int localAddedRes = 0;
-        int pointsSpent = 0;
+        int pointsSpent = 1;
+        boolean zero = false;
 
-        // favors eff, but is efficient (see what i did there)
-        while (!breakEvenGst(localAddedEff, localAddedComf, localAddedRes) && pointsSpent < localPoints) {
-            pointsSpent++;
-            localAddedEff = pointsSpent;
-            localAddedComf = 0;
-            localAddedRes = 0;
-
+        while (localAddedEff <= localPoints) {
             if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
                 break;
             }
 
             while (localAddedEff > 0) {
                 localAddedEff--;
-                localAddedComf++;
+                localAddedComf = pointsSpent - localAddedEff;
+                localAddedRes = 0;
 
                 if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
+                    zero = true;
                     break;
                 }
 
@@ -2574,24 +2587,40 @@ public class OptimizerFrag extends Fragment {
                     localAddedRes++;
 
                     if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
+                        zero = true;
                         break;
                     }
                 }
 
-                if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
+                if (zero) {
                     break;
                 }
-
-                localAddedComf += localAddedRes;
-                localAddedRes = 0;
             }
+
+            if (zero) {
+                break;
+            }
+
+            pointsSpent++;
+            localAddedEff = pointsSpent;
+            localAddedComf = 0;
+            localAddedRes = 0;
         }
 
-        addedEff = localAddedEff;
-        addedRes = localAddedRes;
-        addedLuck = localPoints - pointsSpent;
-        addedComf = localAddedComf;
+        if (zero) {
+            addedEff = localAddedEff;
+            addedRes = localAddedRes;
+            addedLuck = localPoints - pointsSpent;
+            addedComf = localAddedComf;
+        } else {
+            Toast.makeText(requireActivity(), "Cannot optimize luck - shoe always loses money", Toast.LENGTH_SHORT).show();
+        }
         updatePoints();
+    }
+
+    // optimizes for most luck with no GMT loss
+    private void optimizeForLuckGmt() {
+
     }
 
     // check GST profit, returns true if greater than 0
@@ -2600,36 +2629,25 @@ public class OptimizerFrag extends Fragment {
         float localEff = baseEff + gemEff;
         float localComf = baseComf + gemComf;
         float localRes = baseRes + gemRes;
-        float energyCo;
-        double gstProfit;
-        boolean breakEven;
-
-        switch (shoeType) {
-            case JOGGER:
-                energyCo = 0.48f;
-                break;
-            case RUNNER:
-                energyCo = 0.49f;
-                break;
-            case TRAINER:
-                energyCo = 0.492f;
-                break;
-            default:
-                energyCo = 0.47f;
-        }
+        double profit;
 
         hpCalcs(localComf + localAddedComf);
-        gstProfit = (Math.floor(localEnergy * Math.pow((localEff + localAddedEff), energyCo) * 10) / 10) -
-                (getRepairCost() * (int) Math.round(localEnergy * ((2.22 * Math.exp(-(localAddedRes + localRes) / 30.9)) + (2.8 * Math.exp(-(localAddedRes + localRes) / 6.2)) + 0.4))) -
-                (Math.round(gstCostBasedOnGem * ((Math.round(hpLoss * 100.0) / 100.0) / hpPercentRestored) * 10.0) / 10.0);
 
-        if (gstProfit > 0) {
-            breakEven = true;
-        } else {
-            breakEven = false;
-        }
+        // gst profit
+        profit = getGstTotal(localEnergy, localEff + localAddedEff);
+        // minus repair cost
+        profit -= (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
+        // minus restore cost
+        profit -= (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
 
-        return breakEven;
+        // in USD
+        profit = (profit * PRICES[shoeChain + 1]);
+        // minus gem restore cost
+        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[shoeChain]);
+        return profit > 0;
+    }
+
+    private void breakEvenGmt() {
 
     }
 
@@ -3622,8 +3640,8 @@ public class OptimizerFrag extends Fragment {
         editor.putString(SHOE_NAME + shoeNumString, shoeName);
         editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, oneTwentyFive);
         editor.putBoolean(GMT_EARNING_PREF + shoeNumString, gmtEarningOn);
+        editor.putInt(CHAIN_PREF + shoeNumString, shoeChain);
         editor.putInt(SHOE_NUM_PREF, shoeNum);
-        editor.putInt(CHAIN_PREF, shoeChain);
 
         editor.putInt(GEM_ONE_TYPE_PREF + shoeNumString, gems.get(0).getSocketType());
         editor.putInt(GEM_ONE_RARITY_PREF + shoeNumString, gems.get(0).getSocketRarity());
