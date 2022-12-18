@@ -1978,13 +1978,14 @@
                         android:textSize="18sp" />
 
                     <ImageView
-                        android:id="@+id/chainCoinImageView"
+                        android:id="@+id/gmtLogoGemPriceImageView"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="18dp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="4dp"
+                        android:layout_marginStart="5dp"
                         android:adjustViewBounds="true"
-                        app:srcCompat="@mipmap/logo_solana" />
+                        app:srcCompat="@mipmap/logo_gmt_solid"
+                        app:tint="@color/white" />
 
                 </LinearLayout>
 

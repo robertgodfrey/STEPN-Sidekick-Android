@@ -53,7 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.5.2 - Added GMT calcs
+ * @version 1.5.4 - Changed gem price from chain coin token to GMT
  *
  */
 
@@ -123,10 +123,9 @@ public class OptimizerFrag extends Fragment {
             resPlusTv, optimizeGstGmtTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
             optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
-            gemPriceGstTextView, totalIncomeGstTextView, totalIncomeUsdTextView, oneTwentyFiveTextView,
-            estGstGmtLabelTv, gstLimitPerDaySlashTextView, gmtTotalMinusTv, gmtTotalTv,
-            optimizeGstGmtTextViewShadow, chainSelectTv, chainSelectShadowTv, coinSelectTv,
-            coinShadowSelectTv;
+            totalIncomeUsdTextView, oneTwentyFiveTextView, estGstGmtLabelTv, gstLimitPerDaySlashTextView,
+            gmtTotalMinusTv, gmtTotalTv, optimizeGstGmtTextViewShadow, chainSelectTv, chainSelectShadowTv,
+            coinSelectTv, coinShadowSelectTv;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -136,8 +135,8 @@ public class OptimizerFrag extends Fragment {
             mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
             shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, estGstGmtIcon,
-            totalGmtIcon, chainSelectShadow, coinSelectShadow, coinSelectIcon, comfGemPriceIcon,
-            coinSelectIconShadow, gemPriceBox;
+            totalGmtIcon, chainSelectShadow, coinSelectShadow, coinSelectIcon, coinSelectIconShadow,
+            gemPriceBox;
 
 
     LinearLayout shoeTypeLayout, shoeTypeLayoutShadow;
@@ -386,7 +385,6 @@ public class OptimizerFrag extends Fragment {
         coinShadowSelectTv = view.findViewById(R.id.coinTextViewShadow);
         coinSelectIconShadow = view.findViewById(R.id.coinImageViewShadow);
         comfGemPriceEditText = view.findViewById(R.id.gemPriceEditText);
-        comfGemPriceIcon = view.findViewById(R.id.chainCoinImageView);
         gemPriceBox = view.findViewById(R.id.gemPriceBox);
         totalIncomeUsdTextView = view.findViewById(R.id.totalIncomeUsdTextView);
 
@@ -3576,17 +3574,14 @@ public class OptimizerFrag extends Fragment {
             case BSC:
                 chainSelectButton.setImageResource(R.drawable.button_bsc);
                 chainSelectTv.setText("BSC");
-                comfGemPriceIcon.setImageResource(R.mipmap.logo_bnb);
                 break;
             case ETH:
                 chainSelectButton.setImageResource(R.drawable.button_eth);
                 chainSelectTv.setText("ETH");
-                comfGemPriceIcon.setImageResource(R.mipmap.logo_eth);
                 break;
             default:
                 chainSelectButton.setImageResource(R.drawable.button_sol);
                 chainSelectTv.setText("SOL");
-                comfGemPriceIcon.setImageResource(R.mipmap.logo_solana);
                 break;
         }
         calcTotals();

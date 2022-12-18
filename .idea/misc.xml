@@ -115,7 +115,7 @@
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/logo_bnb.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/logo_eth.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/logo_ether.xml" value="0.4035" />
-        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/logo_gmt.xml" value="0.279" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/logo_gmt.xml" value="0.4" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/logo_gst.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/luck.xml" value="0.4035" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/drawable/main_background_thing.xml" value="0.4095" />
@@ -174,7 +174,7 @@
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/layout/alert_layout_permissions.xml" value="0.3359307359307359" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/layout/choose_gem_dialog.xml" value="0.536" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/layout/fragment_about.xml" value="0.264" />
-        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/layout/fragment_optimizer.xml" value="0.20404040404040405" />
+        <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/layout/fragment_optimizer.xml" value="0.72" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/layout/fragment_start_activity.xml" value="0.3275643731532292" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/layout/gem_calcs_dialog.xml" value="0.536" />
         <entry key="..\:/Users/Rob/AndroidStudioProjects/STEPNSidekick/app/src/main/res/layout/instructions_1.xml" value="0.3359307359307359" />
