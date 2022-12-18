@@ -2545,16 +2545,16 @@ public class OptimizerFrag extends Fragment {
 
     // optimizes for most luck with no GST loss
     private void optimizeForLuckGst() {
+        final int localPoints = shoeLevel * 2 * shoeRarity;
+
         if (breakEvenGst(0, 0, 0)) {
             addedEff = 0;
-            addedLuck = shoeLevel * 2 * shoeRarity;
+            addedLuck = localPoints;
             addedComf = 0;
             addedRes = 0;
             updatePoints();
             return;
         }
-
-        final int localPoints = shoeLevel * 2 * shoeRarity;
 
         int localAddedEff = 1;
         int localAddedComf = 0;
@@ -2562,15 +2562,14 @@ public class OptimizerFrag extends Fragment {
         int pointsSpent = 1;
         boolean zero = false;
 
-        while (localAddedEff <= localPoints) {
+        while (pointsSpent <= localPoints) {
             if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
                 break;
             }
 
             while (localAddedEff > 0) {
                 localAddedEff--;
-                localAddedComf = pointsSpent - localAddedEff;
-                localAddedRes = 0;
+                localAddedComf++;
 
                 if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
                     zero = true;
@@ -2590,6 +2589,9 @@ public class OptimizerFrag extends Fragment {
                 if (zero) {
                     break;
                 }
+
+                localAddedComf += localAddedRes;
+                localAddedRes = 0;
             }
 
             if (zero) {
@@ -2599,7 +2601,6 @@ public class OptimizerFrag extends Fragment {
             pointsSpent++;
             localAddedEff = pointsSpent;
             localAddedComf = 0;
-            localAddedRes = 0;
         }
 
         if (zero) {
@@ -3078,10 +3079,104 @@ public class OptimizerFrag extends Fragment {
                 default:
                     baseCost = 0;
             }
+        } else if (shoeRarity == EPIC) {
+            switch (shoeLevel) {
+                case 1:
+                    baseCost = 0.61f;
+                    break;
+                case 2:
+                    baseCost = 0.65f;
+                    break;
+                case 3:
+                    baseCost = 0.69f;
+                    break;
+                case 4:
+                    baseCost = 0.72f;
+                    break;
+                case 5:
+                    baseCost = 0.75f;
+                    break;
+                case 6:
+                    baseCost = 0.78f;
+                    break;
+                case 7:
+                    baseCost = 0.81f;
+                    break;
+                case 8:
+                    baseCost = 0.84f;
+                    break;
+                case 9:
+                    baseCost = 0.87f;
+                    break;
+                case 10:
+                    baseCost = 0.91f;
+                    break;
+                case 11:
+                    baseCost = 0.95f;
+                    break;
+                case 12:
+                    baseCost = 0.99f;
+                    break;
+                case 13:
+                    baseCost = 1.03f;
+                    break;
+                case 14:
+                    baseCost = 1.07f;
+                    break;
+                case 15:
+                    baseCost = 1.11f;
+                    break;
+                case 16:
+                    baseCost = 1.15f;
+                    break;
+                case 17:
+                    baseCost = 1.19f;
+                    break;
+                case 18:
+                    baseCost = 1.24f;
+                    break;
+                case 19:
+                    baseCost = 1.28f;
+                    break;
+                case 20:
+                    baseCost = 1.33f;
+                    break;
+                case 21:
+                    baseCost = 1.38f;
+                    break;
+                case 22:
+                    baseCost = 1.43f;
+                    break;
+                case 23:
+                    baseCost = 1.48f;
+                    break;
+                case 24:
+                    baseCost = 1.51f;
+                    break;
+                case 25:
+                    baseCost = 1.55f;
+                    break;
+                case 26:
+                    baseCost = 1.59f;
+                    break;
+                case 27:
+                    baseCost = 1.63f;
+                    break;
+                case 28:
+                    baseCost = 1.66f;
+                    break;
+                case 29:
+                    baseCost = 1.69f;
+                    break;
+                case 30:
+                    baseCost = 1.72f;
+                    break;
+                default:
+                    baseCost = 0;
+            }
         } else {
             baseCost = 1;
         }
-
         return baseCost;
     }
 
