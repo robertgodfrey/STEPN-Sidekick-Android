@@ -34,16 +34,14 @@ public class AboutFrag extends Fragment {
 
     Button emailButton, buyCoffeeButton, kritButton, karlButton, stepnGuideButton,  stepnGuideAuthorButton,
             stepnWikiButton, stepnWikiAuthorButton, stepnAssistButton, stepnAssistAuthorButton,
-            stepnFpButton, stepnFpAuthorButton, stepnEnhancedFilterButton, stepnEnhancedFilterAuthorButton,
-            stepnStatsButton, stepnStatsAuthorOneButton, stepnStatsAuthorTwoButton, stepnMarketGuideButton,
-            stepnMarketGuideAuthorButton, otikxButton;
+            stepnFpButton, stepnFpAuthorButton, stepnStatsButton, stepnStatsAuthorOneButton,
+            stepnStatsAuthorTwoButton, stepnMarketGuideButton, stepnMarketGuideAuthorButton, otikxButton;
     ImageButton removeAdsButton;
     ImageView removeAdsShadow, buyCoffeeLogo, stepnGuideIv, stepnWikiIv, stepnAssistIv, stepnFpIv,
             stepnEfIv, stepnStatsIv, stepnMarketIv;
     TextView emailTextView, removeAdsTextView, removeAdsShadowTextView, plzSupportTextView, orTv, kritTv,
             karlTv, stepnGuideAuthorTv, stepnWikiAuthorTv, stepnAssistAuthorTv, stepnFpAuthorTv,
-            stepnEnhancedAuthorTv, stepnStatsAuthorOneTv, stepnStatsAuthorTwoTv, stepnMarketGuideAuthorTv,
-            otikxTv;
+            stepnStatsAuthorOneTv, stepnStatsAuthorTwoTv, stepnMarketGuideAuthorTv, otikxTv;
     ClipboardManager clipboard;
 
     public AboutFrag() {
@@ -81,8 +79,6 @@ public class AboutFrag extends Fragment {
         stepnAssistAuthorButton = view.findViewById(R.id.stepnAssistAuthorButton);
         stepnFpButton = view.findViewById(R.id.stepnFpButton);
         stepnFpAuthorButton = view.findViewById(R.id.stepnFpAuthorButton);
-        stepnEnhancedFilterButton = view.findViewById(R.id.stepnEnhancedFilterButton);
-        stepnEnhancedFilterAuthorButton = view.findViewById(R.id.stepnEnhancedFilterAuthorButton);
         stepnStatsButton = view.findViewById(R.id.stepnStatsButton);
         stepnStatsAuthorOneButton = view.findViewById(R.id.stepnStatsAuthor1Button);
         stepnStatsAuthorTwoButton = view.findViewById(R.id.stepnStatsAuthor2Button);
@@ -96,7 +92,6 @@ public class AboutFrag extends Fragment {
         stepnWikiAuthorTv = view.findViewById(R.id.stepnWikiAuthor);
         stepnAssistAuthorTv = view.findViewById(R.id.stepnAssistAuthor);
         stepnFpAuthorTv = view.findViewById(R.id.stepnFpAuthor);
-        stepnEnhancedAuthorTv = view.findViewById(R.id.stepnEnhancedFilterAuthor);
         stepnStatsAuthorOneTv = view.findViewById(R.id.stepnStatsAuthor1);
         stepnStatsAuthorTwoTv = view.findViewById(R.id.stepnStatsAuthor2);
         stepnMarketGuideAuthorTv = view.findViewById(R.id.stepnMarketGuideAuthor);
@@ -105,7 +100,6 @@ public class AboutFrag extends Fragment {
         stepnWikiIv = view.findViewById(R.id.stepnWiki);
         stepnAssistIv = view.findViewById(R.id.stepnAssist);
         stepnFpIv = view.findViewById(R.id.stepnFp);
-        stepnEfIv = view.findViewById(R.id.stepnEnhancedFilter);
         stepnStatsIv = view.findViewById(R.id.stepnStats);
         stepnMarketIv = view.findViewById(R.id.stepnMarketGuide);
 
@@ -296,28 +290,6 @@ public class AboutFrag extends Fragment {
         });
 
         textTouchies(stepnFpAuthorButton, stepnFpAuthorTv);
-
-        stepnEnhancedFilterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri uri = Uri.parse("https://chrome.google.com/webstore/detail/enhanced-filter-for-stepn/amibnhkklghdncklemlohpglbbbnpjhe");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
-        imageTouchies(stepnEnhancedFilterButton, stepnEfIv);
-
-        stepnEnhancedFilterAuthorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri uri = Uri.parse("https://twitter.com/1napolsky");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
-        textTouchies(stepnEnhancedFilterAuthorButton, stepnEnhancedAuthorTv);
 
         stepnStatsButton.setOnClickListener(new View.OnClickListener() {
             @Override

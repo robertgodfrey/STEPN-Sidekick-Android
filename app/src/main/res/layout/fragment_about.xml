@@ -552,7 +552,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="-24dp"
         android:background="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/stepnMarketGuideAuthorButton"
+        app:layout_constraintBottom_toBottomOf="@+id/stepnStatsAuthor1Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundThing"
@@ -593,6 +593,139 @@
         app:layout_constraintTop_toBottomOf="@+id/otherProjectsTextView" />
 
     <ImageView
+        android:id="@+id/stepnMarketGuide"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otherProjectsDeetsTextView"
+        app:srcCompat="@mipmap/stepn_market_guide" />
+
+    <Button
+        android:id="@+id/stepnMarketGuideButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:alpha="0"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/stepnMarketGuide"
+        app:layout_constraintEnd_toEndOf="@+id/stepnMarketGuide"
+        app:layout_constraintStart_toStartOf="@+id/stepnMarketGuide"
+        app:layout_constraintTop_toTopOf="@+id/stepnMarketGuide" />
+
+    <TextView
+        android:id="@+id/stepnMarketGuideDeets"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:includeFontPadding="false"
+        android:text="Improved marketplace filter by "
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="12sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toStartOf="@+id/stepnMarketGuideAuthor"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuide" />
+
+    <TextView
+        android:id="@+id/stepnMarketGuideAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:includeFontPadding="false"
+        android:text="\@t2_stepn"
+        android:textAlignment="center"
+        android:textColor="@color/luck_socket_border"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/stepnMarketGuideDeets"
+        app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuide" />
+
+    <Button
+        android:id="@+id/stepnMarketGuideAuthorButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:alpha="0"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/stepnMarketGuideAuthor"
+        app:layout_constraintEnd_toEndOf="@+id/stepnMarketGuideAuthor"
+        app:layout_constraintStart_toStartOf="@+id/stepnMarketGuideAuthor"
+        app:layout_constraintTop_toTopOf="@+id/stepnMarketGuideAuthor" />
+
+    <ImageView
+        android:id="@+id/stepnFp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuideAuthor"
+        app:srcCompat="@mipmap/stepn_fp" />
+
+    <Button
+        android:id="@+id/stepnFpButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:alpha="0"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/stepnFp"
+        app:layout_constraintEnd_toEndOf="@+id/stepnFp"
+        app:layout_constraintStart_toStartOf="@+id/stepnFp"
+        app:layout_constraintTop_toTopOf="@+id/stepnFp" />
+
+    <TextView
+        android:id="@+id/stepnFpDeets"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="Shoe, gem, and scroll floorprice tracker by "
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/stepnFp" />
+
+    <TextView
+        android:id="@+id/stepnFpAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:includeFontPadding="false"
+        android:text="\@StepnFP"
+        android:textAlignment="center"
+        android:textColor="@color/luck_socket_border"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/stepnFpDeets" />
+
+    <Button
+        android:id="@+id/stepnFpAuthorButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="110dp"
+        android:layout_height="30dp"
+        android:alpha="0"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/stepnFpAuthor"
+        app:layout_constraintEnd_toEndOf="@+id/stepnFpAuthor"
+        app:layout_constraintStart_toStartOf="@+id/stepnFpAuthor"
+        app:layout_constraintTop_toTopOf="@+id/stepnFpAuthor" />
+
+    <ImageView
         android:id="@+id/stepnGuide"
         android:layout_width="250dp"
         android:layout_height="50dp"
@@ -601,7 +734,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otherProjectsDeetsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/stepnFpAuthor"
         app:srcCompat="@mipmap/stepn_guide" />
 
     <Button
@@ -794,137 +927,6 @@
         app:layout_constraintTop_toTopOf="@+id/stepnAssistAuthor" />
 
     <ImageView
-        android:id="@+id/stepnFp"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnAssistDeets"
-        app:srcCompat="@mipmap/stepn_fp" />
-
-    <Button
-        android:id="@+id/stepnFpButton"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:alpha="0"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/stepnFp"
-        app:layout_constraintEnd_toEndOf="@+id/stepnFp"
-        app:layout_constraintStart_toStartOf="@+id/stepnFp"
-        app:layout_constraintTop_toTopOf="@+id/stepnFp" />
-
-    <TextView
-        android:id="@+id/stepnFpDeets"
-        style="@style/RegText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:includeFontPadding="false"
-        android:text="Shoe, gem, and scroll floorprice tracker by "
-        android:textAlignment="center"
-        android:textColor="@color/almost_black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
-        app:layout_constraintTop_toBottomOf="@+id/stepnFp" />
-
-    <TextView
-        android:id="@+id/stepnFpAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/roboto_medium"
-        android:includeFontPadding="false"
-        android:text="\@StepnFP"
-        android:textAlignment="center"
-        android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
-        app:layout_constraintTop_toBottomOf="@+id/stepnFpDeets" />
-
-    <Button
-        android:id="@+id/stepnFpAuthorButton"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="110dp"
-        android:layout_height="30dp"
-        android:alpha="0"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/stepnFpAuthor"
-        app:layout_constraintEnd_toEndOf="@+id/stepnFpAuthor"
-        app:layout_constraintStart_toStartOf="@+id/stepnFpAuthor"
-        app:layout_constraintTop_toTopOf="@+id/stepnFpAuthor" />
-
-    <ImageView
-        android:id="@+id/stepnEnhancedFilter"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnFpAuthor"
-        app:srcCompat="@mipmap/stepn_enhanced_filter" />
-
-    <Button
-        android:id="@+id/stepnEnhancedFilterButton"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:alpha="0"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/stepnEnhancedFilter"
-        app:layout_constraintEnd_toEndOf="@+id/stepnEnhancedFilter"
-        app:layout_constraintStart_toStartOf="@+id/stepnEnhancedFilter"
-        app:layout_constraintTop_toTopOf="@+id/stepnEnhancedFilter" />
-
-    <TextView
-        android:id="@+id/stepnEnhancedFilterDeets"
-        style="@style/RegText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="Browser extension with marketplace filter by "
-        android:textAlignment="center"
-        android:textColor="@color/almost_black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnEnhancedFilter" />
-
-    <TextView
-        android:id="@+id/stepnEnhancedFilterAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:layout_marginTop="4dp"
-        android:includeFontPadding="false"
-        android:text="\@1napolsky"
-        android:textAlignment="center"
-        android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnEnhancedFilterDeets" />
-
-    <Button
-        android:id="@+id/stepnEnhancedFilterAuthorButton"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="110dp"
-        android:layout_height="30dp"
-        android:alpha="0"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/stepnEnhancedFilterAuthor"
-        app:layout_constraintEnd_toEndOf="@+id/stepnEnhancedFilterAuthor"
-        app:layout_constraintStart_toStartOf="@+id/stepnEnhancedFilterAuthor"
-        app:layout_constraintTop_toTopOf="@+id/stepnEnhancedFilterAuthor" />
-
-    <ImageView
         android:id="@+id/stepnStats"
         android:layout_width="240dp"
         android:layout_height="40dp"
@@ -933,7 +935,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnEnhancedFilterAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/stepnAssistAuthor"
         app:srcCompat="@mipmap/stepn_stats" />
 
     <Button
@@ -1019,73 +1021,6 @@
         app:layout_constraintStart_toStartOf="@+id/stepnStatsAuthor2"
         app:layout_constraintTop_toTopOf="@+id/stepnStatsAuthor2" />
 
-    <ImageView
-        android:id="@+id/stepnMarketGuide"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnStatsAuthor2"
-        app:srcCompat="@mipmap/stepn_market_guide" />
-
-    <Button
-        android:id="@+id/stepnMarketGuideButton"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="260dp"
-        android:layout_height="40dp"
-        android:alpha="0"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/stepnMarketGuide"
-        app:layout_constraintEnd_toEndOf="@+id/stepnMarketGuide"
-        app:layout_constraintStart_toStartOf="@+id/stepnMarketGuide"
-        app:layout_constraintTop_toTopOf="@+id/stepnMarketGuide" />
-
-    <TextView
-        android:id="@+id/stepnMarketGuideDeets"
-        style="@style/RegText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:includeFontPadding="false"
-        android:text="Website marketplace filter by "
-        android:textAlignment="center"
-        android:textColor="@color/almost_black"
-        android:textSize="12sp"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintEnd_toStartOf="@+id/stepnMarketGuideAuthor"
-        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
-        app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuide" />
-
-    <TextView
-        android:id="@+id/stepnMarketGuideAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/roboto_medium"
-        android:includeFontPadding="false"
-        android:text="\@t2_stepn"
-        android:textAlignment="center"
-        android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-        app:layout_constraintStart_toEndOf="@+id/stepnMarketGuideDeets"
-        app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuide" />
-
-    <Button
-        android:id="@+id/stepnMarketGuideAuthorButton"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="110dp"
-        android:layout_height="30dp"
-        android:alpha="0"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/stepnMarketGuideAuthor"
-        app:layout_constraintEnd_toEndOf="@+id/stepnMarketGuideAuthor"
-        app:layout_constraintStart_toStartOf="@+id/stepnMarketGuideAuthor"
-        app:layout_constraintTop_toTopOf="@+id/stepnMarketGuideAuthor" />
-
     <View
         android:id="@+id/invisibleView"
         android:layout_width="0dp"
@@ -1093,6 +1028,6 @@
         android:layout_marginBottom="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuideAuthorButton" />
+        app:layout_constraintTop_toBottomOf="@+id/stepnStatsAuthor1Button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

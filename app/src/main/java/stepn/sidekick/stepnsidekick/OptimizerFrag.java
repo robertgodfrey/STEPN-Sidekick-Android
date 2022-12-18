@@ -2329,9 +2329,9 @@ public class OptimizerFrag extends Fragment {
         double gmtPerEnergy;
 
         if (totalComf < 118) {
-            gmtPerEnergy = 0.4 * (-0.00001 * Math.pow(totalComf - 350, 2) + 1.67);
+            gmtPerEnergy = 0.65 * (-0.00001 * Math.pow(totalComf - 350, 2) + 1.67);
         } else {
-            gmtPerEnergy = 0.4 * (-10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.75);
+            gmtPerEnergy = 0.65 * (-10.1 * Math.exp(-totalComf / 2415) + 0.82 * Math.exp(-totalComf / 11) + 10.75);
         }
 
         switch (shoeType) {

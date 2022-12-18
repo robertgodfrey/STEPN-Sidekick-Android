@@ -121,5 +121,5 @@
     <string name="update_details_two">GMT 소득은 오차가 크기 때문에, 예상 GMT 소득은 범위로 표시됩니다. 하단의 숫자는 범위의 중간값을 나타냅니다.</string>
     <string name="update_details_three">GMT 최적화는 다른 GMT관련 기능과 더불어 다음 업데이트에 추가될 예정입니다.</string>
     <string name="est_gmt_range">예상 GMT 소득 범"</string>
-    <string name="notes_details4">GMT소득은 여전히 새로운 있습니다. 더 많은 데이터를 수집은 추정치를 개선할 것입니다.</string>
+    <string name="notes_details4">GMT소득은 항상 바꾸고 있고 추정하는 것은 힘듭니다. 대체적으로 500 comfort 미만 추정은 더 정확합니다.</string>
 </resources>
