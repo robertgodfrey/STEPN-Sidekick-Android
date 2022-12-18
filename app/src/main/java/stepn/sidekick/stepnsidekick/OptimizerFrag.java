@@ -2564,6 +2564,7 @@ public class OptimizerFrag extends Fragment {
 
         while (pointsSpent <= localPoints) {
             if (breakEvenGst(localAddedEff, localAddedComf, localAddedRes)) {
+                zero = true;
                 break;
             }
 
@@ -2616,16 +2617,16 @@ public class OptimizerFrag extends Fragment {
 
     // optimizes for most luck with no GMT loss
     private void optimizeForLuckGmt() {
+        final int localPoints = shoeLevel * 2 * shoeRarity;
+
         if (breakEvenGmt(0, 0)) {
             addedEff = 0;
-            addedLuck = shoeLevel * 2 * shoeRarity;
+            addedLuck = localPoints;
             addedComf = 0;
             addedRes = 0;
             updatePoints();
             return;
         }
-
-        final int localPoints = shoeLevel * 2 * shoeRarity;
 
         int localAddedComf = 1;
         int localAddedRes = 0;
@@ -2634,12 +2635,13 @@ public class OptimizerFrag extends Fragment {
 
         while (localAddedComf <= localPoints) {
             if (breakEvenGmt(localAddedComf, localAddedRes)) {
+                zero = true;
                 break;
             }
 
             while (localAddedComf > 0) {
                 localAddedComf--;
-                localAddedRes = pointsSpent - localAddedComf;
+                localAddedRes++;
 
                 if (breakEvenGmt(localAddedComf, localAddedRes)) {
                     zero = true;
