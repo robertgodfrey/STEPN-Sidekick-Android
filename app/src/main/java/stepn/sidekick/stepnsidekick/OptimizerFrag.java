@@ -2415,13 +2415,13 @@ public class OptimizerFrag extends Fragment {
         if (gmtEarningOn) {
             String gmtRange = gmtLowRange + " - " + gmtHighRange;
             totalUsd = Math.round(((gstGmtTotal * PRICES[0]) - ((repairCostDurability + repairCostHp) * PRICES[shoeChain + 1])
-                    - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
+                    - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0;
             estGstGmtTextView.setText(gmtRange);
             totalIncomeTextView.setText(String.valueOf(Math.round((repairCostDurability + repairCostHp) * 10.0) / 10.0));
             gmtTotalTv.setText(String.valueOf(Math.round(gstGmtTotal * 10) / 10.0));
         } else {
             gstProfitBeforeGem = gstGmtTotal - repairCostDurability - repairCostHp;
-            totalUsd = Math.round(((gstProfitBeforeGem * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain])) * 100) / 100.0;
+            totalUsd = Math.round(((gstProfitBeforeGem * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0;
             estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
             totalIncomeTextView.setText(String.valueOf(Math.round(gstProfitBeforeGem * 10) / 10.0));
         }
@@ -2477,7 +2477,7 @@ public class OptimizerFrag extends Fragment {
                         - (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
 
                 if (usdOn) {
-                    profit = ((profit * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[shoeChain]));
+                    profit = ((profit * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[0]));
                 }
                 if (profit > maxProfit) {
                     optimalAddedEff = localAddedEff;
@@ -2525,7 +2525,7 @@ public class OptimizerFrag extends Fragment {
             profit -= (PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
             profit -= (PRICES[shoeChain + 1]) * (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
             // subtract USD cost of restore HP
-            profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[shoeChain]);
+            profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[0]);
 
             if (profit > maxProfit) {
                 optimalAddedComf = localAddedComf;
@@ -2686,7 +2686,7 @@ public class OptimizerFrag extends Fragment {
         // in USD
         profit = (profit * PRICES[shoeChain + 1]);
         // minus gem restore cost
-        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[shoeChain]);
+        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[0]);
 
         return profit > 0;
     }
@@ -2705,7 +2705,7 @@ public class OptimizerFrag extends Fragment {
         profit -= (PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
         profit -= (PRICES[shoeChain + 1]) * (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
         // subtract USD cost of restore HP
-        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[shoeChain]);
+        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[0]);
         return profit > 0;
     }
 
