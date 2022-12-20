@@ -111,7 +111,7 @@ public class OptimizerFrag extends Fragment {
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
             subResButton, addResButton, changeComfGemButton, leftButton, rightButton, resetButton,
-            oneTwentyFiveButton;
+            oneTwentyFiveButton, changeGmtEstimateButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief,
             shoeNameEditText, comfGemPriceEditText;
@@ -286,6 +286,7 @@ public class OptimizerFrag extends Fragment {
         shoeNameBoxImageView = view.findViewById(R.id.shoeNameImageView);
         comfGemHpRepairImageView = view.findViewById(R.id.comfGemHpRepair);
         changeComfGemButton = view.findViewById(R.id.changeComfGemButton);
+        changeGmtEstimateButton = view.findViewById(R.id.changeGmtEstimateButton);
         gemMultipleTextView = view.findViewById(R.id.gemMultipleTextView);
         gemMultipleTotalTextView = view.findViewById(R.id.gemMultipleTotalTextView);
         comfGemHpRepairTotalImageView = view.findViewById(R.id.comfGemHpTotalRepair);
@@ -1135,6 +1136,14 @@ public class OptimizerFrag extends Fragment {
                 updateHpRepairComfGem(comfGemHpRepairImageView);
                 updateHpRepairComfGem(comfGemHpRepairTotalImageView);
                 calcTotals();
+            }
+        });
+
+        changeGmtEstimateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeIncomeEst();
+                clearFocus(view);
             }
         });
 
@@ -2302,6 +2311,22 @@ public class OptimizerFrag extends Fragment {
         calcsSocketCalcs.setText(socketCalcs);
         calcsTotalPoints.setText(gems.get(socketNum).getTotalPointsString());
 
+    }
+
+    // gives option to change income estimate (allows for more accurate USD price predictions)
+    private void changeIncomeEst() {
+        final float gmtIncome = Float.parseFloat(gmtTotalTv.getText().toString());
+
+        Dialog changeIncomeDialog = new Dialog(requireActivity());
+
+        changeIncomeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        changeIncomeDialog.setCancelable(true);
+        changeIncomeDialog.setContentView(R.layout.gem_calcs_dialog);
+        changeIncomeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        changeIncomeDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        // TODO
     }
 
     // returns estimated durability lost

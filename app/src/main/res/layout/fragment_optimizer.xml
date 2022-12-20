@@ -1617,6 +1617,17 @@
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
         app:srcCompat="@drawable/coin_gmt" />
 
+    <Button
+        android:id="@+id/changeGmtEstimateButton"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/gmtIconTotal"
+        app:layout_constraintEnd_toEndOf="@+id/gmtIconTotal"
+        app:layout_constraintStart_toStartOf="@+id/gmtIconTotal"
+        app:layout_constraintTop_toTopOf="@+id/gmtIconTotal" />
+
     <TextView
         android:id="@+id/gmtIncomeTextView"
         android:layout_width="wrap_content"
