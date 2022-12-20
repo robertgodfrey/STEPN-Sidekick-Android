@@ -39,3 +39,11 @@ app store pics/
 # gradle file has ad id, so trying to making it a bit harder to find
 app/build.gradle
 
+.idea/render.experimental.xml
+app/release/app-release.aab
+app/release/output-metadata.json
+app/src/main/res/font/roboto_bold.xml
+website/*
+*.csv
+*.xlsx
+*.html
