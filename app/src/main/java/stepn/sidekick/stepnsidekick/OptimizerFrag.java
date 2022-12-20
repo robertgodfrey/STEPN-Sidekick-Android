@@ -2364,12 +2364,12 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 changeIncomeDialog.dismiss();
-                double totalUsd = Math.round(((Double.parseDouble((gmtIncomeTextView.getText().toString())) * PRICES[0] - (repairCost * PRICES[shoeChain + 1])
-                        - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0);
+                double totalUsd = Math.round((Double.parseDouble((gmtIncomeTextView.getText().toString())) * PRICES[0] - (repairCost * PRICES[shoeChain + 1])
+                        - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0;
                 gmtTotalTv.setText(gmtIncomeTextView.getText().toString());
                 gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.progress_gmt));
                 if (comfGemPrice != 0) {
-                    totalIncomeUsdTextView.setText(String.valueOf(totalUsd));
+                    totalIncomeUsdTextView.setText(String.format("%.2f", totalUsd));
                 }
             }
         });
