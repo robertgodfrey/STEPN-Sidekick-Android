@@ -2316,17 +2316,63 @@ public class OptimizerFrag extends Fragment {
     // gives option to change income estimate (allows for more accurate USD price predictions)
     private void changeIncomeEst() {
         final float gmtIncome = Float.parseFloat(gmtTotalTv.getText().toString());
+        final float repairCost = Float.parseFloat(totalIncomeTextView.getText().toString());
 
         Dialog changeIncomeDialog = new Dialog(requireActivity());
 
         changeIncomeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         changeIncomeDialog.setCancelable(true);
-        changeIncomeDialog.setContentView(R.layout.gem_calcs_dialog);
+        changeIncomeDialog.setContentView(R.layout.change_income_dialog);
         changeIncomeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         changeIncomeDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
 
-        // TODO
+        TextView gmtIncomeTextView = changeIncomeDialog.findViewById(R.id.gmtIncomeTextView);
+        SeekBar gmtSeekbar = changeIncomeDialog.findViewById(R.id.gmtSeekBar);
+        ImageView gmtMinPercent = changeIncomeDialog.findViewById(R.id.seekbarMinGmt);
+        TextView gmtPercent = changeIncomeDialog.findViewById(R.id.gmtPercentLabelTextView);
+        ImageButton saveButton = changeIncomeDialog.findViewById(R.id.saveButton);
+
+        gmtIncomeTextView.setText(gmtTotalTv.getText().toString());
+
+        changeIncomeDialog.show();
+
+        gmtSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                final String percent = i + 1 + "%";
+                final double income = Math.round((i + 1) * gmtIncome) / 100.0;
+                gmtIncomeTextView.setText(String.valueOf(income));
+                gmtPercent.setText(percent);
+                if (i > 1) {
+                    gmtMinPercent.setVisibility(View.VISIBLE);
+                } else {
+                    gmtMinPercent.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeIncomeDialog.dismiss();
+                double totalUsd = Math.round(((Double.parseDouble((gmtIncomeTextView.getText().toString())) * PRICES[0] - (repairCost * PRICES[shoeChain + 1])
+                        - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0);
+                gmtTotalTv.setText(gmtIncomeTextView.getText().toString());
+                gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.progress_gmt));
+                if (comfGemPrice != 0) {
+                    totalIncomeUsdTextView.setText(String.valueOf(totalUsd));
+                }
+            }
+        });
     }
 
     // returns estimated durability lost
@@ -2444,6 +2490,7 @@ public class OptimizerFrag extends Fragment {
             estGstGmtTextView.setText(gmtRange);
             totalIncomeTextView.setText(String.valueOf(Math.round((repairCostDurability + repairCostHp) * 10.0) / 10.0));
             gmtTotalTv.setText(String.valueOf(Math.round(gstGmtTotal * 10) / 10.0));
+            gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
         } else {
             gstProfitBeforeGem = gstGmtTotal - repairCostDurability - repairCostHp;
             totalUsd = Math.round(((gstProfitBeforeGem * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0;
