@@ -3774,6 +3774,8 @@ public class OptimizerFrag extends Fragment {
         optimizeGstGmtTextView.setText(gmtEarningOn ? getString(R.string.optimize_gmt) : getString(R.string.optimize_gst));
         optimizeGstGmtTextViewShadow.setText(gmtEarningOn ? getString(R.string.optimize_gmt) : getString(R.string.optimize_gst));
 
+        changeGmtEstimateButton.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
+
         calcTotals();
     }
 
