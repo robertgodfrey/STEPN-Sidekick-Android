@@ -522,7 +522,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="100dp"
         android:includeFontPadding="false"
-        android:text="v 1.5.5"
+        android:text="v 1.5.6"
         android:textColor="@color/gandalf"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -928,15 +928,15 @@
 
     <ImageView
         android:id="@+id/stepnStats"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="200dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepnAssistAuthor"
-        app:srcCompat="@mipmap/stepn_stats" />
+        app:srcCompat="@mipmap/gamefi" />
 
     <Button
         android:id="@+id/stepnStatsButton"
@@ -957,7 +957,7 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:layout_marginTop="4dp"
-        android:text="Upcoming app for gathering stats and more by"
+        android:text="Upcoming companion app for M2E games by"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
         android:textSize="12sp"
