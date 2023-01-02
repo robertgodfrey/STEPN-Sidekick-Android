@@ -3444,9 +3444,95 @@ public class OptimizerFrag extends Fragment {
 
         // catch cases where no box lights up
         if (!bestMatch && localEnergy > 2) {
-
+            double minVal = Math.abs(localEnergy - levelOneLine);
+            int best = 1;
+            if (Math.abs(localEnergy - levelTwoLine) < minVal) {
+                minVal = Math.abs(localEnergy - levelTwoLine);
+                best = 2;
+                if (Math.abs(localEnergy - levelThreeLine) < minVal) {
+                    minVal = Math.abs(localEnergy - levelThreeLine);
+                    best = 3;
+                    if (Math.abs(localEnergy - levelFourLine) < minVal) {
+                        minVal = Math.abs(localEnergy - levelFourLine);
+                        best = 4;
+                        if (Math.abs(localEnergy - levelFiveLine) < minVal) {
+                            minVal = Math.abs(localEnergy - levelFiveLine);
+                            best = 5;
+                            if (Math.abs(localEnergy - levelSixLine) < minVal) {
+                                minVal = Math.abs(localEnergy - levelSixLine);
+                                best = 6;
+                                if (Math.abs(localEnergy - levelSevenLine) < minVal) {
+                                    minVal = Math.abs(localEnergy - levelSevenLine);
+                                    best = 7;
+                                    if (Math.abs(localEnergy - levelEightLine) < minVal) {
+                                        minVal = Math.abs(localEnergy - levelEightLine);
+                                        best = 8;
+                                        if (Math.abs(localEnergy - levelNineLine) < minVal) {
+                                            minVal = Math.abs(localEnergy - levelNineLine);
+                                            best = 9;
+                                            if (Math.abs(localEnergy - levelTenLine) < minVal) {
+                                                best = 10;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            switch (best) {
+                case 1:
+                    mysteryBox1.clearColorFilter();
+                    mysteryBox1.setImageTintMode(null);
+                    mysteryBox1.setAlpha(1.0f);
+                    break;
+                case 2:
+                    mysteryBox2.clearColorFilter();
+                    mysteryBox2.setImageTintMode(null);
+                    mysteryBox2.setAlpha(1.0f);
+                    break;
+                case 3:
+                    mysteryBox3.clearColorFilter();
+                    mysteryBox3.setImageTintMode(null);
+                    mysteryBox3.setAlpha(1.0f);
+                    break;
+                case 4:
+                    mysteryBox4.clearColorFilter();
+                    mysteryBox4.setImageTintMode(null);
+                    mysteryBox4.setAlpha(1.0f);
+                    break;
+                case 5:
+                    mysteryBox5.clearColorFilter();
+                    mysteryBox5.setImageTintMode(null);
+                    mysteryBox5.setAlpha(1.0f);
+                    break;
+                case 6:
+                    mysteryBox6.clearColorFilter();
+                    mysteryBox6.setImageTintMode(null);
+                    mysteryBox6.setAlpha(1.0f);
+                    break;
+                case 7:
+                    mysteryBox7.clearColorFilter();
+                    mysteryBox7.setImageTintMode(null);
+                    mysteryBox7.setAlpha(1.0f);
+                    break;
+                case 8:
+                    mysteryBox8.clearColorFilter();
+                    mysteryBox8.setImageTintMode(null);
+                    mysteryBox8.setAlpha(1.0f);
+                    break;
+                case 9:
+                    mysteryBox9.clearColorFilter();
+                    mysteryBox9.setImageTintMode(null);
+                    mysteryBox9.setAlpha(1.0f);
+                    break;
+                default:
+                    mysteryBox10.clearColorFilter();
+                    mysteryBox10.setImageTintMode(null);
+                    mysteryBox10.setAlpha(1.0f);
+            }
         }
-
     }
 
 
