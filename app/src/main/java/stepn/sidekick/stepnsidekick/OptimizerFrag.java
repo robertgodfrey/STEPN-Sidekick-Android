@@ -120,7 +120,7 @@ public class OptimizerFrag extends Fragment {
             comfortTotalTextView, resTotalTextView, pointsAvailableTextView, estGstGmtTextView,
             gstLimitTextView, durabilityLossTextView, repairCostDurTextView, totalIncomeTextView,
             effMinusTv, effPlusTv, luckMinusTv, luckPlusTv, comfMinusTv, comfPlusTv, resMinusTv,
-            resPlusTv, optimizeGstGmtTextView, shoeRarityShadowTextView, shoeTypeShadowTextView, lvl10Shrug,
+            resPlusTv, optimizeGstGmtTextView, shoeRarityShadowTextView, shoeTypeShadowTextView,
             hpLossTextView, repairCostHpTextView, gemMultipleTextView, gemMultipleTotalTextView,
             optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
             totalIncomeUsdTextView, oneTwentyFiveTextView, estGstGmtLabelTv, gstLimitPerDaySlashTextView,
@@ -132,7 +132,7 @@ public class OptimizerFrag extends Fragment {
             gemSocketThreeLockPlus, gemSocketFour, gemSocketFourShadow, gemSocketFourLockPlus,
             shoeTypeImageView, shoeCircles, shoeRarityButtonShadow, shoeTypeButtonShadow, minLevelImageView,
             optimizeGstGmtButtonShadow, mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
-            mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, footOne, footTwo, footThree, energyBox,
+            mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10, footOne, footTwo, footThree, energyBox,
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
             shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, estGstGmtIcon,
             totalGmtIcon, chainSelectShadow, coinSelectShadow, coinSelectIcon, coinSelectIconShadow,
@@ -339,7 +339,6 @@ public class OptimizerFrag extends Fragment {
         optimizeGstGmtTextView = view.findViewById(R.id.optimizeGstGmtTextView);
         optimizeGstGmtTextViewShadow = view.findViewById(R.id.optimizeGstGmtTextViewShadow);
         optimizeLuckTextView = view.findViewById(R.id.optimizeLuckTextView);
-        lvl10Shrug = view.findViewById(R.id.lvl10shrug);
         hpLossTextView = view.findViewById(R.id.hpLossTextView);
         repairCostHpTextView = view.findViewById(R.id.repairCostHpTextView);
         oneTwentyFiveTextView = view.findViewById(R.id.oneTwentyFiveTextView);
@@ -398,6 +397,7 @@ public class OptimizerFrag extends Fragment {
         mysteryBox7 = view.findViewById(R.id.mysteryBoxLvl7);
         mysteryBox8 = view.findViewById(R.id.mysteryBoxLvl8);
         mysteryBox9 = view.findViewById(R.id.mysteryBoxLvl9);
+        mysteryBox10 = view.findViewById(R.id.mysteryBoxLvl10);
 
         footOne = view.findViewById(R.id.footprint1ImageView);
         footTwo = view.findViewById(R.id.footprint2ImageView);
@@ -3259,12 +3259,26 @@ public class OptimizerFrag extends Fragment {
         final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
 
-        if (localEnergy <= -0.04 * totalLuck + 6 && localEnergy >= -0.05263 * totalLuck + 2 && localEnergy >= 1 && totalLuck > 1) {
+        final double levelOneLine = -0.6 * Math.log(totalLuck + 15) + 4.1;
+        final double levelTwoLine = -1.2 * Math.log(totalLuck + 5) + 8.2;
+        final double levelThreeLine = -2.1 * Math.log(totalLuck + 10) + 14.9;
+        final double levelFourLine = -2.8 * Math.log(totalLuck + 5) + 22.1;
+        final double levelFiveLine = -2.9 * Math.log(totalLuck + 10) + 27.7;
+        final double levelSixLine = -3 * Math.log(totalLuck + 10) + 35;
+        final double levelSevenLine = -4 * Math.log(totalLuck - 100) + 47;
+        final double levelEightLine = -5 * Math.log(totalLuck - 650) + 58;
+        final double levelNineLine = -6 * Math.log(totalLuck - 1000) + 68.5;
+        final double levelTenLine = -6 * Math.log(totalLuck - 2000) + 70.5;
+
+        boolean bestMatch = false;
+
+        if (localEnergy <= levelOneLine - 1 && localEnergy >= levelOneLine + 1) {
             // lvl 1 high chance range
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
             mysteryBox1.setAlpha(1.0f);
-        } else if (localEnergy > -0.04 * totalLuck + 6 && localEnergy < -0.02 * totalLuck + 8 && totalLuck < 110 && totalLuck > 1) {
+            bestMatch = true;
+        } else if (localEnergy <= levelOneLine - 1.2 && localEnergy >= levelOneLine + 1.5) {
             // lvl 1 low chance range
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
@@ -3275,12 +3289,13 @@ public class OptimizerFrag extends Fragment {
             mysteryBox1.setAlpha(0.5f);
         }
 
-        if (localEnergy <= -0.06897 * totalLuck + 10 && localEnergy >= -1.3333 * totalLuck + 6 && localEnergy >= 2 && totalLuck > 2) {
+        if (localEnergy <= levelTwoLine - 1 && localEnergy >= levelTwoLine + 1) {
             // lvl 2 high chance range
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
             mysteryBox2.setAlpha(1.0f);
-        } else if (localEnergy > -0.068966 * totalLuck + 10 && localEnergy < -0.04 * totalLuck + 13 && totalLuck > 2) {
+            bestMatch = true;
+        } else if (localEnergy <= levelTwoLine - 1.5 && localEnergy >= levelTwoLine + 2) {
             // lvl 2 low chance range
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
@@ -3291,12 +3306,13 @@ public class OptimizerFrag extends Fragment {
             mysteryBox2.setAlpha(0.5f);
         }
 
-        if (localEnergy <= -0.09091 * totalLuck + 16 && localEnergy >= 70 * Math.pow((totalLuck + 8), -1) + 2 && localEnergy >= 3.1 && totalLuck > 3) {
+        if (localEnergy <= levelThreeLine - 1.2 && localEnergy >= levelThreeLine + 1.5) {
             // lvl 3 high chance range
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(1.0f);
-        } else if ((localEnergy > -0.09091 * totalLuck + 16 && localEnergy < -0.08333 * totalLuck + 22) || (localEnergy > 3.5 && localEnergy < 12 && totalLuck > 100 && totalLuck < 500)) {
+            bestMatch = true;
+        } else if (localEnergy <= levelThreeLine - 2 && localEnergy >= levelThreeLine + 2) {
             // lvl 3 low chance range
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
@@ -3307,131 +3323,132 @@ public class OptimizerFrag extends Fragment {
             mysteryBox3.setAlpha(0.5f);
         }
 
-        if (localEnergy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 22 && localEnergy >= 70 * Math.pow((totalLuck + 5), -1) + 3 && totalLuck > 4) {
-            if (localEnergy <= -0.0001 * Math.pow((totalLuck + 40), 2) + 18 && localEnergy >= 50 * Math.pow((totalLuck + 30), -0.2) - 13.5) {
-                // lvl 4 high chance range
-                mysteryBox4.clearColorFilter();
-                mysteryBox4.setImageTintMode(null);
-                mysteryBox4.setAlpha(1.0f);
-            } else {
-                // lvl 4 low chance range
-                mysteryBox4.clearColorFilter();
-                mysteryBox4.setImageTintMode(null);
-                mysteryBox4.setAlpha(0.5f);
-            }
+        if (localEnergy <= levelFourLine - 2 && localEnergy >= levelFourLine + 2) {
+            // lvl 4 high chance range
+            mysteryBox4.clearColorFilter();
+            mysteryBox4.setImageTintMode(null);
+            mysteryBox4.setAlpha(1.0f);
+            bestMatch = true;
+        } else if (localEnergy <= levelFourLine - 2.5 && localEnergy >= levelFourLine + 3) {
+            // lvl 4 low chance range
+            mysteryBox4.clearColorFilter();
+            mysteryBox4.setImageTintMode(null);
+            mysteryBox4.setAlpha(0.5f);
         } else {
             // outside lvl 4 range
             mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox4.setAlpha(0.5f);
         }
 
-        if (localEnergy <= -0.00001 * Math.pow((totalLuck + 150), 2) + 26.05 && localEnergy >= 50 * Math.pow((totalLuck - 2), -1) + 7 && totalLuck > 5) {
-            if (localEnergy <= -0.00003 * Math.pow((totalLuck + 50), 2) + 22.5 && localEnergy >= 70 * Math.pow((totalLuck - 10), -0.1) - 32) {
-                // lvl 5 high chance range
-                mysteryBox5.clearColorFilter();
-                mysteryBox5.setImageTintMode(null);
-                mysteryBox5.setAlpha(1.0f);
-            } else {
-                // lvl 5 low chance range
-                mysteryBox5.clearColorFilter();
-                mysteryBox5.setImageTintMode(null);
-                mysteryBox5.setAlpha(0.5f);
-            }
+        if (localEnergy <= levelFiveLine - 2 && localEnergy >= levelFiveLine + 2) {
+            // lvl 5 high chance range
+            mysteryBox5.clearColorFilter();
+            mysteryBox5.setImageTintMode(null);
+            mysteryBox5.setAlpha(1.0f);
+            bestMatch = true;
+        } else if (localEnergy <= levelFiveLine - 2.7 && localEnergy >= levelFiveLine + 3.5) {
+            // lvl 5 low chance range
+            mysteryBox5.clearColorFilter();
+            mysteryBox5.setImageTintMode(null);
+            mysteryBox5.setAlpha(0.5f);
         } else {
             // outside lvl 5 range
             mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox5.setAlpha(0.5f);
         }
 
-        if (localEnergy >= 140 * Math.pow((totalLuck - 20), -0.5) + 1 && totalLuck > 6) {
-            if (localEnergy >= 70 * Math.pow((totalLuck - 70), -0.1) - 25.5) {
-                // lvl 6 high chance range
-                mysteryBox6.clearColorFilter();
-                mysteryBox6.setImageTintMode(null);
-                mysteryBox6.setAlpha(1.0f);
-            } else {
-                // lvl 6 low chance range
-                mysteryBox6.clearColorFilter();
-                mysteryBox6.setImageTintMode(null);
-                mysteryBox6.setAlpha(0.5f);
-            }
+        if (localEnergy <= levelSixLine - 2.2 && localEnergy >= levelSixLine + 2.5) {
+            // lvl 6 high chance range
+            mysteryBox6.clearColorFilter();
+            mysteryBox6.setImageTintMode(null);
+            mysteryBox6.setAlpha(1.0f);
+            bestMatch = true;
+        } else if (localEnergy <= levelSixLine - 3.5 && localEnergy >= levelSixLine + 4.5) {
+            // lvl 6 low chance range
+            mysteryBox6.clearColorFilter();
+            mysteryBox6.setImageTintMode(null);
+            mysteryBox6.setAlpha(0.5f);
         } else {
             // outside lvl 6 range
             mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox6.setAlpha(0.5f);
         }
 
-        if (localEnergy >= -totalLuck / 45 + 26.9 && localEnergy > 7) {
+        if (localEnergy <= levelSevenLine - 2 && localEnergy >= levelSevenLine + 2.5) {
+            // lvl 7 high chance range
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
-            if (localEnergy >= -totalLuck / 100 + 26.5) {
-                // lvl 7 high chance range
-                mysteryBox7.setAlpha(1.0f);
-            } else {
-                // lvl 7 low chance range
-                mysteryBox7.setAlpha(0.5f);
-            }
+            mysteryBox7.setAlpha(1.0f);
+            bestMatch = true;
+        } else if (localEnergy <= levelSevenLine - 3 && localEnergy >= levelSevenLine + 5.5) {
+            // lvl 7 low chance range
+            mysteryBox7.clearColorFilter();
+            mysteryBox7.setImageTintMode(null);
+            mysteryBox7.setAlpha(0.5f);
         } else {
             // outside lvl 7 range
             mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox7.setAlpha(0.5f);
         }
 
-        if (localEnergy >= -totalLuck / 150 + 32 && localEnergy > 14) {
-            // lvl 8 range
+        if (localEnergy <= levelEightLine - 1.5 && localEnergy >= levelEightLine + 2.5) {
+            // lvl 8 high chance range
             mysteryBox8.clearColorFilter();
             mysteryBox8.setImageTintMode(null);
             mysteryBox8.setAlpha(1.0f);
-            // set 6 as dull
-            mysteryBox6.setAlpha(0.5f);
+            bestMatch = true;
+        } else if (localEnergy <= levelEightLine - 2.5 && localEnergy >= levelEightLine + 3) {
+            // lvl 8 low chance range
+            mysteryBox8.clearColorFilter();
+            mysteryBox8.setImageTintMode(null);
+            mysteryBox8.setAlpha(0.5f);
         } else {
             // outside lvl 8 range
             mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox8.setAlpha(0.5f);
         }
 
-        if (localEnergy >= -totalLuck / 300 + 29 && localEnergy > 19) {
-            // lvl 9/10 range
+        if (localEnergy <= levelNineLine - 1 && localEnergy >= levelNineLine + 1.5) {
+            // lvl 9 high chance range
             mysteryBox9.clearColorFilter();
             mysteryBox9.setImageTintMode(null);
             mysteryBox9.setAlpha(1.0f);
-            lvl10Shrug.setVisibility(View.VISIBLE);
-            // 6/7 as dull
-            mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox6.setAlpha(0.5f);
-            mysteryBox7.setAlpha(0.5f);
+            bestMatch = true;
+        } else if (localEnergy <= levelNineLine - 1.5 && localEnergy >= levelNineLine + 2) {
+            // lvl 9 low chance range
+            mysteryBox9.clearColorFilter();
+            mysteryBox9.setImageTintMode(null);
+            mysteryBox9.setAlpha(0.5f);
         } else {
-            // outside lvl 9/10 range
+            // outside lvl 9 range
             mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox9.setAlpha(0.5f);
-            lvl10Shrug.setVisibility(View.INVISIBLE);
         }
+
+        if (localEnergy <= levelTenLine - 1) {
+            // lvl 10 high chance range
+            mysteryBox10.clearColorFilter();
+            mysteryBox10.setImageTintMode(null);
+            mysteryBox10.setAlpha(1.0f);
+            bestMatch = true;
+        } else if (localEnergy <= levelTenLine - 1.5) {
+            // lvl 10 low chance range
+            mysteryBox10.clearColorFilter();
+            mysteryBox10.setImageTintMode(null);
+            mysteryBox10.setAlpha(0.5f);
+        } else {
+            // outside lvl 10 range
+            mysteryBox10.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+            mysteryBox10.setAlpha(0.5f);
+        }
+
+        // catch cases where no box lights up
+        if (!bestMatch && localEnergy > 2) {
+
+        }
+
     }
 
-    // i guess i'll keep this for the rainbow shoes
-    /*
-    private void clearMbs() {
-        mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox1.setAlpha(0.5f);
-        mysteryBox2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox2.setAlpha(0.5f);
-        mysteryBox3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox3.setAlpha(0.5f);
-        mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox4.setAlpha(0.5f);
-        mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox5.setAlpha(0.5f);
-        mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox6.setAlpha(0.5f);
-        mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox7.setAlpha(0.5f);
-        mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox8.setAlpha(0.5f);
-        mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox9.setAlpha(0.5f);
-        lvl10Shrug.setVisibility(View.INVISIBLE);
-    }
-     */
 
     private void updatePoints() {
         pointsAvailable = (shoeLevel * 2 * shoeRarity) - addedEff - addedLuck - addedComf - addedRes;

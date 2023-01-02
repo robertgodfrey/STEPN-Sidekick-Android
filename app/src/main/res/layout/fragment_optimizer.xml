@@ -2158,19 +2158,6 @@
         app:tint="@color/gandalf" />
 
     <TextView
-        android:id="@+id/lvl10shrug"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="¯\\_(ツ)_/¯"
-        android:textColor="@color/almost_black"
-        android:textSize="9sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/mysteryBoxLvl10"
-        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl10"
-        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl10"
-        app:layout_constraintTop_toTopOf="@+id/mysteryBoxLvl10" />
-
-    <TextView
         android:id="@+id/resetTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
