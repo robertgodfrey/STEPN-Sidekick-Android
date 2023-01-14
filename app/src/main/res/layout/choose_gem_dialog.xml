@@ -204,7 +204,7 @@
         android:id="@+id/gemSocket"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:background="@null"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
@@ -272,10 +272,10 @@
 
     <TextView
         android:id="@+id/textView2"
+        style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        style="@style/BoldItalicSubtitles"
+        android:layout_marginTop="24dp"
         android:includeFontPadding="false"
         android:text="@string/select_gem"
         android:textColor="@color/almost_black"
@@ -299,11 +299,11 @@
 
     <ImageView
         android:id="@+id/gemLevel1"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:paddingTop="6dp"
         android:paddingBottom="2dp"
         app:layout_constraintEnd_toStartOf="@id/gemLevel2"
@@ -326,11 +326,13 @@
 
     <ImageView
         android:id="@+id/gemLevel2"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
         app:layout_constraintEnd_toStartOf="@id/gemLevel3"
         app:layout_constraintStart_toEndOf="@+id/gemLevel1"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -352,9 +354,11 @@
         android:id="@+id/gemLevel3"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
         app:layout_constraintEnd_toStartOf="@id/gemLevel4"
         app:layout_constraintStart_toEndOf="@+id/gemLevel2"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -374,12 +378,14 @@
 
     <ImageView
         android:id="@+id/gemLevel4"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/gemLevel5"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
         app:layout_constraintStart_toEndOf="@+id/gemLevel3"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:srcCompat="@mipmap/gem_eff_level4" />
@@ -399,14 +405,16 @@
 
     <ImageView
         android:id="@+id/gemLevel5"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="2dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintEnd_toStartOf="@id/gemLevel6"
-        app:layout_constraintStart_toEndOf="@+id/gemLevel4"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel4"
         app:srcCompat="@mipmap/gem_eff_level5" />
 
     <ImageButton
@@ -423,34 +431,82 @@
 
     <ImageView
         android:id="@+id/gemLevel6"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="26dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@id/gemLevel7"
+        app:layout_constraintStart_toEndOf="@+id/gemLevel5"
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel4"
+        app:srcCompat="@mipmap/gem_eff_level6" />
+
+    <ImageButton
+        android:id="@+id/gemLevel7Selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/gemLevel7"
+        app:layout_constraintEnd_toEndOf="@+id/gemLevel7"
+        app:layout_constraintStart_toStartOf="@+id/gemLevel7"
+        app:layout_constraintTop_toTopOf="@+id/gemLevel7"
+        app:srcCompat="@drawable/circles_eff" />
+
+    <ImageView
+        android:id="@+id/gemLevel7"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@id/gemLevel8"
+        app:layout_constraintStart_toEndOf="@+id/gemLevel6"
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel4"
+        app:srcCompat="@mipmap/gem_eff_level7" />
+
+    <ImageButton
+        android:id="@+id/gemLevel8Selected"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/gemLevel8"
+        app:layout_constraintEnd_toEndOf="@+id/gemLevel8"
+        app:layout_constraintStart_toStartOf="@+id/gemLevel8"
+        app:layout_constraintTop_toTopOf="@+id/gemLevel8"
+        app:srcCompat="@drawable/circles_eff" />
+
+    <ImageView
+        android:id="@+id/gemLevel8"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
-        app:layout_constraintStart_toEndOf="@+id/gemLevel5"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@mipmap/gem_eff_level6" />
+        app:layout_constraintStart_toEndOf="@+id/gemLevel7"
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel4"
+        app:srcCompat="@mipmap/gem_eff_level8" />
 
     <TextView
         android:id="@+id/gemLabelTextView"
+        style="@style/RegItalic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        style="@style/RegItalic"
+        android:layout_marginTop="24dp"
         android:text="@string/gem_"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemLevel1" />
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel5" />
 
     <TextView
         android:id="@+id/gemDetailsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
         android:text="+ 0"
@@ -458,7 +514,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemLevel1" />
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel5" />
 
     <TextView
         android:id="@+id/socketLabelTextView"
@@ -573,7 +629,7 @@
         android:id="@+id/saveGemButton"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:background="@null"
         android:src="@drawable/button_start"
         app:layout_constraintEnd_toEndOf="parent"
