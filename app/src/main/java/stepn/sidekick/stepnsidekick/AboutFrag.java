@@ -173,7 +173,7 @@ public class AboutFrag extends Fragment {
         kritButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("https://twitter.com/Krit_STEPNstats");
+                Uri uri = Uri.parse("https://twitter.com/Krit_G4M3fi");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -217,7 +217,7 @@ public class AboutFrag extends Fragment {
         stepnGuideAuthorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("https://twitter.com/StepNGuide_");
+                Uri uri = Uri.parse("https://twitter.com/Stepappturkey");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -303,7 +303,7 @@ public class AboutFrag extends Fragment {
         stepnStatsAuthorOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("https://twitter.com/Krit_STEPNstats");
+                Uri uri = Uri.parse("https://twitter.com/Krit_G4M3fi");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
