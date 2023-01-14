@@ -6,7 +6,7 @@ import static stepn.sidekick.stepnsidekick.Finals.*;
  * Gem class for creating gem object
  *
  * @author Rob Godfrey
- * @version 1.6.0 - added level 7 & 8 gems
+ * @version 1.5.7 - Added level 7/8 gems
  */
 
 public class Gem {
