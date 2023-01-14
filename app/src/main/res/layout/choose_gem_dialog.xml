@@ -214,8 +214,10 @@
 
     <ImageView
         android:id="@+id/socketPlus"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         app:layout_constraintBottom_toBottomOf="@id/gemSocket"
         app:layout_constraintEnd_toEndOf="@id/gemSocket"
         app:layout_constraintStart_toStartOf="@id/gemSocket"

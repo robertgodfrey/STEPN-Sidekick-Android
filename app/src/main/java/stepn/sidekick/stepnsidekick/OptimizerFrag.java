@@ -2095,7 +2095,7 @@ public class OptimizerFrag extends Fragment {
                 } else {
                     gems.get(socketNum).setMountedGem(1);
                     gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                    gemSocketPlus.setPadding(0, (int) (3 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
+                    gemSocketPlus.setPadding(0, (int) (4 * dpScale + 0.5f), 0, (int) (4 * dpScale + 0.5f));
 
                     lvl1SelectedButton.setAlpha(1.0f);
                     lvl2SelectedButton.setAlpha(0.0f);
@@ -2118,7 +2118,7 @@ public class OptimizerFrag extends Fragment {
                 if (gems.get(socketNum).getMountedGem() == 2) {
                     gems.get(socketNum).setMountedGem(0);
                     gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
-                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    gemSocketPlus.setPadding((int) (3 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (3 * dpScale + 0.5f), (int) (3 * dpScale + 0.5f));
                     lvl2SelectedButton.setAlpha(0.0f);
                 } else {
                     gems.get(socketNum).setMountedGem(2);
@@ -2151,7 +2151,7 @@ public class OptimizerFrag extends Fragment {
                 } else {
                     gems.get(socketNum).setMountedGem(3);
                     gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                    gemSocketPlus.setPadding(0,0,0,0);
+                    gemSocketPlus.setPadding(0,0,0,(int) (1 * dpScale + 0.5f));
 
                     lvl1SelectedButton.setAlpha(0.0f);
                     lvl2SelectedButton.setAlpha(0.0f);
@@ -2235,7 +2235,7 @@ public class OptimizerFrag extends Fragment {
                 } else {
                     gems.get(socketNum).setMountedGem(6);
                     gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                    gemSocketPlus.setPadding(0,0,0,0);
+                    gemSocketPlus.setPadding(0,0,0,1);
 
                     lvl1SelectedButton.setAlpha(0.0f);
                     lvl2SelectedButton.setAlpha(0.0f);
@@ -2263,7 +2263,7 @@ public class OptimizerFrag extends Fragment {
                 } else {
                     gems.get(socketNum).setMountedGem(7);
                     gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                    gemSocketPlus.setPadding(0,0,0,0);
+                    gemSocketPlus.setPadding(0,0,0,1);
 
                     lvl1SelectedButton.setAlpha(0.0f);
                     lvl2SelectedButton.setAlpha(0.0f);
@@ -2291,7 +2291,7 @@ public class OptimizerFrag extends Fragment {
                 } else {
                     gems.get(socketNum).setMountedGem(8);
                     gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
-                    gemSocketPlus.setPadding(0,0,0,0);
+                    gemSocketPlus.setPadding(0,0,0,1);
 
                     lvl1SelectedButton.setAlpha(0.0f);
                     lvl2SelectedButton.setAlpha(0.0f);
@@ -2393,6 +2393,14 @@ public class OptimizerFrag extends Fragment {
             case 6:
                 points = 400;
                 percent = 4300;
+                break;
+            case 7:
+                points = 777;
+                percent = 11000;
+                break;
+            case 8:
+                points = 1888;
+                percent = 28000;
                 break;
             default:
                 points = 0;

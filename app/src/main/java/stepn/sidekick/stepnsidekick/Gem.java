@@ -383,6 +383,9 @@ public class Gem {
             case 5:
                 topPadding = 1;
                 break;
+            case 8:
+                topPadding = 1;
+                break;
             default:
                 topPadding = 0;
                 break;
@@ -404,6 +407,12 @@ public class Gem {
             case 2:
             case 3:
                 bottomPadding = 1;
+                break;
+            case 7:
+                bottomPadding = 1;
+                break;
+            case 8:
+                bottomPadding = 2;
                 break;
             default:
                 bottomPadding = 0;
