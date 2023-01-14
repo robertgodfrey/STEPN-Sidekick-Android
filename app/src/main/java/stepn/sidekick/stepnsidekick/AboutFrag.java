@@ -26,7 +26,7 @@ import android.widget.Toast;
  * Information about the app, 'remove ads' button, option to donate.
  *
  * @author Rob Godfrey
- * @version 1.5.0 - GMT calcs
+ * @version 1.6.0 - Added level 7/8 gems
  *
  */
 

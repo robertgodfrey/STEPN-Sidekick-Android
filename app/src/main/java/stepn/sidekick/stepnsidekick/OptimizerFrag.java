@@ -53,7 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.5.4 - Changed gem price from chain coin token to GMT
+ * @version 1.6.0 - Added level 7/8 gems
  *
  */
 

@@ -6,7 +6,7 @@ import static stepn.sidekick.stepnsidekick.Finals.*;
  * Gem class for creating gem object
  *
  * @author Rob Godfrey
- * @version 1.3.0
+ * @version 1.6.0 - added level 7 & 8 gems
  */
 
 public class Gem {
@@ -86,6 +86,12 @@ public class Gem {
                 break;
             case 6:
                 gemParams = 400 + Math.floor(43 * basePoints * 10.0) / 10.0;
+                break;
+            case 7:
+                gemParams = 777 + Math.floor(110 * basePoints * 10.0) / 10.0;
+                break;
+            case 8:
+                gemParams = 1888 + Math.floor(280 * basePoints * 10.0) / 10.0;
                 break;
             default:
                 gemParams = 0;
@@ -254,6 +260,12 @@ public class Gem {
                     case 6:
                         gemImageSource = R.mipmap.gem_eff_level6;
                         break;
+                    case 7:
+                        gemImageSource = R.mipmap.gem_eff_level7;
+                        break;
+                    case 8:
+                        gemImageSource = R.mipmap.gem_eff_level8;
+                        break;
                     default:
                         gemImageSource = R.drawable.gem_socket_plus;
                 }
@@ -277,6 +289,12 @@ public class Gem {
                         break;
                     case 6:
                         gemImageSource = R.mipmap.gem_luck_level6;
+                        break;
+                    case 7:
+                        gemImageSource = R.mipmap.gem_luck_level7;
+                        break;
+                    case 8:
+                        gemImageSource = R.mipmap.gem_luck_level8;
                         break;
                     default:
                         gemImageSource = R.drawable.gem_socket_plus;
@@ -302,6 +320,12 @@ public class Gem {
                     case 6:
                         gemImageSource = R.mipmap.gem_comf_level6;
                         break;
+                    case 7:
+                        gemImageSource = R.mipmap.gem_comf_level7;
+                        break;
+                    case 8:
+                        gemImageSource = R.mipmap.gem_comf_level8;
+                        break;
                     default:
                         gemImageSource = R.drawable.gem_socket_plus;
                 }
@@ -326,6 +350,12 @@ public class Gem {
                     case 6:
                         gemImageSource = R.mipmap.gem_res_level6;
                         break;
+                    case 7:
+                        gemImageSource = R.mipmap.gem_res_level7;
+                        break;
+                    case 8:
+                        gemImageSource = R.mipmap.gem_res_level8;
+                        break;
                     default:
                         gemImageSource = R.drawable.gem_socket_plus;
                 }
@@ -337,7 +367,7 @@ public class Gem {
     }
 
     // each gem image has different dimensions so need to manually set the padding for each one
-    // i think this is easier than going in and editing all the vector files so they are the same size ¯\_(ツ)_/¯
+    // i think this is easier than going in and editing all the files so they are the same size ¯\_(ツ)_/¯
     public int getTopPadding() {
         int topPadding;
 
