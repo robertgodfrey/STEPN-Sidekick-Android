@@ -1636,6 +1636,8 @@ public class OptimizerFrag extends Fragment {
         ImageButton lvl4SelectedButton = choseGem.findViewById(R.id.gemLevel4Selected);
         ImageButton lvl5SelectedButton = choseGem.findViewById(R.id.gemLevel5Selected);
         ImageButton lvl6SelectedButton = choseGem.findViewById(R.id.gemLevel6Selected);
+        ImageButton lvl7SelectedButton = choseGem.findViewById(R.id.gemLevel7Selected);
+        ImageButton lvl8SelectedButton = choseGem.findViewById(R.id.gemLevel8Selected);
 
         ImageView lvl1Gem = choseGem.findViewById(R.id.gemLevel1);
         ImageView lvl2Gem = choseGem.findViewById(R.id.gemLevel2);
@@ -1643,6 +1645,8 @@ public class OptimizerFrag extends Fragment {
         ImageView lvl4Gem = choseGem.findViewById(R.id.gemLevel4);
         ImageView lvl5Gem = choseGem.findViewById(R.id.gemLevel5);
         ImageView lvl6Gem = choseGem.findViewById(R.id.gemLevel6);
+        ImageView lvl7Gem = choseGem.findViewById(R.id.gemLevel7);
+        ImageView lvl8Gem = choseGem.findViewById(R.id.gemLevel8);
 
         ImageButton gemSocket = choseGem.findViewById(R.id.gemSocket);
         ImageView gemSocketPlus = choseGem.findViewById(R.id.socketPlus);
@@ -1667,6 +1671,8 @@ public class OptimizerFrag extends Fragment {
         selectedButtons.add(lvl4SelectedButton);
         selectedButtons.add(lvl5SelectedButton);
         selectedButtons.add(lvl6SelectedButton);
+        selectedButtons.add(lvl7SelectedButton);
+        selectedButtons.add(lvl8SelectedButton);
 
         gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
 
@@ -1685,8 +1691,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_eff_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_eff_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_eff_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_eff_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_eff_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_eff);
                 }
                 break;
@@ -1704,8 +1712,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_luck_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_luck_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_luck_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_luck_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_luck_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_luck);
                 }
                 break;
@@ -1723,8 +1733,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_comf_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_comf_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_comf_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_comf_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_comf_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_comf);
                 }
                 break;
@@ -1742,8 +1754,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_res_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_res_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_res_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_res_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_res_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_res);
                 }
                 break;
@@ -1761,8 +1775,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_grey_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_grey_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_grey_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_grey_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_grey_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_common);
                 }
         }
@@ -1775,6 +1791,8 @@ public class OptimizerFrag extends Fragment {
                 lvl4SelectedButton.setAlpha(0.0f);
                 lvl5SelectedButton.setAlpha(0.0f);
                 lvl6SelectedButton.setAlpha(0.0f);
+                lvl7SelectedButton.setAlpha(0.0f);
+                lvl8SelectedButton.setAlpha(0.0f);
                 gemSocketPlus.setPadding(0, (int) (3 * dpScale + 0.5f), 0, (int) (3 * dpScale + 0.5f));
                 break;
             case 2:
@@ -1784,6 +1802,8 @@ public class OptimizerFrag extends Fragment {
                 lvl4SelectedButton.setAlpha(0.0f);
                 lvl5SelectedButton.setAlpha(0.0f);
                 lvl6SelectedButton.setAlpha(0.0f);
+                lvl7SelectedButton.setAlpha(0.0f);
+                lvl8SelectedButton.setAlpha(0.0f);
                 break;
             case 3:
                 lvl1SelectedButton.setAlpha(0.0f);
@@ -1792,6 +1812,8 @@ public class OptimizerFrag extends Fragment {
                 lvl4SelectedButton.setAlpha(0.0f);
                 lvl5SelectedButton.setAlpha(0.0f);
                 lvl6SelectedButton.setAlpha(0.0f);
+                lvl7SelectedButton.setAlpha(0.0f);
+                lvl8SelectedButton.setAlpha(0.0f);
                 break;
             case 4:
                 lvl1SelectedButton.setAlpha(0.0f);
@@ -1800,6 +1822,8 @@ public class OptimizerFrag extends Fragment {
                 lvl4SelectedButton.setAlpha(1.0f);
                 lvl5SelectedButton.setAlpha(0.0f);
                 lvl6SelectedButton.setAlpha(0.0f);
+                lvl7SelectedButton.setAlpha(0.0f);
+                lvl8SelectedButton.setAlpha(0.0f);
                 gemSocketPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, 0);
                 break;
             case 5:
@@ -1809,6 +1833,8 @@ public class OptimizerFrag extends Fragment {
                 lvl4SelectedButton.setAlpha(0.0f);
                 lvl5SelectedButton.setAlpha(1.0f);
                 lvl6SelectedButton.setAlpha(0.0f);
+                lvl7SelectedButton.setAlpha(0.0f);
+                lvl8SelectedButton.setAlpha(0.0f);
                 gemSocketPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, 0);
                 break;
             case 6:
@@ -1818,6 +1844,28 @@ public class OptimizerFrag extends Fragment {
                 lvl4SelectedButton.setAlpha(0.0f);
                 lvl5SelectedButton.setAlpha(0.0f);
                 lvl6SelectedButton.setAlpha(1.0f);
+                lvl7SelectedButton.setAlpha(0.0f);
+                lvl8SelectedButton.setAlpha(0.0f);
+                break;
+            case 7:
+                lvl1SelectedButton.setAlpha(0.0f);
+                lvl2SelectedButton.setAlpha(0.0f);
+                lvl3SelectedButton.setAlpha(0.0f);
+                lvl4SelectedButton.setAlpha(0.0f);
+                lvl5SelectedButton.setAlpha(0.0f);
+                lvl6SelectedButton.setAlpha(0.0f);
+                lvl7SelectedButton.setAlpha(1.0f);
+                lvl8SelectedButton.setAlpha(0.0f);
+                break;
+            case 8:
+                lvl1SelectedButton.setAlpha(0.0f);
+                lvl2SelectedButton.setAlpha(0.0f);
+                lvl3SelectedButton.setAlpha(0.0f);
+                lvl4SelectedButton.setAlpha(0.0f);
+                lvl5SelectedButton.setAlpha(0.0f);
+                lvl6SelectedButton.setAlpha(0.0f);
+                lvl7SelectedButton.setAlpha(0.0f);
+                lvl8SelectedButton.setAlpha(1.0f);
                 break;
             default:
                 lvl1SelectedButton.setAlpha(0.0f);
@@ -1826,6 +1874,8 @@ public class OptimizerFrag extends Fragment {
                 lvl4SelectedButton.setAlpha(0.0f);
                 lvl5SelectedButton.setAlpha(0.0f);
                 lvl6SelectedButton.setAlpha(0.0f);
+                lvl7SelectedButton.setAlpha(0.0f);
+                lvl8SelectedButton.setAlpha(0.0f);
                 break;
         }
 
@@ -1860,8 +1910,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_eff_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_eff_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_eff_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_eff_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_eff_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_eff);
                 }
 
@@ -1890,8 +1942,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_luck_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_luck_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_luck_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_luck_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_luck_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_luck);
                 }
 
@@ -1920,8 +1974,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_comf_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_comf_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_comf_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_comf_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_comf_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_comf);
                 }
 
@@ -1950,8 +2006,10 @@ public class OptimizerFrag extends Fragment {
                 lvl4Gem.setImageResource(R.mipmap.gem_res_level4);
                 lvl5Gem.setImageResource(R.mipmap.gem_res_level5);
                 lvl6Gem.setImageResource(R.mipmap.gem_res_level6);
+                lvl7Gem.setImageResource(R.mipmap.gem_res_level7);
+                lvl8Gem.setImageResource(R.mipmap.gem_res_level8);
 
-                for (int i = 0; i < 6; i++) {
+                for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_res);
                 }
 
@@ -2045,6 +2103,8 @@ public class OptimizerFrag extends Fragment {
                     lvl4SelectedButton.setAlpha(0.0f);
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
+                    lvl7SelectedButton.setAlpha(0.0f);
+                    lvl8SelectedButton.setAlpha(0.0f);
                 }
 
                 gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
@@ -2071,6 +2131,8 @@ public class OptimizerFrag extends Fragment {
                     lvl4SelectedButton.setAlpha(0.0f);
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
+                    lvl7SelectedButton.setAlpha(0.0f);
+                    lvl8SelectedButton.setAlpha(0.0f);
                 }
 
                 gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
@@ -2097,6 +2159,8 @@ public class OptimizerFrag extends Fragment {
                     lvl4SelectedButton.setAlpha(0.0f);
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
+                    lvl7SelectedButton.setAlpha(0.0f);
+                    lvl8SelectedButton.setAlpha(0.0f);
                 }
 
                 gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
@@ -2123,6 +2187,8 @@ public class OptimizerFrag extends Fragment {
                     lvl4SelectedButton.setAlpha(1.0f);
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
+                    lvl7SelectedButton.setAlpha(0.0f);
+                    lvl8SelectedButton.setAlpha(0.0f);
                 }
 
                 gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
@@ -2149,6 +2215,8 @@ public class OptimizerFrag extends Fragment {
                     lvl4SelectedButton.setAlpha(0.0f);
                     lvl5SelectedButton.setAlpha(1.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
+                    lvl7SelectedButton.setAlpha(0.0f);
+                    lvl8SelectedButton.setAlpha(0.0f);
                 }
 
                 gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
@@ -2175,6 +2243,64 @@ public class OptimizerFrag extends Fragment {
                     lvl4SelectedButton.setAlpha(0.0f);
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(1.0f);
+                    lvl7SelectedButton.setAlpha(0.0f);
+                    lvl8SelectedButton.setAlpha(0.0f);
+                }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
+            }
+        });
+
+        lvl7SelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 7) {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    lvl7SelectedButton.setAlpha(0.0f);
+                } else {
+                    gems.get(socketNum).setMountedGem(7);
+                    gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+                    gemSocketPlus.setPadding(0,0,0,0);
+
+                    lvl1SelectedButton.setAlpha(0.0f);
+                    lvl2SelectedButton.setAlpha(0.0f);
+                    lvl3SelectedButton.setAlpha(0.0f);
+                    lvl4SelectedButton.setAlpha(0.0f);
+                    lvl5SelectedButton.setAlpha(0.0f);
+                    lvl6SelectedButton.setAlpha(0.0f);
+                    lvl7SelectedButton.setAlpha(1.0f);
+                    lvl8SelectedButton.setAlpha(0.0f);
+                }
+
+                gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
+                totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
+            }
+        });
+
+        lvl8SelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gems.get(socketNum).getMountedGem() == 8) {
+                    gems.get(socketNum).setMountedGem(0);
+                    gemSocketPlus.setImageResource(R.drawable.gem_socket_plus);
+                    gemSocketPlus.setPadding((int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f), (int) (2 * dpScale + 0.5f));
+                    lvl8SelectedButton.setAlpha(0.0f);
+                } else {
+                    gems.get(socketNum).setMountedGem(8);
+                    gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
+                    gemSocketPlus.setPadding(0,0,0,0);
+
+                    lvl1SelectedButton.setAlpha(0.0f);
+                    lvl2SelectedButton.setAlpha(0.0f);
+                    lvl3SelectedButton.setAlpha(0.0f);
+                    lvl4SelectedButton.setAlpha(0.0f);
+                    lvl5SelectedButton.setAlpha(0.0f);
+                    lvl6SelectedButton.setAlpha(0.0f);
+                    lvl7SelectedButton.setAlpha(0.0f);
+                    lvl8SelectedButton.setAlpha(1.0f);
                 }
 
                 gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
@@ -2198,6 +2324,8 @@ public class OptimizerFrag extends Fragment {
                     lvl4SelectedButton.setAlpha(0.0f);
                     lvl5SelectedButton.setAlpha(0.0f);
                     lvl6SelectedButton.setAlpha(0.0f);
+                    lvl7SelectedButton.setAlpha(0.0f);
+                    lvl8SelectedButton.setAlpha(0.0f);
                 }
 
                 gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
