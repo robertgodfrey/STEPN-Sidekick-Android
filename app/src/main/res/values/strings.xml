@@ -129,6 +129,6 @@
     <string name="speed_alerts">Speed Alerts</string>
     <string name="both">BOTH</string>
     <string name="optimize_gmt">OPTIMIZE GMT</string>
-    <string name="est_gmt_range">Est. GMT Range</string>
+    <string name="est_gmt_range">Est. GMT/Min:</string>
     <string name="notes_details4">GMT earnings are always changing and are difficult to predict. In general, the GMT estimate is more accurate for shoes with less than 500 comfort.</string>
 </resources>

@@ -53,7 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.5.7 - Added level 7/8 gems
+ * @version 1.5.8 - update gmt formulas, increase lower range for mb lvl 9
  *
  */
 
@@ -2535,11 +2535,7 @@ public class OptimizerFrag extends Fragment {
     private double getGmtPerEnergy(double totalComf) {
         double gmtPerEnergy;
 
-        if (totalComf < 400) {
-            gmtPerEnergy = (-0.00000352 * Math.pow(totalComf - 550, 2) + 1.22);
-        } else {
-            gmtPerEnergy = -1.5 * Math.exp(-totalComf / 900) + 2.1025;
-        }
+        gmtPerEnergy = 0.0696 * Math.pow(totalComf, 0.4821) - 0.25;
 
         switch (shoeType) {
             case JOGGER:
@@ -2584,8 +2580,8 @@ public class OptimizerFrag extends Fragment {
 
         if (gmtEarningOn) {
             gstGmtTotal = getGmtPerEnergy(totalComf);
-            gmtLowRange = Math.max(0, Math.round((gstGmtTotal - 0.2f) * localEnergy * 10) / 10.0);
-            gmtHighRange = Math.round((gstGmtTotal + 0.2f) * localEnergy * 10) / 10.0;
+            gmtLowRange = Math.max(0, Math.round((gstGmtTotal - 0.2f) * 20) / 100.0);
+            gmtHighRange = Math.round((gstGmtTotal + 0.2f) * 20) / 100.0;
             gstGmtTotal = gstGmtTotal * localEnergy;
         } else {
             gstGmtTotal = getGstTotal(localEnergy, totalEff);
@@ -3550,7 +3546,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox9.setImageTintMode(null);
             mysteryBox9.setAlpha(1.0f);
             bestMatch = true;
-        } else if (localEnergy >= levelNineLine - 3 && localEnergy <= levelNineLine + 4) {
+        } else if (localEnergy >= levelNineLine - 3.5 && localEnergy <= levelNineLine + 4) {
             // lvl 9 low chance range
             mysteryBox9.clearColorFilter();
             mysteryBox9.setImageTintMode(null);
