@@ -3506,13 +3506,13 @@ public class OptimizerFrag extends Fragment {
             mysteryBox6.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelSevenLine - 2 && localEnergy <= levelSevenLine + 3) {
+        if (localEnergy >= levelSevenLine - 3 && localEnergy <= levelSevenLine + 2.8) {
             // lvl 7 high chance range
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
             mysteryBox7.setAlpha(1.0f);
             bestMatch = true;
-        } else if (localEnergy >= levelSevenLine - 4 && localEnergy <= levelSevenLine + 6) {
+        } else if (localEnergy >= levelSevenLine - 5 && localEnergy <= levelSevenLine + 6) {
             // lvl 7 low chance range
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
@@ -3523,13 +3523,13 @@ public class OptimizerFrag extends Fragment {
             mysteryBox7.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelEightLine - 1.5 && localEnergy <= levelEightLine + 1.5) {
+        if (localEnergy >= levelEightLine - 2 && localEnergy <= levelEightLine + 1.5) {
             // lvl 8 high chance range
             mysteryBox8.clearColorFilter();
             mysteryBox8.setImageTintMode(null);
             mysteryBox8.setAlpha(1.0f);
             bestMatch = true;
-        } else if (localEnergy >= levelEightLine - 2.5 && localEnergy <= levelEightLine + 4) {
+        } else if (localEnergy >= levelEightLine - 4.5 && localEnergy <= levelEightLine + 4) {
             // lvl 8 low chance range
             mysteryBox8.clearColorFilter();
             mysteryBox8.setImageTintMode(null);
@@ -3540,13 +3540,13 @@ public class OptimizerFrag extends Fragment {
             mysteryBox8.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelNineLine - 1 && localEnergy <= levelNineLine + 1.5) {
+        if (localEnergy >= levelNineLine - 2 && localEnergy <= levelNineLine + 1.5) {
             // lvl 9 high chance range
             mysteryBox9.clearColorFilter();
             mysteryBox9.setImageTintMode(null);
             mysteryBox9.setAlpha(1.0f);
             bestMatch = true;
-        } else if (localEnergy >= levelNineLine - 3.5 && localEnergy <= levelNineLine + 4) {
+        } else if (localEnergy >= levelNineLine - 7.4 && localEnergy <= levelNineLine + 4) {
             // lvl 9 low chance range
             mysteryBox9.clearColorFilter();
             mysteryBox9.setImageTintMode(null);
