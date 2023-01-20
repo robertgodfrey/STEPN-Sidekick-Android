@@ -660,7 +660,7 @@ public class OptimizerFrag extends Fragment {
                         energyEditText.setText("0");
                     }
                     energy = Float.parseFloat(energyEditText.getText().toString());
-                    oneTwentyFiveEnergy = (float) (Math.round(energy * 12.5) / 10.0);
+                    oneTwentyFiveEnergy = (float) (Math.round(energy * 12.5 - 0.5) / 10.0);
                     if (oneTwentyFiveEnergy * 10 % 2 != 0) {
                         oneTwentyFiveEnergy += 0.1;
                     }
@@ -677,7 +677,7 @@ public class OptimizerFrag extends Fragment {
                 if (oneTwentyFive) {
                     oneTwentyFiveTextView.setText("125%");
                     if (oneTwentyFiveEnergy == 0) {
-                        oneTwentyFiveEnergy = (float) (Math.round(energy * 12.5) / 10.0);
+                        oneTwentyFiveEnergy = (float) (Math.round(energy * 12.5 - 0.5) / 10.0);
                         if (oneTwentyFiveEnergy * 10 % 2 != 0) {
                             oneTwentyFiveEnergy += 0.1;
                         }
