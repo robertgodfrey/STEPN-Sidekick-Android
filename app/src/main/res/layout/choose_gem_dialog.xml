@@ -204,12 +204,12 @@
         android:id="@+id/gemSocket"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:background="@null"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/effLabel"
+        app:layout_constraintTop_toBottomOf="@+id/gemLevel8"
         app:srcCompat="@mipmap/gem_socket_eff_0" />
 
     <ImageView
@@ -277,14 +277,14 @@
         style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:includeFontPadding="false"
         android:text="@string/select_gem"
         android:textColor="@color/almost_black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemSocket" />
+        app:layout_constraintTop_toBottomOf="@+id/effLabel" />
 
     <ImageButton
         android:id="@+id/gemLevel1Selected"
@@ -304,7 +304,7 @@
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:paddingTop="6dp"
         android:paddingBottom="2dp"
@@ -331,7 +331,7 @@
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:paddingTop="1dp"
         android:paddingBottom="1dp"
@@ -357,7 +357,7 @@
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:paddingTop="1dp"
         android:paddingBottom="1dp"
@@ -383,7 +383,7 @@
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
@@ -497,18 +497,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/gem_"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemLevel5" />
+        app:layout_constraintTop_toBottomOf="@+id/gemSocket" />
 
     <TextView
         android:id="@+id/gemDetailsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_condensed_regular_italic"
         android:text="+ 0"
@@ -516,7 +516,7 @@
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/gemLevel5" />
+        app:layout_constraintTop_toBottomOf="@+id/gemSocket" />
 
     <TextView
         android:id="@+id/socketLabelTextView"
