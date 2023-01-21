@@ -1709,7 +1709,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Total Income USD:"
+        android:text="@string/total_income_usd"
         android:textColor="@color/almost_black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
@@ -1763,11 +1763,11 @@
 
             <TextView
                 android:id="@+id/chainLabelTextView"
-                style="@style/RegItalic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Chain"
+                style="@style/RegItalic"
+                android:text="@string/chain"
                 android:textColor="@color/gandalf"
                 android:textSize="14sp" />
 
@@ -1833,7 +1833,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Token"
+                android:text="@string/token"
                 android:textColor="@color/gandalf"
                 android:textSize="14sp" />
 
@@ -1940,7 +1940,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:layout_gravity="center"
-                android:text="Comf Gem Price"
+                android:text="@string/comf_gem_price"
                 android:textColor="@color/gandalf"
                 android:textSize="14sp" />
 

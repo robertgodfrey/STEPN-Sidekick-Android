@@ -2631,7 +2631,7 @@ public class OptimizerFrag extends Fragment {
         }
 
         if (comfGemPrice == 0) {
-            totalIncomeUsdTextView.setText("Enter Gem Price ↓");
+            totalIncomeUsdTextView.setText(R.string.enter_gem_price);
             totalIncomeUsdTextView.setTypeface(ResourcesCompat.getFont(requireContext(), R.font.roboto_condensed_regular));
             totalIncomeUsdTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
             totalIncomeUsdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);

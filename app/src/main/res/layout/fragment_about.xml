@@ -181,7 +181,7 @@
 
     <TextView
         android:id="@+id/thanksTextView"
-        style="@style/RegItalic"
+        android:fontFamily="@font/roboto_condensed_regular_italic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -224,7 +224,7 @@
 
     <TextView
         android:id="@+id/kritThanksDeetsTextView"
-        style="@style/RegText"
+        android:fontFamily="@font/roboto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -265,7 +265,7 @@
 
     <TextView
         android:id="@+id/karlThanksDeetsTextView"
-        style="@style/RegText"
+        android:fontFamily="@font/roboto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -306,7 +306,7 @@
 
     <TextView
         android:id="@+id/otikxThanksDeetsTextView"
-        style="@style/RegText"
+        android:fontFamily="@font/roboto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -490,7 +490,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="100dp"
         android:includeFontPadding="false"
-        android:text="v 1.5.8"
+        android:text="v 1.5.9"
         android:textColor="@color/gandalf"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
