@@ -3495,7 +3495,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox6.setImageTintMode(null);
             mysteryBox6.setAlpha(1.0f);
             bestMatch = true;
-        } else if (localEnergy >= levelSixLine - 5.5 && localEnergy <= levelSixLine + 7.5) {
+        } else if (localEnergy >= levelSixLine - 5.5 && localEnergy <= levelSixLine + 8.3) {
             // lvl 6 low chance range
             mysteryBox6.clearColorFilter();
             mysteryBox6.setImageTintMode(null);
