@@ -16,11 +16,13 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.Settings;
@@ -69,6 +71,7 @@ public class StartActivityFrag extends Fragment {
     private final String CUSTOM_MIN_SPEED_PREF = "customMinSpeed";
     private final String CUSTOM_MAX_SPEED_PREF = "customMaxSpeed";
     private final String FIRST_TIME_PREF = "firstTime";
+    private final String ASKED_NOTIF_PERMS = "notifPerms";
 
     Button leftButton, rightButton, backgroundButton;
     ImageButton startButton, countDownTimerButton, voiceAlertSpeedButton, voiceAlertTimeButton,
@@ -90,7 +93,8 @@ public class StartActivityFrag extends Fragment {
     private int shoeTypeIterator, alertsVibrationAudible, voiceAlertsSpeedType;
     private double energy;
     private boolean tenSecondTimer, voiceCountdownAlerts, voiceAlertsTime, voiceAlertsAvgSpeed,
-            voiceAlertsCurrentSpeed, gpsPermissions, firstTime, alertsAudible, alertsVibration;
+            voiceAlertsCurrentSpeed, gpsPermissions, firstTime, alertsAudible, alertsVibration,
+            askedNotificationPerms;
 
     ArrayList<Shoe> shoes;
     LocationManager manager;
@@ -119,6 +123,7 @@ public class StartActivityFrag extends Fragment {
                 customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
                 firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
                 savedAppVersion = getSharedPrefs.getFloat(APP_VERSION_PREF, 1f);
+                askedNotificationPerms = getSharedPrefs.getBoolean(ASKED_NOTIF_PERMS, false);
 
                 shoes = new ArrayList<>();
 
@@ -523,13 +528,13 @@ public class StartActivityFrag extends Fragment {
 
         } else {
             // permissions not yet granted
-            buildAlertMessagePermissions();
+            buildAlertMessagePreciseGPSPermissions();
             gpsPermissions = false;
         }
     }
 
     // dialog message if the app does not have precise location permissions
-    private void buildAlertMessagePermissions() {
+    private void buildAlertMessagePreciseGPSPermissions() {
         Dialog dialog = new Dialog(requireActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -544,6 +549,30 @@ public class StartActivityFrag extends Fragment {
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                 dialog.dismiss();
                 requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
+            }
+        });
+        dialog.show();
+    }
+
+    // dialog message if the app does not have notification permissions (Android 13+)
+    private void buildAlertMessageNotificationPermissions() {
+        Dialog dialog = new Dialog(requireActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.alert_layout_permissions);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageButton okayButton = dialog.findViewById(R.id.okayButton);
+        TextView message = dialog.findViewById(R.id.textView1);
+
+        message.setText(R.string.notification_perms);
+
+        okayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                dialog.dismiss();
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.POST_NOTIFICATIONS},101);
             }
         });
         dialog.show();
@@ -742,6 +771,14 @@ public class StartActivityFrag extends Fragment {
             checkForLocationPermissions();
         }
 
+        // need to ask for notification perms for Android 13+
+        if (Build.VERSION.SDK_INT >= 33 && !askedNotificationPerms &&
+                ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            buildAlertMessageNotificationPermissions();
+            askedNotificationPerms = true;
+            return;
+        }
+
         minString = minSpeedEditText.getText().toString();
         maxString = maxSpeedEditText.getText().toString();
         energyString = energyEditText.getText().toString();
@@ -774,9 +811,6 @@ public class StartActivityFrag extends Fragment {
 
             Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
 
-        } else if (energy == 0) {
-            shakeyShake(energyLayout, energyEditText);
-            Toast.makeText(getActivity(), getString(R.string.energy_too_low), Toast.LENGTH_SHORT).show();
         } else {
             Intent startGPSActivity = new Intent(getContext(), SpeedTracker.class);
 
@@ -1344,6 +1378,7 @@ public class StartActivityFrag extends Fragment {
         editor.putFloat(CUSTOM_MAX_SPEED_PREF, shoes.get(4).getMaxSpeed());
         editor.putBoolean(FIRST_TIME_PREF, firstTime);
         editor.putFloat(APP_VERSION_PREF, CURRENT_APP_VERSION);
+        editor.putBoolean(ASKED_NOTIF_PERMS, askedNotificationPerms);
         editor.apply();
 
         super.onStop();super.onStop();
