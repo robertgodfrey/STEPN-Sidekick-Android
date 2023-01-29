@@ -3489,7 +3489,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox5.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelSixLine - 2.2 && localEnergy <= levelSixLine + 2.5) {
+        if (localEnergy >= levelSixLine - 2.9 && localEnergy <= levelSixLine + 2.5) {
             // lvl 6 high chance range
             mysteryBox6.clearColorFilter();
             mysteryBox6.setImageTintMode(null);
@@ -3506,7 +3506,7 @@ public class OptimizerFrag extends Fragment {
             mysteryBox6.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelSevenLine - 3 && localEnergy <= levelSevenLine + 2.8) {
+        if (localEnergy >= levelSevenLine - 3.2 && localEnergy <= levelSevenLine + 2.8) {
             // lvl 7 high chance range
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
