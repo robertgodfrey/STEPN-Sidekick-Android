@@ -16,10 +16,13 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.os.VibratorManager;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -40,7 +43,7 @@ import java.util.concurrent.TimeUnit;
  *
  *
  * @author Rob Godfrey
- * @version 1.4.0 Added vibration option for alerts
+ * @version 1.5.10 Add VibratorService for SDK 31+
  */
 
 public class GpsAndClockService extends Service {
@@ -116,7 +119,12 @@ public class GpsAndClockService extends Service {
         tenSecondTimerDone =! tenSecondTimer;
         justPlayed = false;
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            VibratorManager vibratorManager = (VibratorManager) getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            vibrator = vibratorManager.getDefaultVibrator();
+        } else {
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        }
 
         AudioAttributes attributes = new AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
