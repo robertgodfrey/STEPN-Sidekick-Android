@@ -1,12 +1,7 @@
 *.iml
 .gradle
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+.idea
 .DS_Store
 /build
 /captures
@@ -15,8 +10,7 @@
 local.properties
 /app/src/main/AndroidManifest.xml
 # Built application files
-*.apk
-*.ap_
+app/release
 
 # Java class files
 *.class
@@ -36,14 +30,10 @@ build/
 keys/
 app store pics/
 
-# gradle file has ad id, so trying to making it a bit harder to find
+# gradle file
 app/build.gradle
 
-.idea/render.experimental.xml
-app/release/app-release.aab
-app/release/output-metadata.json
-app/src/main/res/font/roboto_bold.xml
-website/*
+website
 *.csv
 *.xlsx
 *.html
