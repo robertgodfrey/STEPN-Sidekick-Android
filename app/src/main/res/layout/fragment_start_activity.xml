@@ -647,6 +647,7 @@
                     android:background="@null"
                     android:fontFamily="@font/roboto_condensed_bold_italic"
                     android:hint="0.0"
+                    android:textColor="@color/almost_black"
                     android:inputType="number|numberDecimal"
                     android:maxLength="4"
                     android:paddingVertical="8dp"
