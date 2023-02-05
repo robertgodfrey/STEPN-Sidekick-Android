@@ -278,7 +278,7 @@
         android:fontFamily="@font/roboto_condensed_regular_italic"
         android:text=""
         android:textColor="@color/gandalf"
-        android:textSize="10sp"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/shoeTwoTextView"
         app:layout_constraintEnd_toStartOf="@+id/shoeTwoTextView"
         app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView" />
@@ -291,7 +291,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="1"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@+id/shoeNameImageView"
         app:layout_constraintStart_toStartOf="@+id/shoeNameImageView"
         app:layout_constraintTop_toBottomOf="@+id/shoeNameImageView" />
@@ -304,7 +304,7 @@
         android:fontFamily="@font/roboto_condensed_regular_italic"
         android:text="2"
         android:textColor="@color/gandalf"
-        android:textSize="10sp"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/shoeTwoTextView"
         app:layout_constraintStart_toEndOf="@+id/shoeTwoTextView"
         app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView" />
@@ -381,7 +381,7 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/shoeNameImageView"
         app:layout_constraintEnd_toEndOf="@+id/shoeNameImageView"
         app:layout_constraintStart_toStartOf="@+id/shoeNameImageView"
@@ -425,7 +425,7 @@
                 android:layout_gravity="center"
                 android:text="@string/rarity"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:id="@+id/rarityButtonLayout"
@@ -448,7 +448,7 @@
                     android:fontFamily="@font/roboto_condensed_bold_italic"
                     android:text="Common"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/shoeRarityButton"
@@ -469,7 +469,7 @@
                     android:fontFamily="@font/roboto_condensed_bold_italic"
                     android:text="Common"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
             </FrameLayout>
 
         </LinearLayout>
@@ -491,7 +491,7 @@
                 android:layout_gravity="center"
                 android:text="@string/type"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:id="@+id/typeButtonLayout"
@@ -548,7 +548,7 @@
                         android:fontFamily="@font/roboto_condensed_bold_italic"
                         android:text="Walker"
                         android:textColor="@color/almost_black"
-                        android:textSize="15sp" />
+                        android:textSize="15dp" />
 
                 </LinearLayout>
 
@@ -605,7 +605,7 @@
                         android:fontFamily="@font/roboto_condensed_bold_italic"
                         android:text="Walker"
                         android:textColor="@color/almost_black"
-                        android:textSize="15sp" />
+                        android:textSize="15dp" />
 
                 </LinearLayout>
 
@@ -634,7 +634,7 @@
                     android:layout_height="wrap_content"
                     android:text="100%"
                     android:textColor="@color/gandalf"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/energyLabelTextView"
@@ -644,7 +644,7 @@
                     android:layout_marginStart="2dp"
                     android:text="@string/energy"
                     android:textColor="@color/gandalf"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
             </LinearLayout>
 
@@ -695,7 +695,7 @@
                     android:selectAllOnFocus="true"
                     android:singleLine="true"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:textSize="18dp" />
             </FrameLayout>
 
         </LinearLayout>
@@ -749,7 +749,7 @@
         style="@style/BoldItalicSubtitles"
         android:text="@string/level"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
         app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
         app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
@@ -762,7 +762,7 @@
         style="@style/BoldItalicSubtitles"
         android:text="1"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
         app:layout_constraintStart_toEndOf="@+id/levelLabelTextView"
         app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
@@ -777,7 +777,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="Attributes"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/seekbarBackground" />
 
@@ -789,7 +789,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="Base"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toStartOf="@+id/totalTextView"
         app:layout_constraintStart_toEndOf="@+id/attributesTextView"
         app:layout_constraintTop_toTopOf="@+id/totalTextView" />
@@ -803,7 +803,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="Total"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/attributesTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton" />
 
@@ -825,7 +825,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="Efficiency"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/effIcon"
         app:layout_constraintStart_toEndOf="@+id/effIcon"
         app:layout_constraintTop_toTopOf="@+id/effIcon" />
@@ -849,7 +849,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="Luck"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/luckIcon"
         app:layout_constraintStart_toEndOf="@+id/luckIcon"
         app:layout_constraintTop_toTopOf="@+id/luckIcon" />
@@ -872,7 +872,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="Comfort"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/comfIcon"
         app:layout_constraintStart_toEndOf="@+id/comfIcon"
         app:layout_constraintTop_toTopOf="@+id/comfIcon" />
@@ -895,7 +895,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="Resilience"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/resIcon"
         app:layout_constraintStart_toEndOf="@+id/resIcon"
         app:layout_constraintTop_toTopOf="@+id/resIcon" />
@@ -912,7 +912,7 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/effTextView"
         app:layout_constraintEnd_toEndOf="@+id/baseTextView"
         app:layout_constraintStart_toStartOf="@+id/baseTextView"
@@ -927,7 +927,7 @@
         android:text="-"
         android:textAlignment="center"
         android:textColor="@color/gem_socket_shadow"
-        android:textSize="28sp"
+        android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/effTextView"
         app:layout_constraintEnd_toStartOf="@+id/totalTextView"
         app:layout_constraintTop_toTopOf="@+id/effTextView" />
@@ -951,7 +951,7 @@
         android:text="0"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/effTextView"
         app:layout_constraintEnd_toEndOf="@+id/totalTextView"
         app:layout_constraintStart_toStartOf="@+id/totalTextView"
@@ -966,7 +966,7 @@
         android:text="+"
         android:textAlignment="center"
         android:textColor="@color/gem_socket_shadow"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/effTextView"
         app:layout_constraintStart_toEndOf="@+id/totalTextView"
         app:layout_constraintTop_toTopOf="@+id/effTextView" />
@@ -994,7 +994,7 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
         app:layout_constraintEnd_toEndOf="@+id/baseTextView"
         app:layout_constraintStart_toStartOf="@+id/baseTextView"
@@ -1009,7 +1009,7 @@
         android:text="-"
         android:textAlignment="center"
         android:textColor="@color/gem_socket_shadow"
-        android:textSize="28sp"
+        android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
         app:layout_constraintEnd_toStartOf="@+id/totalTextView"
         app:layout_constraintTop_toTopOf="@+id/luckTextView" />
@@ -1033,7 +1033,7 @@
         android:text="0"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
         app:layout_constraintEnd_toEndOf="@+id/totalTextView"
         app:layout_constraintStart_toStartOf="@+id/totalTextView"
@@ -1048,7 +1048,7 @@
         android:text="+"
         android:textAlignment="center"
         android:textColor="@color/gem_socket_shadow"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/luckTextView"
         app:layout_constraintStart_toEndOf="@+id/totalTextView"
         app:layout_constraintTop_toTopOf="@+id/luckTextView" />
@@ -1076,7 +1076,7 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
         app:layout_constraintEnd_toEndOf="@+id/baseTextView"
         app:layout_constraintStart_toStartOf="@+id/baseTextView"
@@ -1091,7 +1091,7 @@
         android:text="-"
         android:textAlignment="center"
         android:textColor="@color/gem_socket_shadow"
-        android:textSize="28sp"
+        android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
         app:layout_constraintEnd_toStartOf="@+id/totalTextView"
         app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
@@ -1115,7 +1115,7 @@
         android:text="0"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
         app:layout_constraintEnd_toEndOf="@+id/totalTextView"
         app:layout_constraintStart_toStartOf="@+id/totalTextView"
@@ -1130,7 +1130,7 @@
         android:text="+"
         android:textAlignment="center"
         android:textColor="@color/gem_socket_shadow"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/comfortTextView"
         app:layout_constraintStart_toEndOf="@+id/totalTextView"
         app:layout_constraintTop_toTopOf="@+id/comfortTextView" />
@@ -1158,7 +1158,7 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/resTextView"
         app:layout_constraintEnd_toEndOf="@+id/baseTextView"
         app:layout_constraintStart_toStartOf="@+id/baseTextView"
@@ -1173,7 +1173,7 @@
         android:text="-"
         android:textAlignment="center"
         android:textColor="@color/gem_socket_shadow"
-        android:textSize="28sp"
+        android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/resTextView"
         app:layout_constraintEnd_toStartOf="@+id/totalTextView"
         app:layout_constraintTop_toTopOf="@+id/resTextView" />
@@ -1197,7 +1197,7 @@
         android:text="0"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/resTextView"
         app:layout_constraintEnd_toEndOf="@+id/totalTextView"
         app:layout_constraintStart_toStartOf="@+id/totalTextView"
@@ -1212,7 +1212,7 @@
         android:text="+"
         android:textAlignment="center"
         android:textColor="@color/gem_socket_shadow"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/resTextView"
         app:layout_constraintStart_toEndOf="@+id/totalTextView"
         app:layout_constraintTop_toTopOf="@+id/resTextView" />
@@ -1237,7 +1237,7 @@
         android:layout_marginEnd="5dp"
         android:text="@string/points_available"
         android:textColor="@color/gandalf"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toStartOf="@+id/pointsTextView"
         app:layout_constraintTop_toBottomOf="@+id/resTextView" />
 
@@ -1250,7 +1250,7 @@
         style="@style/BoldItalicSubtitles"
         android:text="0"
         android:textColor="@color/gandalf"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/resTextView" />
 
@@ -1273,7 +1273,7 @@
         style="@style/BoldItalicSubtitles"
         android:text="@string/optimize_luck"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/optimizeLuckButtonShadow"
         app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButtonShadow"
         app:layout_constraintStart_toStartOf="@+id/optimizeLuckButtonShadow"
@@ -1299,7 +1299,7 @@
         style="@style/BoldItalicSubtitles"
         android:text="@string/optimize_luck"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/optimizeLuckButton"
         app:layout_constraintEnd_toEndOf="@+id/optimizeLuckButton"
         app:layout_constraintStart_toStartOf="@+id/optimizeLuckButton"
@@ -1325,7 +1325,7 @@
         style="@style/BoldItalicSubtitles"
         android:text="@string/optimize_gst"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/optimizeGstButtonShadow"
         app:layout_constraintEnd_toEndOf="@+id/optimizeGstButtonShadow"
         app:layout_constraintStart_toStartOf="@+id/optimizeGstButtonShadow"
@@ -1351,7 +1351,7 @@
         style="@style/BoldItalicSubtitles"
         android:text="@string/optimize_gst"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/optimizeGmtButton"
         app:layout_constraintEnd_toEndOf="@+id/optimizeGmtButton"
         app:layout_constraintStart_toStartOf="@+id/optimizeGmtButton"
@@ -1366,7 +1366,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/est_gst_daily_limit"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/optimizeGmtButton" />
 
@@ -1390,7 +1390,7 @@
         android:text="0.0"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/estGstGmtLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDaySlashTextView"
         app:layout_constraintTop_toTopOf="@+id/estGstGmtLabelTextView" />
@@ -1403,7 +1403,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/gstGmtIconLimit"
         app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView" />
 
@@ -1415,7 +1415,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="/"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDayTextView"
         app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView" />
 
@@ -1428,7 +1428,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/durability_loss"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/estGstGmtLabelTextView" />
 
@@ -1441,7 +1441,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/durabilityLabelTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/durabilityLabelTextView" />
@@ -1455,7 +1455,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/repair_cost"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/durabilityLabelTextView" />
 
@@ -1478,7 +1478,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/repairDurLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstIconRepair"
         app:layout_constraintTop_toTopOf="@+id/repairDurLabelTextView" />
@@ -1492,7 +1492,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/hp_loss"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/repairDurLabelTextView" />
 
@@ -1504,7 +1504,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/hpLabelTextView"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/hpLabelTextView" />
@@ -1518,7 +1518,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/restoration_cost"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/hpLabelTextView" />
 
@@ -1530,7 +1530,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0.0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/repairHpLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/comfGemHpRepair"
         app:layout_constraintTop_toTopOf="@+id/repairHpLabelTextView" />
@@ -1565,7 +1565,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="+"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/repairCostHpTextView"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTextView" />
 
@@ -1578,7 +1578,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/gstIconRestore"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTextView" />
 
@@ -1602,7 +1602,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/total_income"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/repairHpLabelTextView" />
 
@@ -1636,7 +1636,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/totalIncomeLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gmtIconTotal"
         app:layout_constraintTop_toTopOf="@+id/totalIncomeLabelTextView" />
@@ -1649,7 +1649,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="-"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/gstIncomeTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstIncomeTextView"
         app:layout_constraintTop_toTopOf="@+id/gstIncomeTextView" />
@@ -1673,7 +1673,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/totalIncomeLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstIconTotal"
         app:layout_constraintTop_toTopOf="@+id/totalIncomeLabelTextView" />
@@ -1686,7 +1686,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="- 0.0"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/gstIncomeTextView"
         app:layout_constraintEnd_toStartOf="@+id/comfGemHpTotalRepair"
         app:layout_constraintTop_toTopOf="@+id/gstIncomeTextView" />
@@ -1711,7 +1711,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/total_income_usd"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/totalIncomeLabelTextView" />
 
@@ -1723,7 +1723,7 @@
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:text="-"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/totalIncomeUsdLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/totalIncomeUsdSymbol"
         app:layout_constraintTop_toTopOf="@+id/totalIncomeUsdLabelTextView" />
@@ -1735,7 +1735,7 @@
         android:fontFamily="@font/roboto_condensed_bold"
         android:text="$"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/totalIncomeUsdLabelTextView"
         app:layout_constraintEnd_toEndOf="@+id/comfGemHpTotalRepair"
         app:layout_constraintStart_toStartOf="@+id/comfGemHpTotalRepair"
@@ -1769,7 +1769,7 @@
                 style="@style/RegItalic"
                 android:text="@string/chain"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:id="@+id/chainButtonLayout"
@@ -1792,7 +1792,7 @@
                     android:fontFamily="@font/roboto_condensed_bold_italic"
                     android:text="SOL"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/chainButton"
@@ -1813,7 +1813,7 @@
                     android:fontFamily="@font/roboto_condensed_bold_italic"
                     android:text="SOL"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
             </FrameLayout>
 
         </LinearLayout>
@@ -1835,7 +1835,7 @@
                 android:layout_gravity="center"
                 android:text="@string/token"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:id="@+id/coinButtonLayout"
@@ -1870,7 +1870,7 @@
                         android:fontFamily="@font/roboto_condensed_bold_italic"
                         android:text="GST"
                         android:textColor="@color/almost_black"
-                        android:textSize="15sp" />
+                        android:textSize="15dp" />
 
                     <ImageView
                         android:id="@+id/coinImageViewShadow"
@@ -1909,7 +1909,7 @@
                         android:fontFamily="@font/roboto_condensed_bold_italic"
                         android:text="GST"
                         android:textColor="@color/almost_black"
-                        android:textSize="15sp" />
+                        android:textSize="15dp" />
 
                     <ImageView
                         android:id="@+id/coinImageView"
@@ -1942,7 +1942,7 @@
                 android:layout_gravity="center"
                 android:text="@string/comf_gem_price"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -1986,7 +1986,7 @@
                         android:selectAllOnFocus="true"
                         android:singleLine="true"
                         android:textAlignment="center"
-                        android:textSize="18sp" />
+                        android:textSize="18dp" />
 
                     <ImageView
                         android:id="@+id/gmtLogoGemPriceImageView"
@@ -2014,7 +2014,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/mystery_box_chance"
         android:textColor="@color/almost_black"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/tokenChainSwitchButtonRow" />
@@ -2165,7 +2165,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/reset_values"
         android:textColor="@color/gandalf"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl10" />
@@ -2193,7 +2193,7 @@
         android:text="@string/disclaimer"
         android:textAlignment="center"
         android:textColor="@color/gandalf"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
@@ -2209,7 +2209,7 @@
         android:text="@string/price_data_provided_by"
         android:textAlignment="center"
         android:textColor="@color/gandalf"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/coinGeckoLogo"
         app:layout_constraintEnd_toStartOf="@+id/coinGeckoLogo"
         app:layout_constraintHorizontal_chainStyle="packed"

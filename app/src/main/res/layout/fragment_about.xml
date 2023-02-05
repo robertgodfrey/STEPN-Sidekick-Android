@@ -45,7 +45,7 @@
         android:includeFontPadding="false"
         android:text="@string/about"
         android:textColor="@color/almost_black"
-        android:textSize="34sp"
+        android:textSize="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/backgroundThing" />
@@ -63,7 +63,7 @@
         android:text="@string/app_goal"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
@@ -79,7 +79,7 @@
         android:text="@string/notes"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@+id/notesDeets1TextView"
         app:layout_constraintTop_toBottomOf="@+id/aboutDeetsTextView" />
 
@@ -94,7 +94,7 @@
         android:text="1."
         android:textAlignment="viewStart"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/notesTextView" />
 
@@ -110,7 +110,7 @@
         android:text="@string/notes_details1"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/notesOneLabel"
         app:layout_constraintTop_toTopOf="@+id/notesOneLabel" />
@@ -126,7 +126,7 @@
         android:text="2."
         android:textAlignment="viewStart"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/notesDeets1TextView" />
 
@@ -142,7 +142,7 @@
         android:text="@string/notes_details2"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
         app:layout_constraintTop_toTopOf="@+id/notesTwoLabel" />
@@ -158,7 +158,7 @@
         android:text="3."
         android:textAlignment="viewStart"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/notesDeets2TextView" />
 
@@ -174,7 +174,7 @@
         android:text="@string/notes_details4"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
         app:layout_constraintTop_toTopOf="@+id/notesThreeLabel" />
@@ -191,7 +191,7 @@
         android:text="Thanks to:"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="15sp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
@@ -206,7 +206,7 @@
         android:includeFontPadding="false"
         android:text="\@Krit_G4M3fi"
         android:textColor="@color/luck_socket_border"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/thanksTextView" />
 
@@ -232,7 +232,7 @@
         android:includeFontPadding="false"
         android:text="                            for gathering invaluable data and sharing with the community."
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toTopOf="@+id/kritThanksTextView" />
@@ -247,7 +247,7 @@
         android:includeFontPadding="false"
         android:text="\@Karl_Khader"
         android:textColor="@color/luck_socket_border"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/kritThanksDeetsTextView" />
 
@@ -273,7 +273,7 @@
         android:includeFontPadding="false"
         android:text="                            for gathering and maintaining community HP data."
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toTopOf="@+id/karlThanksTextView" />
@@ -288,7 +288,7 @@
         android:includeFontPadding="false"
         android:text="\@otik_x"
         android:textColor="@color/luck_socket_border"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/karlThanksDeetsTextView" />
 
@@ -314,7 +314,7 @@
         android:includeFontPadding="false"
         android:text="                for letting me use his awesome STEPN-style sandal as the &quot;custom&quot; shoe image in this app. Check out his page for more great artwork."
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toTopOf="@+id/otikxThanksTextView" />
@@ -331,7 +331,7 @@
         android:text="@string/contact"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/otikxThanksDeetsTextView" />
@@ -346,7 +346,7 @@
         android:text="@string/contact_email"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactTextView" />
@@ -378,7 +378,7 @@
         android:text="@string/support_project"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/contactEmailTextView" />
@@ -407,7 +407,7 @@
         android:text="@string/remove_ads"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/removeAdsShadowButton"
         app:layout_constraintEnd_toEndOf="@+id/removeAdsShadowButton"
         app:layout_constraintStart_toStartOf="@+id/removeAdsShadowButton"
@@ -435,7 +435,7 @@
         android:text="@string/remove_ads"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/removeAdsButton"
         app:layout_constraintEnd_toEndOf="@+id/removeAdsButton"
         app:layout_constraintStart_toStartOf="@+id/removeAdsButton"
@@ -453,7 +453,7 @@
         android:text="- OR -"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/removeAdsButton" />
@@ -490,9 +490,9 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="100dp"
         android:includeFontPadding="false"
-        android:text="v 1.5.10"
+        android:text="v 1.5.11"
         android:textColor="@color/gandalf"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buyBeerButton" />
@@ -538,7 +538,7 @@
         android:text="OTHER COOL PROJECTS FROM THE STEPN COMMUNITY"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toTopOf="@+id/lowerBackgroundThing" />
@@ -555,7 +555,7 @@
         android:text="(in no particular order)"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/otherProjectsTextView" />
@@ -594,7 +594,7 @@
         android:text="Improved marketplace filter by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintEnd_toStartOf="@+id/stepnMarketGuideAuthor"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
@@ -610,7 +610,7 @@
         android:text="\@t2_stepn"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/stepnMarketGuideDeets"
         app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuide" />
@@ -661,7 +661,7 @@
         android:text="Shoe, gem, and scroll floorprice tracker by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/stepnFp" />
@@ -676,7 +676,7 @@
         android:text="\@StepnFP"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/stepnFpDeets" />
@@ -727,7 +727,7 @@
         android:text="The OG sneaker optimizer by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toStartOf="@+id/stepnGuideAuthor"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
@@ -743,7 +743,7 @@
         android:text="\@Stepappturkey"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/stepnGuideDeets"
         app:layout_constraintTop_toBottomOf="@+id/stepnGuide" />
@@ -794,7 +794,7 @@
         android:text="GST, ROI, and gems simulator by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintEnd_toStartOf="@+id/stepnWikiAuthor"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
@@ -810,7 +810,7 @@
         android:text="\@STEPNwiki"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/stepnWikiDeets"
         app:layout_constraintTop_toBottomOf="@+id/stepnWiki" />
@@ -861,7 +861,7 @@
         android:text="Mint price calculator by "
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintEnd_toStartOf="@+id/stepnAssistAuthor"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
@@ -877,7 +877,7 @@
         android:text="\@Vanxhh"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/stepnAssistDeets"
         app:layout_constraintTop_toBottomOf="@+id/stepnAssist" />
@@ -928,7 +928,7 @@
         android:text="Upcoming companion app for M2E games by"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/stepnStats" />
@@ -944,7 +944,7 @@
         android:text="\@Krit_G4M3fi"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toStartOf="@+id/stepnStatsAuthor2"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
@@ -974,7 +974,7 @@
         android:text=" \@lyesbcb"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/stepnStatsAuthor1"
         app:layout_constraintTop_toBottomOf="@+id/stepnStatsDeets" />

@@ -49,7 +49,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:textColor="@color/almost_black"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="@+id/helpButton"
         app:layout_constraintTop_toTopOf="@+id/helpButton"
         app:srcCompat="@drawable/button_help_shadow" />
@@ -63,7 +63,7 @@
         android:text="@string/question_mark"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/helpButtonShadow"
         app:layout_constraintEnd_toEndOf="@+id/helpButtonShadow"
         app:layout_constraintStart_toStartOf="@+id/helpButtonShadow"
@@ -89,7 +89,7 @@
         android:text="@string/question_mark"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/helpButton"
         app:layout_constraintEnd_toEndOf="@+id/helpButton"
         app:layout_constraintStart_toStartOf="@+id/helpButton"
@@ -104,7 +104,7 @@
         android:includeFontPadding="false"
         android:text="Walker"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/bigOlBox"
         app:layout_constraintEnd_toEndOf="@+id/bigOlBox"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -208,7 +208,7 @@
         android:text="@string/settings"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
-        android:textSize="26sp"
+        android:textSize="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backgroundTop" />
@@ -244,7 +244,7 @@
                 android:layout_gravity="center"
                 android:text="@string/minimum_speed"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:id="@+id/minSpeedLayout"
@@ -279,7 +279,7 @@
                     android:gravity="end"
                     android:text="km/h\u00A0"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/minSpeedEditText"
@@ -299,7 +299,7 @@
                     android:text="1.0"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="20sp" />
+                    android:textSize="20dp" />
             </FrameLayout>
 
         </LinearLayout>
@@ -321,7 +321,7 @@
                 android:layout_gravity="center"
                 android:text="@string/maximum_speed"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:id="@+id/maxSpeedLayout"
@@ -356,7 +356,7 @@
                     android:gravity="end"
                     android:text="km/h\u00A0"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/maxSpeedEditText"
@@ -376,7 +376,7 @@
                     android:text="6.0"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="20sp" />
+                    android:textSize="20dp" />
 
             </FrameLayout>
 
@@ -424,7 +424,7 @@
                 android:text="@string/zero_mins"
                 android:textAlignment="center"
                 android:textColor="@color/gandalf"
-                android:textSize="13sp" />
+                android:textSize="13dp" />
 
         </LinearLayout>
 
@@ -462,7 +462,7 @@
                 android:includeFontPadding="false"
                 android:text="@string/countdown_timer"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -488,7 +488,7 @@
                     android:text="@string/enabled"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/countdownTimerButton"
@@ -509,7 +509,7 @@
                     android:text="@string/enabled"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
             </FrameLayout>
 
@@ -533,7 +533,7 @@
                 android:includeFontPadding="false"
                 android:text="@string/speed_alerts"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -559,7 +559,7 @@
                     android:text="@string/audible"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/alertsTimerButton"
@@ -580,7 +580,7 @@
                     android:text="@string/audible"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
             </FrameLayout>
 
@@ -605,7 +605,7 @@
                 android:includeFontPadding="false"
                 android:text="@string/energy"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -653,7 +653,7 @@
                     android:selectAllOnFocus="true"
                     android:singleLine="true"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:textSize="18dp" />
 
             </FrameLayout>
 
@@ -670,7 +670,7 @@
         android:text="@string/voice_updates"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
-        android:textSize="22sp"
+        android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerSoundRow" />
@@ -705,7 +705,7 @@
                 android:includeFontPadding="false"
                 android:text="@string/speed"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -731,7 +731,7 @@
                     android:text="@string/enabled"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/voiceAlertSpeedButton"
@@ -752,7 +752,7 @@
                     android:text="@string/enabled"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
             </FrameLayout>
 
@@ -776,7 +776,7 @@
                 android:includeFontPadding="false"
                 android:text="@string/time"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -802,7 +802,7 @@
                     android:text="@string/enabled"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/voiceTimeButton"
@@ -823,7 +823,7 @@
                     android:text="@string/enabled"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
             </FrameLayout>
 
@@ -846,7 +846,7 @@
                 android:includeFontPadding="false"
                 android:text="@string/one_min_thirty_sec"
                 android:textColor="@color/gandalf"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -872,7 +872,7 @@
                     android:text="@string/enabled"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/voiceOneMinThirtySecButton"
@@ -893,7 +893,7 @@
                     android:text="@string/enabled"
                     android:textAlignment="center"
                     android:textColor="@color/almost_black"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
             </FrameLayout>
 
@@ -924,7 +924,7 @@
         android:text="@string/start"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/startButtonShadow"
         app:layout_constraintEnd_toEndOf="@+id/startButtonShadow"
         app:layout_constraintStart_toStartOf="@+id/startButtonShadow"
@@ -957,7 +957,7 @@
         android:text="@string/start"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
-        android:textSize="24sp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/startImageButton"
         app:layout_constraintEnd_toEndOf="@+id/startImageButton"
         app:layout_constraintStart_toStartOf="@+id/startImageButton"

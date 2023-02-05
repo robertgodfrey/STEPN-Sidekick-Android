@@ -30,7 +30,7 @@
         android:includeFontPadding="false"
         android:text="@string/select_socket_type"
         android:textColor="@color/almost_black"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toTopOf="@+id/alertBoxBackground" />
@@ -68,7 +68,7 @@
         android:includeFontPadding="false"
         android:text="Efficiency"
         android:textColor="@color/gandalf"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@+id/effType"
         app:layout_constraintStart_toStartOf="@+id/effType"
         app:layout_constraintTop_toBottomOf="@+id/effType" />
@@ -105,7 +105,7 @@
         android:includeFontPadding="false"
         android:text="Luck"
         android:textColor="@color/gandalf"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:layout_marginTop="-2dp"
         app:layout_constraintEnd_toEndOf="@+id/luckType"
         app:layout_constraintStart_toStartOf="@+id/luckType"
@@ -143,7 +143,7 @@
         android:includeFontPadding="false"
         android:text="Comfort"
         android:textColor="@color/gandalf"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:layout_marginTop="-2dp"
         app:layout_constraintEnd_toEndOf="@+id/comfType"
         app:layout_constraintStart_toStartOf="@+id/comfType"
@@ -181,7 +181,7 @@
         android:includeFontPadding="false"
         android:text="Resilience"
         android:textColor="@color/gandalf"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:layout_marginTop="-2dp"
         app:layout_constraintEnd_toEndOf="@+id/resType"
         app:layout_constraintStart_toStartOf="@+id/resType"
@@ -232,7 +232,7 @@
         android:fontFamily="@font/roboto_black"
         android:text="-"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/gemSocket"
         app:layout_constraintEnd_toStartOf="@+id/gemSocket"
         app:layout_constraintTop_toTopOf="@+id/gemSocket" />
@@ -256,7 +256,7 @@
         android:fontFamily="@font/roboto_black"
         android:text="+"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/gemSocket"
         app:layout_constraintStart_toEndOf="@+id/gemSocket"
         app:layout_constraintTop_toTopOf="@+id/gemSocket" />
@@ -281,7 +281,7 @@
         android:includeFontPadding="false"
         android:text="@string/select_gem"
         android:textColor="@color/almost_black"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/effLabel" />
@@ -500,7 +500,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/gem_"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/gemSocket" />
 
@@ -514,7 +514,7 @@
         android:text="+ 0"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/gemSocket" />
 
@@ -527,7 +527,7 @@
         style="@style/RegItalic"
         android:text="@string/socket"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/gemLabelTextView" />
 
@@ -541,7 +541,7 @@
         android:text="x 1"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/gemDetailsTextView" />
 
@@ -555,7 +555,7 @@
         android:text="@string/total_points"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/socketLabelTextView" />
 
@@ -569,7 +569,7 @@
         android:text="+ 0"
         android:textAlignment="textEnd"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/socketLabelTextView" />
 
@@ -621,7 +621,7 @@
         android:text="SAVE"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@id/saveGemButtonShadow"
         app:layout_constraintEnd_toEndOf="@+id/saveGemButtonShadow"
         app:layout_constraintStart_toStartOf="@+id/saveGemButtonShadow"
@@ -647,7 +647,7 @@
         android:text="SAVE"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/saveGemButton"
         app:layout_constraintEnd_toEndOf="@+id/saveGemButton"
         app:layout_constraintStart_toStartOf="@+id/saveGemButton"

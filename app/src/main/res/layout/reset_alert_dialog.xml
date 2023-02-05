@@ -19,7 +19,7 @@
         android:text="@string/are_you_sure_you_want_to_reset_all_values"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
 
     <RelativeLayout
@@ -52,7 +52,7 @@
             android:includeFontPadding="false"
             android:text="@string/no"
             android:textColor="@color/red"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -64,7 +64,7 @@
             android:includeFontPadding="false"
             android:text="@string/yes"
             android:textColor="#00f"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
     </RelativeLayout>
 

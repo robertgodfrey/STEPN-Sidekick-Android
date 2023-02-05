@@ -19,7 +19,7 @@
         android:text="@string/gps_permission_instructions"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <RelativeLayout
         android:layout_width="100dp"
@@ -43,7 +43,7 @@
             android:includeFontPadding="false"
             android:text="@string/okay"
             android:textColor="@color/energy_blue_border"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
     </RelativeLayout>

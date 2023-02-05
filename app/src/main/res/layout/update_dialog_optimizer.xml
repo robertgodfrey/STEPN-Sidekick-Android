@@ -27,7 +27,7 @@
         android:includeFontPadding="false"
         android:text="OPTIMIZER UPDATE"
         android:textColor="@color/gandalf"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toTopOf="@+id/alertBoxBackground" />
@@ -43,7 +43,7 @@
         android:includeFontPadding="false"
         android:text="Choose between optimizing GST or optimizing luck!"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -58,7 +58,7 @@
         android:includeFontPadding="false"
         android:text="•"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -74,7 +74,7 @@
         android:includeFontPadding="false"
         android:text="Optimizing GST checks every possible combination of points to see which one will earn the most GST (same as before)"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toEndOf="@+id/bulletsTextView"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -89,7 +89,7 @@
         android:includeFontPadding="false"
         android:text="•"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/updateListTextView" />
 
@@ -105,7 +105,7 @@
         android:includeFontPadding="false"
         android:text="Optimizing luck will allocate the least amount of points possible to break even on GST after repairs. The remainder of the points will be allocated towards luck"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toEndOf="@+id/bulletsTextView"
         app:layout_constraintTop_toBottomOf="@+id/updateListTextView" />
@@ -121,7 +121,7 @@
         android:includeFontPadding="false"
         android:text="@string/review_plz"
         android:textColor="@color/almost_black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/updateList2TextView" />
@@ -158,7 +158,7 @@
         android:text="@string/okay"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="@+id/nextButton"
         app:layout_constraintStart_toStartOf="@+id/nextButton"
