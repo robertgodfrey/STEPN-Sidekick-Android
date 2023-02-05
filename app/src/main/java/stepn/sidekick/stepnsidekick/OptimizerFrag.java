@@ -3386,10 +3386,38 @@ public class OptimizerFrag extends Fragment {
         return baseCost;
     }
 
+    private void clearMbs() {
+        mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox1.setAlpha(0.5f);
+        mysteryBox2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox2.setAlpha(0.5f);
+        mysteryBox3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox3.setAlpha(0.5f);
+        mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox4.setAlpha(0.5f);
+        mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox5.setAlpha(0.5f);
+        mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox6.setAlpha(0.5f);
+        mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox7.setAlpha(0.5f);
+        mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox8.setAlpha(0.5f);
+        mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox9.setAlpha(0.5f);
+        mysteryBox10.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+        mysteryBox10.setAlpha(0.5f);
+    }
+
     // calculates mb chances
     private void calcMbChances() {
         final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
+
+        if (localEnergy == 0 || totalLuck == 0) {
+            clearMbs();
+            return;
+        }
 
         final double levelOneLine = totalLuck < 1000 ? -0.6 * Math.log(totalLuck + 15) + 4.1 : -99;
         final double levelTwoLine = totalLuck < 1500 ? -1.2 * Math.log(totalLuck + 5) + 8.2 : -99;
