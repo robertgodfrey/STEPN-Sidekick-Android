@@ -1381,6 +1381,19 @@
         app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView"
         app:srcCompat="@drawable/coin_gst" />
 
+    <Button
+        android:id="@+id/toggleGstEstLimitButton"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginEnd="-10dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/gstPerDayTextView"
+        app:layout_constraintEnd_toEndOf="@+id/gstPerDayTextView"
+        app:layout_constraintStart_toStartOf="@+id/gstPerDayTextView"
+        app:layout_constraintTop_toTopOf="@+id/gstPerDayTextView" />
+
     <TextView
         android:id="@+id/gstPerDayTextView"
         android:layout_width="wrap_content"
@@ -1394,6 +1407,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/estGstGmtLabelTextView"
         app:layout_constraintEnd_toStartOf="@+id/gstLimitPerDaySlashTextView"
         app:layout_constraintTop_toTopOf="@+id/estGstGmtLabelTextView" />
+
+    <Button
+        android:id="@+id/changeGstLimitButton"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginEnd="-10dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/gstLimitPerDayTextView"
+        app:layout_constraintEnd_toEndOf="@+id/gstLimitPerDayTextView"
+        app:layout_constraintStart_toStartOf="@+id/gstLimitPerDayTextView"
+        app:layout_constraintTop_toTopOf="@+id/gstLimitPerDayTextView" />
 
     <TextView
         android:id="@+id/gstLimitPerDayTextView"
