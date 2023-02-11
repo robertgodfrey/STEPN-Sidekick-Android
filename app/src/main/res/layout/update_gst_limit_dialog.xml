@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+
+    <ImageView
+        android:id="@+id/alertBoxBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="-24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/alert_box" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        style="@style/BoldItalicSubtitles"
+        android:includeFontPadding="false"
+        android:text="INCREASE GST DAILY LIMIT"
+        android:textColor="@color/almost_black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toTopOf="@+id/alertBoxBackground" />
+
+    <ImageView
+        android:id="@+id/gstIconTotal"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintBottom_toBottomOf="@+id/gstIncomeTextView"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toEndOf="@+id/gstIncomeTextView"
+        app:layout_constraintTop_toTopOf="@+id/gstIncomeTextView"
+        app:srcCompat="@drawable/coin_gst" />
+
+    <TextView
+        android:id="@+id/gstIncomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/gstIconTotal"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/seekbarBackground"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/gstIconTotal"
+        app:srcCompat="@drawable/seekbar_level_background" />
+
+    <ImageView
+        android:id="@+id/seekbarMinGmt"
+        android:layout_width="22dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground"
+        app:srcCompat="@drawable/seekbar_gst_progress" />
+
+    <SeekBar
+        android:id="@+id/gstSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="-2dp"
+        android:layout_marginEnd="-2dp"
+        android:max="14"
+        android:progress="0"
+        android:progressDrawable="@drawable/gst_seekbar"
+        android:splitTrack="false"
+        android:thumb="@drawable/seekbar_level_thumb_gst"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbarBackground"
+        app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toTopOf="@+id/seekbarBackground" />
+
+    <TextView
+        android:id="@+id/gmtCostLabelTextView"
+        style="@style/RegItalic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:text="Cost:"
+        android:textColor="@color/almost_black"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/gmtCostTextView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
+        app:layout_constraintTop_toBottomOf="@+id/seekbarBackground" />
+
+    <TextView
+        android:id="@+id/gmtCostTextView"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:text="0"
+        android:textColor="@color/almost_black"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/gmtIconCost"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/gmtCostLabelTextView"
+        app:layout_constraintTop_toBottomOf="@+id/seekbarBackground" />
+
+    <ImageView
+        android:id="@+id/gmtIconCost"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gmtCostTextView"
+        app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/gmtCostTextView"
+        app:layout_constraintTop_toTopOf="@+id/gmtCostTextView"
+        app:srcCompat="@drawable/coin_gmt" />
+
+
+    <ImageView
+        android:id="@+id/saveButtonShadow"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="@+id/saveButton"
+        app:layout_constraintStart_toStartOf="@+id/saveButton"
+        app:layout_constraintTop_toTopOf="@+id/saveButton"
+        app:srcCompat="@drawable/button_start_shadow" />
+
+    <TextView
+        android:id="@+id/saveGemShadowTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="SAVE"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/saveButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/saveButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/saveButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/saveButtonShadow" />
+
+    <ImageButton
+        android:id="@+id/saveButton"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:background="@null"
+        android:src="@drawable/button_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gmtCostTextView" />
+
+    <TextView
+        android:id="@+id/saveGemButtonTextView"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="SAVE"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="@+id/saveButton"
+        app:layout_constraintStart_toStartOf="@+id/saveButton"
+        app:layout_constraintTop_toTopOf="@+id/saveButton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

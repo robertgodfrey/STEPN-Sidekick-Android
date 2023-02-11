@@ -30,4 +30,5 @@
     <color name="comf_socket">#f79091</color>
     <color name="comf_socket_border">#e44549</color>
     <color name="progress_gmt">#ffcb6d</color>
+    <color name="progress_gst">#d6d6d6</color>
 </resources>
