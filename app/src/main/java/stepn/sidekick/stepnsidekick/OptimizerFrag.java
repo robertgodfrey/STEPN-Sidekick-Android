@@ -2582,7 +2582,7 @@ public class OptimizerFrag extends Fragment {
             gstGmtTotal = getGmtPerEnergy(totalComf);
             gmtLowRange = Math.max(0, Math.round((gstGmtTotal - 0.2f) * 20) / 100.0);
             gmtHighRange = Math.round((gstGmtTotal + 0.2f) * 20) / 100.0;
-            gstGmtTotal = gstGmtTotal * localEnergy;
+            gstGmtTotal = Math.max(0, gstGmtTotal * localEnergy);
         } else {
             gstGmtTotal = getGstTotal(localEnergy, totalEff);
         }
