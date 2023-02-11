@@ -111,7 +111,7 @@ public class OptimizerFrag extends Fragment {
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
             subResButton, addResButton, changeComfGemButton, leftButton, rightButton, resetButton,
-            oneTwentyFiveButton, changeGmtEstimateButton;
+            oneTwentyFiveButton, changeGmtEstimateButton, changeGstLimitButton, toggleGstEstLimitButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief,
             shoeNameEditText, comfGemPriceEditText;
@@ -146,7 +146,7 @@ public class OptimizerFrag extends Fragment {
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier,
             oneTwentyFiveEnergy;
-    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn;
+    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit;
     private double hpLoss, comfGemPrice;
     private String shoeName;
 
@@ -287,6 +287,8 @@ public class OptimizerFrag extends Fragment {
         comfGemHpRepairImageView = view.findViewById(R.id.comfGemHpRepair);
         changeComfGemButton = view.findViewById(R.id.changeComfGemButton);
         changeGmtEstimateButton = view.findViewById(R.id.changeGmtEstimateButton);
+        changeGstLimitButton = view.findViewById(R.id.changeGstLimitButton);
+        toggleGstEstLimitButton = view.findViewById(R.id.toggleGstEstLimitButton);
         gemMultipleTextView = view.findViewById(R.id.gemMultipleTextView);
         gemMultipleTotalTextView = view.findViewById(R.id.gemMultipleTotalTextView);
         comfGemHpRepairTotalImageView = view.findViewById(R.id.comfGemHpTotalRepair);
@@ -1144,6 +1146,21 @@ public class OptimizerFrag extends Fragment {
             public void onClick(View view) {
                 changeIncomeEst();
                 clearFocus(view);
+            }
+        });
+
+        changeGstLimitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // do stuff
+            }
+        });
+
+        toggleGstEstLimitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                useGstLimit = !useGstLimit;
+                calcTotals();
             }
         });
 
@@ -2624,6 +2641,9 @@ public class OptimizerFrag extends Fragment {
             gmtTotalTv.setText(String.valueOf(Math.round(gstGmtTotal * 10) / 10.0));
             gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
         } else {
+            if (useGstLimit) {
+                gstGmtTotal = Math.min(gstGmtTotal, gstLimit);
+            }
             gstProfitBeforeGem = gstGmtTotal - repairCostDurability - repairCostHp;
             totalUsd = Math.round(((gstProfitBeforeGem * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0;
             estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
@@ -2642,7 +2662,7 @@ public class OptimizerFrag extends Fragment {
             totalIncomeUsdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         }
 
-        if (gstGmtTotal > gstLimit) {
+        if (getGstTotal(localEnergy, totalEff) > gstLimit) {
             estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
         } else {
             estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
@@ -4038,6 +4058,9 @@ public class OptimizerFrag extends Fragment {
         optimizeGstGmtTextViewShadow.setText(gmtEarningOn ? getString(R.string.optimize_gmt) : getString(R.string.optimize_gst));
 
         changeGmtEstimateButton.setVisibility(gmtEarningOn ? View.VISIBLE : View.GONE);
+        changeGstLimitButton.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
+        toggleGstEstLimitButton.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
+        useGstLimit = false;
 
         calcTotals();
     }
