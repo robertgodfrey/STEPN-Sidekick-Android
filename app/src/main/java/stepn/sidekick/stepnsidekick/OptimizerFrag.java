@@ -1152,7 +1152,8 @@ public class OptimizerFrag extends Fragment {
         changeGstLimitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // do stuff
+                updateGstLimit();
+                clearFocus(view);
             }
         });
 
@@ -1161,6 +1162,7 @@ public class OptimizerFrag extends Fragment {
             public void onClick(View view) {
                 useGstLimit = !useGstLimit;
                 calcTotals();
+                clearFocus(view);
             }
         });
 
@@ -2464,6 +2466,78 @@ public class OptimizerFrag extends Fragment {
         calcsSocketCalcs.setText(socketCalcs);
         calcsTotalPoints.setText(gems.get(socketNum).getTotalPointsString());
 
+    }
+
+    // gives option to increase daily GST limit (allows for daily earning estimates based on actual limit)
+    private void updateGstLimit() {
+        // reset gst limit to default val
+        int tempLimit;
+        if (shoeLevel < 10) {
+            tempLimit = 5 + (shoeLevel * 5);
+        } else if (shoeLevel < 23) {
+            tempLimit = 60 + ((shoeLevel - 10) * 10);
+        } else {
+            tempLimit = 195 + ((shoeLevel - 23) * 15);
+        }
+        if (gstLimit != tempLimit) {
+            gstLimit = tempLimit;
+        }
+
+        Dialog updateGstLimitDialog = new Dialog(requireActivity());
+
+        updateGstLimitDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        updateGstLimitDialog.setCancelable(true);
+        updateGstLimitDialog.setContentView(R.layout.update_gst_limit_dialog);
+        updateGstLimitDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        updateGstLimitDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        TextView localGstLimitTextView = updateGstLimitDialog.findViewById(R.id.gstLimitTextView);
+        SeekBar gstSeekBar = updateGstLimitDialog.findViewById(R.id.gstSeekBar);
+        ImageView gstMinPercent = updateGstLimitDialog.findViewById(R.id.seekbarMinGst);
+        TextView gmtCostTv = updateGstLimitDialog.findViewById(R.id.gmtCostTextView);
+        ImageButton saveButton = updateGstLimitDialog.findViewById(R.id.saveButton);
+
+        localGstLimitTextView.setText(String.valueOf(gstLimit));
+
+        updateGstLimitDialog.show();
+
+        gstSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                int gmtCost = 0;
+                if (i < 5) {
+                    for (int j = 0; j < i + 1; j++) {
+                        gmtCost += 60 * (5 + (2 * j));
+                    }
+                }
+                final int cost = i < 5 ? gmtCost : 4600 + ((i - 6) * 1000);
+                localGstLimitTextView.setText(String.valueOf((i + 1) * 20 + gstLimit));
+                gmtCostTv.setText(String.valueOf(cost));
+                if (i > 0) {
+                    gstMinPercent.setVisibility(View.VISIBLE);
+                } else {
+                    gstMinPercent.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateGstLimitDialog.dismiss();
+                gstLimit = Integer.parseInt(localGstLimitTextView.getText().toString());
+                gstLimitTextView.setText(String.valueOf(gstLimit));
+            }
+        });
     }
 
     // gives option to change income estimate (allows for more accurate USD price predictions)

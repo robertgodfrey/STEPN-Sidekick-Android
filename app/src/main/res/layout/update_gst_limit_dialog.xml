@@ -38,14 +38,14 @@
         android:layout_height="18dp"
         android:layout_marginTop="2dp"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintBottom_toBottomOf="@+id/gstIncomeTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/gstLimitTextView"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintStart_toEndOf="@+id/gstIncomeTextView"
-        app:layout_constraintTop_toTopOf="@+id/gstIncomeTextView"
+        app:layout_constraintStart_toEndOf="@+id/gstLimitTextView"
+        app:layout_constraintTop_toTopOf="@+id/gstLimitTextView"
         app:srcCompat="@drawable/coin_gst" />
 
     <TextView
-        android:id="@+id/gstIncomeTextView"
+        android:id="@+id/gstLimitTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -72,7 +72,7 @@
         app:srcCompat="@drawable/seekbar_level_background" />
 
     <ImageView
-        android:id="@+id/seekbarMinGmt"
+        android:id="@+id/seekbarMinGst"
         android:layout_width="22dp"
         android:layout_height="16dp"
         android:layout_marginStart="4dp"
@@ -105,9 +105,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
-        android:text="Cost:"
+        android:text="Total Cost:"
         android:textColor="@color/almost_black"
-        android:textSize="12dp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/gmtCostTextView"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/seekbarBackground"
@@ -120,9 +120,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
-        android:text="0"
+        android:text="300"
         android:textColor="@color/almost_black"
-        android:textSize="12dp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/gmtIconCost"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/gmtCostLabelTextView"
@@ -130,8 +130,8 @@
 
     <ImageView
         android:id="@+id/gmtIconCost"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/gmtCostTextView"
         app:layout_constraintEnd_toEndOf="@+id/seekbarBackground"
