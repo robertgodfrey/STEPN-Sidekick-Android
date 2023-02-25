@@ -5,7 +5,7 @@ import androidx.annotation.Keep;
 import com.google.gson.annotations.SerializedName;
 
 @Keep
-public class Prices {
+public class TokenPrices {
     @SerializedName("stepn")
     private final NestedPrice gmt;
     @SerializedName("solana")
@@ -22,8 +22,8 @@ public class Prices {
     private final NestedPrice gstEth;
 
 
-    public Prices(NestedPrice gmt, NestedPrice solana, NestedPrice gstSol, NestedPrice binancecoin,
-                  NestedPrice gstBsc, NestedPrice ethereum, NestedPrice gstEth) {
+    public TokenPrices(NestedPrice gmt, NestedPrice solana, NestedPrice gstSol, NestedPrice binancecoin,
+                       NestedPrice gstBsc, NestedPrice ethereum, NestedPrice gstEth) {
         this.gmt = gmt;
         this.solana = solana;
         this.gstSol = gstSol;
