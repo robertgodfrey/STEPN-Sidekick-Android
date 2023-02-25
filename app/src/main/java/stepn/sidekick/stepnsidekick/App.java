@@ -17,15 +17,13 @@ public class App extends Application {
     }
 
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel serviceChannel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Sidekick Running Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
+        NotificationChannel serviceChannel = new NotificationChannel(
+                CHANNEL_ID,
+                "Sidekick Running Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+        );
 
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(serviceChannel);
-        }
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(serviceChannel);
     }
 }
