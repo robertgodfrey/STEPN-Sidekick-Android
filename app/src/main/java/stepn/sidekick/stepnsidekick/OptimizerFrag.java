@@ -53,7 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.5.8 - update gmt formulas, increase lower range for mb lvl 9
+ * @version 1.6.0 add gem price API, update durability formula, 'daily limit' fixes
  *
  */
 

@@ -51,7 +51,7 @@ import java.util.ArrayList;
  * updates and the ten-second countdown timer. Starts the SpeedTracker activity.
  *
  * @author Rob Godfrey
- * @version 1.5.0 - Added GMT calcs
+ * @version 1.6.0 add gem price API, update durability formula, 'daily limit' fixes
  *
  */
 
@@ -59,7 +59,7 @@ public class StartActivityFrag extends Fragment {
     private final int PERMISSIONS_FINE_LOCATION = 99;
 
     // only use major version changes, eg 1.1, 1.2, not 1.1.2 ...cause it's a float :D
-    private final float CURRENT_APP_VERSION = 1.5f;
+    private final float CURRENT_APP_VERSION = 1.6f;
 
     // keys for shared prefs
     private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";

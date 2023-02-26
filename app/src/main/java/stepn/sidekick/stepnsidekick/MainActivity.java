@@ -47,7 +47,7 @@ import java.util.List;
  * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Rob Godfrey
- * @version 1.3.15 Fixed ads
+ * @version 1.6.0 add gem price API, update durability formula, 'daily limit' fixes
  *
  */
 
