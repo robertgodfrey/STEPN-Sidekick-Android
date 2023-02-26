@@ -2665,7 +2665,12 @@ public class OptimizerFrag extends Fragment {
 
     // returns estimated durability lost
     private int getDurabilityLost(double localEnergy, double totalRes) {
-        int durLost = (int) Math.round(localEnergy * ((2.944 * Math.exp(-totalRes / 6.763)) + (2.119 * Math.exp(-totalRes / 36.817)) + 0.294));
+        int durLost;
+        if (totalRes > 160) {
+            durLost = (int) Math.round(localEnergy * (-0.0005 * totalRes + 0.4));
+        } else {
+            durLost = (int) Math.round(localEnergy * ((2.944 * Math.exp(-totalRes / 6.763)) + (2.119 * Math.exp(-totalRes / 36.817)) + 0.294));
+        }
         return Math.max(durLost, 1);
     }
 
