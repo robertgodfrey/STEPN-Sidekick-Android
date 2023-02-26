@@ -150,7 +150,8 @@ public class OptimizerFrag extends Fragment {
     private double hpLoss, comfGemPrice;
     private String shoeName;
 
-    private double[] PRICES;
+    private double[] TOKEN_PRICES;
+    private double[] GEM_PRICES;
 
     ArrayList<Gem> gems;
 
@@ -217,48 +218,103 @@ public class OptimizerFrag extends Fragment {
             }
         }).start();
 
-        final String BASE_URL = "https://api.coingecko.com/";
+        final String GECKO_BASE_URL = "https://api.coingecko.com/";
 
         // from 0 - 6: GMT, SOL, GST-SOL, BNB, GST-BNB, ETH, GST-ETH
-        PRICES = new double[] {0,0,0,0,0,0,0};
+        TOKEN_PRICES = new double[] {0,0,0,0,0,0,0};
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(GECKO_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        Api myApi = retrofit.create(Api.class);
+        TokenApi myTokenApi = retrofit.create(TokenApi.class);
 
-        Call<Prices> call = myApi.getPosts();
+        Call<TokenPrices> call = myTokenApi.getPosts();
 
-        call.enqueue(new Callback<Prices>() {
+        call.enqueue(new Callback<TokenPrices>() {
             @Override
-            public void onResponse(Call<Prices> call, Response<Prices> response) {
+            public void onResponse(Call<TokenPrices> call, Response<TokenPrices> response) {
 
                 try {
-                    Prices priceList = response.body();
-                    PRICES[0] = priceList.getGmtPrice();
-                    PRICES[1] = priceList.getSolanaPrice();
-                    PRICES[2] = priceList.getGstSol();
-                    PRICES[3] = priceList.getBinancecoin();
-                    PRICES[4] = priceList.getGstBsc();
-                    PRICES[5] = priceList.getEthereum();
-                    PRICES[6] = priceList.getGstEth();
+                    TokenPrices priceList = response.body();
+                    TOKEN_PRICES[0] = priceList.getGmtPrice();
+                    TOKEN_PRICES[1] = priceList.getSolanaPrice();
+                    TOKEN_PRICES[2] = priceList.getGstSol();
+                    TOKEN_PRICES[3] = priceList.getBinancecoin();
+                    TOKEN_PRICES[4] = priceList.getGstBsc();
+                    TOKEN_PRICES[5] = priceList.getEthereum();
+                    TOKEN_PRICES[6] = priceList.getGstEth();
 
-                    Log.d("API Stuff", "onResponse: GMT price: " + PRICES[0]);
-                    Log.d("API Stuff", "onResponse: SOL price: " + PRICES[1]);
-                    Log.d("API Stuff", "onResponse: GST SOL price: " + PRICES[2]);
-                    Log.d("API Stuff", "onResponse: BNB price: " + PRICES[3]);
-                    Log.d("API Stuff", "onResponse: GST BNB price: " + PRICES[4]);
-                    Log.d("API Stuff", "onResponse: ETH price: " + PRICES[5]);
-                    Log.d("API Stuff", "onResponse: GST ETH price: " + PRICES[6]);
+                    Log.d("API Stuff", "onResponse: GMT price: " + TOKEN_PRICES[0]);
+                    Log.d("API Stuff", "onResponse: SOL price: " + TOKEN_PRICES[1]);
+                    Log.d("API Stuff", "onResponse: GST SOL price: " + TOKEN_PRICES[2]);
+                    Log.d("API Stuff", "onResponse: BNB price: " + TOKEN_PRICES[3]);
+                    Log.d("API Stuff", "onResponse: GST BNB price: " + TOKEN_PRICES[4]);
+                    Log.d("API Stuff", "onResponse: ETH price: " + TOKEN_PRICES[5]);
+                    Log.d("API Stuff", "onResponse: GST ETH price: " + TOKEN_PRICES[6]);
+
+                    if (GEM_PRICES[0] != 0) {
+                        calcTotals();
+                    }
 
                 } catch (NullPointerException e) {
-                    Toast.makeText(requireActivity(), "Unable to get prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Prices> call, Throwable t) {
-                Toast.makeText(requireActivity(), "Unable to get prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<TokenPrices> call, Throwable t) {
+                Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final String SIDEKICK_BASE_URL = "http://stepnsidekick.com/";
+        GEM_PRICES = new double[] {0,0,0};
+
+        Retrofit retrofitGems = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GemApi myGemApi = retrofitGems.create(GemApi.class);
+
+        Call<GemPrices> callGems = myGemApi.getPosts();
+
+        callGems.enqueue(new Callback<GemPrices>() {
+            @Override
+            public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+
+                try {
+                    GemPrices priceList = response.body();
+                    GEM_PRICES[0] = (double) priceList.getLevelOnePrice() / 100.0;
+                    GEM_PRICES[1] = (double) priceList.getLevelTwoPrice() / 100.0;
+                    GEM_PRICES[2] = (double) priceList.getLevelThreePrice() / 100.0;
+
+                    Log.d("API Stuff", "onResponse: Comf Gem 1 Price: " + GEM_PRICES[0]);
+                    Log.d("API Stuff", "onResponse: Comf Gem 2 Price: " + GEM_PRICES[1]);
+                    Log.d("API Stuff", "onResponse: Comf Gem 3 Price: " + GEM_PRICES[2]);
+
+                    switch (comfGemLvlForRepair) {
+                        case 2:
+                            comfGemPrice = GEM_PRICES[1];
+                            break;
+                        case 3:
+                            comfGemPrice = GEM_PRICES[2];
+                            break;
+                        default:
+                            comfGemPrice = GEM_PRICES[0];
+                            break;
+                    }
+                    comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                    if (TOKEN_PRICES[0] != 0) {
+                        calcTotals();
+                    }
+
+                } catch (NullPointerException e) {
+                    Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GemPrices> call, Throwable t) {
+                Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -1135,6 +1191,8 @@ public class OptimizerFrag extends Fragment {
                 } else {
                     comfGemLvlForRepair = 1;
                 }
+                comfGemPrice = GEM_PRICES[comfGemLvlForRepair - 1];
+                comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
                 updateHpRepairComfGem(comfGemHpRepairImageView);
                 updateHpRepairComfGem(comfGemHpRepairTotalImageView);
                 calcTotals();
@@ -1261,6 +1319,8 @@ public class OptimizerFrag extends Fragment {
                     gemPriceBox.setImageResource(R.drawable.box_gem_price_input);
                     if (!comfGemPriceEditText.getText().toString().isEmpty() && !comfGemPriceEditText.getText().toString().equals(".")) {
                         comfGemPrice = Float.parseFloat(comfGemPriceEditText.getText().toString());
+                    } else {
+                        comfGemPrice = 0;
                     }
                     calcTotals();
                 }
@@ -2591,8 +2651,8 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 changeIncomeDialog.dismiss();
-                double totalUsd = Math.round((Double.parseDouble((gmtIncomeTextView.getText().toString())) * PRICES[0] - (repairCost * PRICES[shoeChain + 1])
-                        - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0;
+                double totalUsd = Math.round((Double.parseDouble((gmtIncomeTextView.getText().toString())) * TOKEN_PRICES[0] - (repairCost * TOKEN_PRICES[shoeChain + 1])
+                        - (comfGemMultiplier * comfGemPrice * TOKEN_PRICES[0])) * 100) / 100.0;
                 gmtTotalTv.setText(gmtIncomeTextView.getText().toString());
                 gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.progress_gmt));
                 if (comfGemPrice != 0) {
@@ -2708,8 +2768,8 @@ public class OptimizerFrag extends Fragment {
 
         if (gmtEarningOn) {
             String gmtRange = gmtLowRange + " - " + gmtHighRange;
-            totalUsd = Math.round(((gstGmtTotal * PRICES[0]) - ((repairCostDurability + repairCostHp) * PRICES[shoeChain + 1])
-                    - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0;
+            totalUsd = Math.round(((gstGmtTotal * TOKEN_PRICES[0]) - ((repairCostDurability + repairCostHp) * TOKEN_PRICES[shoeChain + 1])
+                    - (comfGemMultiplier * comfGemPrice * TOKEN_PRICES[0])) * 100) / 100.0;
             estGstGmtTextView.setText(gmtRange);
             totalIncomeTextView.setText(String.valueOf(Math.round((repairCostDurability + repairCostHp) * 10.0) / 10.0));
             gmtTotalTv.setText(String.valueOf(Math.round(gstGmtTotal * 10) / 10.0));
@@ -2719,7 +2779,7 @@ public class OptimizerFrag extends Fragment {
                 gstGmtTotal = Math.min(gstGmtTotal, gstLimit);
             }
             gstProfitBeforeGem = gstGmtTotal - repairCostDurability - repairCostHp;
-            totalUsd = Math.round(((gstProfitBeforeGem * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[0])) * 100) / 100.0;
+            totalUsd = Math.round(((gstProfitBeforeGem * TOKEN_PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * TOKEN_PRICES[0])) * 100) / 100.0;
             estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
             totalIncomeTextView.setText(String.valueOf(Math.round(gstProfitBeforeGem * 10) / 10.0));
         }
@@ -2775,7 +2835,7 @@ public class OptimizerFrag extends Fragment {
                         - (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
 
                 if (usdOn) {
-                    profit = ((profit * PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * PRICES[0]));
+                    profit = ((profit * TOKEN_PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * TOKEN_PRICES[0]));
                 }
                 if (profit > maxProfit) {
                     optimalAddedEff = localAddedEff;
@@ -2818,12 +2878,12 @@ public class OptimizerFrag extends Fragment {
             hpCalcs(localComf + localAddedComf);
 
             // total profit GMT in USD
-            profit = localEnergy * getGmtPerEnergy(localComf + localAddedComf) * PRICES[0];
+            profit = localEnergy * getGmtPerEnergy(localComf + localAddedComf) * TOKEN_PRICES[0];
             // subtract USD cost of repair durability restore HP (GST)
-            profit -= (PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
-            profit -= (PRICES[shoeChain + 1]) * (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
+            profit -= (TOKEN_PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
+            profit -= (TOKEN_PRICES[shoeChain + 1]) * (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
             // subtract USD cost of restore HP
-            profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[0]);
+            profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * TOKEN_PRICES[0]);
 
             if (profit > maxProfit) {
                 optimalAddedComf = localAddedComf;
@@ -2985,9 +3045,9 @@ public class OptimizerFrag extends Fragment {
         profit -= (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
 
         // in USD
-        profit = (profit * PRICES[shoeChain + 1]);
+        profit = (profit * TOKEN_PRICES[shoeChain + 1]);
         // minus gem restore cost
-        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[0]);
+        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * TOKEN_PRICES[0]);
 
         return profit > 0;
     }
@@ -3001,12 +3061,12 @@ public class OptimizerFrag extends Fragment {
         hpCalcs(localComf + localAddedComf);
 
         // total profit GMT in USD
-        profit = localEnergy * getGmtPerEnergy(localComf + localAddedComf) * PRICES[0];
+        profit = localEnergy * getGmtPerEnergy(localComf + localAddedComf) * TOKEN_PRICES[0];
         // subtract USD cost of repair durability and restore HP
-        profit -= (PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
-        profit -= (PRICES[shoeChain + 1]) * (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
+        profit -= (TOKEN_PRICES[shoeChain + 1]) * (getDurabilityLost(localEnergy, localRes + localAddedRes) * getRepairCost());
+        profit -= (TOKEN_PRICES[shoeChain + 1]) * (gstCostBasedOnGem * (hpLoss / hpPercentRestored));
         // subtract USD cost of restore HP
-        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * PRICES[0]);
+        profit -= ((hpLoss / hpPercentRestored) * comfGemPrice * TOKEN_PRICES[0]);
         return profit > 0;
     }
 
