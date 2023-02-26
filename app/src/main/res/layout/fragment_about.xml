@@ -924,7 +924,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="Upcoming companion app for M2E games by"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
@@ -945,7 +945,7 @@
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
         android:textSize="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/stepnStatsAuthor2"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/stepnStatsDeets" />
@@ -962,34 +962,6 @@
         app:layout_constraintEnd_toEndOf="@+id/stepnStatsAuthor1"
         app:layout_constraintStart_toStartOf="@+id/stepnStatsAuthor1"
         app:layout_constraintTop_toTopOf="@+id/stepnStatsAuthor1" />
-
-    <TextView
-        android:id="@+id/stepnStatsAuthor2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/roboto_medium"
-        android:includeFontPadding="false"
-        android:text=" \@lyesbcb"
-        android:textAlignment="center"
-        android:textColor="@color/luck_socket_border"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundThing"
-        app:layout_constraintStart_toEndOf="@+id/stepnStatsAuthor1"
-        app:layout_constraintTop_toBottomOf="@+id/stepnStatsDeets" />
-
-    <Button
-        android:id="@+id/stepnStatsAuthor2Button"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:alpha="0"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/stepnStatsAuthor2"
-        app:layout_constraintEnd_toEndOf="@+id/stepnStatsAuthor2"
-        app:layout_constraintStart_toStartOf="@+id/stepnStatsAuthor2"
-        app:layout_constraintTop_toTopOf="@+id/stepnStatsAuthor2" />
 
     <View
         android:id="@+id/invisibleView"

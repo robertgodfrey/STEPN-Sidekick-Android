@@ -35,13 +35,13 @@ public class AboutFrag extends Fragment {
     Button emailButton, buyCoffeeButton, kritButton, karlButton, stepnGuideButton,  stepnGuideAuthorButton,
             stepnWikiButton, stepnWikiAuthorButton, stepnAssistButton, stepnAssistAuthorButton,
             stepnFpButton, stepnFpAuthorButton, stepnStatsButton, stepnStatsAuthorOneButton,
-            stepnStatsAuthorTwoButton, stepnMarketGuideButton, stepnMarketGuideAuthorButton, otikxButton;
+            stepnMarketGuideButton, stepnMarketGuideAuthorButton, otikxButton;
     ImageButton removeAdsButton;
     ImageView removeAdsShadow, buyCoffeeLogo, stepnGuideIv, stepnWikiIv, stepnAssistIv, stepnFpIv,
             stepnEfIv, stepnStatsIv, stepnMarketIv;
     TextView emailTextView, removeAdsTextView, removeAdsShadowTextView, plzSupportTextView, orTv, kritTv,
             karlTv, stepnGuideAuthorTv, stepnWikiAuthorTv, stepnAssistAuthorTv, stepnFpAuthorTv,
-            stepnStatsAuthorOneTv, stepnStatsAuthorTwoTv, stepnMarketGuideAuthorTv, otikxTv;
+            stepnStatsAuthorOneTv, stepnMarketGuideAuthorTv, otikxTv;
     ClipboardManager clipboard;
 
     public AboutFrag() {
@@ -81,7 +81,6 @@ public class AboutFrag extends Fragment {
         stepnFpAuthorButton = view.findViewById(R.id.stepnFpAuthorButton);
         stepnStatsButton = view.findViewById(R.id.stepnStatsButton);
         stepnStatsAuthorOneButton = view.findViewById(R.id.stepnStatsAuthor1Button);
-        stepnStatsAuthorTwoButton = view.findViewById(R.id.stepnStatsAuthor2Button);
         stepnMarketGuideButton = view.findViewById(R.id.stepnMarketGuideButton);
         stepnMarketGuideAuthorButton = view.findViewById(R.id.stepnMarketGuideAuthorButton);
 
@@ -93,7 +92,6 @@ public class AboutFrag extends Fragment {
         stepnAssistAuthorTv = view.findViewById(R.id.stepnAssistAuthor);
         stepnFpAuthorTv = view.findViewById(R.id.stepnFpAuthor);
         stepnStatsAuthorOneTv = view.findViewById(R.id.stepnStatsAuthor1);
-        stepnStatsAuthorTwoTv = view.findViewById(R.id.stepnStatsAuthor2);
         stepnMarketGuideAuthorTv = view.findViewById(R.id.stepnMarketGuideAuthor);
 
         stepnGuideIv = view.findViewById(R.id.stepnGuide);
@@ -310,17 +308,6 @@ public class AboutFrag extends Fragment {
         });
 
         textTouchies(stepnStatsAuthorOneButton, stepnStatsAuthorOneTv);
-
-        stepnStatsAuthorTwoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri uri = Uri.parse("https://twitter.com/lyesbcb");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
-        textTouchies(stepnStatsAuthorTwoButton, stepnStatsAuthorTwoTv);
 
         stepnMarketGuideButton.setOnClickListener(new View.OnClickListener() {
             @Override
