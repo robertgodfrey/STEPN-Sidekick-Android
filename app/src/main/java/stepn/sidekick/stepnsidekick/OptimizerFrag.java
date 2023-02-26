@@ -2558,7 +2558,7 @@ public class OptimizerFrag extends Fragment {
         TextView gmtCostTv = updateGstLimitDialog.findViewById(R.id.gmtCostTextView);
         ImageButton saveButton = updateGstLimitDialog.findViewById(R.id.saveButton);
 
-        localGstLimitTextView.setText(String.valueOf(gstLimit));
+        localGstLimitTextView.setText(String.valueOf(gstLimit + 20));
 
         updateGstLimitDialog.show();
 
@@ -2596,6 +2596,7 @@ public class OptimizerFrag extends Fragment {
                 updateGstLimitDialog.dismiss();
                 gstLimit = Integer.parseInt(localGstLimitTextView.getText().toString());
                 gstLimitTextView.setText(String.valueOf(gstLimit));
+                calcTotals();
             }
         });
     }
@@ -2774,6 +2775,7 @@ public class OptimizerFrag extends Fragment {
             totalIncomeTextView.setText(String.valueOf(Math.round((repairCostDurability + repairCostHp) * 10.0) / 10.0));
             gmtTotalTv.setText(String.valueOf(Math.round(gstGmtTotal * 10) / 10.0));
             gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
         } else {
             if (useGstLimit) {
                 gstGmtTotal = Math.min(gstGmtTotal, gstLimit);
@@ -2782,6 +2784,11 @@ public class OptimizerFrag extends Fragment {
             totalUsd = Math.round(((gstProfitBeforeGem * TOKEN_PRICES[shoeChain + 1]) - (comfGemMultiplier * comfGemPrice * TOKEN_PRICES[0])) * 100) / 100.0;
             estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
             totalIncomeTextView.setText(String.valueOf(Math.round(gstProfitBeforeGem * 10) / 10.0));
+            if (getGstTotal(localEnergy, totalEff) > gstLimit) {
+                estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
+            } else {
+                estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            }
         }
 
         if (comfGemPrice == 0) {
@@ -2794,12 +2801,6 @@ public class OptimizerFrag extends Fragment {
             totalIncomeUsdTextView.setTypeface(ResourcesCompat.getFont(requireContext(), R.font.roboto_condensed_bold_italic));
             totalIncomeUsdTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
             totalIncomeUsdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
-        }
-
-        if (getGstTotal(localEnergy, totalEff) > gstLimit) {
-            estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
-        } else {
-            estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
         }
     }
 
