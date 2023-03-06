@@ -4,6 +4,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface GemApi {
-    @GET("gems.json")
+    @GET(" ")
     Call<GemPrices> getPosts();
 }

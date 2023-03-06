@@ -267,10 +267,10 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        final String SIDEKICK_BASE_URL = "http://stepnsidekick.com/";
+        final String GEM_BASE_URL = "https://nw3wvp7zk7zlvqctaqes5xs7ji0enbih.lambda-url.us-east-1.on.aws/";
         GEM_PRICES = new double[] {0,0,0};
 
-        Retrofit retrofitGems = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
+        Retrofit retrofitGems = new Retrofit.Builder().baseUrl(GEM_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         GemApi myGemApi = retrofitGems.create(GemApi.class);
