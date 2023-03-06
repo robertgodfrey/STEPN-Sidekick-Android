@@ -133,7 +133,7 @@
     <string name="notes_details4">GMT earnings are always changing and are difficult to predict. This app\'s estimate will give you an idea of the earning range to expect, but is not precise.</string>
     <string name="chain">Chain</string>
     <string name="token">Token</string>
-    <string name="comf_gem_price">Comf Gem Price</string>
+    <string name="comf_gem_price">Gem Price</string>
     <string name="enter_gem_price">Enter Gem Price ↓</string>
     <string name="notification_perms">Please choose whether or not to allow notifications. Notifications are only used to display information from the lockscreen during your workout.</string>
 </resources>

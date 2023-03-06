@@ -124,7 +124,7 @@
     <string name="notes_details4">GMT소득은 항상 바꾸고 있고 추정하는 것은 힘듭니다.</string>
     <string name="chain">체인</string>
     <string name="token">토큰</string>
-    <string name="comf_gem_price">Comf 젬 가격</string>
+    <string name="comf_gem_price">젬 가격</string>
     <string name="enter_gem_price">젬 가격을 입력 ↓</string>
     <string name="notification_perms">알림허용 여부를 결정해주세요. 알림은 운동중 잠금화면에 표기됩니다.</string>
 
