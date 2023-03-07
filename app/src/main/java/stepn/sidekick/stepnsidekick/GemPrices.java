@@ -6,23 +6,15 @@ import com.google.gson.annotations.SerializedName;
 
 @Keep
 public class GemPrices {
-    @SerializedName("prices")
-    private final int[] prices;
+    @SerializedName("data")
+    private final NestedGemPrice[] data;
 
-    public GemPrices(int[] prices) {
-        this.prices = prices;
+    public GemPrices(NestedGemPrice[] data) {
+        this.data = data;
     }
 
-    public int getLevelOnePrice() {
-        return prices[0];
-    }
-
-    public int getLevelTwoPrice() {
-        return prices[1];
-    }
-
-    public int getLevelThreePrice() {
-        return prices[2];
+    public int getPrice() {
+        return data[2].getPrice();
     }
 
 }

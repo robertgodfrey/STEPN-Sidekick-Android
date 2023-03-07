@@ -5,7 +5,7 @@ import androidx.annotation.Keep;
 import com.google.gson.annotations.SerializedName;
 
 @Keep
-public class NestedPrice {
+public class NestedTokenPrice {
     @SerializedName("usd")
     private final double usd;
 
@@ -13,7 +13,7 @@ public class NestedPrice {
         return usd;
     }
 
-    public NestedPrice(double usd) {
+    public NestedTokenPrice(double usd) {
         this.usd = usd;
     }
 }

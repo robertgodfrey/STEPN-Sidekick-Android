@@ -271,58 +271,8 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        final String GEM_BASE_URL = "https://nw3wvp7zk7zlvqctaqes5xs7ji0enbih.lambda-url.us-east-1.on.aws/";
         GEM_PRICES = new double[] {0,0,0};
-
-        Retrofit retrofitGems = new Retrofit.Builder().baseUrl(GEM_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        GemApi myGemApi = retrofitGems.create(GemApi.class);
-
-        Call<GemPrices> callGems = myGemApi.getPosts();
-
-        callGems.enqueue(new Callback<GemPrices>() {
-            @Override
-            public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
-
-                try {
-                    GemPrices priceList = response.body();
-                    GEM_PRICES[0] = (double) priceList.getLevelOnePrice() / 100.0;
-                    GEM_PRICES[1] = (double) priceList.getLevelTwoPrice() / 100.0;
-                    GEM_PRICES[2] = (double) priceList.getLevelThreePrice() / 100.0;
-
-                    Log.d("API Stuff", "onResponse: Comf Gem 1 Price: " + GEM_PRICES[0]);
-                    Log.d("API Stuff", "onResponse: Comf Gem 2 Price: " + GEM_PRICES[1]);
-                    Log.d("API Stuff", "onResponse: Comf Gem 3 Price: " + GEM_PRICES[2]);
-
-                    switch (comfGemLvlForRepair) {
-                        case 2:
-                            comfGemPrice = GEM_PRICES[1];
-                            break;
-                        case 3:
-                            comfGemPrice = GEM_PRICES[2];
-                            break;
-                        default:
-                            comfGemPrice = GEM_PRICES[0];
-                            break;
-                    }
-                    comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-                    if (TOKEN_PRICES[0] != 0 && fragActive) {
-                        calcTotals();
-                    }
-
-                } catch (NullPointerException e) {
-                    if (fragActive) {
-                        Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GemPrices> call, Throwable t) {
-                Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
-            }
-        });
+        getGemPrices();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -4270,6 +4220,126 @@ public class OptimizerFrag extends Fragment {
         totalIncomeTextView.setText("0");
 
         Toast.makeText(requireActivity(), "Values Reset", Toast.LENGTH_SHORT).show();
+    }
+
+    private void getGemPrices() {
+        /*
+        BASE URL:   "https://apilb.stepn.com/"
+        add:        "run/orderlist?saleId=1&order=2001&chain={chainNum}&refresh=true&page=0&otd=&type=501&gType=3&quality=&level={gemLevel}&bread=0"
+
+        chainNums:  SOL: 103
+                    BSC: 104
+                    ETH: 101
+
+        gemLevels:  1:  2010
+                    2:  3010
+                    3:  4010
+
+        EXAMPLE: BSC level 2 gem price: https://apilb.stepn.com/run/orderlist?saleId=1&order=2001&chain=104&refresh=true&page=0&otd=&type=501&gType=3&quality=&level=3010&bread=0
+         */
+
+        final String GEM_BASE_URL = "https://apilb.stepn.com/";
+        char[] complete = new char[] {0,0,0};
+        int chainCode;
+
+        switch(shoeChain) {
+            case BSC:
+                chainCode = 104;
+                break;
+            case ETH:
+                chainCode = 101;
+                break;
+            default:
+                chainCode = 103;
+        }
+
+        Retrofit retrofitGems = new Retrofit.Builder().baseUrl(GEM_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GemApi myGemApi = retrofitGems.create(GemApi.class);
+
+        Call<GemPrices> callGems = myGemApi.getLevelOne(chainCode);
+
+        callGems.enqueue(new Callback<GemPrices>() {
+            @Override
+            public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+
+                try {
+                    GemPrices priceList = response.body();
+
+                    GEM_PRICES[0] = (double) priceList.getPrice() / 100.0;
+
+
+                } catch (NullPointerException e) {
+                    if (fragActive) {
+                        Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GemPrices> call, Throwable t) {
+                Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        callGems = myGemApi.getLevelTwo(chainCode);
+
+        callGems.enqueue(new Callback<GemPrices>() {
+            @Override
+            public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+
+                try {
+                    GemPrices priceList = response.body();
+
+                    GEM_PRICES[1] = (double) priceList.getPrice() / 100.0;
+
+                } catch (NullPointerException ignored) {}
+            }
+
+            @Override
+            public void onFailure(Call<GemPrices> call, Throwable t) {}
+        });
+
+        callGems = myGemApi.getLevelThree(chainCode);
+
+        callGems.enqueue(new Callback<GemPrices>() {
+            @Override
+            public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+
+                try {
+                    GemPrices priceList = response.body();
+
+                    GEM_PRICES[2] = (double) priceList.getPrice() / 100.0;
+
+                } catch (NullPointerException ignored) {}
+            }
+
+            @Override
+            public void onFailure(Call<GemPrices> call, Throwable t) {}
+        });
+
+
+        Log.d("API Stuff", "onResponse: Comf Gem 1 Price: " + GEM_PRICES[0]);
+        Log.d("API Stuff", "onResponse: Comf Gem 2 Price: " + GEM_PRICES[1]);
+        Log.d("API Stuff", "onResponse: Comf Gem 3 Price: " + GEM_PRICES[2]);
+
+        switch (comfGemLvlForRepair) {
+            case 2:
+                comfGemPrice = GEM_PRICES[1];
+                break;
+            case 3:
+                comfGemPrice = GEM_PRICES[2];
+                break;
+            default:
+                comfGemPrice = GEM_PRICES[0];
+                break;
+        }
+        comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+
+        if (TOKEN_PRICES[0] != 0 && fragActive) {
+            calcTotals();
+        }
     }
 
     // to save prefs
