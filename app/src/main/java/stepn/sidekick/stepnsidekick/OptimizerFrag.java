@@ -2670,7 +2670,6 @@ public class OptimizerFrag extends Fragment {
 
     // calculate earnings
     private void calcTotals() {
-        Log.d("eheh", "calcTotals: Hello there!");
         if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
             estGstGmtTextView.setText("0");
             durabilityLossTextView.setText("0");
