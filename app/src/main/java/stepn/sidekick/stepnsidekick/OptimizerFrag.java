@@ -1191,6 +1191,7 @@ public class OptimizerFrag extends Fragment {
                     shoeChain = SOL;
                 }
                 updateChain();
+                getGemPrices();
                 clearFocus(view);
             }
         });
@@ -1320,6 +1321,7 @@ public class OptimizerFrag extends Fragment {
         updateShoeNums();
         updateGmtSwitch();
         updateChain();
+        calcTotals();
 
         if (update) {
             update = false;
@@ -2668,6 +2670,7 @@ public class OptimizerFrag extends Fragment {
 
     // calculate earnings
     private void calcTotals() {
+        Log.d("eheh", "calcTotals: Hello there!");
         if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
             estGstGmtTextView.setText("0");
             durabilityLossTextView.setText("0");
@@ -4115,6 +4118,7 @@ public class OptimizerFrag extends Fragment {
         updateType();
         updateRarity();
         updateChain();
+        calcTotals();
     }
 
     private void updateChain() {
@@ -4132,7 +4136,6 @@ public class OptimizerFrag extends Fragment {
                 chainSelectTv.setText("SOL");
                 break;
         }
-        calcTotals();
     }
 
     // updates GMT switch for new shoe
@@ -4239,7 +4242,6 @@ public class OptimizerFrag extends Fragment {
          */
 
         final String GEM_BASE_URL = "https://apilb.stepn.com/";
-        char[] complete = new char[] {0,0,0};
         int chainCode;
 
         switch(shoeChain) {
@@ -4269,6 +4271,11 @@ public class OptimizerFrag extends Fragment {
 
                     GEM_PRICES[0] = (double) priceList.getPrice() / 100.0;
 
+                    if (comfGemLvlForRepair == 1 && fragActive) {
+                        comfGemPrice = GEM_PRICES[0];
+                        comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                        calcTotals();
+                    }
 
                 } catch (NullPointerException e) {
                     if (fragActive) {
@@ -4293,6 +4300,11 @@ public class OptimizerFrag extends Fragment {
                     GemPrices priceList = response.body();
 
                     GEM_PRICES[1] = (double) priceList.getPrice() / 100.0;
+                    if (comfGemLvlForRepair == 2 && fragActive) {
+                        comfGemPrice = GEM_PRICES[1];
+                        comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                        calcTotals();
+                    }
 
                 } catch (NullPointerException ignored) {}
             }
@@ -4311,6 +4323,11 @@ public class OptimizerFrag extends Fragment {
                     GemPrices priceList = response.body();
 
                     GEM_PRICES[2] = (double) priceList.getPrice() / 100.0;
+                    if (comfGemLvlForRepair == 3 && fragActive) {
+                        comfGemPrice = GEM_PRICES[2];
+                        comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                        calcTotals();
+                    }
 
                 } catch (NullPointerException ignored) {}
             }
@@ -4318,28 +4335,6 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onFailure(Call<GemPrices> call, Throwable t) {}
         });
-
-
-        Log.d("API Stuff", "onResponse: Comf Gem 1 Price: " + GEM_PRICES[0]);
-        Log.d("API Stuff", "onResponse: Comf Gem 2 Price: " + GEM_PRICES[1]);
-        Log.d("API Stuff", "onResponse: Comf Gem 3 Price: " + GEM_PRICES[2]);
-
-        switch (comfGemLvlForRepair) {
-            case 2:
-                comfGemPrice = GEM_PRICES[1];
-                break;
-            case 3:
-                comfGemPrice = GEM_PRICES[2];
-                break;
-            default:
-                comfGemPrice = GEM_PRICES[0];
-                break;
-        }
-        comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-
-        if (TOKEN_PRICES[0] != 0 && fragActive) {
-            calcTotals();
-        }
     }
 
     // to save prefs
