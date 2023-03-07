@@ -53,7 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.6.0 add gem price API, update durability formula, 'daily limit' fixes
+ * @version 1.6.2 add gem prices for all realms, fix IllegalStateException
  *
  */
 
