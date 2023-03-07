@@ -146,7 +146,7 @@ public class OptimizerFrag extends Fragment {
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier,
             oneTwentyFiveEnergy;
-    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit;
+    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit, fragActive;
     private double hpLoss, comfGemPrice;
     private String shoeName;
 
@@ -162,6 +162,8 @@ public class OptimizerFrag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        fragActive = true;
 
         // inits gem array first so no null pointer if loading from disk slow
         gems = new ArrayList<>();
@@ -252,12 +254,14 @@ public class OptimizerFrag extends Fragment {
                     Log.d("API Stuff", "onResponse: ETH price: " + TOKEN_PRICES[5]);
                     Log.d("API Stuff", "onResponse: GST ETH price: " + TOKEN_PRICES[6]);
 
-                    if (GEM_PRICES[0] != 0) {
+                    if (GEM_PRICES[0] != 0 && fragActive) {
                         calcTotals();
                     }
 
                 } catch (NullPointerException e) {
-                    Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                    if (fragActive) {
+                        Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -303,12 +307,14 @@ public class OptimizerFrag extends Fragment {
                             break;
                     }
                     comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-                    if (TOKEN_PRICES[0] != 0) {
+                    if (TOKEN_PRICES[0] != 0 && fragActive) {
                         calcTotals();
                     }
 
                 } catch (NullPointerException e) {
-                    Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                    if (fragActive) {
+                        Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -4269,6 +4275,7 @@ public class OptimizerFrag extends Fragment {
     // to save prefs
     @Override
     public void onStop() {
+        fragActive = false;
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
