@@ -532,10 +532,10 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
-        shoeTypeImageView.setOnClickListener(new View.OnClickListener() {
+        shoeCircles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Picasso.get().load("https://res.stepn.com/imgOut/1/31/m218710_16467f7fc6d01725d3de43249353ff159eff_67.png").into(shoeTypeImageView);
+                changeShoeImage();
             }
         });
 
@@ -1535,7 +1535,9 @@ public class OptimizerFrag extends Fragment {
     private void updateType() {
         switch (shoeType) {
             case JOGGER:
-                shoeTypeImageView.setImageResource(R.mipmap.shoe_jogger);
+                if (shoeImageUrl.isEmpty()) {
+                    shoeTypeImageView.setImageResource(R.mipmap.shoe_jogger);
+                }
                 shoeTypeTextView.setText("Jogger");
                 footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.VISIBLE);
@@ -1545,7 +1547,9 @@ public class OptimizerFrag extends Fragment {
                 footThreeShadow.setVisibility(View.GONE);
                 break;
             case RUNNER:
-                shoeTypeImageView.setImageResource(R.mipmap.shoe_runner);
+                if (shoeImageUrl.isEmpty()) {
+                    shoeTypeImageView.setImageResource(R.mipmap.shoe_runner);
+                }
                 shoeTypeTextView.setText("Runner");
                 footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.VISIBLE);
@@ -1555,7 +1559,9 @@ public class OptimizerFrag extends Fragment {
                 footThreeShadow.setVisibility(View.VISIBLE);
                 break;
             case TRAINER:
-                shoeTypeImageView.setImageResource(R.mipmap.shoe_trainer);
+                if (shoeImageUrl.isEmpty()) {
+                    shoeTypeImageView.setImageResource(R.mipmap.shoe_trainer);
+                }
                 shoeTypeTextView.setText("Trainer");
                 footOne.setImageResource(R.mipmap.trainer_t);
                 footTwo.setVisibility(View.GONE);
@@ -1565,7 +1571,9 @@ public class OptimizerFrag extends Fragment {
                 footThreeShadow.setVisibility(View.GONE);
                 break;
             default:
-                shoeTypeImageView.setImageResource(R.mipmap.shoe_walker);
+                if (shoeImageUrl.isEmpty()) {
+                    shoeTypeImageView.setImageResource(R.mipmap.shoe_walker);
+                }
                 shoeTypeTextView.setText("Walker");
                 footOne.setImageResource(R.mipmap.footprint);
                 footTwo.setVisibility(View.GONE);
@@ -1573,6 +1581,9 @@ public class OptimizerFrag extends Fragment {
                 footOneShadow.setImageResource(R.mipmap.footprint);
                 footTwoShadow.setVisibility(View.GONE);
                 footThreeShadow.setVisibility(View.GONE);
+        }
+        if (!shoeImageUrl.isEmpty()) {
+            Picasso.get().load(shoeImageUrl).into(shoeTypeImageView);
         }
     }
 
@@ -2627,6 +2638,59 @@ public class OptimizerFrag extends Fragment {
                 gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.progress_gmt));
                 if (comfGemPrice != 0) {
                     totalIncomeUsdTextView.setText(String.format("%.2f", totalUsd));
+                }
+            }
+        });
+    }
+
+    // dialog to update shoe image given a url
+    private void changeShoeImage() {
+        Dialog changeImageDialog = new Dialog(requireActivity());
+
+        changeImageDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        changeImageDialog.setCancelable(true);
+        changeImageDialog.setContentView(R.layout.change_shoe_image_dialog);
+        changeImageDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        changeImageDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        EditText imageUrlEditText = changeImageDialog.findViewById(R.id.urlEditText);
+        ImageButton saveButton = changeImageDialog.findViewById(R.id.saveButton);
+
+        if (!shoeImageUrl.isEmpty()) {
+            imageUrlEditText.setText(shoeImageUrl);
+        }
+
+        changeImageDialog.show();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeImageDialog.dismiss();
+                shoeImageUrl = imageUrlEditText.getText().toString();
+                if (!shoeImageUrl.isEmpty()) {
+                    Picasso.get().load(shoeImageUrl).into(shoeTypeImageView, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            shoeTypeImageView.setScaleX(1.1f);
+                            shoeTypeImageView.setScaleY(1.1f);
+                            ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                                    shoeTypeImageView,
+                                    PropertyValuesHolder.ofFloat("scaleX", 1f),
+                                    PropertyValuesHolder.ofFloat("scaleY", 1f));
+                            scaler.setDuration(1000);
+                            scaler.start();
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Toast.makeText(requireActivity(), "Error loading image - check URL and try again", Toast.LENGTH_SHORT).show();
+                            shoeImageUrl = "";
+                            updateType();
+                        }
+                    });
+                } else {
+                    updateType();
                 }
             }
         });
@@ -4131,6 +4195,7 @@ public class OptimizerFrag extends Fragment {
         updateRarity();
         updateChain();
         calcTotals();
+
     }
 
     private void updateChain() {
