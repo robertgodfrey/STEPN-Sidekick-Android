@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="500dp">
+
+    <ImageView
+        android:id="@+id/alertBoxBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="-24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/alert_box" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        style="@style/BoldItalicSubtitles"
+        android:includeFontPadding="false"
+        android:text="ADD CUSTOM SHOE IMAGE"
+        android:textColor="@color/almost_black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toTopOf="@+id/alertBoxBackground" />
+
+
+    <TextView
+        android:id="@+id/instructions"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:includeFontPadding="false"
+        android:textAlignment="center"
+        android:text="Paste the URL to an image of your shoe:"
+        android:textColor="@color/almost_black"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/urlEditText"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:hint="Image URL"
+        android:inputType="textWebEmailAddress"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/instructions" />
+
+    <TextView
+        android:id="@+id/notes"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:includeFontPadding="false"
+        android:text="Note: For best results, use a PNG file with a transparent background. To use your actual shoe image, log in to the STEPN marketplace in a web browser, go to your inventory, right click the image of your shoe, and select 'Copy Image Link'."
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/urlEditText" />
+
+    <ImageView
+        android:id="@+id/saveButtonShadow"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="@+id/saveButton"
+        app:layout_constraintStart_toStartOf="@+id/saveButton"
+        app:layout_constraintTop_toTopOf="@+id/saveButton"
+        app:srcCompat="@drawable/button_start_shadow" />
+
+    <TextView
+        android:id="@+id/saveGemShadowTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:text="SAVE"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/saveButtonShadow"
+        app:layout_constraintEnd_toEndOf="@+id/saveButtonShadow"
+        app:layout_constraintStart_toStartOf="@+id/saveButtonShadow"
+        app:layout_constraintTop_toTopOf="@+id/saveButtonShadow" />
+
+    <ImageButton
+        android:id="@+id/saveButton"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:background="@null"
+        android:src="@drawable/button_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notes" />
+
+    <TextView
+        android:id="@+id/saveGemButtonTextView"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="SAVE"
+        android:textAlignment="center"
+        android:textColor="@color/almost_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="@+id/saveButton"
+        app:layout_constraintStart_toStartOf="@+id/saveButton"
+        app:layout_constraintTop_toTopOf="@+id/saveButton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
