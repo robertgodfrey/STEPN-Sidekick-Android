@@ -40,6 +40,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -63,6 +65,7 @@ public class OptimizerFrag extends Fragment {
     private final String OPT_SHOE_TYPE_PREF = "optShoe";
     private final String OPT_ENERGY_PREF = "optEnergy";
     private final String SHOE_NAME = "shoeName";
+    private final String SHOE_IMAGE_URL = "shoeImageUrl";
     private final String SHOE_RARITY_PREF = "shoeRarity";
     private final String SHOE_LEVEL_PREF = "shoeLevel";
     private final String BASE_EFF_PREF = "baseEff";
@@ -148,7 +151,7 @@ public class OptimizerFrag extends Fragment {
             oneTwentyFiveEnergy;
     private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit, fragActive;
     private double hpLoss, comfGemPrice;
-    private String shoeName;
+    private String shoeName, shoeImageUrl;
 
     private double[] TOKEN_PRICES;
     private double[] GEM_PRICES;
@@ -196,6 +199,7 @@ public class OptimizerFrag extends Fragment {
                 comfGemLvlForRepair = getSharedPrefs.getInt(COMF_GEM_HP_REPAIR, 1);
                 update = getSharedPrefs.getBoolean(UPDATE_PREF, true);
                 shoeName = getSharedPrefs.getString(SHOE_NAME + shoeNumString, "");
+                shoeImageUrl = getSharedPrefs.getString(SHOE_IMAGE_URL + shoeNumString, "");
                 oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
                 gmtEarningOn = getSharedPrefs.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
                 shoeChain = getSharedPrefs.getInt(CHAIN_PREF + shoeNumString, SOL);
@@ -525,6 +529,13 @@ public class OptimizerFrag extends Fragment {
 
                 clearFocus(view);
                 updatePageNewShoe(oldShoeNum);
+            }
+        });
+
+        shoeTypeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Picasso.get().load("https://res.stepn.com/imgOut/1/31/m218710_16467f7fc6d01725d3de43249353ff159eff_67.png").into(shoeTypeImageView);
             }
         });
 
@@ -4048,6 +4059,7 @@ public class OptimizerFrag extends Fragment {
                 editor.putFloat(BASE_RES_PREF + oldShoeNumString, baseRes);
                 editor.putInt(ADDED_RES_PREF + oldShoeNumString, addedRes);
                 editor.putString(SHOE_NAME + oldShoeNumString, shoeName);
+                editor.putString(SHOE_IMAGE_URL + oldShoeNumString, shoeImageUrl);
                 editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + oldShoeNumString, oneTwentyFive);
                 editor.putBoolean(GMT_EARNING_PREF + oldShoeNumString, gmtEarningOn);
                 editor.putInt(CHAIN_PREF + oldShoeNumString, shoeChain);
@@ -4081,6 +4093,7 @@ public class OptimizerFrag extends Fragment {
                 baseRes = sharedPreferences.getFloat(BASE_RES_PREF + shoeNumString, 0);
                 addedRes = sharedPreferences.getInt(ADDED_RES_PREF + shoeNumString, 0);
                 shoeName = sharedPreferences.getString(SHOE_NAME + shoeNumString, "");
+                shoeImageUrl = sharedPreferences.getString(SHOE_IMAGE_URL + shoeNumString, "");
                 oneTwentyFive = sharedPreferences.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
                 gmtEarningOn = sharedPreferences.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
                 shoeChain = sharedPreferences.getInt(CHAIN_PREF + shoeNumString, SOL);
@@ -4361,6 +4374,7 @@ public class OptimizerFrag extends Fragment {
         editor.putInt(COMF_GEM_HP_REPAIR, comfGemLvlForRepair);
         editor.putBoolean(UPDATE_PREF, false);
         editor.putString(SHOE_NAME + shoeNumString, shoeName);
+        editor.putString(SHOE_IMAGE_URL + shoeNumString, shoeImageUrl);
         editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, oneTwentyFive);
         editor.putBoolean(GMT_EARNING_PREF + shoeNumString, gmtEarningOn);
         editor.putInt(CHAIN_PREF + shoeNumString, shoeChain);

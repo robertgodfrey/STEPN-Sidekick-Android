@@ -12,7 +12,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="26dp"
         android:layout_marginBottom="-24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintBottom_toBottomOf="@+id/notes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -66,23 +66,6 @@
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/instructions" />
 
-    <TextView
-        android:id="@+id/notes"
-        style="@style/RegText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:includeFontPadding="false"
-        android:text="Note: For best results, use a PNG file with a transparent background. To use your actual shoe image, log in to the STEPN marketplace in a web browser, go to your inventory, right click the image of your shoe, and select 'Copy Image Link'."
-        android:textAlignment="textStart"
-        android:textColor="@color/almost_black"
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
-        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/urlEditText" />
-
     <ImageView
         android:id="@+id/saveButtonShadow"
         android:layout_width="110dp"
@@ -96,7 +79,7 @@
         app:srcCompat="@drawable/button_start_shadow" />
 
     <TextView
-        android:id="@+id/saveGemShadowTextView"
+        android:id="@+id/saveImageShadowTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -119,10 +102,10 @@
         android:src="@drawable/button_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notes" />
+        app:layout_constraintTop_toBottomOf="@+id/urlEditText" />
 
     <TextView
-        android:id="@+id/saveGemButtonTextView"
+        android:id="@+id/saveImageButtonTextView"
         android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -135,6 +118,23 @@
         app:layout_constraintEnd_toEndOf="@+id/saveButton"
         app:layout_constraintStart_toStartOf="@+id/saveButton"
         app:layout_constraintTop_toTopOf="@+id/saveButton" />
+
+    <TextView
+        android:id="@+id/notes"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:includeFontPadding="false"
+        android:text="Note: For best results, use a PNG file with a transparent background. To use your actual shoe image, log in to the STEPN marketplace in a web browser, go to your inventory, right click the image of your shoe, and select 'Copy Image Link'."
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
+        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
+        app:layout_constraintTop_toBottomOf="@+id/saveButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
