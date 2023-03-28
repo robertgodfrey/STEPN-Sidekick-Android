@@ -271,7 +271,9 @@ public class OptimizerFrag extends Fragment {
 
             @Override
             public void onFailure(Call<TokenPrices> call, Throwable t) {
-                Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                if (fragActive) {
+                    Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -4363,7 +4365,9 @@ public class OptimizerFrag extends Fragment {
 
             @Override
             public void onFailure(Call<GemPrices> call, Throwable t) {
-                Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                if (fragActive) {
+                    Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
