@@ -171,7 +171,7 @@ public class AboutFrag extends Fragment {
         kritButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("https://twitter.com/Krit_G4M3fi");
+                Uri uri = Uri.parse("https://twitter.com/KuritoSensei");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -292,7 +292,9 @@ public class AboutFrag extends Fragment {
         stepnStatsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(requireActivity(),"Coming soon! Follow Krit on Twitter for more info", Toast.LENGTH_SHORT).show();
+                Uri uri = Uri.parse("https://www.gam3.fi/stepn/mb-chart/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
 
@@ -301,7 +303,7 @@ public class AboutFrag extends Fragment {
         stepnStatsAuthorOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("https://twitter.com/Krit_G4M3fi");
+                Uri uri = Uri.parse("https://twitter.com/gam3_fi");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
