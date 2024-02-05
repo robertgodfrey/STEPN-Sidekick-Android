@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
     public boolean ads;
     private MaxAdView bannerAd;
     private View bannerAdSpace;
-    private double gmtNumA;
-    private double gmtNumB;
-    private double gmtNumC;
 
     Button goToExerciseButton, goToOptimizerButton, goToInfoButton;
     ImageView exerciseSelected, optimizerSelected, infoSelected;
@@ -85,9 +82,6 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
         fragmentManager = getSupportFragmentManager();
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         ads = getSharedPrefs.getBoolean(AD_PREF, true);
-        gmtNumA = getSharedPrefs.getFloat(GMT_NUM_A, 0.0696f);
-        gmtNumB = getSharedPrefs.getFloat(GMT_NUM_B, 0.4821f);
-        gmtNumC = getSharedPrefs.getFloat(GMT_NUM_C, 0.25f);
 
         buildUI();
         fetchGmtNums();
@@ -223,9 +217,9 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
 
                 try {
                     GmtMagicNumbers priceList = response.body();
-                    gmtNumA = priceList.getA();
-                    gmtNumB = priceList.getB();
-                    gmtNumC = priceList.getC();
+                    double gmtNumA = priceList.getA();
+                    double gmtNumB = priceList.getB();
+                    double gmtNumC = priceList.getC();
 
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();

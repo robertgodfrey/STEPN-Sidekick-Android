@@ -3,6 +3,9 @@ package stepn.sidekick.stepnsidekick;
 import static android.content.Context.MODE_PRIVATE;
 import static stepn.sidekick.stepnsidekick.Finals.COMF;
 import static stepn.sidekick.stepnsidekick.Finals.EFF;
+import static stepn.sidekick.stepnsidekick.Finals.GMT_NUM_A;
+import static stepn.sidekick.stepnsidekick.Finals.GMT_NUM_B;
+import static stepn.sidekick.stepnsidekick.Finals.GMT_NUM_C;
 import static stepn.sidekick.stepnsidekick.Finals.LUCK;
 import static stepn.sidekick.stepnsidekick.Finals.RES;
 import static stepn.sidekick.stepnsidekick.Finals.PREFERENCES_ID;
@@ -55,7 +58,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.6.2 add gem prices for all realms, fix IllegalStateException
+ * @version 1.7.0 add sidekick api and mb percentages
  *
  */
 
@@ -150,7 +153,7 @@ public class OptimizerFrag extends Fragment {
             gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier,
             oneTwentyFiveEnergy;
     private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit, fragActive;
-    private double hpLoss, comfGemPrice;
+    private double hpLoss, comfGemPrice, gmtNumA, gmtNumB, gmtNumC;
     private String shoeName, shoeImageUrl;
 
     private double[] TOKEN_PRICES;
@@ -174,6 +177,11 @@ public class OptimizerFrag extends Fragment {
         gems.add(new Gem(-1,0,0));
         gems.add(new Gem(-1,0,0));
         gems.add(new Gem(-1,0,0));
+
+        // init gmt nums
+        gmtNumA = 0.0696;
+        gmtNumB = 0.4821;
+        gmtNumC = 0.25;
 
         new Thread(new Runnable() {
             @Override
@@ -203,6 +211,10 @@ public class OptimizerFrag extends Fragment {
                 oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
                 gmtEarningOn = getSharedPrefs.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
                 shoeChain = getSharedPrefs.getInt(CHAIN_PREF + shoeNumString, SOL);
+
+                gmtNumA = getSharedPrefs.getFloat(GMT_NUM_A, 0.0538f);
+                gmtNumB = getSharedPrefs.getFloat(GMT_NUM_B, 0.4741f);
+                gmtNumC = getSharedPrefs.getFloat(GMT_NUM_C, 0);
 
                 dpScale = getResources().getDisplayMetrics().density;
 
@@ -2720,14 +2732,11 @@ public class OptimizerFrag extends Fragment {
             default:
                 return Math.floor(localEnergy * Math.pow(totalEff, 0.47) * 10) / 10;
         }
-
     }
 
     // returns estimated gmt per energy
     private double getGmtPerEnergy(double totalComf) {
-        double gmtPerEnergy;
-
-        gmtPerEnergy = 0.0696 * Math.pow(totalComf, 0.4821) - 0.25;
+        double gmtPerEnergy = gmtNumA * Math.pow(totalComf, gmtNumB) - gmtNumC;
 
         switch (shoeType) {
             case JOGGER:
