@@ -3609,26 +3609,15 @@ public class OptimizerFrag extends Fragment {
     }
 
     private void clearMbs() {
-        mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox1.setAlpha(0.5f);
-        mysteryBox2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox2.setAlpha(0.5f);
-        mysteryBox3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox3.setAlpha(0.5f);
-        mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox4.setAlpha(0.5f);
-        mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox5.setAlpha(0.5f);
-        mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox6.setAlpha(0.5f);
-        mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox7.setAlpha(0.5f);
-        mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox8.setAlpha(0.5f);
-        mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox9.setAlpha(0.5f);
-        mysteryBox10.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-        mysteryBox10.setAlpha(0.5f);
+        ImageView[] boxImageViews = {mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
+                mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10};
+        TextView[] percentageTextViews = {mb1Percent, mb2Percent, mb3Percent, mb4Percent, mb5Percent,
+                mb6Percent, mb7Percent, mb8Percent, mb9Percent, mb10Percent};
+        for (int i = 0; i < 10; i++) {
+            boxImageViews[i].setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+            boxImageViews[i].setAlpha(0.5f);
+            percentageTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+        }
     }
 
     // calculates mb chances
