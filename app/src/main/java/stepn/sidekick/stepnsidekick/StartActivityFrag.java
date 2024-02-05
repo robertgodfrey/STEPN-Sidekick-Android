@@ -59,7 +59,7 @@ public class StartActivityFrag extends Fragment {
     private final int PERMISSIONS_FINE_LOCATION = 99;
 
     // only use major version changes, eg 1.1, 1.2, not 1.1.2 ...cause it's a float :D
-    private final float CURRENT_APP_VERSION = 1.6f;
+    private final float CURRENT_APP_VERSION = 1.7f;
 
     // keys for shared prefs
     private final String TEN_SECOND_TIMER_PREF = "tenSecondTimer";
