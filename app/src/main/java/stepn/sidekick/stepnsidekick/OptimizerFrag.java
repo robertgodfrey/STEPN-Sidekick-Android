@@ -238,53 +238,64 @@ public class OptimizerFrag extends Fragment {
             }
         }).start();
 
-        final String GECKO_BASE_URL = "https://api.coingecko.com/";
-
-        // from 0 - 6: GMT, SOL, GST-SOL, BNB, GST-BNB, ETH, GST-ETH
-        TOKEN_PRICES = new double[] {0,0,0,0,0,0,0};
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(GECKO_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        TokenApi myTokenApi = retrofit.create(TokenApi.class);
-
-        Call<TokenPrices> call = myTokenApi.getPosts();
-
-        call.enqueue(new Callback<TokenPrices>() {
+        Thread fetchTokenPrices = new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<TokenPrices> call, Response<TokenPrices> response) {
+            public void run() {
+                final String GECKO_BASE_URL = "https://api.coingecko.com/";
 
-                try {
-                    TokenPrices priceList = response.body();
-                    TOKEN_PRICES[0] = priceList.getGmtPrice();
-                    TOKEN_PRICES[1] = priceList.getSolanaPrice();
-                    TOKEN_PRICES[2] = priceList.getGstSol();
-                    TOKEN_PRICES[3] = priceList.getBinancecoin();
-                    TOKEN_PRICES[4] = priceList.getGstBsc();
-                    TOKEN_PRICES[5] = priceList.getEthereum();
-                    TOKEN_PRICES[6] = priceList.getGstEth();
+                // from 0 - 6: GMT, SOL, GST-SOL, BNB, GST-BNB, ETH, GST-ETH
+                TOKEN_PRICES = new double[]{0, 0, 0, 0, 0, 0, 0};
 
-                    if (GEM_PRICES[0] != 0 && fragActive) {
-                        calcTotals();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(GECKO_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                TokenApi myTokenApi = retrofit.create(TokenApi.class);
+
+                Call<TokenPrices> call = myTokenApi.getPosts();
+
+                call.enqueue(new Callback<TokenPrices>() {
+                    @Override
+                    public void onResponse(Call<TokenPrices> call, Response<TokenPrices> response) {
+
+                        try {
+                            TokenPrices priceList = response.body();
+                            TOKEN_PRICES[0] = priceList.getGmtPrice();
+                            TOKEN_PRICES[1] = priceList.getSolanaPrice();
+                            TOKEN_PRICES[2] = priceList.getGstSol();
+                            TOKEN_PRICES[3] = priceList.getBinancecoin();
+                            TOKEN_PRICES[4] = priceList.getGstBsc();
+                            TOKEN_PRICES[5] = priceList.getEthereum();
+                            TOKEN_PRICES[6] = priceList.getGstEth();
+
+                            if (GEM_PRICES[0] != 0 && fragActive) {
+                                calcTotals();
+                            }
+
+                        } catch (NullPointerException e) {
+                            if (fragActive) {
+                                Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
 
-                } catch (NullPointerException e) {
-                    if (fragActive) {
-                        Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onFailure(Call<TokenPrices> call, Throwable t) {
+                        if (fragActive) {
+                            Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            }
+                });
 
-            @Override
-            public void onFailure(Call<TokenPrices> call, Throwable t) {
-                if (fragActive) {
-                    Toast.makeText(requireActivity(), "Unable to get token prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
-                }
+                GEM_PRICES = new double[]{0, 0, 0};
+                getGemPrices();
             }
         });
-
-        GEM_PRICES = new double[] {0,0,0};
-        getGemPrices();
+        fetchTokenPrices.start();
+        try {
+            fetchTokenPrices.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -745,7 +756,7 @@ public class OptimizerFrag extends Fragment {
                     minLevelImageView.setVisibility(View.INVISIBLE);
                 }
                 shoeLevel = i + 1;
-                if (shoeLevel != 30) {
+                if (shoeLevel != 30 && gmtEarningOn) {
                     gmtEarningOn = false;
                     updateGmtSwitch();
                 }
@@ -1265,6 +1276,7 @@ public class OptimizerFrag extends Fragment {
                     gmtEarningOn = !gmtEarningOn;
                 }
                 updateGmtSwitch();
+                calcTotals();
                 clearFocus(view);
             }
         });
@@ -2761,6 +2773,14 @@ public class OptimizerFrag extends Fragment {
 
     // calculate earnings
     private void calcTotals() {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+
+        // The first element is the current method, the second element is the caller
+        if (stackTrace.length >= 3) {
+            System.out.println("CALC TOTALS CALLER: " + stackTrace[3].getMethodName());
+        } else {
+            System.out.println("No caller information available.");
+        }
         if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
             estGstGmtTextView.setText("0");
             durabilityLossTextView.setText("0");
@@ -2772,6 +2792,7 @@ public class OptimizerFrag extends Fragment {
             totalIncomeTextView.setText("0");
             gmtTotalTv.setText("0");
             totalIncomeUsdTextView.setText("0");
+            clearMbs();
             return;
         }
 
@@ -3624,6 +3645,7 @@ public class OptimizerFrag extends Fragment {
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
         final String SIDEKICK_BASE_URL = "https://stepn-sidekick.vercel.app/";
 
+        Log.d("UHH", "totalLuck: " + totalLuck + " totalEnergy: " + localEnergy);
         if (localEnergy == 0 || totalLuck == 0) {
             clearMbs();
             return;
@@ -3634,31 +3656,44 @@ public class OptimizerFrag extends Fragment {
 
         energyForMbCalc = localEnergy;
         luckForMbCalc = totalLuck;
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
 
-        Call<MbChances> call = sidekickApi.getMbChances(getString(R.string.sidekick_api), localEnergy, totalLuck);
-
-        call.enqueue(new Callback<MbChances>() {
+        Thread fetchMbChances = new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<MbChances> call, Response<MbChances> response) {
+            public void run() {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
 
-                try {
-                    MbChances predictions = response.body();
-                    updateMbs(predictions.getPredictions());
-                } catch (NullPointerException e) {
-                    Log.d("Oh no!", "Anyway,");
-                    updateMbs(new int[10]);
-                }
-            }
+                Call<MbChances> call = sidekickApi.getMbChances(getString(R.string.sidekick_api), localEnergy, totalLuck);
 
-            @Override
-            public void onFailure(Call<MbChances> call, Throwable t) {
-                // keep on truckin
+
+                call.enqueue(new Callback<MbChances>() {
+                    @Override
+                    public void onResponse(Call<MbChances> call, Response<MbChances> response) {
+
+                        try {
+                            MbChances predictions = response.body();
+                            updateMbs(predictions.getPredictions());
+                        } catch (NullPointerException e) {
+                            Log.d("Oh no!", "Anyway,");
+                            updateMbs(new int[10]);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MbChances> call, Throwable t) {
+                        // keep on truckin
+                    }
+                });
             }
         });
+        fetchMbChances.start();
+        try {
+            fetchMbChances.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // update layout to display mb predictions
@@ -3837,8 +3872,6 @@ public class OptimizerFrag extends Fragment {
         } else {
             resEditText.setText("");
         }
-
-        calcMbChances();
     }
 
     // updates comf gem for HP repair
@@ -3990,14 +4023,12 @@ public class OptimizerFrag extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         updateGmtSwitch();
         loadPoints();
         updateType();
         updateRarity();
         updateChain();
         calcTotals();
-
     }
 
     private void updateChain() {
@@ -4039,8 +4070,6 @@ public class OptimizerFrag extends Fragment {
         changeGstLimitButton.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
         toggleGstEstLimitButton.setVisibility(gmtEarningOn ? View.GONE : View.VISIBLE);
         useGstLimit = false;
-
-        calcTotals();
     }
 
     // clears focus from the input boxes by focusing on another hidden edittext
@@ -4120,102 +4149,119 @@ public class OptimizerFrag extends Fragment {
         EXAMPLE: BSC level 2 gem price: https://apilb.stepn.com/run/orderlist?saleId=1&order=2001&chain=104&refresh=true&page=0&otd=&type=501&gType=3&quality=&level=3010&bread=0
          */
 
-        final String GEM_BASE_URL = "https://apilb.stepn.com/";
-        int chainCode;
+        Thread fetchGemPrices = new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-        switch(shoeChain) {
-            case BSC:
-                chainCode = 104;
-                break;
-            case ETH:
-                chainCode = 101;
-                break;
-            default:
-                chainCode = 103;
+                final String GEM_BASE_URL = "https://apilb.stepn.com/";
+                int chainCode;
+
+                switch (shoeChain) {
+                    case BSC:
+                        chainCode = 104;
+                        break;
+                    case ETH:
+                        chainCode = 101;
+                        break;
+                    default:
+                        chainCode = 103;
+                }
+
+
+                Retrofit retrofitGems = new Retrofit.Builder().baseUrl(GEM_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                GemApi myGemApi = retrofitGems.create(GemApi.class);
+
+                Call<GemPrices> callGems = myGemApi.getLevelOne(chainCode);
+
+                callGems.enqueue(new Callback<GemPrices>() {
+                    @Override
+                    public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+
+                        try {
+                            GemPrices priceList = response.body();
+
+                            GEM_PRICES[0] = (double) priceList.getPrice() / 100.0;
+
+                            if (comfGemLvlForRepair == 1 && fragActive) {
+                                comfGemPrice = GEM_PRICES[0];
+                                comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                                calcTotals();
+                            }
+
+                        } catch (NullPointerException e) {
+                            if (fragActive) {
+                                Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GemPrices> call, Throwable t) {
+                        if (fragActive) {
+                            Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                callGems = myGemApi.getLevelTwo(chainCode);
+
+                callGems.enqueue(new Callback<GemPrices>() {
+                    @Override
+                    public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+
+                        try {
+                            GemPrices priceList = response.body();
+
+                            GEM_PRICES[1] = (double) priceList.getPrice() / 100.0;
+                            if (comfGemLvlForRepair == 2 && fragActive) {
+                                comfGemPrice = GEM_PRICES[1];
+                                comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                                calcTotals();
+                            }
+
+                        } catch (NullPointerException ignored) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GemPrices> call, Throwable t) {
+                    }
+                });
+
+                callGems = myGemApi.getLevelThree(chainCode);
+
+                callGems.enqueue(new Callback<GemPrices>() {
+                    @Override
+                    public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+
+                        try {
+                            GemPrices priceList = response.body();
+
+                            GEM_PRICES[2] = (double) priceList.getPrice() / 100.0;
+                            if (comfGemLvlForRepair == 3 && fragActive) {
+                                comfGemPrice = GEM_PRICES[2];
+                                comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                                calcTotals();
+                            }
+
+                        } catch (NullPointerException ignored) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GemPrices> call, Throwable t) {
+                    }
+                });
+            }
+        });
+        fetchGemPrices.start();
+        try {
+            fetchGemPrices.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-        Retrofit retrofitGems = new Retrofit.Builder().baseUrl(GEM_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        GemApi myGemApi = retrofitGems.create(GemApi.class);
-
-        Call<GemPrices> callGems = myGemApi.getLevelOne(chainCode);
-
-        callGems.enqueue(new Callback<GemPrices>() {
-            @Override
-            public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
-
-                try {
-                    GemPrices priceList = response.body();
-
-                    GEM_PRICES[0] = (double) priceList.getPrice() / 100.0;
-
-                    if (comfGemLvlForRepair == 1 && fragActive) {
-                        comfGemPrice = GEM_PRICES[0];
-                        comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-                        calcTotals();
-                    }
-
-                } catch (NullPointerException e) {
-                    if (fragActive) {
-                        Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GemPrices> call, Throwable t) {
-                if (fragActive) {
-                    Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        callGems = myGemApi.getLevelTwo(chainCode);
-
-        callGems.enqueue(new Callback<GemPrices>() {
-            @Override
-            public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
-
-                try {
-                    GemPrices priceList = response.body();
-
-                    GEM_PRICES[1] = (double) priceList.getPrice() / 100.0;
-                    if (comfGemLvlForRepair == 2 && fragActive) {
-                        comfGemPrice = GEM_PRICES[1];
-                        comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-                        calcTotals();
-                    }
-
-                } catch (NullPointerException ignored) {}
-            }
-
-            @Override
-            public void onFailure(Call<GemPrices> call, Throwable t) {}
-        });
-
-        callGems = myGemApi.getLevelThree(chainCode);
-
-        callGems.enqueue(new Callback<GemPrices>() {
-            @Override
-            public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
-
-                try {
-                    GemPrices priceList = response.body();
-
-                    GEM_PRICES[2] = (double) priceList.getPrice() / 100.0;
-                    if (comfGemLvlForRepair == 3 && fragActive) {
-                        comfGemPrice = GEM_PRICES[2];
-                        comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-                        calcTotals();
-                    }
-
-                } catch (NullPointerException ignored) {}
-            }
-
-            @Override
-            public void onFailure(Call<GemPrices> call, Throwable t) {}
-        });
     }
 
     // to save prefs
