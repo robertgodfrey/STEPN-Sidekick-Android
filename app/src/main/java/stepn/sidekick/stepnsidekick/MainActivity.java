@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -43,11 +44,17 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 /**
  * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Rob Godfrey
- * @version 1.6.0 add gem price API, update durability formula, 'daily limit' fixes
+ * @version 1.7.0 add sidekick api and mb percentages
  *
  */
 
@@ -56,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
     public boolean ads;
     private MaxAdView bannerAd;
     private View bannerAdSpace;
+    private double gmtNumA;
+    private double gmtNumB;
+    private double gmtNumC;
 
     Button goToExerciseButton, goToOptimizerButton, goToInfoButton;
     ImageView exerciseSelected, optimizerSelected, infoSelected;
@@ -75,8 +85,12 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
         fragmentManager = getSupportFragmentManager();
         SharedPreferences getSharedPrefs = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
         ads = getSharedPrefs.getBoolean(AD_PREF, true);
+        gmtNumA = getSharedPrefs.getFloat(GMT_NUM_A, 0.0696f);
+        gmtNumB = getSharedPrefs.getFloat(GMT_NUM_B, 0.4821f);
+        gmtNumC = getSharedPrefs.getFloat(GMT_NUM_C, 0.25f);
 
         buildUI();
+        fetchGmtNums();
     }
 
     // inits UI
@@ -191,7 +205,44 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
                         .commit();
             }
         });
+    }
 
+    private void fetchGmtNums() {
+        final String SIDEKICK_BASE_URL = "https://stepn-sidekick.vercel.app/";
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        SidekickApi gmtMagicNumbers = retrofit.create(SidekickApi.class);
+
+        Call<GmtMagicNumbers> call = gmtMagicNumbers.getGmtNumbers(getString(R.string.sidekick_api));
+
+        call.enqueue(new Callback<GmtMagicNumbers>() {
+            @Override
+            public void onResponse(Call<GmtMagicNumbers> call, Response<GmtMagicNumbers> response) {
+
+                try {
+                    GmtMagicNumbers priceList = response.body();
+                    gmtNumA = priceList.getA();
+                    gmtNumB = priceList.getB();
+                    gmtNumC = priceList.getC();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putFloat(GMT_NUM_A, (float) gmtNumA);
+                    editor.putFloat(GMT_NUM_B, (float) gmtNumB);
+                    editor.putFloat(GMT_NUM_C, (float) gmtNumC);
+                    editor.apply();
+                } catch (NullPointerException e) {
+                    Log.d("Oh no!", "Anyway,");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GmtMagicNumbers> call, Throwable t) {
+                // keep on truckin
+            }
+        });
     }
 
     private void billingSetup() {
@@ -358,7 +409,6 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
 
         editor.putBoolean(AD_PREF, ads);
         editor.apply();
-
 
         super.onStop();
     }
