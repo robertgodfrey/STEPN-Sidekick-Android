@@ -46,6 +46,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -261,14 +262,6 @@ public class OptimizerFrag extends Fragment {
                     TOKEN_PRICES[4] = priceList.getGstBsc();
                     TOKEN_PRICES[5] = priceList.getEthereum();
                     TOKEN_PRICES[6] = priceList.getGstEth();
-
-                    Log.d("API Stuff", "onResponse: GMT price: " + TOKEN_PRICES[0]);
-                    Log.d("API Stuff", "onResponse: SOL price: " + TOKEN_PRICES[1]);
-                    Log.d("API Stuff", "onResponse: GST SOL price: " + TOKEN_PRICES[2]);
-                    Log.d("API Stuff", "onResponse: BNB price: " + TOKEN_PRICES[3]);
-                    Log.d("API Stuff", "onResponse: GST BNB price: " + TOKEN_PRICES[4]);
-                    Log.d("API Stuff", "onResponse: ETH price: " + TOKEN_PRICES[5]);
-                    Log.d("API Stuff", "onResponse: GST ETH price: " + TOKEN_PRICES[6]);
 
                     if (GEM_PRICES[0] != 0 && fragActive) {
                         calcTotals();
@@ -3617,285 +3610,171 @@ public class OptimizerFrag extends Fragment {
     private void calcMbChances() {
         final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
+        final String SIDEKICK_BASE_URL = "https://stepn-sidekick.vercel.app/";
 
         if (localEnergy == 0 || totalLuck == 0) {
             clearMbs();
             return;
         }
 
-        final double levelOneLine = totalLuck < 1000 ? -0.6 * Math.log(totalLuck + 15) + 4.1 : -99;
-        final double levelTwoLine = totalLuck < 1500 ? -1.2 * Math.log(totalLuck + 5) + 8.2 : -99;
-        final double levelThreeLine = totalLuck < 2000 ? -2.1 * Math.log(totalLuck + 10) + 14.9 : -99;
-        final double levelFourLine = totalLuck < 4000 ? -2.8 * Math.log(totalLuck + 5) + 22.1 : -99;
-        final double levelFiveLine = -2.9 * Math.log(totalLuck + 10) + 27.7;
-        final double levelSixLine = -3 * Math.log(totalLuck + 10) + 35;
-        final double levelSevenLine = -4 * Math.log(totalLuck - 100) + 47;
-        final double levelEightLine = -5 * Math.log(totalLuck - 650) + 58;
-        final double levelNineLine = -6 * Math.log(totalLuck - 1000) + 68.5;
-        final double levelTenLine = -6 * Math.log(totalLuck - 2000) + 70.5;
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
 
-        boolean bestMatch = false;
+        Call<MbChances> call = sidekickApi.getMbChances(getString(R.string.sidekick_api), localEnergy, totalLuck);
 
-        if (localEnergy >= levelOneLine - 1.2 && localEnergy <= levelOneLine + 1.2) {
-            // lvl 1 high chance range
+        call.enqueue(new Callback<MbChances>() {
+            @Override
+            public void onResponse(Call<MbChances> call, Response<MbChances> response) {
+
+                try {
+                    MbChances predictions = response.body();
+                    updateMbs(predictions.getPredictions());
+                } catch (NullPointerException e) {
+                    Log.d("Oh no!", "Anyway,");
+                    updateMbs(new int[10]);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MbChances> call, Throwable t) {
+                // keep on truckin
+            }
+        });
+    }
+
+    // update layout to display mb predictions
+    private void updateMbs(int[] mbChances) {
+        Log.d("update MBs", Arrays.toString(mbChances));
+        if (mbChances[0] >= 30) {
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
             mysteryBox1.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelOneLine - 1.8 && localEnergy <= levelOneLine + 2.6) {
-            // lvl 1 low chance range
+        } else if (mbChances[0] > 0) {
             mysteryBox1.clearColorFilter();
             mysteryBox1.setImageTintMode(null);
             mysteryBox1.setAlpha(0.5f);
         } else {
-            // outside lvl 1 range
             mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox1.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelTwoLine - 1.6 && localEnergy <= levelTwoLine + 1.6) {
-            // lvl 2 high chance range
+        if (mbChances[1] >= 30) {
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
             mysteryBox2.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelTwoLine - 2.2 && localEnergy <= levelTwoLine + 2.6) {
-            // lvl 2 low chance range
+        } else if (mbChances[1] > 0) {
             mysteryBox2.clearColorFilter();
             mysteryBox2.setImageTintMode(null);
             mysteryBox2.setAlpha(0.5f);
         } else {
-            // outside lvl 2 range
             mysteryBox2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox2.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelThreeLine - 2.6 && localEnergy <= levelThreeLine + 2.4) {
-            // lvl 3 high chance range
+        if (mbChances[2] >= 30) {
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelThreeLine - 3.6 && localEnergy <= levelThreeLine + 4.6) {
-            // lvl 3 low chance range
+        } else if (mbChances[2] > 0) {
             mysteryBox3.clearColorFilter();
             mysteryBox3.setImageTintMode(null);
             mysteryBox3.setAlpha(0.5f);
         } else {
-            // outside lvl 3 range
             mysteryBox3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox3.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelFourLine - 3 && localEnergy <= levelFourLine + 3.1) {
-            // lvl 4 high chance range
+        if (mbChances[3] >= 30) {
             mysteryBox4.clearColorFilter();
             mysteryBox4.setImageTintMode(null);
             mysteryBox4.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelFourLine - 5 && localEnergy <= levelFourLine + 6.6) {
-            // lvl 4 low chance range
+        } else if (mbChances[3] > 0) {
             mysteryBox4.clearColorFilter();
             mysteryBox4.setImageTintMode(null);
             mysteryBox4.setAlpha(0.5f);
         } else {
-            // outside lvl 4 range
             mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox4.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelFiveLine - 2.6 && localEnergy <= levelFiveLine + 2.7) {
-            // lvl 5 high chance range
+        if (mbChances[4] >= 30) {
             mysteryBox5.clearColorFilter();
             mysteryBox5.setImageTintMode(null);
             mysteryBox5.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelFiveLine - 5.5 && localEnergy <= levelFiveLine + 7) {
-            // lvl 5 low chance range
+        } else if (mbChances[4] > 0) {
             mysteryBox5.clearColorFilter();
             mysteryBox5.setImageTintMode(null);
             mysteryBox5.setAlpha(0.5f);
         } else {
-            // outside lvl 5 range
             mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox5.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelSixLine - 3.9 && localEnergy <= levelSixLine + 4.7) {
-            // lvl 6 high chance range
+        if (mbChances[5] >= 30) {
             mysteryBox6.clearColorFilter();
             mysteryBox6.setImageTintMode(null);
             mysteryBox6.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelSixLine - 6 && localEnergy <= levelSixLine + 7) {
-            // lvl 6 low chance range
+        } else if (mbChances[5] > 0) {
             mysteryBox6.clearColorFilter();
             mysteryBox6.setImageTintMode(null);
             mysteryBox6.setAlpha(0.5f);
         } else {
-            // outside lvl 6 range
             mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox6.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelSevenLine - 3.8 && localEnergy <= levelSevenLine + 3.4) {
-            // lvl 7 high chance range
+        if (mbChances[6] >= 30) {
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
             mysteryBox7.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelSevenLine - 6 && localEnergy <= levelSevenLine + 8) {
-            // lvl 7 low chance range
+        } else if (mbChances[6] > 0) {
             mysteryBox7.clearColorFilter();
             mysteryBox7.setImageTintMode(null);
             mysteryBox7.setAlpha(0.5f);
         } else {
-            // outside lvl 7 range
             mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox7.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelEightLine - 2.6 && localEnergy <= levelEightLine + 2.1) {
-            // lvl 8 high chance range
+        if (mbChances[7] >= 30) {
             mysteryBox8.clearColorFilter();
             mysteryBox8.setImageTintMode(null);
             mysteryBox8.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelEightLine - 6 && localEnergy <= levelEightLine + 8) {
-            // lvl 8 low chance range
+        } else if (mbChances[7] > 0) {
             mysteryBox8.clearColorFilter();
             mysteryBox8.setImageTintMode(null);
             mysteryBox8.setAlpha(0.5f);
         } else {
-            // outside lvl 8 range
             mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox8.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelNineLine - 2.6 && localEnergy <= levelNineLine + 2.1) {
-            // lvl 9 high chance range
+        if (mbChances[8] >= 30) {
             mysteryBox9.clearColorFilter();
             mysteryBox9.setImageTintMode(null);
             mysteryBox9.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelNineLine - 7 && localEnergy <= levelNineLine + 7) {
-            // lvl 9 low chance range
+        } else if (mbChances[8] > 0) {
             mysteryBox9.clearColorFilter();
             mysteryBox9.setImageTintMode(null);
             mysteryBox9.setAlpha(0.5f);
         } else {
-            // outside lvl 9 range
             mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox9.setAlpha(0.5f);
         }
 
-        if (localEnergy >= levelTenLine - 1.4) {
-            // lvl 10 high chance range
+        if (mbChances[9] >= 30) {
             mysteryBox10.clearColorFilter();
             mysteryBox10.setImageTintMode(null);
             mysteryBox10.setAlpha(1.0f);
-            bestMatch = true;
-        } else if (localEnergy >= levelTenLine - 4) {
-            // lvl 10 low chance range
+        } else if (mbChances[9] > 0) {
             mysteryBox10.clearColorFilter();
             mysteryBox10.setImageTintMode(null);
             mysteryBox10.setAlpha(0.5f);
         } else {
-            // outside lvl 10 range
             mysteryBox10.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
             mysteryBox10.setAlpha(0.5f);
-        }
-
-        // catch cases where no box lights up
-        if (!bestMatch && localEnergy > 2) {
-            double minVal = Math.abs(localEnergy - Math.abs(levelOneLine));
-            int best = 1;
-            if (Math.abs(localEnergy - Math.abs(levelTwoLine)) < minVal) {
-                minVal = Math.abs(localEnergy - Math.abs(levelTwoLine));
-                best = 2;
-            }
-            if (Math.abs(localEnergy - Math.abs(levelThreeLine)) < minVal) {
-                minVal = Math.abs(localEnergy - Math.abs(levelThreeLine));
-                best = 3;
-            }
-            if (Math.abs(localEnergy - Math.abs(levelFourLine)) < minVal) {
-                minVal = Math.abs(localEnergy - Math.abs(levelFourLine));
-                best = 4;
-            }
-            if (Math.abs(localEnergy - Math.abs(levelFiveLine)) < minVal) {
-                minVal = Math.abs(localEnergy - Math.abs(levelFiveLine));
-                best = 5;
-            }
-            if (Math.abs(localEnergy - Math.abs(levelSixLine)) < minVal) {
-                minVal = Math.abs(localEnergy - Math.abs(levelSixLine));
-                best = 6;
-            }
-            if (Math.abs(localEnergy - Math.abs(levelSevenLine)) < minVal) {
-                minVal = Math.abs(localEnergy - Math.abs(levelSevenLine));
-                best = 7;
-            }
-            if (Math.abs(localEnergy - levelEightLine) < minVal) {
-                minVal = Math.abs(localEnergy - levelEightLine);
-                best = 8;
-            }
-            if (Math.abs(localEnergy - levelNineLine) < minVal) {
-                minVal = Math.abs(localEnergy - levelNineLine);
-                best = 9;
-            }
-            if (Math.abs(localEnergy - levelTenLine) < minVal) {
-                best = 10;
-            }
-            switch (best) {
-                case 1:
-                    mysteryBox1.clearColorFilter();
-                    mysteryBox1.setImageTintMode(null);
-                    mysteryBox1.setAlpha(1.0f);
-                    break;
-                case 2:
-                    mysteryBox2.clearColorFilter();
-                    mysteryBox2.setImageTintMode(null);
-                    mysteryBox2.setAlpha(1.0f);
-                    break;
-                case 3:
-                    mysteryBox3.clearColorFilter();
-                    mysteryBox3.setImageTintMode(null);
-                    mysteryBox3.setAlpha(1.0f);
-                    break;
-                case 4:
-                    mysteryBox4.clearColorFilter();
-                    mysteryBox4.setImageTintMode(null);
-                    mysteryBox4.setAlpha(1.0f);
-                    break;
-                case 5:
-                    mysteryBox5.clearColorFilter();
-                    mysteryBox5.setImageTintMode(null);
-                    mysteryBox5.setAlpha(1.0f);
-                    break;
-                case 6:
-                    mysteryBox6.clearColorFilter();
-                    mysteryBox6.setImageTintMode(null);
-                    mysteryBox6.setAlpha(1.0f);
-                    break;
-                case 7:
-                    mysteryBox7.clearColorFilter();
-                    mysteryBox7.setImageTintMode(null);
-                    mysteryBox7.setAlpha(1.0f);
-                    break;
-                case 8:
-                    mysteryBox8.clearColorFilter();
-                    mysteryBox8.setImageTintMode(null);
-                    mysteryBox8.setAlpha(1.0f);
-                    break;
-                case 9:
-                    mysteryBox9.clearColorFilter();
-                    mysteryBox9.setImageTintMode(null);
-                    mysteryBox9.setAlpha(1.0f);
-                    break;
-                default:
-                    mysteryBox10.clearColorFilter();
-                    mysteryBox10.setImageTintMode(null);
-                    mysteryBox10.setAlpha(1.0f);
-            }
         }
     }
 

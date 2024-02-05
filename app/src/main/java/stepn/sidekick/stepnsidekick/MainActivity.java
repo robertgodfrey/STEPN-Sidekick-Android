@@ -207,19 +207,19 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
         Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        SidekickApi gmtMagicNumbers = retrofit.create(SidekickApi.class);
+        SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
 
-        Call<GmtMagicNumbers> call = gmtMagicNumbers.getGmtNumbers(getString(R.string.sidekick_api));
+        Call<GmtMagicNumbers> call = sidekickApi.getGmtNumbers(getString(R.string.sidekick_api));
 
         call.enqueue(new Callback<GmtMagicNumbers>() {
             @Override
             public void onResponse(Call<GmtMagicNumbers> call, Response<GmtMagicNumbers> response) {
 
                 try {
-                    GmtMagicNumbers priceList = response.body();
-                    double gmtNumA = priceList.getA();
-                    double gmtNumB = priceList.getB();
-                    double gmtNumC = priceList.getC();
+                    GmtMagicNumbers magicNumbers = response.body();
+                    double gmtNumA = magicNumbers.getA();
+                    double gmtNumB = magicNumbers.getB();
+                    double gmtNumC = magicNumbers.getC();
 
                     SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
