@@ -132,7 +132,8 @@ public class OptimizerFrag extends Fragment {
             optimizeLuckTextView, shoeOneTextView, shoeTwoTextView, shoeThreeTextView,
             totalIncomeUsdTextView, oneTwentyFiveTextView, estGstGmtLabelTv, gstLimitPerDaySlashTextView,
             gmtTotalMinusTv, gmtTotalTv, optimizeGstGmtTextViewShadow, chainSelectTv, chainSelectShadowTv,
-            coinSelectTv, coinShadowSelectTv;
+            coinSelectTv, coinShadowSelectTv, mb1Percent, mb2Percent, mb3Percent, mb4Percent, mb5Percent,
+            mb6Percent, mb7Percent, mb8Percent, mb9Percent, mb10Percent;
 
     ImageView gemSocketOne, gemSocketOneShadow, gemSocketOneLockPlus, gemSocketTwo,
             gemSocketTwoShadow, gemSocketTwoLockPlus, gemSocketThree, gemSocketThreeShadow,
@@ -151,8 +152,8 @@ public class OptimizerFrag extends Fragment {
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum, shoeChain;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
-            gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier,
-            oneTwentyFiveEnergy;
+            gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier, oneTwentyFiveEnergy,
+            energyForMbCalc, luckForMbCalc;
     private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit, fragActive;
     private double hpLoss, comfGemPrice, gmtNumA, gmtNumB, gmtNumC;
     private String shoeName, shoeImageUrl;
@@ -423,6 +424,17 @@ public class OptimizerFrag extends Fragment {
         mysteryBox8 = view.findViewById(R.id.mysteryBoxLvl8);
         mysteryBox9 = view.findViewById(R.id.mysteryBoxLvl9);
         mysteryBox10 = view.findViewById(R.id.mysteryBoxLvl10);
+
+        mb1Percent = view.findViewById(R.id.mbLvl1Percent);
+        mb2Percent = view.findViewById(R.id.mbLvl2Percent);
+        mb3Percent = view.findViewById(R.id.mbLvl3Percent);
+        mb4Percent = view.findViewById(R.id.mbLvl4Percent);
+        mb5Percent = view.findViewById(R.id.mbLvl5Percent);
+        mb6Percent = view.findViewById(R.id.mbLvl6Percent);
+        mb7Percent = view.findViewById(R.id.mbLvl7Percent);
+        mb8Percent = view.findViewById(R.id.mbLvl8Percent);
+        mb9Percent = view.findViewById(R.id.mbLvl9Percent);
+        mb10Percent = view.findViewById(R.id.mbLvl10Percent);
 
         footOne = view.findViewById(R.id.footprint1ImageView);
         footTwo = view.findViewById(R.id.footprint2ImageView);
@@ -3616,7 +3628,12 @@ public class OptimizerFrag extends Fragment {
             clearMbs();
             return;
         }
+        if (energyForMbCalc == localEnergy && luckForMbCalc == totalLuck) {
+            return;
+        }
 
+        energyForMbCalc = localEnergy;
+        luckForMbCalc = totalLuck;
         Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -3647,134 +3664,29 @@ public class OptimizerFrag extends Fragment {
     // update layout to display mb predictions
     private void updateMbs(int[] mbChances) {
         Log.d("update MBs", Arrays.toString(mbChances));
-        if (mbChances[0] >= 30) {
-            mysteryBox1.clearColorFilter();
-            mysteryBox1.setImageTintMode(null);
-            mysteryBox1.setAlpha(1.0f);
-        } else if (mbChances[0] > 0) {
-            mysteryBox1.clearColorFilter();
-            mysteryBox1.setImageTintMode(null);
-            mysteryBox1.setAlpha(0.5f);
-        } else {
-            mysteryBox1.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox1.setAlpha(0.5f);
-        }
-
-        if (mbChances[1] >= 30) {
-            mysteryBox2.clearColorFilter();
-            mysteryBox2.setImageTintMode(null);
-            mysteryBox2.setAlpha(1.0f);
-        } else if (mbChances[1] > 0) {
-            mysteryBox2.clearColorFilter();
-            mysteryBox2.setImageTintMode(null);
-            mysteryBox2.setAlpha(0.5f);
-        } else {
-            mysteryBox2.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox2.setAlpha(0.5f);
-        }
-
-        if (mbChances[2] >= 30) {
-            mysteryBox3.clearColorFilter();
-            mysteryBox3.setImageTintMode(null);
-            mysteryBox3.setAlpha(1.0f);
-        } else if (mbChances[2] > 0) {
-            mysteryBox3.clearColorFilter();
-            mysteryBox3.setImageTintMode(null);
-            mysteryBox3.setAlpha(0.5f);
-        } else {
-            mysteryBox3.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox3.setAlpha(0.5f);
-        }
-
-        if (mbChances[3] >= 30) {
-            mysteryBox4.clearColorFilter();
-            mysteryBox4.setImageTintMode(null);
-            mysteryBox4.setAlpha(1.0f);
-        } else if (mbChances[3] > 0) {
-            mysteryBox4.clearColorFilter();
-            mysteryBox4.setImageTintMode(null);
-            mysteryBox4.setAlpha(0.5f);
-        } else {
-            mysteryBox4.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox4.setAlpha(0.5f);
-        }
-
-        if (mbChances[4] >= 30) {
-            mysteryBox5.clearColorFilter();
-            mysteryBox5.setImageTintMode(null);
-            mysteryBox5.setAlpha(1.0f);
-        } else if (mbChances[4] > 0) {
-            mysteryBox5.clearColorFilter();
-            mysteryBox5.setImageTintMode(null);
-            mysteryBox5.setAlpha(0.5f);
-        } else {
-            mysteryBox5.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox5.setAlpha(0.5f);
-        }
-
-        if (mbChances[5] >= 30) {
-            mysteryBox6.clearColorFilter();
-            mysteryBox6.setImageTintMode(null);
-            mysteryBox6.setAlpha(1.0f);
-        } else if (mbChances[5] > 0) {
-            mysteryBox6.clearColorFilter();
-            mysteryBox6.setImageTintMode(null);
-            mysteryBox6.setAlpha(0.5f);
-        } else {
-            mysteryBox6.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox6.setAlpha(0.5f);
-        }
-
-        if (mbChances[6] >= 30) {
-            mysteryBox7.clearColorFilter();
-            mysteryBox7.setImageTintMode(null);
-            mysteryBox7.setAlpha(1.0f);
-        } else if (mbChances[6] > 0) {
-            mysteryBox7.clearColorFilter();
-            mysteryBox7.setImageTintMode(null);
-            mysteryBox7.setAlpha(0.5f);
-        } else {
-            mysteryBox7.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox7.setAlpha(0.5f);
-        }
-
-        if (mbChances[7] >= 30) {
-            mysteryBox8.clearColorFilter();
-            mysteryBox8.setImageTintMode(null);
-            mysteryBox8.setAlpha(1.0f);
-        } else if (mbChances[7] > 0) {
-            mysteryBox8.clearColorFilter();
-            mysteryBox8.setImageTintMode(null);
-            mysteryBox8.setAlpha(0.5f);
-        } else {
-            mysteryBox8.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox8.setAlpha(0.5f);
-        }
-
-        if (mbChances[8] >= 30) {
-            mysteryBox9.clearColorFilter();
-            mysteryBox9.setImageTintMode(null);
-            mysteryBox9.setAlpha(1.0f);
-        } else if (mbChances[8] > 0) {
-            mysteryBox9.clearColorFilter();
-            mysteryBox9.setImageTintMode(null);
-            mysteryBox9.setAlpha(0.5f);
-        } else {
-            mysteryBox9.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox9.setAlpha(0.5f);
-        }
-
-        if (mbChances[9] >= 30) {
-            mysteryBox10.clearColorFilter();
-            mysteryBox10.setImageTintMode(null);
-            mysteryBox10.setAlpha(1.0f);
-        } else if (mbChances[9] > 0) {
-            mysteryBox10.clearColorFilter();
-            mysteryBox10.setImageTintMode(null);
-            mysteryBox10.setAlpha(0.5f);
-        } else {
-            mysteryBox10.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
-            mysteryBox10.setAlpha(0.5f);
+        ImageView[] boxImageViews = {mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
+                mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10};
+        TextView[] percentageTextViews = {mb1Percent, mb2Percent, mb3Percent, mb4Percent, mb5Percent,
+                mb6Percent, mb7Percent, mb8Percent, mb9Percent, mb10Percent};
+        for (int i = 0; i < 10; i++) {
+            String mbPercentage = mbChances[i] + "%";
+            if (mbChances[i] >= 30) {
+                boxImageViews[i].clearColorFilter();
+                boxImageViews[i].setImageTintMode(null);
+                boxImageViews[i].setAlpha(1.0f);
+                percentageTextViews[i].setText(mbPercentage);
+                percentageTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            } else if (mbChances[i] > 0) {
+                boxImageViews[i].clearColorFilter();
+                boxImageViews[i].setImageTintMode(null);
+                boxImageViews[i].setAlpha(0.5f);
+                percentageTextViews[i].setText(mbPercentage);
+                percentageTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+            } else {
+                boxImageViews[i].setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                boxImageViews[i].setAlpha(0.5f);
+                percentageTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+            }
         }
     }
 

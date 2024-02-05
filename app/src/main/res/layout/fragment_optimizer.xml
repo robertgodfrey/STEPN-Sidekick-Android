@@ -2037,7 +2037,7 @@
         style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="@string/mystery_box_chance"
         android:textColor="@color/almost_black"
         android:textSize="18dp"
@@ -2049,7 +2049,7 @@
         android:id="@+id/mysteryBoxLvl1"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="4dp"
         android:alpha="0.5"
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl2"
@@ -2059,12 +2059,25 @@
         app:srcCompat="@mipmap/mb1"
         app:tint="@color/gandalf" />
 
+    <TextView
+        android:id="@+id/mbLvl1Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1" />
+
     <ImageView
         android:id="@+id/mysteryBoxLvl2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="4dp"
         android:alpha="0.5"
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl3"
@@ -2073,12 +2086,25 @@
         app:srcCompat="@mipmap/mb2"
         app:tint="@color/gandalf" />
 
+    <TextView
+        android:id="@+id/mbLvl2Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        android:layout_marginTop="-2dp"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl2"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl2"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl2" />
+
     <ImageView
         android:id="@+id/mysteryBoxLvl3"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="4dp"
         android:alpha="0.5"
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl4"
@@ -2087,12 +2113,25 @@
         app:srcCompat="@mipmap/mb3"
         app:tint="@color/gandalf" />
 
+    <TextView
+        android:id="@+id/mbLvl3Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl3"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl3"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl3" />
+
     <ImageView
         android:id="@+id/mysteryBoxLvl4"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="4dp"
         android:alpha="0.5"
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl5"
@@ -2101,18 +2140,44 @@
         app:srcCompat="@mipmap/mb4"
         app:tint="@color/gandalf" />
 
+    <TextView
+        android:id="@+id/mbLvl4Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl4"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl4"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl3" />
+
     <ImageView
         android:id="@+id/mysteryBoxLvl5"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:alpha="0.5"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl4"
         app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
         app:srcCompat="@mipmap/mb5"
         app:tint="@color/gandalf" />
+
+    <TextView
+        android:id="@+id/mbLvl5Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl5"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl5"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl5" />
 
     <ImageView
         android:id="@+id/mysteryBoxLvl6"
@@ -2124,9 +2189,22 @@
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl7"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
-        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
         app:srcCompat="@mipmap/mb6"
         app:tint="@color/gandalf" />
+
+    <TextView
+        android:id="@+id/mbLvl6Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl6"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl6"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl6" />
 
     <ImageView
         android:id="@+id/mysteryBoxLvl7"
@@ -2138,9 +2216,22 @@
         android:alpha="0.5"
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl8"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl6"
-        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
         app:srcCompat="@mipmap/mb7"
         app:tint="@color/gandalf" />
+
+    <TextView
+        android:id="@+id/mbLvl7Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl7"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl7"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl7" />
 
     <ImageView
         android:id="@+id/mysteryBoxLvl8"
@@ -2152,9 +2243,22 @@
         android:alpha="0.5"
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl9"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl7"
-        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
         app:srcCompat="@mipmap/mb8"
         app:tint="@color/gandalf" />
+
+    <TextView
+        android:id="@+id/mbLvl8Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl8"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl8"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl8" />
 
     <ImageView
         android:id="@+id/mysteryBoxLvl9"
@@ -2166,9 +2270,22 @@
         android:alpha="0.5"
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl10"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl8"
-        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
         app:srcCompat="@mipmap/mb9"
         app:tint="@color/gandalf" />
+
+    <TextView
+        android:id="@+id/mbLvl9Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl9"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl9"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl9" />
 
     <ImageView
         android:id="@+id/mysteryBoxLvl10"
@@ -2179,9 +2296,22 @@
         android:alpha="0.5"
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl9"
-        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
         app:srcCompat="@mipmap/mb10"
         app:tint="@color/gandalf" />
+
+    <TextView
+        android:id="@+id/mbLvl10Percent"
+        style="@style/BoldItalicSubtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl10" />
 
     <TextView
         android:id="@+id/resetTextView"
