@@ -2773,14 +2773,6 @@ public class OptimizerFrag extends Fragment {
 
     // calculate earnings
     private void calcTotals() {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-
-        // The first element is the current method, the second element is the caller
-        if (stackTrace.length >= 3) {
-            System.out.println("CALC TOTALS CALLER: " + stackTrace[3].getMethodName());
-        } else {
-            System.out.println("No caller information available.");
-        }
         if (baseEff == 0 || baseLuck == 0 || baseComf == 0 || baseRes == 0) {
             estGstGmtTextView.setText("0");
             durabilityLossTextView.setText("0");
@@ -3645,7 +3637,6 @@ public class OptimizerFrag extends Fragment {
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
         final String SIDEKICK_BASE_URL = "https://stepn-sidekick.vercel.app/";
 
-        Log.d("UHH", "totalLuck: " + totalLuck + " totalEnergy: " + localEnergy);
         if (localEnergy == 0 || totalLuck == 0) {
             clearMbs();
             return;
@@ -3676,7 +3667,6 @@ public class OptimizerFrag extends Fragment {
                             MbChances predictions = response.body();
                             updateMbs(predictions.getPredictions());
                         } catch (NullPointerException e) {
-                            Log.d("Oh no!", "Anyway,");
                             updateMbs(new int[10]);
                         }
                     }
@@ -3698,7 +3688,6 @@ public class OptimizerFrag extends Fragment {
 
     // update layout to display mb predictions
     private void updateMbs(int[] mbChances) {
-        Log.d("update MBs", Arrays.toString(mbChances));
         ImageView[] boxImageViews = {mysteryBox1, mysteryBox2, mysteryBox3, mysteryBox4, mysteryBox5,
                 mysteryBox6, mysteryBox7, mysteryBox8, mysteryBox9, mysteryBox10};
         TextView[] percentageTextViews = {mb1Percent, mb2Percent, mb3Percent, mb4Percent, mb5Percent,
