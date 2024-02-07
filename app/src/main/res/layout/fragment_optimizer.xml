@@ -2313,6 +2313,17 @@
         app:layout_constraintStart_toStartOf="@+id/mysteryBoxLvl10"
         app:layout_constraintTop_toBottomOf="@+id/mysteryBoxLvl10" />
 
+    <ProgressBar
+        android:id="@+id/mbLoadingSpinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toTopOf="@+id/mysteryBoxLvl1"
+        app:layout_constraintBottom_toBottomOf="@+id/mysteryBoxLvl10"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThingButton" />
+
     <TextView
         android:id="@+id/resetTextView"
         android:layout_width="wrap_content"

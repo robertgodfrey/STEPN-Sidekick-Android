@@ -118,43 +118,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:includeFontPadding="false"
-        android:text="Theses predictions are not perfect and will continue to improve as more data is analyzed"
-        android:textColor="@color/almost_black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
-        app:layout_constraintStart_toEndOf="@+id/bulletsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/updateList2TextView" />
-
-    <TextView
-        android:id="@+id/bullets4TextView"
-        style="@style/RegText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:includeFontPadding="false"
-        android:text="•"
-        android:textColor="@color/almost_black"
-        android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
-        app:layout_constraintTop_toBottomOf="@+id/updateList3TextView" />
-
-
-    <TextView
-        android:id="@+id/updateList4TextView"
-        style="@style/RegText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:includeFontPadding="false"
         android:text="GMT earning estimates have been updated (and will be updated more often in the future)"
         android:textColor="@color/almost_black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toEndOf="@+id/bulletsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/updateList3TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/updateList2TextView" />
 
     <ImageView
         android:id="@+id/nextButtonShadow"
@@ -192,7 +161,7 @@
         android:background="@null"
         android:src="@drawable/button_start"
         app:layout_constraintEnd_toEndOf="@+id/updateListTextView"
-        app:layout_constraintTop_toBottomOf="@+id/updateList4TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/updateList3TextView" />
 
     <TextView
         android:id="@+id/nextButtonTextView"

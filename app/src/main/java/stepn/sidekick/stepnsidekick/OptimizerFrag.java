@@ -39,6 +39,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -148,6 +149,7 @@ public class OptimizerFrag extends Fragment {
 
 
     LinearLayout shoeTypeLayout, shoeTypeLayoutShadow;
+    ProgressBar mbLoadingSpinner;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
             addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum, shoeChain;
@@ -446,6 +448,8 @@ public class OptimizerFrag extends Fragment {
         mb8Percent = view.findViewById(R.id.mbLvl8Percent);
         mb9Percent = view.findViewById(R.id.mbLvl9Percent);
         mb10Percent = view.findViewById(R.id.mbLvl10Percent);
+
+        mbLoadingSpinner = (ProgressBar)view.findViewById(R.id.mbLoadingSpinner);
 
         footOne = view.findViewById(R.id.footprint1ImageView);
         footTwo = view.findViewById(R.id.footprint2ImageView);
@@ -3627,52 +3631,41 @@ public class OptimizerFrag extends Fragment {
         final String SIDEKICK_BASE_URL = "https://stepn-sidekick.vercel.app/";
 
         if (localEnergy == 0 || totalLuck == 0) {
-            clearMbs();
             return;
         }
         if (energyForMbCalc == localEnergy && luckForMbCalc == totalLuck) {
             return;
         }
 
+        clearMbs();
+        mbLoadingSpinner.setVisibility(View.VISIBLE);
         energyForMbCalc = localEnergy;
         luckForMbCalc = totalLuck;
 
-        Thread fetchMbChances = new Thread(new Runnable() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
+        Call<MbChances> call = sidekickApi.getMbChances(getString(R.string.sidekick_api), localEnergy, totalLuck);
+
+        call.enqueue(new Callback<MbChances>() {
             @Override
-            public void run() {
-                Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
+            public void onResponse(Call<MbChances> call, Response<MbChances> response) {
+                try {
+                    MbChances predictions = response.body();
+                    updateMbs(predictions.getPredictions());
+                } catch (NullPointerException e) {
+                    updateMbs(new int[10]);
+                }
+                mbLoadingSpinner.setVisibility(View.GONE);
+            }
 
-                Call<MbChances> call = sidekickApi.getMbChances(getString(R.string.sidekick_api), localEnergy, totalLuck);
-
-
-                call.enqueue(new Callback<MbChances>() {
-                    @Override
-                    public void onResponse(Call<MbChances> call, Response<MbChances> response) {
-
-                        try {
-                            MbChances predictions = response.body();
-                            updateMbs(predictions.getPredictions());
-                        } catch (NullPointerException e) {
-                            updateMbs(new int[10]);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MbChances> call, Throwable t) {
-                        // keep on truckin
-                    }
-                });
+            @Override
+            public void onFailure(Call<MbChances> call, Throwable t) {
+                // keep on truckin
+                mbLoadingSpinner.setVisibility(View.GONE);
             }
         });
-        fetchMbChances.start();
-        try {
-            fetchMbChances.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     // update layout to display mb predictions
