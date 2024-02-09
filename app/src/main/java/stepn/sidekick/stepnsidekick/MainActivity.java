@@ -211,32 +211,44 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
 
         Call<GmtMagicNumbers> call = sidekickApi.getGmtNumbers(getString(R.string.sidekick_api));
 
-        call.enqueue(new Callback<GmtMagicNumbers>() {
+        Thread getGmtNums = new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<GmtMagicNumbers> call, Response<GmtMagicNumbers> response) {
+            public void run() {
+                call.enqueue(new Callback<GmtMagicNumbers>() {
+                    @Override
+                    public void onResponse(Call<GmtMagicNumbers> call, Response<GmtMagicNumbers> response) {
 
-                try {
-                    GmtMagicNumbers magicNumbers = response.body();
-                    double gmtNumA = magicNumbers.getA();
-                    double gmtNumB = magicNumbers.getB();
-                    double gmtNumC = magicNumbers.getC();
+                        try {
+                            GmtMagicNumbers magicNumbers = response.body();
+                            double gmtNumA = magicNumbers.getA();
+                            double gmtNumB = magicNumbers.getB();
+                            double gmtNumC = magicNumbers.getC();
 
-                    SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putFloat(GMT_NUM_A, (float) gmtNumA);
-                    editor.putFloat(GMT_NUM_B, (float) gmtNumB);
-                    editor.putFloat(GMT_NUM_C, (float) gmtNumC);
-                    editor.apply();
-                } catch (NullPointerException e) {
-                    Log.d("Oh no!", "Anyway,");
-                }
-            }
+                            SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putFloat(GMT_NUM_A, (float) gmtNumA);
+                            editor.putFloat(GMT_NUM_B, (float) gmtNumB);
+                            editor.putFloat(GMT_NUM_C, (float) gmtNumC);
+                            editor.apply();
+                        } catch (NullPointerException e) {
+                            Log.d("Oh no!", "Anyway,");
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<GmtMagicNumbers> call, Throwable t) {
-                // keep on truckin
+                    @Override
+                    public void onFailure(Call<GmtMagicNumbers> call, Throwable t) {
+                        // keep on truckin
+                    }
+                });
             }
         });
+        getGmtNums.start();
+        try {
+            getGmtNums.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void billingSetup() {

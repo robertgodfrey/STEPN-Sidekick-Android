@@ -65,7 +65,6 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
     ImageView leftGps, centerGps, rightGps, footLeft, footCenter, footRight;
     View bannerAdSpace;
 
-    private MaxAdView bannerAd;
     private boolean ads;
 
     // receives broadcast from service to update UI
@@ -338,7 +337,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
         plusTextView = findViewById(R.id.plusTextView);
 
         if (ads) {
-            bannerAd = new MaxAdView(getString(R.string.main_ad_banner_id), SpeedTracker.this);
+            MaxAdView bannerAd = new MaxAdView(getString(R.string.main_ad_banner_id), SpeedTracker.this);
             bannerAd.setListener(SpeedTracker.this);
 
             // Stretch to the width of the screen for banners to be fully functional

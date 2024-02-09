@@ -88,6 +88,7 @@ public class StartActivityFrag extends Fragment {
     EditText minSpeedEditText, maxSpeedEditText, energyEditText, focusThief;
     LinearLayout speedsLayout, countdownLayout, alertsLayout, energyLayout, voiceUpdatesLayout,
             minSpeedStack, maxSpeedStack;
+    Dialog activeDialog;
 
     private float savedAppVersion, customMinSpeed, customMaxSpeed;
     private int shoeTypeIterator, alertsVibrationAudible, voiceAlertsSpeedType;
@@ -121,7 +122,6 @@ public class StartActivityFrag extends Fragment {
                 shoeTypeIterator = getSharedPrefs.getInt(SHOE_TYPE_ITERATOR_PREF, 0);
                 customMinSpeed = getSharedPrefs.getFloat(CUSTOM_MIN_SPEED_PREF, 0);
                 customMaxSpeed = getSharedPrefs.getFloat(CUSTOM_MAX_SPEED_PREF, 0);
-                firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
                 savedAppVersion = getSharedPrefs.getFloat(APP_VERSION_PREF, 1f);
                 askedNotificationPerms = getSharedPrefs.getBoolean(ASKED_NOTIF_PERMS, false);
 
@@ -214,10 +214,11 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        SharedPreferences getSharedPrefs = requireActivity().getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
+        firstTime = getSharedPrefs.getBoolean(FIRST_TIME_PREF, true);
 
         if (firstTime) {
             welcome();
-            firstTime = false;
         } else if (savedAppVersion < CURRENT_APP_VERSION) {
             appUpdateDialog();
             updateUI();
@@ -494,6 +495,7 @@ public class StartActivityFrag extends Fragment {
     // dialog message if the device's GPS is turned off
     private void buildAlertMessageNoGps() {
         Dialog dialog = new Dialog(requireActivity());
+        activeDialog = dialog;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.alert_layout_gps);
@@ -557,6 +559,7 @@ public class StartActivityFrag extends Fragment {
     // dialog message if the app does not have notification permissions (Android 13+)
     private void buildAlertMessageNotificationPermissions() {
         Dialog dialog = new Dialog(requireActivity());
+        activeDialog = dialog;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.alert_layout_permissions);
@@ -957,6 +960,7 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void welcome() {
         Dialog welcome = new Dialog(requireActivity());
+        activeDialog = welcome;
 
         welcome.requestWindowFeature(Window.FEATURE_NO_TITLE);
         welcome.setCancelable(false);
@@ -977,6 +981,7 @@ public class StartActivityFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 welcome.dismiss();
+                firstTime = false;
             }
         });
 
@@ -985,6 +990,7 @@ public class StartActivityFrag extends Fragment {
             public void onClick(View view) {
                 welcome.dismiss();
                 howTo(view);
+                firstTime = false;
             }
         });
 
@@ -1002,6 +1008,7 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void howTo(View view) {
         Dialog instructionsOne = new Dialog(getActivity());
+        activeDialog = instructionsOne;
 
         instructionsOne.requestWindowFeature(Window.FEATURE_NO_TITLE);
         instructionsOne.setCancelable(false);
@@ -1080,6 +1087,7 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsTwo() {
         Dialog instructionsTwo = new Dialog(requireActivity());
+        activeDialog = instructionsTwo;
 
         instructionsTwo.requestWindowFeature(Window.FEATURE_NO_TITLE);
         instructionsTwo.setCancelable(false);
@@ -1129,6 +1137,7 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsThree() {
         Dialog instructionsThree = new Dialog(requireActivity());
+        activeDialog = instructionsThree;
 
         instructionsThree.requestWindowFeature(Window.FEATURE_NO_TITLE);
         instructionsThree.setCancelable(false);
@@ -1180,6 +1189,7 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsFour() {
         Dialog instructionsFour = new Dialog(requireActivity());
+        activeDialog = instructionsFour;
 
         instructionsFour.requestWindowFeature(Window.FEATURE_NO_TITLE);
         instructionsFour.setCancelable(false);
@@ -1232,6 +1242,7 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsFive() {
         Dialog instructionsFive = new Dialog(requireActivity());
+        activeDialog = instructionsFive;
 
         instructionsFive.requestWindowFeature(Window.FEATURE_NO_TITLE);
         instructionsFive.setCancelable(false);
@@ -1283,6 +1294,7 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void showInstructionsSix() {
         Dialog instructionsSix = new Dialog(requireActivity());
+        activeDialog = instructionsSix;
 
         instructionsSix.requestWindowFeature(Window.FEATURE_NO_TITLE);
         instructionsSix.setCancelable(true);
@@ -1318,6 +1330,7 @@ public class StartActivityFrag extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void appUpdateDialog() {
         Dialog updateDialog = new Dialog(getActivity());
+        activeDialog = updateDialog;
 
         updateDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         updateDialog.setCancelable(true);
@@ -1382,6 +1395,14 @@ public class StartActivityFrag extends Fragment {
         editor.apply();
 
         super.onStop();super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (activeDialog != null && activeDialog.isShowing()) {
+            activeDialog.dismiss();
+        }
     }
 
 }
