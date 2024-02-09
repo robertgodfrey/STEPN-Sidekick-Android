@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
 import android.location.Location;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
@@ -22,7 +23,6 @@ import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.VibratorManager;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -167,10 +167,16 @@ public class GpsAndClockService extends Service {
 
         startLocationUpdates();
 
-        registerReceiver(updatedTimeReceiver, new IntentFilter(MODIFY_TIME_BR));
-        registerReceiver(respondToPing, new IntentFilter(GET_TIME_BR));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // reciever_not_exported min API 33
+            registerReceiver(updatedTimeReceiver, new IntentFilter(MODIFY_TIME_BR), Context.RECEIVER_NOT_EXPORTED);
+            registerReceiver(respondToPing, new IntentFilter(GET_TIME_BR), Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(updatedTimeReceiver, new IntentFilter(MODIFY_TIME_BR));
+            registerReceiver(respondToPing, new IntentFilter(GET_TIME_BR));
+        }
 
         Intent notificationMainButtonIntent = new Intent(this, SpeedTracker.class);
+        notificationMainButtonIntent.setPackage(this.getPackageName());
         PendingIntent pendingOpenActivityIntent = PendingIntent.getActivity(this,
                 0, notificationMainButtonIntent, PendingIntent.FLAG_IMMUTABLE);
 
@@ -183,6 +189,7 @@ public class GpsAndClockService extends Service {
 
         if (tenSecondTimerDone) {
             Intent notificationPauseButtonIntent = new Intent(MODIFY_TIME_BR);
+            notificationPauseButtonIntent.setPackage(this.getPackageName());
             notificationPauseButtonIntent.putExtra(TIME_MODIFIER, 0);
             PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, PAUSE_PAUSED,
                     notificationPauseButtonIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -194,7 +201,11 @@ public class GpsAndClockService extends Service {
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        startForeground(1, notification);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { // min API 29 (Android 10)
+            startForeground(1, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
+        } else {
+            startForeground(1, notification);
+        }
 
         return START_NOT_STICKY;
     }
@@ -208,13 +219,13 @@ public class GpsAndClockService extends Service {
 
                 currentLocation = locationResult.getLastLocation();
 
-                if (currentLocation.hasAccuracy()) {
+                if (currentLocation != null && currentLocation.hasAccuracy()) {
                     gpsAccuracy = currentLocation.getAccuracy();
                 } else {
                     gpsAccuracy = 0;
                 }
 
-                if (currentLocation.hasSpeed()) {
+                if (currentLocation != null && currentLocation.hasSpeed()) {
                     currentSpeed = currentLocation.getSpeed() * 3.6;
                     if (currentSpeed < 1.0) {
                         currentSpeed = 0;
@@ -938,6 +949,7 @@ public class GpsAndClockService extends Service {
         }
         notificationManager.notify(1, notificationBuilder.build());
         Intent sendInfo = new Intent(COUNTDOWN_BR);
+        sendInfo.setPackage(this.getPackageName());
         sendInfo.putExtra(COUNTDOWN_TIME, millisRemaining);
         sendInfo.putExtra(CURRENT_SPEED, currentSpeed);
         sendInfo.putExtra(AVERAGE_SPEED, currentAvgSpeed);
@@ -980,6 +992,7 @@ public class GpsAndClockService extends Service {
             SpeedTracker.serviceStatus = START_RUNNING;
 
             Intent notificationPauseButtonIntent = new Intent(MODIFY_TIME_BR);
+            notificationPauseButtonIntent.setPackage(this.getPackageName());
             notificationPauseButtonIntent.putExtra(TIME_MODIFIER, 0);
             PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(this, PAUSE_PAUSED,
                     notificationPauseButtonIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -995,11 +1008,13 @@ public class GpsAndClockService extends Service {
             broadcastInfo();
 
             Intent notificationStartButtonIntent = new Intent(MODIFY_TIME_BR);
+            notificationStartButtonIntent.setPackage(this.getPackageName());
             notificationStartButtonIntent.putExtra(TIME_MODIFIER, 1);
             PendingIntent pendingStartIntent = PendingIntent.getBroadcast(this, START_RUNNING,
                     notificationStartButtonIntent, PendingIntent.FLAG_IMMUTABLE);
 
             Intent notificationStopButtonIntent = new Intent(MODIFY_TIME_BR);
+            notificationStopButtonIntent.setPackage(this.getPackageName());
             notificationStopButtonIntent.putExtra(TIME_MODIFIER, -1);
             PendingIntent pendingStopIntent = PendingIntent.getBroadcast(this, STOP_STOPPED,
                     notificationStopButtonIntent, PendingIntent.FLAG_IMMUTABLE);

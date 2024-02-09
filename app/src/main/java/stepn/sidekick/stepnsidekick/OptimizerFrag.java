@@ -461,6 +461,8 @@ public class OptimizerFrag extends Fragment {
         shoeTypeLayout = view.findViewById(R.id.shoeTypeLayout);
         shoeTypeLayoutShadow = view.findViewById(R.id.shoeTypeLayoutShadow);
 
+        mbLoadingSpinner.setVisibility(View.GONE);
+
         backgroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

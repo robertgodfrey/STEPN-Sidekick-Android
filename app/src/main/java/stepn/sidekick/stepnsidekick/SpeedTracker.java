@@ -13,6 +13,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.MotionEvent;
@@ -249,7 +250,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
     // sends initial data to service
     public void startService() {
         Intent serviceIntent = new Intent(this, GpsAndClockService.class);
-
+        serviceIntent.setPackage(this.getPackageName());
         serviceIntent.putExtra(MIN_SPEED, speedLowerLimit);
         serviceIntent.putExtra(MAX_SPEED, speedUpperLimit);
         serviceIntent.putExtra(ENERGY, energy);
@@ -266,13 +267,18 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
 
     public void stopService() {
         Intent serviceIntent = new Intent(this, GpsAndClockService.class);
+        serviceIntent.setPackage(this.getPackageName());
         stopService(serviceIntent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(secondsAndSpeedReceiver, new IntentFilter(COUNTDOWN_BR));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(secondsAndSpeedReceiver, new IntentFilter(COUNTDOWN_BR), Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(secondsAndSpeedReceiver, new IntentFilter(COUNTDOWN_BR));
+        }
         if (serviceStatus == PAUSE_PAUSED) {
             pingServiceForTime();
             changeUiPausedState();
@@ -474,6 +480,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
      */
     private void sendNewTime(int option) {
         Intent sendTime = new Intent(MODIFY_TIME_BR);
+        sendTime.setPackage(this.getPackageName());
         sendTime.putExtra(TIME_MODIFIER, option);
         sendBroadcast(sendTime);
     }
@@ -482,6 +489,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
     // (service only broadcasts time while timer is running)
     private void pingServiceForTime() {
         Intent getTime = new Intent(GET_TIME_BR);
+        getTime.setPackage(this.getPackageName());
         sendBroadcast(getTime);
     }
 
