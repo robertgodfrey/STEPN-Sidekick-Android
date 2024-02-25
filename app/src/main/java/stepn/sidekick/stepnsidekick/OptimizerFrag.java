@@ -104,6 +104,7 @@ public class OptimizerFrag extends Fragment {
     private final String SHOE_NUM_PREF = "shoeNum";
     private final String GMT_EARNING_PREF = "gmtEarning";
     private final String CHAIN_PREF = "chain";
+    private final String GMT_PERCENT_MODIFIER_PREF = "gmtPercentModifier";
 
     private final int SOL = 1;
     private final int BSC = 3;
@@ -156,7 +157,8 @@ public class OptimizerFrag extends Fragment {
     ProgressBar mbLoadingSpinner;
 
     private int shoeRarity, shoeType, shoeLevel, pointsAvailable, gstLimit, addedEff, addedLuck,
-            addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum, shoeChain;
+            addedComf, addedRes, comfGemLvlForRepair, gstCostBasedOnGem, shoeNum, shoeChain,
+            gmtPercentModifier;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier, oneTwentyFiveEnergy,
             energyForMbCalc, luckForMbCalc;
@@ -219,6 +221,7 @@ public class OptimizerFrag extends Fragment {
                 oneTwentyFive = getSharedPrefs.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
                 gmtEarningOn = getSharedPrefs.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
                 shoeChain = getSharedPrefs.getInt(CHAIN_PREF + shoeNumString, SOL);
+                gmtPercentModifier = getSharedPrefs.getInt(GMT_PERCENT_MODIFIER_PREF, 100);
 
                 gmtNumA = getSharedPrefs.getFloat(GMT_NUM_A, 0.0538f);
                 gmtNumB = getSharedPrefs.getFloat(GMT_NUM_B, 0.4741f);
@@ -2625,7 +2628,8 @@ public class OptimizerFrag extends Fragment {
     // gives option to change income estimate (allows for more accurate USD price predictions)
     private void changeIncomeEst() {
         final float gmtIncome = Float.parseFloat(gmtTotalTv.getText().toString());
-        final float repairCost = Float.parseFloat(totalIncomeTextView.getText().toString());
+        final int[] tempPercent = {gmtPercentModifier};
+        final String percent = gmtPercentModifier + "%";
 
         Dialog changeIncomeDialog = new Dialog(requireActivity());
 
@@ -2643,17 +2647,21 @@ public class OptimizerFrag extends Fragment {
         ImageButton saveButton = changeIncomeDialog.findViewById(R.id.saveButton);
 
         gmtIncomeTextView.setText(gmtTotalTv.getText().toString());
+        gmtPercent.setText(percent);
 
         changeIncomeDialog.show();
+
+        gmtSeekbar.setProgress(gmtPercentModifier);
 
         gmtSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 final String percent = i + 1 + "%";
                 final double income = Math.round((i + 1) * gmtIncome) / 100.0;
+                tempPercent[0] = i + 1;
                 gmtIncomeTextView.setText(String.valueOf(income));
                 gmtPercent.setText(percent);
-                if (i > 1) {
+                if (i > 52) {
                     gmtMinPercent.setVisibility(View.VISIBLE);
                 } else {
                     gmtMinPercent.setVisibility(View.INVISIBLE);
@@ -2673,13 +2681,8 @@ public class OptimizerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 changeIncomeDialog.dismiss();
-                double totalUsd = Math.round((Double.parseDouble((gmtIncomeTextView.getText().toString())) * TOKEN_PRICES[0] - (repairCost * TOKEN_PRICES[shoeChain + 1])
-                        - (comfGemMultiplier * comfGemPrice * TOKEN_PRICES[0])) * 100) / 100.0;
-                gmtTotalTv.setText(gmtIncomeTextView.getText().toString());
-                gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.progress_gmt));
-                if (comfGemPrice != 0) {
-                    totalIncomeUsdTextView.setText(String.format("%.2f", totalUsd));
-                }
+                gmtPercentModifier = tempPercent[0];
+                calcTotals();
             }
         });
     }
@@ -2776,6 +2779,13 @@ public class OptimizerFrag extends Fragment {
                 break;
             default:
                 gmtPerEnergy *= 0.98;
+        }
+
+        if (gmtPercentModifier != 100) {
+            gmtPerEnergy = gmtPerEnergy * (gmtPercentModifier / 100.0);
+            gmtTotalTv.setTextColor(COLOR_PROGRESS_GMT);
+        } else {
+            gmtTotalTv.setTextColor(COLOR_ALMOST_BLACK);
         }
 
         return gmtPerEnergy;
@@ -4270,6 +4280,7 @@ public class OptimizerFrag extends Fragment {
         editor.putBoolean(GMT_EARNING_PREF + shoeNumString, gmtEarningOn);
         editor.putInt(CHAIN_PREF + shoeNumString, shoeChain);
         editor.putInt(SHOE_NUM_PREF, shoeNum);
+        editor.putInt(GMT_PERCENT_MODIFIER_PREF, gmtPercentModifier);
 
         editor.putInt(GEM_ONE_TYPE_PREF + shoeNumString, gems.get(0).getSocketType());
         editor.putInt(GEM_ONE_RARITY_PREF + shoeNumString, gems.get(0).getSocketRarity());
