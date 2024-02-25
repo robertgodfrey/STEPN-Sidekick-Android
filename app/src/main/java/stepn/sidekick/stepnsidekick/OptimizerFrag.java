@@ -9,6 +9,12 @@ import static stepn.sidekick.stepnsidekick.Finals.GMT_NUM_C;
 import static stepn.sidekick.stepnsidekick.Finals.LUCK;
 import static stepn.sidekick.stepnsidekick.Finals.RES;
 import static stepn.sidekick.stepnsidekick.Finals.PREFERENCES_ID;
+import static stepn.sidekick.stepnsidekick.Finals.COLOR_ALMOST_BLACK;
+import static stepn.sidekick.stepnsidekick.Finals.COLOR_WHITE;
+import static stepn.sidekick.stepnsidekick.Finals.COLOR_GANDALF;
+import static stepn.sidekick.stepnsidekick.Finals.COLOR_RED;
+import static stepn.sidekick.stepnsidekick.Finals.COLOR_GEM_SOCKET_SHADOW;
+import static stepn.sidekick.stepnsidekick.Finals.COLOR_PROGRESS_GMT;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -25,7 +31,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -47,7 +52,6 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -1404,23 +1408,23 @@ public class OptimizerFrag extends Fragment {
                 shoeCircles.setImageResource(R.drawable.circles_uncommon);
                 shoeRarityTextView.setText("Uncommon");
 
-                shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeRarityTextView.setTextColor(COLOR_WHITE);
+                shoeRarityShadowTextView.setTextColor(COLOR_WHITE);
                 shoeRarityButton.setImageResource(R.drawable.button_uncommon);
 
-                shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeTypeTextView.setTextColor(COLOR_WHITE);
+                shoeTypeShadowTextView.setTextColor(COLOR_WHITE);
                 shoeTypeButton.setImageResource(R.drawable.button_uncommon);
 
-                shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeNameEditText.setTextColor(COLOR_WHITE);
                 shoeNameBoxImageView.setImageResource(R.drawable.box_name_uncommon);
 
-                footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footOneShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footTwoShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footThreeShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footOne.setColorFilter(COLOR_WHITE);
+                footTwo.setColorFilter(COLOR_WHITE);
+                footThree.setColorFilter(COLOR_WHITE);
+                footOneShadow.setColorFilter(COLOR_WHITE);
+                footTwoShadow.setColorFilter(COLOR_WHITE);
+                footThreeShadow.setColorFilter(COLOR_WHITE);
 
                 effEditText.setHint("8 - 21.6");
                 luckEditText.setHint("8 - 21.6");
@@ -1439,23 +1443,23 @@ public class OptimizerFrag extends Fragment {
                 shoeCircles.setImageResource(R.drawable.circles_rare);
                 shoeRarityTextView.setText("Rare");
 
-                shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeRarityTextView.setTextColor(COLOR_WHITE);
+                shoeRarityShadowTextView.setTextColor(COLOR_WHITE);
                 shoeRarityButton.setImageResource(R.drawable.button_rare);
 
-                shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeTypeTextView.setTextColor(COLOR_WHITE);
+                shoeTypeShadowTextView.setTextColor(COLOR_WHITE);
                 shoeTypeButton.setImageResource(R.drawable.button_rare);
 
-                shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeNameEditText.setTextColor(COLOR_WHITE);
                 shoeNameBoxImageView.setImageResource(R.drawable.box_name_rare);
 
-                footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footOneShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footTwoShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footThreeShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footOne.setColorFilter(COLOR_WHITE);
+                footTwo.setColorFilter(COLOR_WHITE);
+                footThree.setColorFilter(COLOR_WHITE);
+                footOneShadow.setColorFilter(COLOR_WHITE);
+                footTwoShadow.setColorFilter(COLOR_WHITE);
+                footThreeShadow.setColorFilter(COLOR_WHITE);
 
                 effEditText.setHint("15 - 42");
                 luckEditText.setHint("15 - 42");
@@ -1474,23 +1478,23 @@ public class OptimizerFrag extends Fragment {
                 shoeCircles.setImageResource(R.drawable.circles_epic);
                 shoeRarityTextView.setText("Epic");
 
-                shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeRarityTextView.setTextColor(COLOR_WHITE);
+                shoeRarityShadowTextView.setTextColor(COLOR_WHITE);
                 shoeRarityButton.setImageResource(R.drawable.button_epic);
 
-                shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeTypeTextView.setTextColor(COLOR_WHITE);
+                shoeTypeShadowTextView.setTextColor(COLOR_WHITE);
                 shoeTypeButton.setImageResource(R.drawable.button_epic);
 
-                shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                shoeNameEditText.setTextColor(COLOR_WHITE);
                 shoeNameBoxImageView.setImageResource(R.drawable.box_name_epic);
 
-                footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footOneShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footTwoShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
-                footThreeShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white));
+                footOne.setColorFilter(COLOR_WHITE);
+                footTwo.setColorFilter(COLOR_WHITE);
+                footThree.setColorFilter(COLOR_WHITE);
+                footOneShadow.setColorFilter(COLOR_WHITE);
+                footTwoShadow.setColorFilter(COLOR_WHITE);
+                footThreeShadow.setColorFilter(COLOR_WHITE);
 
                 effEditText.setHint("28 - 75.6");
                 luckEditText.setHint("28 - 75.6");
@@ -1503,23 +1507,23 @@ public class OptimizerFrag extends Fragment {
                 shoeCircles.setImageResource(R.drawable.circles_common);
                 shoeRarityTextView.setText("Common");
 
-                shoeRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeRarityShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeRarityTextView.setTextColor(COLOR_ALMOST_BLACK);
+                shoeRarityShadowTextView.setTextColor(COLOR_ALMOST_BLACK);
                 shoeRarityButton.setImageResource(R.drawable.button_common);
 
-                shoeTypeTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                shoeTypeShadowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeTypeTextView.setTextColor(COLOR_ALMOST_BLACK);
+                shoeTypeShadowTextView.setTextColor(COLOR_ALMOST_BLACK);
                 shoeTypeButton.setImageResource(R.drawable.button_common);
 
-                shoeNameEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                shoeNameEditText.setTextColor(COLOR_ALMOST_BLACK);
                 shoeNameBoxImageView.setImageResource(R.drawable.box_name_common);
 
-                footOne.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                footTwo.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                footThree.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                footOneShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                footTwoShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
-                footThreeShadow.setColorFilter(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                footOne.setColorFilter(COLOR_ALMOST_BLACK);
+                footTwo.setColorFilter(COLOR_ALMOST_BLACK);
+                footThree.setColorFilter(COLOR_ALMOST_BLACK);
+                footOneShadow.setColorFilter(COLOR_ALMOST_BLACK);
+                footTwoShadow.setColorFilter(COLOR_ALMOST_BLACK);
+                footThreeShadow.setColorFilter(COLOR_ALMOST_BLACK);
 
                 effEditText.setHint("1 - 10");
                 luckEditText.setHint("1 - 10");
@@ -1978,12 +1982,12 @@ public class OptimizerFrag extends Fragment {
         gemSocketPlus.setImageResource(gems.get(socketNum).getGemImageSource());
 
         if (tempSocketRarity == 0) {
-            decreaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+            decreaseRarityTextView.setTextColor(COLOR_GEM_SOCKET_SHADOW);
         } else if ((tempSocketRarity == 1 && shoeRarity <= COMMON)
                 || (tempSocketRarity == 2 && shoeRarity <= UNCOMMON)
                 || (tempSocketRarity == 3 && shoeRarity <= RARE)
                 || tempSocketRarity == 4) {
-            increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+            increaseRarityTextView.setTextColor(COLOR_GEM_SOCKET_SHADOW);
         }
 
         gemDetailsTextView.setText(gems.get(socketNum).getGemParamsString());
@@ -2126,10 +2130,10 @@ public class OptimizerFrag extends Fragment {
                 if (gems.get(socketNum).getSocketRarity() > 0) {
                     gems.get(socketNum).setSocketRarity(gems.get(socketNum).getSocketRarity() - 1);
                     gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
-                    increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                    increaseRarityTextView.setTextColor(COLOR_ALMOST_BLACK);
                 }
                 if (gems.get(socketNum).getSocketRarity() == 0) {
-                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+                    decreaseRarityTextView.setTextColor(COLOR_GEM_SOCKET_SHADOW);
                 }
                 socketDetailsTextView.setText(gems.get(socketNum).getSocketParamsString());
                 totalGemPointsTextView.setText(gems.get(socketNum).getTotalPointsString());
@@ -2142,27 +2146,27 @@ public class OptimizerFrag extends Fragment {
                 if (gems.get(socketNum).getSocketRarity() == 0) {
                     gems.get(socketNum).setSocketRarity(1);
                     if (shoeRarity == COMMON) {
-                        increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+                        increaseRarityTextView.setTextColor(COLOR_GEM_SOCKET_SHADOW);
                     }
                 } else if (gems.get(socketNum).getSocketRarity() == 1 && shoeRarity > COMMON) {
                     gems.get(socketNum).setSocketRarity(2);
                     if (shoeRarity <= UNCOMMON) {
-                        increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+                        increaseRarityTextView.setTextColor(COLOR_GEM_SOCKET_SHADOW);
                     }
                 } else if (gems.get(socketNum).getSocketRarity() == 2 && shoeRarity > UNCOMMON) {
                     gems.get(socketNum).setSocketRarity(3);
                     if (shoeRarity <= RARE) {
-                        increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+                        increaseRarityTextView.setTextColor(COLOR_GEM_SOCKET_SHADOW);
                     }
                 } else if (gems.get(socketNum).getSocketRarity() == 3 && shoeRarity > RARE) {
                     gems.get(socketNum).setSocketRarity(4);
-                    increaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+                    increaseRarityTextView.setTextColor(COLOR_GEM_SOCKET_SHADOW);
                 }
 
                 if (gems.get(socketNum).getSocketRarity() == 0) {
-                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+                    decreaseRarityTextView.setTextColor(COLOR_GEM_SOCKET_SHADOW);
                 } else {
-                    decreaseRarityTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                    decreaseRarityTextView.setTextColor(COLOR_ALMOST_BLACK);
                 }
 
                 gemSocket.setImageResource(gems.get(socketNum).getSocketImageSource());
@@ -2847,8 +2851,7 @@ public class OptimizerFrag extends Fragment {
             estGstGmtTextView.setText(gmtRange);
             totalIncomeTextView.setText(String.valueOf(Math.round((repairCostDurability + repairCostHp) * 10.0) / 10.0));
             gmtTotalTv.setText(String.valueOf(Math.round(gstGmtTotal * 10) / 10.0));
-            gmtTotalTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
-            estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            estGstGmtTextView.setTextColor(COLOR_ALMOST_BLACK);
         } else {
             if (useGstLimit) {
                 gstGmtTotal = Math.min(gstGmtTotal, gstLimit);
@@ -2858,21 +2861,21 @@ public class OptimizerFrag extends Fragment {
             estGstGmtTextView.setText(String.valueOf(gstGmtTotal));
             totalIncomeTextView.setText(String.valueOf(Math.round(gstProfitBeforeGem * 10) / 10.0));
             if (getGstTotal(localEnergy, totalEff) > gstLimit) {
-                estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
+                estGstGmtTextView.setTextColor(COLOR_RED);
             } else {
-                estGstGmtTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                estGstGmtTextView.setTextColor(COLOR_ALMOST_BLACK);
             }
         }
 
         if (comfGemPrice == 0) {
             totalIncomeUsdTextView.setText(R.string.enter_gem_price);
             totalIncomeUsdTextView.setTypeface(ResourcesCompat.getFont(requireContext(), R.font.roboto_condensed_regular));
-            totalIncomeUsdTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+            totalIncomeUsdTextView.setTextColor(COLOR_GANDALF);
             totalIncomeUsdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
         } else {
             totalIncomeUsdTextView.setText(String.format("%.2f", totalUsd));
             totalIncomeUsdTextView.setTypeface(ResourcesCompat.getFont(requireContext(), R.font.roboto_condensed_bold_italic));
-            totalIncomeUsdTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            totalIncomeUsdTextView.setTextColor(COLOR_ALMOST_BLACK);
             totalIncomeUsdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         }
     }
@@ -3620,9 +3623,9 @@ public class OptimizerFrag extends Fragment {
         TextView[] percentageTextViews = {mb1Percent, mb2Percent, mb3Percent, mb4Percent, mb5Percent,
                 mb6Percent, mb7Percent, mb8Percent, mb9Percent, mb10Percent};
         for (int i = 0; i < 10; i++) {
-            boxImageViews[i].setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+            boxImageViews[i].setColorFilter(COLOR_GANDALF);
             boxImageViews[i].setAlpha(0.5f);
-            percentageTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+            percentageTextViews[i].setTextColor(COLOR_WHITE);
         }
     }
 
@@ -3683,17 +3686,17 @@ public class OptimizerFrag extends Fragment {
                 boxImageViews[i].setImageTintMode(null);
                 boxImageViews[i].setAlpha(1.0f);
                 percentageTextViews[i].setText(mbPercentage);
-                percentageTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+                percentageTextViews[i].setTextColor(COLOR_ALMOST_BLACK);
             } else if (mbChances[i] > 0) {
                 boxImageViews[i].clearColorFilter();
                 boxImageViews[i].setImageTintMode(null);
                 boxImageViews[i].setAlpha(0.5f);
                 percentageTextViews[i].setText(mbPercentage);
-                percentageTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                percentageTextViews[i].setTextColor(COLOR_GANDALF);
             } else {
-                boxImageViews[i].setColorFilter(ContextCompat.getColor(requireContext(), R.color.gandalf));
+                boxImageViews[i].setColorFilter(COLOR_GANDALF);
                 boxImageViews[i].setAlpha(0.5f);
-                percentageTextViews[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                percentageTextViews[i].setTextColor(COLOR_WHITE);
             }
         }
     }
@@ -3756,43 +3759,43 @@ public class OptimizerFrag extends Fragment {
         pointsAvailableTextView.setText(String.valueOf(pointsAvailable));
 
         if (pointsAvailable > 0) {
-            effPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            effPlusTv.setTextColor(COLOR_ALMOST_BLACK);
             addEffButton.setClickable(true);
-            luckPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            luckPlusTv.setTextColor(COLOR_ALMOST_BLACK);
             addLuckButton.setClickable(true);
-            comfPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            comfPlusTv.setTextColor(COLOR_ALMOST_BLACK);
             addComfButton.setClickable(true);
-            resPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            resPlusTv.setTextColor(COLOR_ALMOST_BLACK);
             addResButton.setClickable(true);
         } else {
-            effPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+            effPlusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
             addEffButton.setClickable(false);
-            luckPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+            luckPlusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
             addLuckButton.setClickable(false);
-            comfPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+            comfPlusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
             addComfButton.setClickable(false);
-            resPlusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+            resPlusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
             addResButton.setClickable(false);
         }
 
         if (addedEff > 0) {
-            effMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            effMinusTv.setTextColor(COLOR_ALMOST_BLACK);
             subEffButton.setClickable(true);
         } else {
-            effMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+            effMinusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
             subEffButton.setClickable(false);
         }
 
         if (addedLuck > 0) {
-            luckMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            luckMinusTv.setTextColor(COLOR_ALMOST_BLACK);
             subLuckButton.setClickable(true);
         } else {
-            luckMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gem_socket_shadow));
+            luckMinusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
             subLuckButton.setClickable(false);
         }
 
         if (addedComf > 0) {
-            comfMinusTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.almost_black));
+            comfMinusTv.setTextColor(COLOR_ALMOST_BLACK);
             subComfButton.setClickable(true);
         } else {
             comfMinusTv.setTextColor(ContextCompat.getColor(requireActivity(), R.color.gem_socket_shadow));

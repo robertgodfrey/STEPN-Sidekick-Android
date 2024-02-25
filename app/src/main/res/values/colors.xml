@@ -11,8 +11,8 @@
     <color name="almost_black">#3b3831</color>
     <color name="almost_black_background">#28292e</color>
     <color name="less_black_foreground">#3c3c3c</color>
-    <color name="gandalf">#88797D</color>
-    <color name="gem_socket_shadow">#d2d2d2</color>
+    <color name="gandalf">#FF88797D</color>
+    <color name="gem_socket_shadow">#ffd2d2d2</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_off_white">#FDFDFB</color>
     <color name="nav_bar_grey">#F1F1F1</color>

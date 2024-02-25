@@ -45,5 +45,12 @@ public final class Finals {
     public static final int COMF = 2;
     public static final int RES = 3;
 
+    public static final int COLOR_ALMOST_BLACK = 0xff3b3831;
+    public static final int COLOR_WHITE = 0xffffffff;
+    public static final int COLOR_GANDALF = 0xff88797d;
+    public static final int COLOR_RED = 0xfff61f1f;
+    public static final int COLOR_GEM_SOCKET_SHADOW = 0xffd2d2d2;
+    public static final int COLOR_PROGRESS_GMT = 0xffffcb6d;
+
     private Finals() {}
 }
