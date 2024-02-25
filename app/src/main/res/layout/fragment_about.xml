@@ -610,15 +610,15 @@
 
     <ImageView
         android:id="@+id/stepnStats"
-        android:layout_width="180dp"
+        android:layout_width="210dp"
         android:layout_height="36dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuideAuthor"
-        app:srcCompat="@mipmap/gamefi" />
+        app:srcCompat="@mipmap/forgeblast" />
 
     <Button
         android:id="@+id/stepnStatsButton"
@@ -656,7 +656,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_medium"
         android:includeFontPadding="false"
-        android:text="\@gam3_fi"
+        android:text="\@ForgeBlast_"
         android:textAlignment="center"
         android:textColor="@color/luck_socket_border"
         android:textSize="12dp"

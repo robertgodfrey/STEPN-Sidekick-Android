@@ -26,7 +26,7 @@ import android.widget.Toast;
  * Information about the app, 'remove ads' button, option to donate.
  *
  * @author Rob Godfrey
- * @version 1.5.7 - Added level 7/8 gems
+ * @version 1.7.2 - Update names/logos
  *
  */
 
@@ -38,7 +38,7 @@ public class AboutFrag extends Fragment {
             stepnMarketGuideButton, stepnMarketGuideAuthorButton, otikxButton;
     ImageButton removeAdsButton;
     ImageView removeAdsShadow, buyCoffeeLogo, stepnGuideIv, stepnWikiIv, stepnAssistIv, stepnFpIv,
-            stepnEfIv, stepnStatsIv, stepnMarketIv;
+            stepnStatsIv, stepnMarketIv;
     TextView emailTextView, removeAdsTextView, removeAdsShadowTextView, plzSupportTextView, orTv, kritTv,
             karlTv, stepnGuideAuthorTv, stepnWikiAuthorTv, stepnAssistAuthorTv, stepnFpAuthorTv,
             stepnStatsAuthorOneTv, stepnMarketGuideAuthorTv, otikxTv;
@@ -292,7 +292,7 @@ public class AboutFrag extends Fragment {
         stepnStatsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("https://www.gam3.fi/stepn/mb-chart/");
+                Uri uri = Uri.parse("https://www.forgeblast.com/stepn/mb-chart/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -303,7 +303,7 @@ public class AboutFrag extends Fragment {
         stepnStatsAuthorOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse("https://twitter.com/gam3_fi");
+                Uri uri = Uri.parse("https://twitter.com/ForgeBlast_");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }

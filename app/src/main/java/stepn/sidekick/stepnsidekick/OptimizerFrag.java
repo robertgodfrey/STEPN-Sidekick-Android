@@ -64,7 +64,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.7.0 add sidekick api and mb percentages
+ * @version 1.7.2 fix bugs, persist GMT earning est. percentage modifier
  *
  */
 
