@@ -52,6 +52,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -3641,9 +3642,10 @@ public class OptimizerFrag extends Fragment {
 
     // calculates mb chances
     private void calcMbChances() {
+        // todo save call
         final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
-        final String SIDEKICK_BASE_URL = "https://stepn-sidekick.vercel.app/";
+        final String SIDEKICK_BASE_URL = "http://api.stepnsidekick.com/";
 
         if (localEnergy == 0 || totalLuck == 0) {
             return;
@@ -3661,26 +3663,47 @@ public class OptimizerFrag extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
-        Call<MbChances> call = sidekickApi.getMbChances(getString(R.string.sidekick_api), localEnergy, totalLuck);
+        Call<MbChances> call = sidekickApi.getMbChances(localEnergy);
 
-        call.enqueue(new Callback<MbChances>() {
+        Thread getMbChances = new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<MbChances> call, Response<MbChances> response) {
-                try {
-                    MbChances predictions = response.body();
-                    updateMbs(predictions.getPredictions());
-                } catch (NullPointerException e) {
-                    updateMbs(new int[10]);
-                }
-                mbLoadingSpinner.setVisibility(View.GONE);
-            }
+            public void run() {
+                call.enqueue(new Callback<MbChances>() {
+                    @Override
+                    public void onResponse(Call<MbChances> call, Response<MbChances> response) {
+                        try {
+                            MbChances jsonResponse = response.body();
+                            Map<String, Integer> luckIndices = jsonResponse.getLuck();
+                            int[][] probabilities = jsonResponse.getProbabilities();
+                            int gap = ((int) totalLuck - 1) % 10;
+                            int roundedLuck = (int) totalLuck - gap;
+                            if (gap > 5) {
+                                roundedLuck += 10;
+                            }
+                            if (roundedLuck > 11261) {
+                                roundedLuck = 11261;
+                            }
+                            updateMbs(probabilities[luckIndices.getOrDefault(String.valueOf(roundedLuck), 0)]);
+                        } catch (NullPointerException e) {
+                            updateMbs(new int[10]);
+                        }
+                        mbLoadingSpinner.setVisibility(View.GONE);
+                    }
 
-            @Override
-            public void onFailure(Call<MbChances> call, Throwable t) {
-                // keep on truckin
-                mbLoadingSpinner.setVisibility(View.GONE);
+                    @Override
+                    public void onFailure(Call<MbChances> call, Throwable t) {
+                        // keep on truckin
+                        mbLoadingSpinner.setVisibility(View.GONE);
+                    }
+                });
             }
         });
+        getMbChances.start();
+        try {
+            getMbChances.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // update layout to display mb predictions

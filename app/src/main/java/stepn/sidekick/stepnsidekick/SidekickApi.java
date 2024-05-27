@@ -2,17 +2,12 @@ package stepn.sidekick.stepnsidekick;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 public interface SidekickApi {
-    @GET("mb")
-    Call<MbChances> getMbChances(
-            @Header("API-Key") String apiKey,
-            @Query("energy") double energy,
-            @Query("luck") double luck
-    );
+    @GET("mb/{energy}")
+    Call<MbChances> getMbChances(@Path("energy") double energy);
 
-    @GET("gmt")
-    Call<GmtMagicNumbers> getGmtNumbers(@Header("API-Key") String apiKey);
+    @GET("gmt/numbers")
+    Call<GmtMagicNumbers> getGmtNumbers();
 }

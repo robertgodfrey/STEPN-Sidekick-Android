@@ -202,14 +202,14 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
     }
 
     private void fetchGmtNums() {
-        final String SIDEKICK_BASE_URL = "https://stepn-sidekick.vercel.app/";
+        final String SIDEKICK_BASE_URL = "http://api.stepnsidekick.com/";
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
 
-        Call<GmtMagicNumbers> call = sidekickApi.getGmtNumbers(getString(R.string.sidekick_api));
+        Call<GmtMagicNumbers> call = sidekickApi.getGmtNumbers();
 
         Thread getGmtNums = new Thread(new Runnable() {
             @Override
@@ -217,7 +217,6 @@ public class MainActivity extends AppCompatActivity implements MaxAdViewAdListen
                 call.enqueue(new Callback<GmtMagicNumbers>() {
                     @Override
                     public void onResponse(Call<GmtMagicNumbers> call, Response<GmtMagicNumbers> response) {
-
                         try {
                             GmtMagicNumbers magicNumbers = response.body();
                             double gmtNumA = magicNumbers.getA();
