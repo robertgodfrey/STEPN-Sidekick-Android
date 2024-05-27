@@ -18,6 +18,7 @@ import static stepn.sidekick.stepnsidekick.Finals.COLOR_PROGRESS_GMT;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -229,7 +230,7 @@ public class OptimizerFrag extends Fragment {
                 gmtEarningOn = getSharedPrefs.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
                 shoeChain = getSharedPrefs.getInt(CHAIN_PREF + shoeNumString, SOL);
                 gmtPercentModifier = getSharedPrefs.getInt(GMT_PERCENT_MODIFIER_PREF, 100);
-                shoeLocked = getSharedPrefs.getBoolean(SHOE_LOCKED_PREF, false);
+                shoeLocked = getSharedPrefs.getBoolean(SHOE_LOCKED_PREF + shoeNumString, false);
 
                 gmtNumA = getSharedPrefs.getFloat(GMT_NUM_A, 0.0538f);
                 gmtNumB = getSharedPrefs.getFloat(GMT_NUM_B, 0.4741f);
@@ -1508,6 +1509,7 @@ public class OptimizerFrag extends Fragment {
         updateGmtSwitch();
         updateChain();
         calcTotals();
+        updateShoeLockStatus();
 
         if (update) {
             update = false;
@@ -1537,7 +1539,14 @@ public class OptimizerFrag extends Fragment {
 
     private void shoeLockedAlert() {
         Toast.makeText(getContext(), "Shoe locked", Toast.LENGTH_SHORT).show();
-        // todo flash lock?
+        ObjectAnimator scaler = ObjectAnimator.ofPropertyValuesHolder(
+                shoeLockedImageView,
+                PropertyValuesHolder.ofFloat("scaleX", 1.2f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.2f));
+        scaler.setDuration(120);
+        scaler.setRepeatCount(3);
+        scaler.setRepeatMode(ValueAnimator.REVERSE);
+        scaler.start();
     }
 
     // locks buttons/inputs for shoe
@@ -4146,6 +4155,7 @@ public class OptimizerFrag extends Fragment {
                 editor.putBoolean(ONE_TWENTY_FIVE_BOOL_PREF + oldShoeNumString, oneTwentyFive);
                 editor.putBoolean(GMT_EARNING_PREF + oldShoeNumString, gmtEarningOn);
                 editor.putInt(CHAIN_PREF + oldShoeNumString, shoeChain);
+                editor.putBoolean(SHOE_LOCKED_PREF + oldShoeNumString, shoeLocked);
 
                 editor.putInt(GEM_ONE_TYPE_PREF + oldShoeNumString, gems.get(0).getSocketType());
                 editor.putInt(GEM_ONE_RARITY_PREF + oldShoeNumString, gems.get(0).getSocketRarity());
@@ -4180,6 +4190,7 @@ public class OptimizerFrag extends Fragment {
                 oneTwentyFive = sharedPreferences.getBoolean(ONE_TWENTY_FIVE_BOOL_PREF + shoeNumString, false);
                 gmtEarningOn = sharedPreferences.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
                 shoeChain = sharedPreferences.getInt(CHAIN_PREF + shoeNumString, SOL);
+                shoeLocked = sharedPreferences.getBoolean(SHOE_LOCKED_PREF + shoeNumString, false);
 
                 gems.clear();
 
@@ -4212,6 +4223,7 @@ public class OptimizerFrag extends Fragment {
         updateType();
         updateRarity();
         updateChain();
+        updateShoeLockStatus();
         calcTotals();
     }
 
@@ -4479,6 +4491,7 @@ public class OptimizerFrag extends Fragment {
         editor.putInt(CHAIN_PREF + shoeNumString, shoeChain);
         editor.putInt(SHOE_NUM_PREF, shoeNum);
         editor.putInt(GMT_PERCENT_MODIFIER_PREF, gmtPercentModifier);
+        editor.putBoolean(SHOE_LOCKED_PREF + shoeNumString, shoeLocked);
 
         editor.putInt(GEM_ONE_TYPE_PREF + shoeNumString, gems.get(0).getSocketType());
         editor.putInt(GEM_ONE_RARITY_PREF + shoeNumString, gems.get(0).getSocketRarity());
