@@ -270,6 +270,27 @@
         app:layout_constraintTop_toTopOf="@+id/shoeNameImageView"
         app:srcCompat="@drawable/button_start_shadow" />
 
+    <ImageView
+        android:id="@+id/shoeLock"
+        android:layout_height="20dp"
+        android:layout_width="20dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@+id/shoeNameEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeNameEditText"
+        app:layout_constraintTop_toTopOf="@+id/shoeNameEditText"
+        app:srcCompat="@mipmap/shoe_lock_open"  />
+
+    <Button
+        android:id="@+id/shoeLockButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="#00FFFFFF"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/shoeLock"
+        app:layout_constraintEnd_toEndOf="@+id/shoeLock"
+        app:layout_constraintStart_toStartOf="@+id/shoeLock"
+        app:layout_constraintTop_toTopOf="@+id/shoeLock" />
+
     <TextView
         android:id="@+id/shoeOneTextView"
         android:layout_width="wrap_content"

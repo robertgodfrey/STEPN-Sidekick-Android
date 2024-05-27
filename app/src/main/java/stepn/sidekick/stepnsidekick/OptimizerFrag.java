@@ -107,6 +107,7 @@ public class OptimizerFrag extends Fragment {
     private final String GMT_EARNING_PREF = "gmtEarning";
     private final String CHAIN_PREF = "chain";
     private final String GMT_PERCENT_MODIFIER_PREF = "gmtPercentModifier";
+    private final String SHOE_LOCKED_PREF = "shoeLocked";
 
     private final int SOL = 1;
     private final int BSC = 3;
@@ -126,7 +127,8 @@ public class OptimizerFrag extends Fragment {
     Button gemSocketOneButton, gemSocketTwoButton, gemSocketThreeButton, gemSocketFourButton,
             subEffButton, addEffButton, subLuckButton, addLuckButton, subComfButton, addComfButton,
             subResButton, addResButton, changeComfGemButton, leftButton, rightButton, resetButton,
-            oneTwentyFiveButton, changeGmtEstimateButton, changeGstLimitButton, toggleGstEstLimitButton;
+            oneTwentyFiveButton, changeGmtEstimateButton, changeGstLimitButton, toggleGstEstLimitButton,
+            shoeLockedButton;
     SeekBar levelSeekbar;
     EditText energyEditText, effEditText, luckEditText, comfortEditText, resEditText, focusThief,
             shoeNameEditText, comfGemPriceEditText;
@@ -152,7 +154,7 @@ public class OptimizerFrag extends Fragment {
             comfGemHpRepairImageView, comfGemHpRepairTotalImageView, optimizeLuckButtonShadow,
             shoeNameBoxImageView, footOneShadow, footTwoShadow, footThreeShadow, estGstGmtIcon,
             totalGmtIcon, chainSelectShadow, coinSelectShadow, coinSelectIcon, coinSelectIconShadow,
-            gemPriceBox;
+            gemPriceBox, shoeLockedImageView;
 
 
     LinearLayout shoeTypeLayout, shoeTypeLayoutShadow;
@@ -164,7 +166,8 @@ public class OptimizerFrag extends Fragment {
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier, oneTwentyFiveEnergy,
             prevMbEnergy, prevMbLuck;
-    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit, fragActive;
+    private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit, fragActive,
+            shoeLocked;
     private double hpLoss, comfGemPrice, gmtNumA, gmtNumB, gmtNumC;
     private String shoeName, shoeImageUrl;
 
@@ -226,6 +229,7 @@ public class OptimizerFrag extends Fragment {
                 gmtEarningOn = getSharedPrefs.getBoolean(GMT_EARNING_PREF + shoeNumString, false);
                 shoeChain = getSharedPrefs.getInt(CHAIN_PREF + shoeNumString, SOL);
                 gmtPercentModifier = getSharedPrefs.getInt(GMT_PERCENT_MODIFIER_PREF, 100);
+                shoeLocked = getSharedPrefs.getBoolean(SHOE_LOCKED_PREF, false);
 
                 gmtNumA = getSharedPrefs.getFloat(GMT_NUM_A, 0.0538f);
                 gmtNumB = getSharedPrefs.getFloat(GMT_NUM_B, 0.4741f);
@@ -332,6 +336,8 @@ public class OptimizerFrag extends Fragment {
         gemSocketFourButton = view.findViewById(R.id.gemSocketFourButton);
 
         shoeNameBoxImageView = view.findViewById(R.id.shoeNameImageView);
+        shoeLockedImageView = view.findViewById(R.id.shoeLock);
+        shoeLockedButton = view.findViewById(R.id.shoeLockButton);
         comfGemHpRepairImageView = view.findViewById(R.id.comfGemHpRepair);
         changeComfGemButton = view.findViewById(R.id.changeComfGemButton);
         changeGmtEstimateButton = view.findViewById(R.id.changeGmtEstimateButton);
@@ -529,6 +535,15 @@ public class OptimizerFrag extends Fragment {
             }
         });
 
+        shoeLockedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shoeLocked = !shoeLocked;
+                updateShoeLockStatus();
+                Toast.makeText(getContext(), "Shoe attributes " + (shoeLocked ? "locked" : "unlocked"), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -582,6 +597,10 @@ public class OptimizerFrag extends Fragment {
         shoeCircles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 changeShoeImage();
             }
         });
@@ -589,6 +608,10 @@ public class OptimizerFrag extends Fragment {
         shoeRarityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (shoeRarity == 5) {
                     shoeRarity = 2;
                 } else {
@@ -612,6 +635,9 @@ public class OptimizerFrag extends Fragment {
         shoeRarityButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (shoeLocked) {
+                    return false;
+                }
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         shoeRarityButton.setVisibility(View.INVISIBLE);
@@ -645,6 +671,10 @@ public class OptimizerFrag extends Fragment {
         shoeTypeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (shoeType == 3) {
                     shoeType = 0;
                 } else {
@@ -669,6 +699,9 @@ public class OptimizerFrag extends Fragment {
         shoeTypeButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (shoeLocked) {
+                    return false;
+                }
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         shoeTypeButton.setVisibility(View.INVISIBLE);
@@ -805,7 +838,6 @@ public class OptimizerFrag extends Fragment {
                             baseEff = Float.parseFloat(effEditText.getText().toString());
                         }
                     }
-
                     updatePoints();
                 }
             }
@@ -880,6 +912,10 @@ public class OptimizerFrag extends Fragment {
         subEffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (addedEff > 0) {
                     addedEff--;
                     pointsAvailable++;
@@ -894,6 +930,10 @@ public class OptimizerFrag extends Fragment {
         subEffButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return false;
+                }
                 if (addedEff > 0) {
                     pointsAvailable += addedEff;
                     addedEff = 0;
@@ -909,6 +949,10 @@ public class OptimizerFrag extends Fragment {
         addEffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (pointsAvailable > 0) {
                     addedEff++;
                     pointsAvailable--;
@@ -923,6 +967,10 @@ public class OptimizerFrag extends Fragment {
         addEffButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return false;
+                }
                 if (pointsAvailable > 0) {
                     addedEff += pointsAvailable;
                     pointsAvailable = 0;
@@ -938,6 +986,10 @@ public class OptimizerFrag extends Fragment {
         subLuckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (addedLuck > 0) {
                     addedLuck--;
                     pointsAvailable++;
@@ -952,6 +1004,10 @@ public class OptimizerFrag extends Fragment {
         subLuckButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return false;
+                }
                 if (addedLuck > 0) {
                     pointsAvailable += addedLuck;
                     addedLuck = 0;
@@ -967,6 +1023,10 @@ public class OptimizerFrag extends Fragment {
         addLuckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (pointsAvailable > 0) {
                     addedLuck++;
                     pointsAvailable--;
@@ -981,6 +1041,10 @@ public class OptimizerFrag extends Fragment {
         addLuckButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return false;
+                }
                 if (pointsAvailable > 0) {
                     addedLuck += pointsAvailable;
                     pointsAvailable = 0;
@@ -996,6 +1060,10 @@ public class OptimizerFrag extends Fragment {
         subComfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (addedComf > 0) {
                     addedComf--;
                     pointsAvailable++;
@@ -1010,6 +1078,10 @@ public class OptimizerFrag extends Fragment {
         subComfButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return false;
+                }
                 if (addedComf > 0) {
                     pointsAvailable += addedComf;
                     addedComf = 0;
@@ -1025,6 +1097,10 @@ public class OptimizerFrag extends Fragment {
         addComfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (pointsAvailable > 0) {
                     addedComf++;
                     pointsAvailable--;
@@ -1039,6 +1115,10 @@ public class OptimizerFrag extends Fragment {
         addComfButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return false;
+                }
                 if (pointsAvailable > 0) {
                     addedComf += pointsAvailable;
                     pointsAvailable = 0;
@@ -1054,10 +1134,13 @@ public class OptimizerFrag extends Fragment {
         subResButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (addedRes > 0) {
                     addedRes--;
                     pointsAvailable++;
-
                     resTotalTextView.setText(String.valueOf(baseRes + addedRes + gemRes));
                     updatePoints();
                     clearFocus(view);
@@ -1068,6 +1151,10 @@ public class OptimizerFrag extends Fragment {
         subResButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return false;
+                }
                 if (addedRes > 0) {
                     pointsAvailable += addedRes;
                     addedRes = 0;
@@ -1083,6 +1170,10 @@ public class OptimizerFrag extends Fragment {
         addResButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (pointsAvailable > 0) {
                     addedRes++;
                     pointsAvailable--;
@@ -1097,6 +1188,10 @@ public class OptimizerFrag extends Fragment {
         addResButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return false;
+                }
                 if (pointsAvailable > 0) {
                     addedRes += pointsAvailable;
                     pointsAvailable = 0;
@@ -1112,6 +1207,10 @@ public class OptimizerFrag extends Fragment {
         optimizeGstGmtButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (energy > 0) {
                     if (gmtEarningOn) {
                         if (comfGemPrice == 0) {
@@ -1139,6 +1238,9 @@ public class OptimizerFrag extends Fragment {
         optimizeGstGmtButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (shoeLocked) {
+                    return false;
+                }
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         optimizeGstGmtButton.setVisibility(View.INVISIBLE);
@@ -1159,6 +1261,10 @@ public class OptimizerFrag extends Fragment {
         optimizeLuckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (energy > 0) {
                     if (comfGemPrice == 0) {
                         Toast.makeText(getContext(), "For a more accurate estimation, enter comfort gem price", Toast.LENGTH_SHORT).show();
@@ -1180,6 +1286,9 @@ public class OptimizerFrag extends Fragment {
         optimizeLuckButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (shoeLocked) {
+                    return false;
+                }
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         optimizeLuckButton.setVisibility(View.INVISIBLE);
@@ -1241,6 +1350,10 @@ public class OptimizerFrag extends Fragment {
         chainSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (shoeChain == SOL) {
                     shoeChain = BSC;
                 } else if (shoeChain == BSC) {
@@ -1257,6 +1370,9 @@ public class OptimizerFrag extends Fragment {
         chainSelectButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (shoeLocked) {
+                    return false;
+                }
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         chainSelectButton.setVisibility(View.INVISIBLE);
@@ -1287,6 +1403,10 @@ public class OptimizerFrag extends Fragment {
         coinSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
                 if (shoeLevel != 30) {
                     Toast.makeText(getContext(), "GMT earning unlocked at level 30", Toast.LENGTH_SHORT).show();
                 } else {
@@ -1301,6 +1421,9 @@ public class OptimizerFrag extends Fragment {
         coinSelectButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (shoeLocked) {
+                    return false;
+                }
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         coinSelectButton.setVisibility(View.INVISIBLE);
@@ -1346,6 +1469,10 @@ public class OptimizerFrag extends Fragment {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (shoeLocked) {
+                    shoeLockedAlert();
+                    return;
+                }
 
                 Dialog dialog = new Dialog(requireActivity());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1406,6 +1533,34 @@ public class OptimizerFrag extends Fragment {
             });
         }
         return view;
+    }
+
+    private void shoeLockedAlert() {
+        Toast.makeText(getContext(), "Shoe locked", Toast.LENGTH_SHORT).show();
+        // todo flash lock?
+    }
+
+    // locks buttons/inputs for shoe
+    private void updateShoeLockStatus() {
+        shoeLockedImageView.setImageResource(shoeLocked ? R.mipmap.shoe_lock_closed : R.mipmap.shoe_lock_open);
+        levelSeekbar.setEnabled(!shoeLocked);
+        effEditText.setEnabled(!shoeLocked);
+        luckEditText.setEnabled(!shoeLocked);
+        comfortEditText.setEnabled(!shoeLocked);
+        resEditText.setEnabled(!shoeLocked);
+
+        if (shoeLocked) {
+            effMinusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
+            effPlusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
+            luckMinusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
+            luckPlusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
+            comfMinusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
+            comfPlusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
+            resMinusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
+            resPlusTv.setTextColor(COLOR_GEM_SOCKET_SHADOW);
+        } else {
+            updatePoints();
+        }
     }
 
     // updates UI depending on shoe rarity
