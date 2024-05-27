@@ -54,7 +54,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Main activity - Container for user to select which fragment to view (exercise, optimizer, or about)
  *
  * @author Rob Godfrey
- * @version 1.7.0 add sidekick api and mb percentages
+ * @version 1.7.3 switch API from vercel
  *
  */
 

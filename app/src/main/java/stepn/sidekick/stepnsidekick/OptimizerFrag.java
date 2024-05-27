@@ -27,6 +27,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -65,7 +66,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * and mystery box chance.
  *
  * @author Rob Godfrey
- * @version 1.7.2 fix bugs, persist GMT earning est. percentage modifier
+ * @version 1.7.3 switch API from vercel
  *
  */
 
@@ -162,13 +163,15 @@ public class OptimizerFrag extends Fragment {
             gmtPercentModifier;
     private float baseMin, baseMax, baseEff, baseLuck, baseComf, baseRes, gemEff, gemLuck, gemComf,
             gemRes, dpScale, energy, hpPercentRestored, comfGemMultiplier, oneTwentyFiveEnergy,
-            energyForMbCalc, luckForMbCalc;
+            prevMbEnergy, prevMbLuck;
     private boolean saveNewGem, update, oneTwentyFive, gmtEarningOn, useGstLimit, fragActive;
     private double hpLoss, comfGemPrice, gmtNumA, gmtNumB, gmtNumC;
     private String shoeName, shoeImageUrl;
 
     private double[] TOKEN_PRICES;
     private double[] GEM_PRICES;
+    private Map<String, Integer> mbLuckIndices;
+    private int[][] mbProbabilities;
 
     ArrayList<Gem> gems;
 
@@ -3642,7 +3645,6 @@ public class OptimizerFrag extends Fragment {
 
     // calculates mb chances
     private void calcMbChances() {
-        // todo save call
         final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
         final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
         final String SIDEKICK_BASE_URL = "http://api.stepnsidekick.com/";
@@ -3650,59 +3652,77 @@ public class OptimizerFrag extends Fragment {
         if (localEnergy == 0 || totalLuck == 0) {
             return;
         }
-        if (energyForMbCalc == localEnergy && luckForMbCalc == totalLuck) {
+        if (prevMbEnergy == localEnergy && prevMbLuck == totalLuck) {
+            // energy & luck are the same as before, do not recalculate
             return;
         }
 
         clearMbs();
         mbLoadingSpinner.setVisibility(View.VISIBLE);
-        energyForMbCalc = localEnergy;
-        luckForMbCalc = totalLuck;
+        prevMbLuck = totalLuck;
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(SIDEKICK_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
-        Call<MbChances> call = sidekickApi.getMbChances(localEnergy);
-
-        Thread getMbChances = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                call.enqueue(new Callback<MbChances>() {
-                    @Override
-                    public void onResponse(Call<MbChances> call, Response<MbChances> response) {
-                        try {
+        if (prevMbEnergy != localEnergy) {
+            // get updated energy/luck probs
+            prevMbEnergy = localEnergy;
+            Thread getMbChances = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(SIDEKICK_BASE_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    SidekickApi sidekickApi = retrofit.create(SidekickApi.class);
+                    Call<MbChances> call = sidekickApi.getMbChances(localEnergy);
+                    call.enqueue(new Callback<MbChances>() {
+                        @Override
+                        public void onResponse(@NonNull Call<MbChances> call, @NonNull Response<MbChances> response) {
                             MbChances jsonResponse = response.body();
-                            Map<String, Integer> luckIndices = jsonResponse.getLuck();
-                            int[][] probabilities = jsonResponse.getProbabilities();
-                            int gap = ((int) totalLuck - 1) % 10;
-                            int roundedLuck = (int) totalLuck - gap;
-                            if (gap > 5) {
-                                roundedLuck += 10;
+                            if (jsonResponse != null) {
+                                mbLuckIndices = jsonResponse.getLuck();
+                                mbProbabilities = jsonResponse.getProbabilities();
+                                findMbProbs(totalLuck, localEnergy);
+                            } else {
+                                updateMbs(new int[10]);
+                                Toast.makeText(requireActivity(), "Could not fetch MB probabilities", Toast.LENGTH_SHORT).show();
                             }
-                            if (roundedLuck > 11261) {
-                                roundedLuck = 11261;
-                            }
-                            updateMbs(probabilities[luckIndices.getOrDefault(String.valueOf(roundedLuck), 0)]);
-                        } catch (NullPointerException e) {
-                            updateMbs(new int[10]);
+                            mbLoadingSpinner.setVisibility(View.GONE);
                         }
-                        mbLoadingSpinner.setVisibility(View.GONE);
-                    }
 
-                    @Override
-                    public void onFailure(Call<MbChances> call, Throwable t) {
-                        // keep on truckin
-                        mbLoadingSpinner.setVisibility(View.GONE);
-                    }
-                });
+                        @Override
+                        public void onFailure(@NonNull Call<MbChances> call, @NonNull Throwable t) {
+                            // keep on truckin
+                            mbLoadingSpinner.setVisibility(View.GONE);
+                            Toast.makeText(requireActivity(), "Couldn't fetch MB probabilities", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+            getMbChances.start();
+            try {
+                getMbChances.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
-        getMbChances.start();
+        } else {
+            // use the energy/luck probs we already have
+            findMbProbs(totalLuck, localEnergy);
+            mbLoadingSpinner.setVisibility(View.GONE);
+        }
+    }
+
+    private void findMbProbs(float totalLuck, float localEnergy) {
+        int gap = ((int) totalLuck - 1) % 10;
+        int roundedLuck = (int) totalLuck - gap;
+        if (gap > 5) {
+            roundedLuck += 10;
+        }
+        if (roundedLuck > 11261) {
+            roundedLuck = 11261;
+        }
         try {
-            getMbChances.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            updateMbs(mbProbabilities[mbLuckIndices.getOrDefault(String.valueOf(roundedLuck), 0)]);
+        } catch (NullPointerException e) {
+            updateMbs(new int[10]);
         }
     }
 
