@@ -63,7 +63,7 @@
         android:text="@string/app_goal"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="16dp"
+        android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
@@ -74,13 +74,14 @@
         style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:includeFontPadding="false"
         android:text="@string/notes"
         android:textAllCaps="true"
         android:textColor="@color/almost_black"
         android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="@+id/notesDeets1TextView"
+        app:layout_constraintStart_toStartOf="@+id/backgroundThing"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/aboutDeetsTextView" />
 
     <TextView
@@ -94,7 +95,7 @@
         android:text="1."
         android:textAlignment="viewStart"
         android:textColor="@color/almost_black"
-        android:textSize="16dp"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/notesTextView" />
 
@@ -110,7 +111,7 @@
         android:text="@string/notes_details1"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
-        android:textSize="16dp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/notesOneLabel"
         app:layout_constraintTop_toTopOf="@+id/notesOneLabel" />
@@ -126,7 +127,7 @@
         android:text="2."
         android:textAlignment="viewStart"
         android:textColor="@color/almost_black"
-        android:textSize="16dp"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/notesDeets1TextView" />
 
@@ -142,7 +143,7 @@
         android:text="@string/notes_details2"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
-        android:textSize="16dp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
         app:layout_constraintTop_toTopOf="@+id/notesTwoLabel" />
@@ -158,7 +159,7 @@
         android:text="3."
         android:textAlignment="viewStart"
         android:textColor="@color/almost_black"
-        android:textSize="16dp"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
         app:layout_constraintTop_toBottomOf="@+id/notesDeets2TextView" />
 
@@ -174,7 +175,7 @@
         android:text="@string/notes_details4"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
-        android:textSize="16dp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
         app:layout_constraintTop_toTopOf="@+id/notesThreeLabel" />
