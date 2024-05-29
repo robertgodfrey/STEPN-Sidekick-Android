@@ -3809,7 +3809,7 @@ public class OptimizerFrag extends Fragment {
     // calculates mb chances
     private void calcMbChances() {
         final float totalLuck = Float.parseFloat(luckTotalTextView.getText().toString());
-        final float localEnergy = (oneTwentyFive ? oneTwentyFiveEnergy : energy);
+        final float localEnergy = (oneTwentyFive ? (float) (Math.round(oneTwentyFiveEnergy * 10) / 10.0) : energy);
         final String SIDEKICK_BASE_URL = "http://api.stepnsidekick.com/";
 
         if (localEnergy == 0 || totalLuck == 0) {
@@ -3822,7 +3822,7 @@ public class OptimizerFrag extends Fragment {
 
         clearMbs();
 
-        if (localEnergy * 10 % 2 != 0) {
+        if ((localEnergy * 10) % 2 != 0) {
             Toast.makeText(requireActivity(), "Energy should be a multiple of 0.2", Toast.LENGTH_SHORT).show();
             return;
         }
