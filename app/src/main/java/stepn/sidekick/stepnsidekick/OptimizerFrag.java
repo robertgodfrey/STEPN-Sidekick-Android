@@ -54,7 +54,6 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -174,7 +173,7 @@ public class OptimizerFrag extends Fragment {
 
     private double[] TOKEN_PRICES;
     private double[] GEM_PRICES;
-    private Map<String, Integer> mbLuckIndices;
+    private int[] mbLuckIndices;
     private int[][] mbProbabilities;
 
     ArrayList<Gem> gems;
@@ -3822,6 +3821,12 @@ public class OptimizerFrag extends Fragment {
         }
 
         clearMbs();
+
+        if (localEnergy * 10 % 2 != 0) {
+            Toast.makeText(requireActivity(), "Energy should be a multiple of 0.2", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mbLoadingSpinner.setVisibility(View.VISIBLE);
         prevMbLuck = totalLuck;
 
@@ -3884,7 +3889,7 @@ public class OptimizerFrag extends Fragment {
             roundedLuck = 11261;
         }
         try {
-            updateMbs(mbProbabilities[mbLuckIndices.getOrDefault(String.valueOf(roundedLuck), 0)]);
+            updateMbs(mbProbabilities[mbLuckIndices[(roundedLuck - 1) / 10]]);
         } catch (NullPointerException e) {
             updateMbs(new int[10]);
         }

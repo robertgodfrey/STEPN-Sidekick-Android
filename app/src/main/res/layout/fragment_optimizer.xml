@@ -2082,7 +2082,7 @@
 
     <TextView
         android:id="@+id/mbLvl1Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -2109,7 +2109,7 @@
 
     <TextView
         android:id="@+id/mbLvl2Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0%"
@@ -2136,7 +2136,7 @@
 
     <TextView
         android:id="@+id/mbLvl3Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -2163,7 +2163,7 @@
 
     <TextView
         android:id="@+id/mbLvl4Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -2189,7 +2189,7 @@
 
     <TextView
         android:id="@+id/mbLvl5Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -2216,7 +2216,7 @@
 
     <TextView
         android:id="@+id/mbLvl6Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -2243,7 +2243,7 @@
 
     <TextView
         android:id="@+id/mbLvl7Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -2270,7 +2270,7 @@
 
     <TextView
         android:id="@+id/mbLvl8Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -2297,7 +2297,7 @@
 
     <TextView
         android:id="@+id/mbLvl9Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -2323,7 +2323,7 @@
 
     <TextView
         android:id="@+id/mbLvl10Percent"
-        style="@style/BoldItalicSubtitles"
+        android:fontFamily="@font/roboto_condensed_bold_italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"

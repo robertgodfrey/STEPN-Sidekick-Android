@@ -56,14 +56,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:fontFamily="@font/roboto"
         android:includeFontPadding="false"
         android:text="@string/app_goal"
         android:textAlignment="center"
         android:textColor="@color/almost_black"
-        android:textSize="15dp"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
@@ -74,7 +74,7 @@
         style="@style/BoldItalicSubtitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:includeFontPadding="false"
         android:text="@string/notes"
         android:textAllCaps="true"
@@ -172,13 +172,45 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto"
         android:includeFontPadding="false"
-        android:text="@string/notes_details4"
+        android:text="@string/notes_details3"
         android:textAlignment="textStart"
         android:textColor="@color/almost_black"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toEndOf="@+id/notesTwoLabel"
         app:layout_constraintTop_toTopOf="@+id/notesThreeLabel" />
+
+    <TextView
+        android:id="@+id/notesFourLabel"
+        style="@style/RegText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:text="4."
+        android:textAlignment="viewStart"
+        android:textColor="@color/almost_black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@id/backgroundThing"
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
+
+    <TextView
+        android:id="@+id/notesDeets4TextView"
+        style="@style/RegText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:text="@string/notes_details4"
+        android:textAlignment="textStart"
+        android:textColor="@color/almost_black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@id/backgroundThing"
+        app:layout_constraintStart_toEndOf="@+id/notesThreeLabel"
+        app:layout_constraintTop_toTopOf="@+id/notesFourLabel" />
 
     <TextView
         android:id="@+id/thanksTextView"
@@ -195,7 +227,7 @@
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@id/backgroundThing"
         app:layout_constraintStart_toStartOf="@id/backgroundThing"
-        app:layout_constraintTop_toBottomOf="@+id/notesDeets3TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/notesDeets4TextView" />
 
     <TextView
         android:id="@+id/kritThanksTextView"

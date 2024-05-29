@@ -34,8 +34,9 @@
     <string name="notes">Notes</string>
     <string name="notes_details1">It is best to use this app on the same device that is running STEPN so that both apps are using the same location data.</string>
     <string name="notes_details2">STEPN adds a 30-second buffer to every activity. This app\'s timer accounts for this extra time, but it may not match STEPN\'s timer exactly.</string>
-    <string name="notes_details3">Mystery box chances should be acceptably accurate for levels 1–6, but please do not rely too much on these estimates because they are not precise. Estimates for levels 7–10 will be less accurate; they are difficult to predict due to the lack of available data.</string>
-    <string name="note_details4">HP is still new and may change. The HP estimate will improve as we get more data from the community.</string>
+    <string name="notes_details3">
+Mystery box probabilities are calculated using a machine learning model based on community data from ForgeBlast (see below). The probabilities should be fairly accurate, but they are based on patterns and trends and should not be taken as a guarantee.</string>
+    <string name="notes_details4">GMT earnings are constantly changing and are difficult to predict. This app\'s estimate will give you an idea of the earning range to expect, but is not precise (and if it\'s way off, feel free to shoot me an email!).</string>
     <string name="contact">Please contact me if you find any errors or have any suggestions to improve the app:</string>
     <string name="contact_email" translatable="false">sidekickfeedback@gmail.com</string>
     <string name="support_project">If you enjoy the app, please consider supporting!</string>
@@ -130,7 +131,6 @@
     <string name="both">BOTH</string>
     <string name="optimize_gmt">OPTIMIZE GMT</string>
     <string name="est_gmt_range">Est. GMT / Min:</string>
-    <string name="notes_details4">GMT earnings are always changing and are difficult to predict. This app\'s estimate will give you an idea of the earning range to expect, but is not precise.</string>
     <string name="chain">Chain</string>
     <string name="token">Token</string>
     <string name="comf_gem_price">Gem Price</string>

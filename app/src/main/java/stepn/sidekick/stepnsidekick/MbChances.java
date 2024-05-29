@@ -1,23 +1,22 @@
 package stepn.sidekick.stepnsidekick;
 
 import androidx.annotation.Keep;
-import java.util.Map;
 import com.google.gson.annotations.SerializedName;
 
 @Keep
 public class MbChances {
     @SerializedName("luck")
-    private final Map<String, Integer> luck;
+    private final int[] luck;
 
     @SerializedName("probabilities")
     private final int[][] probabilities;
 
-    public MbChances(Map<String, Integer> luck, int[][] probabilities) {
+    public MbChances(int[] luck, int[][] probabilities) {
         this.luck = luck;
         this.probabilities = probabilities;
     }
 
-    public Map<String, Integer> getLuck() {
+    public int[] getLuck() {
         return this.luck;
     }
 
