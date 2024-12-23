@@ -111,7 +111,7 @@ public class OptimizerFrag extends Fragment {
 
     private final int SOL = 1;
     private final int BSC = 3;
-    private final int ETH = 5;
+    private final int POL = 5; // replaced ETH
 
     private final int COMMON = 2;
     private final int UNCOMMON = 3;
@@ -260,7 +260,7 @@ public class OptimizerFrag extends Fragment {
             public void run() {
                 final String GECKO_BASE_URL = "https://api.coingecko.com/";
 
-                // from 0 - 6: GMT, SOL, GST-SOL, BNB, GST-BNB, ETH, GST-ETH
+                // from 0 - 6: GMT, SOL, GST-SOL, BNB, GST-BNB, POL, GST-POL
                 TOKEN_PRICES = new double[]{0, 0, 0, 0, 0, 0, 0};
 
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(GECKO_BASE_URL)
@@ -281,8 +281,9 @@ public class OptimizerFrag extends Fragment {
                             TOKEN_PRICES[2] = priceList.getGstSol();
                             TOKEN_PRICES[3] = priceList.getBinancecoin();
                             TOKEN_PRICES[4] = priceList.getGstBsc();
-                            TOKEN_PRICES[5] = priceList.getEthereum();
-                            TOKEN_PRICES[6] = priceList.getGstEth();
+                            TOKEN_PRICES[5] = priceList.getPolygon();
+                            // TOKEN_PRICES[6] = priceList.getGstPol();
+                            TOKEN_PRICES[6] = 0; // todo update when available
 
                             if (GEM_PRICES[0] != 0 && fragActive) {
                                 calcTotals();
@@ -1357,7 +1358,11 @@ public class OptimizerFrag extends Fragment {
                 if (shoeChain == SOL) {
                     shoeChain = BSC;
                 } else if (shoeChain == BSC) {
-                    shoeChain = ETH;
+                    if (fragActive) {
+                        Toast.makeText(requireActivity(), "POL-GST token price not yet available", Toast.LENGTH_SHORT).show();
+                    }
+                    totalIncomeUsdTextView.setText("?");
+                    shoeChain = POL;
                 } else {
                     shoeChain = SOL;
                 }
@@ -1382,8 +1387,8 @@ public class OptimizerFrag extends Fragment {
                             case BSC:
                                 chainSelectShadow.setImageResource(R.drawable.button_bsc);
                                 break;
-                            case ETH:
-                                chainSelectShadow.setImageResource(R.drawable.button_eth);
+                            case POL:
+                                chainSelectShadow.setImageResource(R.drawable.button_pol);
                                 break;
                             default:
                                 chainSelectShadow.setImageResource(R.drawable.button_sol);
@@ -3055,6 +3060,9 @@ public class OptimizerFrag extends Fragment {
             totalIncomeUsdTextView.setTextColor(COLOR_ALMOST_BLACK);
             totalIncomeUsdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         }
+        if (shoeChain == POL && !gmtEarningOn) {
+            totalIncomeUsdTextView.setText("?");
+        }
     }
 
     // finds the point allocation that is most profitable for GST
@@ -3222,7 +3230,11 @@ public class OptimizerFrag extends Fragment {
             addedLuck = localPoints - pointsSpent;
             addedComf = localAddedComf;
         } else {
-            Toast.makeText(requireActivity(), "Cannot optimize luck - shoe always loses money", Toast.LENGTH_SHORT).show();
+            if (shoeChain == POL) {
+                Toast.makeText(requireActivity(), "Cannot optimize luck - POL price unknown", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireActivity(), "Cannot optimize luck - shoe always loses money", Toast.LENGTH_SHORT).show();
+            }
         }
         updatePoints();
     }
@@ -4238,9 +4250,9 @@ public class OptimizerFrag extends Fragment {
                 chainSelectButton.setImageResource(R.drawable.button_bsc);
                 chainSelectTv.setText("BSC");
                 break;
-            case ETH:
-                chainSelectButton.setImageResource(R.drawable.button_eth);
-                chainSelectTv.setText("ETH");
+            case POL:
+                chainSelectButton.setImageResource(R.drawable.button_pol);
+                chainSelectTv.setText("POL");
                 break;
             default:
                 chainSelectButton.setImageResource(R.drawable.button_sol);
@@ -4341,7 +4353,8 @@ public class OptimizerFrag extends Fragment {
 
         chainNums:  SOL: 103
                     BSC: 104
-                    ETH: 101
+                    ETH: 101 -- deprecated
+                    POL: 106
 
         gemLevels:  1:  2010
                     2:  3010
@@ -4353,16 +4366,14 @@ public class OptimizerFrag extends Fragment {
         Thread fetchGemPrices = new Thread(new Runnable() {
             @Override
             public void run() {
-
                 final String GEM_BASE_URL = "https://apilb.stepn.com/";
                 int chainCode;
 
                 switch (shoeChain) {
                     case BSC:
                         chainCode = 104;
-                        break;
-                    case ETH:
-                        chainCode = 101;
+                    case POL:
+                        chainCode = 106;
                         break;
                     default:
                         chainCode = 103;

@@ -16,21 +16,21 @@ public class TokenPrices {
     private final NestedTokenPrice binancecoin;
     @SerializedName("green-satoshi-token-bsc")
     private final NestedTokenPrice gstBsc;
-    @SerializedName("ethereum")
-    private final NestedTokenPrice ethereum;
-    @SerializedName("green-satoshi-token-on-eth")
-    private final NestedTokenPrice gstEth;
+    @SerializedName("polygon-ecosystem-token")
+    private final NestedTokenPrice polygon;
+    @SerializedName("green-satoshi-token-on-pol")
+    private final NestedTokenPrice gstPol;
 
 
     public TokenPrices(NestedTokenPrice gmt, NestedTokenPrice solana, NestedTokenPrice gstSol, NestedTokenPrice binancecoin,
-                       NestedTokenPrice gstBsc, NestedTokenPrice ethereum, NestedTokenPrice gstEth) {
+                       NestedTokenPrice gstBsc, NestedTokenPrice polygon, NestedTokenPrice gstPol) {
         this.gmt = gmt;
         this.solana = solana;
         this.gstSol = gstSol;
         this.binancecoin = binancecoin;
         this.gstBsc = gstBsc;
-        this.ethereum = ethereum;
-        this.gstEth = gstEth;
+        this.polygon = polygon;
+        this.gstPol = gstPol;
     }
 
     public double getGmtPrice() {
@@ -53,12 +53,12 @@ public class TokenPrices {
         return gstBsc.getPrice();
     }
 
-    public double getEthereum() {
-        return ethereum.getPrice();
+    public double getPolygon() {
+        return polygon.getPrice();
     }
 
-    public double getGstEth() {
-        return gstEth.getPrice();
+    public double getGstPol() {
+        return gstPol.getPrice();
     }
 
 }
