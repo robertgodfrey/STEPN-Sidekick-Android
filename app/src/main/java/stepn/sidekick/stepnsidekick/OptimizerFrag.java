@@ -4368,93 +4368,52 @@ public class OptimizerFrag extends Fragment {
                         chainCode = 103;
                 }
 
-
                 Retrofit retrofitGems = new Retrofit.Builder().baseUrl(GEM_BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 GemApi myGemApi = retrofitGems.create(GemApi.class);
 
-                Call<GemPrices> callGems = myGemApi.getLevelOne(chainCode);
+                final int[] gemLevels = new int[] {2010, 3010, 4010};
 
-                callGems.enqueue(new Callback<GemPrices>() {
-                    @Override
-                    public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+                for (int i = 0; i < 3; i++) {
+                    Call<GemPrices> callGems = myGemApi.getGems(chainCode, gemLevels[i]);
+                    final int gemIndex = i;
+                    callGems.enqueue(new Callback<GemPrices>() {
+                        @Override
+                        public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
+                            try {
+                                GemPrices priceList = response.body();
 
-                        try {
-                            GemPrices priceList = response.body();
+                                GEM_PRICES[gemIndex] = (double) priceList.getPrice() / 100.0;
 
-                            GEM_PRICES[0] = (double) priceList.getPrice() / 100.0;
-
-                            if (comfGemLvlForRepair == 1 && fragActive) {
-                                comfGemPrice = GEM_PRICES[0];
-                                comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-                                calcTotals();
+                                if (comfGemLvlForRepair == gemIndex + 1 && fragActive) {
+                                    comfGemPrice = GEM_PRICES[gemIndex];
+                                    comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                                    calcTotals();
+                                }
+                            } catch (NullPointerException e) {
+                                if (fragActive) {
+                                    Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (IndexOutOfBoundsException e) {
+                                if (fragActive) {
+                                    Toast.makeText(requireActivity(), "No gems found for sale in this realm!", Toast.LENGTH_SHORT).show();
+                                    GEM_PRICES[gemIndex] = 0;
+                                    comfGemPrice = GEM_PRICES[gemIndex];
+                                    comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
+                                    calcTotals();
+                                }
                             }
+                        }
 
-                        } catch (NullPointerException e) {
+                        @Override
+                        public void onFailure(Call<GemPrices> call, Throwable t) {
                             if (fragActive) {
                                 Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GemPrices> call, Throwable t) {
-                        if (fragActive) {
-                            Toast.makeText(requireActivity(), "Unable to get gem prices. Try again in a few moments", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                callGems = myGemApi.getLevelTwo(chainCode);
-
-                callGems.enqueue(new Callback<GemPrices>() {
-                    @Override
-                    public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
-
-                        try {
-                            GemPrices priceList = response.body();
-
-                            GEM_PRICES[1] = (double) priceList.getPrice() / 100.0;
-                            if (comfGemLvlForRepair == 2 && fragActive) {
-                                comfGemPrice = GEM_PRICES[1];
-                                comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-                                calcTotals();
-                            }
-
-                        } catch (NullPointerException ignored) {
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GemPrices> call, Throwable t) {
-                    }
-                });
-
-                callGems = myGemApi.getLevelThree(chainCode);
-
-                callGems.enqueue(new Callback<GemPrices>() {
-                    @Override
-                    public void onResponse(Call<GemPrices> call, Response<GemPrices> response) {
-
-                        try {
-                            GemPrices priceList = response.body();
-
-                            GEM_PRICES[2] = (double) priceList.getPrice() / 100.0;
-                            if (comfGemLvlForRepair == 3 && fragActive) {
-                                comfGemPrice = GEM_PRICES[2];
-                                comfGemPriceEditText.setText(String.valueOf(comfGemPrice));
-                                calcTotals();
-                            }
-
-                        } catch (NullPointerException ignored) {
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GemPrices> call, Throwable t) {
-                    }
-                });
+                    });
+                }
             }
         });
         fetchGemPrices.start();
