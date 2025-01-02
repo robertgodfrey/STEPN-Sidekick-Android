@@ -2900,7 +2900,9 @@ public class OptimizerFrag extends Fragment {
 
                         @Override
                         public void onError(Exception e) {
-                            Toast.makeText(requireActivity(), "Error loading image - check URL and try again", Toast.LENGTH_SHORT).show();
+                            if (fragActive) {
+                                Toast.makeText(requireActivity(), "Error loading image - check URL and try again", Toast.LENGTH_SHORT).show();
+                            }
                             shoeImageUrl = "";
                             updateType();
                         }
@@ -3229,7 +3231,7 @@ public class OptimizerFrag extends Fragment {
             addedRes = localAddedRes;
             addedLuck = localPoints - pointsSpent;
             addedComf = localAddedComf;
-        } else {
+        } else if (fragActive) {
             if (shoeChain == POL) {
                 Toast.makeText(requireActivity(), "Cannot optimize luck - POL price unknown", Toast.LENGTH_SHORT).show();
             } else {
@@ -3287,7 +3289,7 @@ public class OptimizerFrag extends Fragment {
             addedRes = localAddedRes;
             addedLuck = localPoints - pointsSpent;
             addedComf = localAddedComf;
-        } else {
+        } else if (fragActive) {
             Toast.makeText(requireActivity(), "Cannot optimize luck - shoe always loses money", Toast.LENGTH_SHORT).show();
         }
         updatePoints();
@@ -3835,7 +3837,9 @@ public class OptimizerFrag extends Fragment {
         clearMbs();
 
         if ((localEnergy * 10) % 2 != 0) {
-            Toast.makeText(requireActivity(), "Energy should be a multiple of 0.2", Toast.LENGTH_SHORT).show();
+            if (fragActive) {
+                Toast.makeText(requireActivity(), "Energy should be a multiple of 0.2", Toast.LENGTH_SHORT).show();
+            }
             return;
         }
 
@@ -3873,7 +3877,9 @@ public class OptimizerFrag extends Fragment {
                         public void onFailure(@NonNull Call<MbChances> call, @NonNull Throwable t) {
                             // keep on truckin
                             mbLoadingSpinner.setVisibility(View.GONE);
-                            Toast.makeText(requireActivity(), "Couldn't fetch MB probabilities", Toast.LENGTH_SHORT).show();
+                            if (fragActive) {
+                                Toast.makeText(requireActivity(), "Couldn't fetch MB probabilities", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
@@ -4343,7 +4349,9 @@ public class OptimizerFrag extends Fragment {
         repairCostDurTextView.setText("0");
         totalIncomeTextView.setText("0");
 
-        Toast.makeText(requireActivity(), "Values Reset", Toast.LENGTH_SHORT).show();
+        if (fragActive) {
+            Toast.makeText(requireActivity(), "Values Reset", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getGemPrices() {
