@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/main_box" />
+        app:srcCompat="@drawable/main_box" />
 
     <ImageView
         android:id="@+id/helpButtonShadow"
@@ -122,7 +122,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/footprint2ImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-        app:srcCompat="@mipmap/footprint" />
+        app:srcCompat="@drawable/footprint" />
 
     <ImageView
         android:id="@+id/footprint2ImageView"
@@ -135,7 +135,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/footprint3ImageView"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-        app:srcCompat="@mipmap/footprint" />
+        app:srcCompat="@drawable/footprint" />
 
     <ImageView
         android:id="@+id/footprint3ImageView"
@@ -148,7 +148,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/bigOlBox"
         app:layout_constraintTop_toTopOf="@+id/shoeTypeTextView"
-        app:srcCompat="@mipmap/footprint" />
+        app:srcCompat="@drawable/footprint" />
 
     <ImageView
         android:id="@+id/shoeTypeImageView"
@@ -162,7 +162,7 @@
         app:layout_constraintEnd_toEndOf="@+id/bigOlBox"
         app:layout_constraintStart_toStartOf="@+id/bigOlBox"
         app:layout_constraintTop_toTopOf="@+id/bigOlBox"
-        app:srcCompat="@mipmap/shoe_walker" />
+        app:srcCompat="@drawable/shoe_walker" />
 
     <Button
         android:id="@+id/leftArrowButton"
@@ -589,7 +589,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="24dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@mipmap/energy_bolt" />
+                    app:srcCompat="@drawable/energy_bolt" />
 
                 <EditText
                     android:id="@+id/energyToSpendEditText"

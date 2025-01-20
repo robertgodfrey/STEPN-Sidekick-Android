@@ -501,7 +501,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orTv"
-        app:srcCompat="@mipmap/buy_beer" />
+        app:srcCompat="@drawable/buy_beer" />
 
     <Button
         android:id="@+id/buyBeerButton"
@@ -523,7 +523,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="100dp"
         android:includeFontPadding="false"
-        android:text="v 1.7.4"
+        android:text="v 1.7.5"
         android:textColor="@color/gandalf"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -586,7 +586,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otherProjectsTextView"
-        app:srcCompat="@mipmap/stepn_market_guide" />
+        app:srcCompat="@drawable/stepn_market_guide" />
 
     <Button
         android:id="@+id/stepnMarketGuideButton"
@@ -651,7 +651,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepnMarketGuideAuthor"
-        app:srcCompat="@mipmap/forgeblast" />
+        app:srcCompat="@drawable/forgeblast" />
 
     <Button
         android:id="@+id/stepnStatsButton"
@@ -737,7 +737,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepnStatsMoreDeets"
-        app:srcCompat="@mipmap/stepn_fp" />
+        app:srcCompat="@drawable/stepn_fp" />
 
     <Button
         android:id="@+id/stepnFpButton"
@@ -803,7 +803,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepnFpAuthor"
-        app:srcCompat="@mipmap/stepn_wiki" />
+        app:srcCompat="@drawable/stepn_wiki" />
 
     <Button
         android:id="@+id/stepnWikiButton"
@@ -870,7 +870,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepnWikiDeets"
-        app:srcCompat="@mipmap/stepn_assist" />
+        app:srcCompat="@drawable/stepn_assist" />
 
     <Button
         android:id="@+id/stepnAssistButton"
@@ -937,7 +937,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepnAssistAuthor"
-        app:srcCompat="@mipmap/stepn_guide" />
+        app:srcCompat="@drawable/stepn_guide" />
 
     <Button
         android:id="@+id/stepnGuideButton"

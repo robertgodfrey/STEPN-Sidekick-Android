@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@mipmap/gem_symbol_efficiency" />
+        app:srcCompat="@drawable/gem_symbol_efficiency" />
 
     <TextView
         android:id="@+id/effLabel"
@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toStartOf="@+id/comfType"
         app:layout_constraintStart_toEndOf="@+id/effType"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@mipmap/gem_symbol_luck" />
+        app:srcCompat="@drawable/gem_symbol_luck" />
 
     <TextView
         android:id="@+id/luckLabel"
@@ -133,7 +133,7 @@
         app:layout_constraintEnd_toStartOf="@+id/resType"
         app:layout_constraintStart_toEndOf="@+id/luckType"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@mipmap/gem_symbol_comfort" />
+        app:srcCompat="@drawable/gem_symbol_comfort" />
 
     <TextView
         android:id="@+id/comfLabel"
@@ -171,7 +171,7 @@
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toEndOf="@id/comfType"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@mipmap/gem_symbol_res" />
+        app:srcCompat="@drawable/gem_symbol_res" />
 
     <TextView
         android:id="@+id/resLabel"
@@ -197,7 +197,7 @@
         app:layout_constraintEnd_toEndOf="@id/gemSocket"
         app:layout_constraintStart_toStartOf="@id/gemSocket"
         app:layout_constraintTop_toTopOf="@+id/gemSocket"
-        app:srcCompat="@mipmap/gem_socket_gray_0"
+        app:srcCompat="@drawable/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageButton
@@ -210,7 +210,7 @@
         app:layout_constraintEnd_toEndOf="@+id/alertBoxBackground"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/gemLevel8"
-        app:srcCompat="@mipmap/gem_socket_eff_0" />
+        app:srcCompat="@drawable/gem_socket_eff_0" />
 
     <ImageView
         android:id="@+id/socketPlus"
@@ -312,7 +312,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@mipmap/gem_eff_level1" />
+        app:srcCompat="@drawable/gem_eff_level1" />
 
     <ImageButton
         android:id="@+id/gemLevel2Selected"
@@ -338,7 +338,7 @@
         app:layout_constraintEnd_toStartOf="@id/gemLevel3"
         app:layout_constraintStart_toEndOf="@+id/gemLevel1"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@mipmap/gem_eff_level2" />
+        app:srcCompat="@drawable/gem_eff_level2" />
 
     <ImageButton
         android:id="@+id/gemLevel3Selected"
@@ -364,7 +364,7 @@
         app:layout_constraintEnd_toStartOf="@id/gemLevel4"
         app:layout_constraintStart_toEndOf="@+id/gemLevel2"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@mipmap/gem_eff_level3" />
+        app:srcCompat="@drawable/gem_eff_level3" />
 
     <ImageButton
         android:id="@+id/gemLevel4Selected"
@@ -390,7 +390,7 @@
         app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
         app:layout_constraintStart_toEndOf="@+id/gemLevel3"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@mipmap/gem_eff_level4" />
+        app:srcCompat="@drawable/gem_eff_level4" />
 
     <ImageButton
         android:id="@+id/gemLevel5Selected"
@@ -417,7 +417,7 @@
         app:layout_constraintEnd_toStartOf="@id/gemLevel6"
         app:layout_constraintStart_toStartOf="@+id/alertBoxBackground"
         app:layout_constraintTop_toBottomOf="@+id/gemLevel4"
-        app:srcCompat="@mipmap/gem_eff_level5" />
+        app:srcCompat="@drawable/gem_eff_level5" />
 
     <ImageButton
         android:id="@+id/gemLevel6Selected"
@@ -441,7 +441,7 @@
         app:layout_constraintEnd_toStartOf="@id/gemLevel7"
         app:layout_constraintStart_toEndOf="@+id/gemLevel5"
         app:layout_constraintTop_toBottomOf="@+id/gemLevel4"
-        app:srcCompat="@mipmap/gem_eff_level6" />
+        app:srcCompat="@drawable/gem_eff_level6" />
 
     <ImageButton
         android:id="@+id/gemLevel7Selected"
@@ -465,7 +465,7 @@
         app:layout_constraintEnd_toStartOf="@id/gemLevel8"
         app:layout_constraintStart_toEndOf="@+id/gemLevel6"
         app:layout_constraintTop_toBottomOf="@+id/gemLevel4"
-        app:srcCompat="@mipmap/gem_eff_level7" />
+        app:srcCompat="@drawable/gem_eff_level7" />
 
     <ImageButton
         android:id="@+id/gemLevel8Selected"
@@ -489,7 +489,7 @@
         app:layout_constraintEnd_toEndOf="@id/alertBoxBackground"
         app:layout_constraintStart_toEndOf="@+id/gemLevel7"
         app:layout_constraintTop_toBottomOf="@+id/gemLevel4"
-        app:srcCompat="@mipmap/gem_eff_level8" />
+        app:srcCompat="@drawable/gem_eff_level8" />
 
     <TextView
         android:id="@+id/gemLabelTextView"

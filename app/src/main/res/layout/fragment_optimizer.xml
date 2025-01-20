@@ -69,7 +69,7 @@
         app:layout_constraintEnd_toEndOf="@+id/shoeBackground"
         app:layout_constraintStart_toStartOf="@+id/shoeBackground"
         app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-        app:srcCompat="@mipmap/shoe_walker" />
+        app:srcCompat="@drawable/shoe_walker" />
 
     <ImageView
         android:id="@+id/gemSocketOneShadow"
@@ -80,7 +80,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/gemSocketOne"
         app:layout_constraintTop_toTopOf="@+id/gemSocketOne"
-        app:srcCompat="@mipmap/gem_socket_gray_0"
+        app:srcCompat="@drawable/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -92,7 +92,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-        app:srcCompat="@mipmap/gem_socket_gray_0" />
+        app:srcCompat="@drawable/gem_socket_gray_0" />
 
     <ImageView
         android:id="@+id/gemSocketOneLockPlus"
@@ -127,7 +127,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/gemSocketTwo"
         app:layout_constraintTop_toTopOf="@+id/gemSocketTwo"
-        app:srcCompat="@mipmap/gem_socket_gray_0"
+        app:srcCompat="@drawable/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -139,7 +139,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="@id/backgroundThingButton"
         app:layout_constraintTop_toTopOf="@+id/shoeBackground"
-        app:srcCompat="@mipmap/gem_socket_gray_0" />
+        app:srcCompat="@drawable/gem_socket_gray_0" />
 
     <ImageView
         android:id="@+id/gemSocketTwoLockPlus"
@@ -174,7 +174,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/gemSocketThree"
         app:layout_constraintTop_toTopOf="@+id/gemSocketThree"
-        app:srcCompat="@mipmap/gem_socket_gray_0"
+        app:srcCompat="@drawable/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -186,7 +186,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
-        app:srcCompat="@mipmap/gem_socket_gray_0" />
+        app:srcCompat="@drawable/gem_socket_gray_0" />
 
     <ImageView
         android:id="@+id/gemSocketThreeLockPlus"
@@ -221,7 +221,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="@+id/gemSocketFour"
         app:layout_constraintTop_toTopOf="@+id/gemSocketFour"
-        app:srcCompat="@mipmap/gem_socket_gray_0"
+        app:srcCompat="@drawable/gem_socket_gray_0"
         app:tint="@color/gem_socket_shadow" />
 
     <ImageView
@@ -233,7 +233,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="@id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/shoeBackground"
-        app:srcCompat="@mipmap/gem_socket_gray_0" />
+        app:srcCompat="@drawable/gem_socket_gray_0" />
 
     <ImageView
         android:id="@+id/gemSocketFourLockPlus"
@@ -278,7 +278,7 @@
         app:layout_constraintStart_toEndOf="@+id/shoeNameEditText"
         app:layout_constraintBottom_toBottomOf="@+id/shoeNameEditText"
         app:layout_constraintTop_toTopOf="@+id/shoeNameEditText"
-        app:srcCompat="@mipmap/shoe_lock_open"  />
+        app:srcCompat="@drawable/shoe_lock_open"  />
 
     <Button
         android:id="@+id/shoeLockButton"
@@ -350,7 +350,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/shoeTwoTextView"
         app:layout_constraintEnd_toStartOf="@+id/shoeTwoTextView"
         app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView"
-        app:srcCompat="@mipmap/arrow_left" />
+        app:srcCompat="@drawable/arrow_left" />
 
     <ImageView
         android:id="@+id/rightArrowImageView"
@@ -362,7 +362,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/shoeTwoTextView"
         app:layout_constraintStart_toEndOf="@+id/shoeTwoTextView"
         app:layout_constraintTop_toTopOf="@+id/shoeTwoTextView"
-        app:srcCompat="@mipmap/arrow_right" />
+        app:srcCompat="@drawable/arrow_right" />
 
     <Button
         android:id="@+id/leftArrowButton"
@@ -541,7 +541,7 @@
                         android:layout_marginTop="3dp"
                         android:adjustViewBounds="true"
                         android:visibility="gone"
-                        app:srcCompat="@mipmap/footprint" />
+                        app:srcCompat="@drawable/footprint" />
 
                     <ImageView
                         android:id="@+id/footprint2ShadowImageView"
@@ -550,7 +550,7 @@
                         android:layout_marginTop="3dp"
                         android:adjustViewBounds="true"
                         android:visibility="gone"
-                        app:srcCompat="@mipmap/footprint" />
+                        app:srcCompat="@drawable/footprint" />
 
                     <ImageView
                         android:id="@+id/footprint1ShadowImageView"
@@ -559,7 +559,7 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="4dp"
                         android:adjustViewBounds="true"
-                        app:srcCompat="@mipmap/footprint" />
+                        app:srcCompat="@drawable/footprint" />
 
                     <TextView
                         android:id="@+id/shoeTypeShadowTextView"
@@ -596,7 +596,7 @@
                         android:layout_marginTop="2dp"
                         android:adjustViewBounds="true"
                         android:visibility="gone"
-                        app:srcCompat="@mipmap/footprint" />
+                        app:srcCompat="@drawable/footprint" />
 
                     <ImageView
                         android:id="@+id/footprint2ImageView"
@@ -605,7 +605,7 @@
                         android:layout_marginTop="2dp"
                         android:adjustViewBounds="true"
                         android:visibility="gone"
-                        app:srcCompat="@mipmap/footprint" />
+                        app:srcCompat="@drawable/footprint" />
 
                     <ImageView
                         android:id="@+id/footprint1ImageView"
@@ -614,7 +614,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginEnd="4dp"
                         android:adjustViewBounds="true"
-                        app:srcCompat="@mipmap/footprint" />
+                        app:srcCompat="@drawable/footprint" />
 
                     <TextView
                         android:id="@+id/shoeTypeTextView"
@@ -697,7 +697,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="24dp"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@mipmap/energy_bolt" />
+                    app:srcCompat="@drawable/energy_bolt" />
 
                 <EditText
                     android:id="@+id/energyToSpendOptimizerEditText"
@@ -836,7 +836,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/attributesTextView"
-        app:srcCompat="@mipmap/gem_symbol_efficiency" />
+        app:srcCompat="@drawable/gem_symbol_efficiency" />
 
     <TextView
         android:id="@+id/effTextView"
@@ -859,7 +859,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/effIcon"
-        app:srcCompat="@mipmap/gem_symbol_luck" />
+        app:srcCompat="@drawable/gem_symbol_luck" />
 
 
     <TextView
@@ -883,7 +883,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/luckIcon"
-        app:srcCompat="@mipmap/gem_symbol_comfort" />
+        app:srcCompat="@drawable/gem_symbol_comfort" />
 
     <TextView
         android:id="@+id/comfortTextView"
@@ -906,7 +906,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/comfIcon"
-        app:srcCompat="@mipmap/gem_symbol_res" />
+        app:srcCompat="@drawable/gem_symbol_res" />
 
     <TextView
         android:id="@+id/resTextView"
@@ -1591,7 +1591,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/repairCostHpTextView"
         app:layout_constraintEnd_toStartOf="@+id/repairCostHpPlusTextView"
         app:layout_constraintTop_toTopOf="@+id/repairCostHpTextView"
-        app:srcCompat="@mipmap/gem_comf_level1" />
+        app:srcCompat="@drawable/gem_comf_level1" />
 
     <Button
         android:id="@+id/changeComfGemButton"
@@ -1747,7 +1747,7 @@
         app:layout_constraintEnd_toEndOf="@+id/gstIconRestore"
         app:layout_constraintStart_toStartOf="@+id/gstIconRestore"
         app:layout_constraintTop_toTopOf="@+id/gemMultipleTotalTextView"
-        app:srcCompat="@mipmap/gem_comf_level1" />
+        app:srcCompat="@drawable/gem_comf_level1" />
 
     <TextView
         android:id="@+id/totalIncomeUsdLabelTextView"
@@ -2042,7 +2042,7 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:adjustViewBounds="true"
-                        app:srcCompat="@mipmap/logo_gmt_solid"
+                        app:srcCompat="@drawable/logo_gmt_solid"
                         app:tint="@color/white" />
 
                 </LinearLayout>
@@ -2077,7 +2077,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-        app:srcCompat="@mipmap/mb1"
+        app:srcCompat="@drawable/mb1"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2104,7 +2104,7 @@
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl3"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl1"
         app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-        app:srcCompat="@mipmap/mb2"
+        app:srcCompat="@drawable/mb2"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2131,7 +2131,7 @@
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl4"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl2"
         app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-        app:srcCompat="@mipmap/mb3"
+        app:srcCompat="@drawable/mb3"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2158,7 +2158,7 @@
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl5"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl3"
         app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-        app:srcCompat="@mipmap/mb4"
+        app:srcCompat="@drawable/mb4"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2184,7 +2184,7 @@
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl4"
         app:layout_constraintTop_toBottomOf="@+id/mysteryBoxChanceTextView"
-        app:srcCompat="@mipmap/mb5"
+        app:srcCompat="@drawable/mb5"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2211,7 +2211,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/backgroundThingButton"
         app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
-        app:srcCompat="@mipmap/mb6"
+        app:srcCompat="@drawable/mb6"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2238,7 +2238,7 @@
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl8"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl6"
         app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
-        app:srcCompat="@mipmap/mb7"
+        app:srcCompat="@drawable/mb7"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2265,7 +2265,7 @@
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl9"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl7"
         app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
-        app:srcCompat="@mipmap/mb8"
+        app:srcCompat="@drawable/mb8"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2292,7 +2292,7 @@
         app:layout_constraintEnd_toStartOf="@id/mysteryBoxLvl10"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl8"
         app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
-        app:srcCompat="@mipmap/mb9"
+        app:srcCompat="@drawable/mb9"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2318,7 +2318,7 @@
         app:layout_constraintEnd_toEndOf="@+id/backgroundThingButton"
         app:layout_constraintStart_toEndOf="@+id/mysteryBoxLvl9"
         app:layout_constraintTop_toBottomOf="@+id/mbLvl5Percent"
-        app:srcCompat="@mipmap/mb10"
+        app:srcCompat="@drawable/mb10"
         app:tint="@color/gandalf" />
 
     <TextView
@@ -2412,7 +2412,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/pricesDataNoteTextView"
         app:layout_constraintTop_toBottomOf="@+id/communityDataTextView"
-        app:srcCompat="@mipmap/coin_gecko" />
+        app:srcCompat="@drawable/coin_gecko" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

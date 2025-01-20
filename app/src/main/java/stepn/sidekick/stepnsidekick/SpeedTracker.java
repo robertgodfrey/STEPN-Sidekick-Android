@@ -127,7 +127,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
         plusTextView.setVisibility(View.VISIBLE);
         plusFiveImageButton.setVisibility(View.VISIBLE);
 
-        pauseImageButton.setImageResource(R.mipmap.pause_button);
+        pauseImageButton.setImageResource(R.drawable.pause_button);
 
         pauseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -376,7 +376,7 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
 
         switch (numFeet) {
             case 1:
-                footRight.setImageResource(R.mipmap.footprint);
+                footRight.setImageResource(R.drawable.footprint);
                 footCenter.setVisibility(View.GONE);
                 break;
             case 2:
@@ -384,17 +384,17 @@ public class SpeedTracker extends AppCompatActivity implements MaxAdViewAdListen
                 footLeft.setVisibility(View.GONE);
                 break;
             case 3:
-                footRight.setImageResource(R.mipmap.footprint);
+                footRight.setImageResource(R.drawable.footprint);
                 footCenter.setVisibility(View.VISIBLE);
                 footLeft.setVisibility(View.VISIBLE);
                 break;
             case 4:
-                footRight.setImageResource(R.mipmap.trainer_t);
+                footRight.setImageResource(R.drawable.trainer_t);
                 footCenter.setVisibility(View.GONE);
                 footLeft.setVisibility(View.GONE);
                 break;
             default:
-                footRight.setImageResource(R.mipmap.bolt);
+                footRight.setImageResource(R.drawable.bolt);
         }
 
         pauseImageButton.setOnClickListener(new View.OnClickListener() {

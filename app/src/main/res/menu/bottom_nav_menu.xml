@@ -3,13 +3,13 @@
     <item
         android:id="@+id/runner"
         android:title=""
-        android:icon="@mipmap/nav_runner"/>
+        android:icon="@drawable/nav_runner"/>
     <item
         android:id="@+id/home"
         android:title=""
-        android:icon="@mipmap/nav_optimizer"/>
+        android:icon="@drawable/nav_optimizer"/>
     <item
         android:id="@+id/settings"
         android:title=""
-        android:icon="@mipmap/nav_info"/>
+        android:icon="@drawable/nav_info"/>
 </menu>

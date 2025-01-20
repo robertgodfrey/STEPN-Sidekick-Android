@@ -1555,7 +1555,7 @@ public class OptimizerFrag extends Fragment {
 
     // locks buttons/inputs for shoe
     private void updateShoeLockStatus() {
-        shoeLockedImageView.setImageResource(shoeLocked ? R.mipmap.shoe_lock_closed : R.mipmap.shoe_lock_open);
+        shoeLockedImageView.setImageResource(shoeLocked ? R.drawable.shoe_lock_closed : R.drawable.shoe_lock_open);
         levelSeekbar.setEnabled(!shoeLocked);
         effEditText.setEnabled(!shoeLocked);
         luckEditText.setEnabled(!shoeLocked);
@@ -1752,49 +1752,49 @@ public class OptimizerFrag extends Fragment {
         switch (shoeType) {
             case JOGGER:
                 if (shoeImageUrl.isEmpty()) {
-                    shoeTypeImageView.setImageResource(R.mipmap.shoe_jogger);
+                    shoeTypeImageView.setImageResource(R.drawable.shoe_jogger);
                 }
                 shoeTypeTextView.setText("Jogger");
-                footOne.setImageResource(R.mipmap.footprint);
+                footOne.setImageResource(R.drawable.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.GONE);
-                footOneShadow.setImageResource(R.mipmap.footprint);
+                footOneShadow.setImageResource(R.drawable.footprint);
                 footTwoShadow.setVisibility(View.VISIBLE);
                 footThreeShadow.setVisibility(View.GONE);
                 break;
             case RUNNER:
                 if (shoeImageUrl.isEmpty()) {
-                    shoeTypeImageView.setImageResource(R.mipmap.shoe_runner);
+                    shoeTypeImageView.setImageResource(R.drawable.shoe_runner);
                 }
                 shoeTypeTextView.setText("Runner");
-                footOne.setImageResource(R.mipmap.footprint);
+                footOne.setImageResource(R.drawable.footprint);
                 footTwo.setVisibility(View.VISIBLE);
                 footThree.setVisibility(View.VISIBLE);
-                footOneShadow.setImageResource(R.mipmap.footprint);
+                footOneShadow.setImageResource(R.drawable.footprint);
                 footTwoShadow.setVisibility(View.VISIBLE);
                 footThreeShadow.setVisibility(View.VISIBLE);
                 break;
             case TRAINER:
                 if (shoeImageUrl.isEmpty()) {
-                    shoeTypeImageView.setImageResource(R.mipmap.shoe_trainer);
+                    shoeTypeImageView.setImageResource(R.drawable.shoe_trainer);
                 }
                 shoeTypeTextView.setText("Trainer");
-                footOne.setImageResource(R.mipmap.trainer_t);
+                footOne.setImageResource(R.drawable.trainer_t);
                 footTwo.setVisibility(View.GONE);
                 footThree.setVisibility(View.GONE);
-                footOneShadow.setImageResource(R.mipmap.trainer_t);
+                footOneShadow.setImageResource(R.drawable.trainer_t);
                 footTwoShadow.setVisibility(View.GONE);
                 footThreeShadow.setVisibility(View.GONE);
                 break;
             default:
                 if (shoeImageUrl.isEmpty()) {
-                    shoeTypeImageView.setImageResource(R.mipmap.shoe_walker);
+                    shoeTypeImageView.setImageResource(R.drawable.shoe_walker);
                 }
                 shoeTypeTextView.setText("Walker");
-                footOne.setImageResource(R.mipmap.footprint);
+                footOne.setImageResource(R.drawable.footprint);
                 footTwo.setVisibility(View.GONE);
                 footThree.setVisibility(View.GONE);
-                footOneShadow.setImageResource(R.mipmap.footprint);
+                footOneShadow.setImageResource(R.drawable.footprint);
                 footTwoShadow.setVisibility(View.GONE);
                 footThreeShadow.setVisibility(View.GONE);
         }
@@ -1813,7 +1813,7 @@ public class OptimizerFrag extends Fragment {
                     (int) (gems.get(0).getBottomPadding() * dpScale + 0.5f));
         } else {
             gemSocketOneLockPlus.setImageResource(R.drawable.gem_socket_lock);
-            gemSocketOne.setImageResource(R.mipmap.gem_socket_gray_0);
+            gemSocketOne.setImageResource(R.drawable.gem_socket_gray_0);
             gemSocketOneLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
         }
 
@@ -1824,7 +1824,7 @@ public class OptimizerFrag extends Fragment {
                     (int) (gems.get(1).getBottomPadding() * dpScale + 0.5f));
         } else {
             gemSocketTwoLockPlus.setImageResource(R.drawable.gem_socket_lock);
-            gemSocketTwo.setImageResource(R.mipmap.gem_socket_gray_0);
+            gemSocketTwo.setImageResource(R.drawable.gem_socket_gray_0);
             gemSocketTwoLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
         }
 
@@ -1835,7 +1835,7 @@ public class OptimizerFrag extends Fragment {
                     (int) (gems.get(2).getBottomPadding() * dpScale + 0.5f));
         } else {
             gemSocketThreeLockPlus.setImageResource(R.drawable.gem_socket_lock);
-            gemSocketThree.setImageResource(R.mipmap.gem_socket_gray_0);
+            gemSocketThree.setImageResource(R.drawable.gem_socket_gray_0);
             gemSocketThreeLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
         }
 
@@ -1846,7 +1846,7 @@ public class OptimizerFrag extends Fragment {
                     (int) (gems.get(3).getBottomPadding() * dpScale + 0.5f));
         } else {
             gemSocketFourLockPlus.setImageResource(R.drawable.gem_socket_lock);
-            gemSocketFour.setImageResource(R.mipmap.gem_socket_gray_0);
+            gemSocketFour.setImageResource(R.drawable.gem_socket_gray_0);
             gemSocketFourLockPlus.setPadding(0, (int) (2 * dpScale + 0.5f), 0, (int) (2 * dpScale + 0.5f));
         }
 
@@ -1960,14 +1960,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_eff_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_eff_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_eff_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_eff_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_eff_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_eff_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_eff_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_eff_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_eff_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_eff_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_eff_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_eff_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_eff_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_eff_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_eff_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_eff_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_eff);
@@ -1981,14 +1981,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_luck_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_luck_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_luck_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_luck_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_luck_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_luck_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_luck_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_luck_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_luck_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_luck_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_luck_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_luck_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_luck_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_luck_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_luck_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_luck_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_luck);
@@ -2002,14 +2002,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.VISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_comf_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_comf_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_comf_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_comf_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_comf_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_comf_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_comf_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_comf_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_comf_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_comf_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_comf_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_comf_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_comf_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_comf_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_comf_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_comf_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_comf);
@@ -2023,14 +2023,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.VISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_res_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_res_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_res_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_res_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_res_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_res_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_res_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_res_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_res_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_res_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_res_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_res_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_res_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_res_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_res_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_res_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_res);
@@ -2044,14 +2044,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_grey_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_grey_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_grey_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_grey_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_grey_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_grey_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_grey_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_grey_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_grey_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_grey_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_grey_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_grey_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_grey_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_grey_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_grey_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_grey_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_common);
@@ -2179,14 +2179,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_eff_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_eff_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_eff_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_eff_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_eff_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_eff_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_eff_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_eff_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_eff_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_eff_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_eff_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_eff_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_eff_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_eff_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_eff_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_eff_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_eff);
@@ -2211,14 +2211,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_luck_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_luck_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_luck_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_luck_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_luck_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_luck_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_luck_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_luck_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_luck_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_luck_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_luck_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_luck_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_luck_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_luck_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_luck_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_luck_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_luck);
@@ -2243,14 +2243,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.VISIBLE);
                 resTypeSelected.setVisibility(View.INVISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_comf_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_comf_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_comf_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_comf_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_comf_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_comf_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_comf_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_comf_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_comf_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_comf_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_comf_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_comf_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_comf_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_comf_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_comf_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_comf_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_comf);
@@ -2275,14 +2275,14 @@ public class OptimizerFrag extends Fragment {
                 comfTypeSelected.setVisibility(View.INVISIBLE);
                 resTypeSelected.setVisibility(View.VISIBLE);
 
-                lvl1Gem.setImageResource(R.mipmap.gem_res_level1);
-                lvl2Gem.setImageResource(R.mipmap.gem_res_level2);
-                lvl3Gem.setImageResource(R.mipmap.gem_res_level3);
-                lvl4Gem.setImageResource(R.mipmap.gem_res_level4);
-                lvl5Gem.setImageResource(R.mipmap.gem_res_level5);
-                lvl6Gem.setImageResource(R.mipmap.gem_res_level6);
-                lvl7Gem.setImageResource(R.mipmap.gem_res_level7);
-                lvl8Gem.setImageResource(R.mipmap.gem_res_level8);
+                lvl1Gem.setImageResource(R.drawable.gem_res_level1);
+                lvl2Gem.setImageResource(R.drawable.gem_res_level2);
+                lvl3Gem.setImageResource(R.drawable.gem_res_level3);
+                lvl4Gem.setImageResource(R.drawable.gem_res_level4);
+                lvl5Gem.setImageResource(R.drawable.gem_res_level5);
+                lvl6Gem.setImageResource(R.drawable.gem_res_level6);
+                lvl7Gem.setImageResource(R.drawable.gem_res_level7);
+                lvl8Gem.setImageResource(R.drawable.gem_res_level8);
 
                 for (byte i = 0; i < 8; i++) {
                     selectedButtons.get(i).setImageResource(R.drawable.circles_res);
@@ -4093,13 +4093,13 @@ public class OptimizerFrag extends Fragment {
     // updates comf gem for HP repair
     private void updateHpRepairComfGem(ImageView gemView) {
         if (comfGemLvlForRepair == 2) {
-            gemView.setImageResource(R.mipmap.gem_comf_level2);
+            gemView.setImageResource(R.drawable.gem_comf_level2);
             gemView.setPadding(0, 0, 0, 0);
         } else if (comfGemLvlForRepair == 3) {
-            gemView.setImageResource(R.mipmap.gem_comf_level3);
+            gemView.setImageResource(R.drawable.gem_comf_level3);
             gemView.setPadding(0, 0, 0,0);
         } else {
-            gemView.setImageResource(R.mipmap.gem_comf_level1);
+            gemView.setImageResource(R.drawable.gem_comf_level1);
             gemView.setPadding(0, (int) (4 * dpScale + 0.5f),0,0);
         }
     }
